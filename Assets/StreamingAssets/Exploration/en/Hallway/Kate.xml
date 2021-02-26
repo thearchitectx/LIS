@@ -1,0 +1,214 @@
+<?xml version="1.0"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../Cutscene.xsd">
+    <nodes>
+        <n id="n1">
+            <wait time="1" />
+            <choice>
+                <c out="n1-hello"><text>Hello</text></c>
+                <c out="#leave"><text>[ Leave ]</text></c>
+            </choice>
+        </n>
+        
+        <n id="n1-hello">
+            <anim target="CH_Kate" int="exp" intValue="0" />
+            <rig-track of="CH_Kate" root="1" head="1" eye="1" />
+            <wait time="1" />
+            <dlg char="CH_Kate" style="subjective">
+                <m wait="1">Oh... It's you again...</m>
+            </dlg>
+            <if>
+                <check-flag flag="KATE_FIRST_MET" eq="0" />
+                <then>
+                    <flag name="KATE_FIRST_MET" set="1" />
+                    <dlg char="CH_Kate" style="subjective">
+                        <m>I can see you're well awake now...</m>
+                        <m wait="1">I just don't understand why ${Characters.CH_Jefferson.DisplayName} was so lenient with you...</m>
+                        <m>Well... At least you're not ignoring or making fun of me like everyone else in this school...</m>
+                    </dlg>
+                </then>
+            </if>
+
+            <choice>
+                <c out="n2-upset">
+                    <check-flag flag="QUEST_KATE_LOCKER" eq="0" />
+                    <text>You seem a little... upset...</text>
+                </c>
+                <c out="n2-found-key">
+                    <check-flag flag="QUEST_KATE_LOCKER" eq="2" />
+                    <text>Hey... I found a key that might help with your locker problem...</text>
+                </c>
+                <c out="n2-pic">
+                    <check-flag flag="QUEST_JEFFERSON_TAKE_PIC" eq="0" />
+                    <text>I'm taking pics for the yearbook... Would you mind...</text>
+                </c>
+                <c out="#leave">
+                    <text>I gotta go...</text>
+                </c>
+            </choice>
+            
+            <rig-track of="CH_Kate" root="0" head="0" eye="0" />
+        </n>
+
+        <n id="n2-pic" out="n1-hello">
+            <if>
+                <check-flag flag="QUEST_KATE_LOCKER" gte="2" />
+                <then>
+                    <dlg char="CH_Kate" style="subjective">
+                        <m>The yearbook? I'm... uuhhh...</m>
+                        <m>I usually don't like taking pictures, but since you helped me and it's for the school yearbook...</m>
+                        <m>Let me think of a pose...</m>
+                    </dlg>
+                    <fade-to-black mode="to-from" />
+                    <wait time="1" />
+                    <rig-track of="CH_Kate" root="1" head="0.2" eye="0.5" />
+                    <anim target="CH_Kate" int="idle" intValue="9" />
+                    <wait time="1" />
+                    <dlg char="CH_Kate" style="subjective">
+                        <m>Okay... I think this will make a respectable picture...</m>
+                    </dlg>
+                    <flag name="QUEST_JEFFERSON_TAKE_PIC" set="1" />
+                    <choice>
+                        <c out="#a">
+                            <check-stat char="CH_Kate" stat="AFFINITY" gte="1" />
+                            <lock-reason>AFFINITY 1+ with Kate required to ask for a better pose</lock-reason>
+                            <text>Come on... You can show me a better pose... Cheer up!</text>
+                        </c>
+                        <c out="n-take-picture"><text>[ Take picture ]</text></c>
+                    </choice>
+
+                    <flag name="QUEST_JEFFERSON_TAKE_PIC" set="2" />
+                    <dlg char="CH_Kate" style="subjective">
+                        <m wait="1">Oh... Are you sure? I thought the yearbook is supposed to something serious and formal...</m>
+                        <m wait="1">But... If ${Characters.CH_Jefferson.DisplayName} trusted you to this task, it means you know how it should be done, right?</m>
+                        <m>Let's see...</m>
+                    </dlg>
+                    <fade-to-black mode="to-from" />
+                    <wait time="1" />
+                    <rig-track of="CH_Kate" root="1" head="0" eye="0.5" />
+                    <anim target="CH_Kate" int="idle" intValue="10" />
+                    <anim target="CH_Kate" int="exp" intValue="4" />
+                    <wait time="1" />
+                    <dlg char="CH_Kate" style="subjective">
+                        <m>How about this one?</m>
+                    </dlg>
+
+                    <choice>
+                        <c out="n-take-picture"><text>[ Take Picture ]</text></c>
+                    </choice>
+                </then>
+                <else>
+                    <dlg char="CH_Kate" style="subjective">
+                        <m>I... I'm sorry...</m>
+                        <m>I need to solve my locker 'problem' here first and get my things...</m>
+                    </dlg>
+                </else>
+            </if>
+        </n>
+
+        <n id="n2-upset">
+            <flag name="QUEST_KATE_LOCKER" set="1" />
+            <anim target="CH_Kate" int="exp" intValue="1" />
+            <rig-track of="CH_Kate" eye="0" />
+            <dlg char="CH_Kate" style="subjective">
+                <m>Oh... I...</m>
+                <m wait="1">I'm trying to open my locker, but...</m>
+                <m>Some of those Victoria's lackeys changed my combination...</m>
+            </dlg>
+
+            <anim target="CH_Kate" int="exp" intValue="0" />
+
+            <dlg char="CH_Kate" style="subjective">
+                <m>I can't believe how they always find new ways to make my life miserable...</m>
+            </dlg>
+
+            <rig-track of="CH_Kate" eye="1" />
+            <choice>
+                <c out="n2-upset-poor"><text>Poor thing...</text></c>
+                <c out="n2-upset-lesson"><text>You want me to teach those bitches a lesson?</text></c>
+                <c out="n2-upset-stand"><text>You should stand up against them...</text></c>
+            </choice>
+        </n>
+
+        <n id="n2-upset-poor" out="n3">
+            <anim target="CH_Kate" int="exp" intValue="2" />
+            <dlg char="CH_Kate" style="subjective">
+                <m wait="1">Oh... Thanks, but I don't need anyone's pity, okay...</m>
+            </dlg>
+        </n>
+        <n id="n2-upset-lesson" out="n3">
+            <stat char="CH_Kate" name="AFFINITY" inc="2" />
+            <anim target="CH_Kate" trigger="react-surprise1" />
+            <dlg char="CH_Kate" style="subjective">
+                <m>Oh, my... Would... Would you do that for me?</m>
+                <m>You... know how those people are dangerous, right? You'd better leave them alone...</m>
+            </dlg>
+        </n>
+        <n id="n2-upset-stand" out="n3">
+            <anim target="CH_Kate" int="exp" intValue="2" />
+            <dlg char="CH_Kate" style="subjective">
+                <m wait="1">You people keep saying that bt have no idea what is like being in my shoes...</m>
+            </dlg>
+        </n>
+
+        <n id="n2-found-key" out="n1-hello">
+            <objective name="OBJ_KateHelpLockerOpenLocker" completed="true" />
+            <flag name="QUEST_KATE_LOCKER" set="3" />
+            <anim target="CH_Kate" trigger="react-surprise1" />
+            <dlg char="CH_Kate" style="subjective">
+                <m>Whoa... Really!?</m>
+                <m>Thank God... I was starting to get desperate...</m>
+                <m>Let me try it...</m>
+            </dlg>
+            <fade-to-black mode="to-from" keep="false" />
+            <wait time="2" />
+            <anim target="CH_Kate" trigger="react-excited1" />
+            <item name="ITM_LOCKER_KEY" set="0">YOU GAVE THE *LOCKER KEY* TO KATE</item>
+            <dlg char="CH_Kate" style="subjective">
+                <m>Yes!! It worked!!</m>
+                <m wait="1">God bless your kindness... Maybe you're not a lost case after all...</m>
+                <m>Now I can finally organize my stuff and go home!!</m>
+                <m>Thank you!!</m>
+            </dlg>
+        </n>
+
+        <n id="n3">
+            <anim target="CH_Kate" int="exp" intValue="3" />
+            <rig-track of="CH_Kate" eye="1" />
+            <dlg char="CH_Kate" style="subjective">
+                <m>Anyways... Now I'm stuck here trying to figure the combination... And... </m>
+                <m>Uuuhh...</m>
+                <m wait="1">If... If you really want to help...</m>
+                <m>Whoever changed my combination probably used a master key to do it...</m>
+                <m>And they probably threw the key away to avoid getting caught... Would you try to find it for me? It's certainly somewhere in the hallway...</m>
+                <m wait="1">I'll be here trying to guess the combination...</m>
+            </dlg>
+
+            <objective name="OBJ_KateHelpLockerFindKey" completed="false" />
+            <rig-track of="CH_Kate" root="0" head="0" eye="0" />
+        </n>
+
+        <n id="n-take-picture">
+            <text name="KATE_HALLWAY_PICTURE" set="KATE_HALLWAY_PICTURE_${Random}" />
+            <prefab name="PictureTaker">
+                <message name="SetPictureName" string="${Texts.KATE_HALLWAY_PICTURE}" />
+                <outcome name="click" output="#continue" destroy="2" />
+            </prefab>
+
+            <wait time="1" />
+            
+            <rig-track of="CH_Kate" root="1" head="1" eye="1" />
+            <anim target="CH_Kate" int="idle" intValue="4" />
+            <anim target="CH_Kate" int="exp" intValue="3" />
+            <wait time="1" />
+            <dlg char="CH_Kate" style="subjective">
+                <m>Well... I hope you captured a nice picture...</m>
+                <m>Now, please excuse me... I have to clean the mess in my locker...</m>
+            </dlg>
+            <rig-track of="CH_Kate" root="0" head="0" eye="0" />
+            
+            <objective name="OBJ_JeffersonFirstPicTake" completed="true" />
+            <objective name="OBJ_JeffersonFirstPicBring" completed="false" />
+        </n>
+    </nodes>
+</cutscene>

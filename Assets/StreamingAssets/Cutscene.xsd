@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:simpleType name="dialogStyle">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="whisper"/>
+            <xs:enumeration value="remote"/>
+            <xs:enumeration value="remote-subjective"/>
+            <xs:enumeration value="default"/>
+            <xs:enumeration value="subjective"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="fadeToBlackMode">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="to"/>
+            <xs:enumeration value="from" />
+            <xs:enumeration value="to-from" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="prefab">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="PictureViewer"/>
+            <xs:enumeration value="PictureTaker" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="cutscene-outcome">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="_destroyObject"/>
+            <xs:enumeration value="_destroyParent"/>
+            <xs:enumeration value="_end"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="bone">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Hips" />
+            <xs:enumeration value="Spine" />
+            <xs:enumeration value="Spine1" />
+            <xs:enumeration value="Spine2" />
+            <xs:enumeration value="Neck" />
+            <xs:enumeration value="Head" />
+            <xs:enumeration value="LeftEye" />
+            <xs:enumeration value="RightEye" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="text-data">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="KATE_HALLWAY_PICTURE" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="perk">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="PRK_SMELLY" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="flag">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="DICK_DARING" />
+            <xs:enumeration value="DICK_INTELLIGENCE" />
+            <xs:enumeration value="DICK_CHARISMA" />
+            <xs:enumeration value="DICK_KARMA" />
+            <xs:enumeration value="CLASSROOM_TRASH_CAN_TRASH_COUNT" />
+            <xs:enumeration value="BROOKE_MET" />
+            <xs:enumeration value="HALLWAY_TRASH_CAN_A_TRASH_COUNT" />
+            <xs:enumeration value="HALLWAY_TRASH_CAN_B_TRASH_COUNT" />
+            <xs:enumeration value="HALLWAY_TRASH_CAN_C_TRASH_COUNT" />
+            <xs:enumeration value="HALLWAY_TRASH_CAN_D_TRASH_COUNT" />
+            <xs:enumeration value="HALLWAY_TRIED_ENTER_ROOM103" />
+            <xs:enumeration value="INTRO_TRASH_SCORE" />
+            <xs:enumeration value="INTRO_TALK_VICTORIA" />
+            <xs:enumeration value="INTRO_CHECK_VICTORIA" />
+            <xs:enumeration value="JULIE_ZACHARY_MAKE_OUT_SEEN" />
+            <xs:enumeration value="KATE_FIRST_MET" />
+            <xs:enumeration value="PICKED_BROOKE_NOTE" />
+            <xs:enumeration value="QUEST_KATE_LOCKER" /> <!-- (1)Started (2)Searching Key (3)Delivered Key</xs:documentation></xs:annotation></xs:enumeration -->
+            <xs:enumeration value="QUEST_JEFFERSON_TAKE_PIC" /><!-- (1)Took Lame Pic (2)Took cool pic (11)Delivered Lame pic (12)Delivered Cool Pic -->
+            <xs:enumeration value="TMP_1" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="character-stat">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="AFFINITY" />
+            <xs:enumeration value="INTEL" />
+            <xs:enumeration value="INTEL_0" />
+            <xs:enumeration value="INTEL_1" />
+            <xs:enumeration value="INTEL_2" />
+            <xs:enumeration value="INTEL_3" />
+            <xs:enumeration value="INTEL_4" />
+            <xs:enumeration value="INTEL_5" />
+            <xs:enumeration value="INTEL_6" />
+            <xs:enumeration value="INTEL_7" />
+            <xs:enumeration value="INTEL_8" />
+            <xs:enumeration value="INTEL_9" />
+            <xs:enumeration value="CORRUPTION" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="objective">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="OBJ_IntroCollectTrash" />
+            <xs:enumeration value="OBJ_IntroTalk" />
+            <xs:enumeration value="OBJ_JeffersonFirstPicTake" />
+            <xs:enumeration value="OBJ_KateHelpLockerOpenLocker" />
+            <xs:enumeration value="OBJ_KateHelpLockerFindKey" />
+            <xs:enumeration value="OBJ_JeffersonFirstPicBring" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="item">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="ITM_LOCKER_KEY" />
+            <xs:enumeration value="ITM_MONEY" />
+            <xs:enumeration value="ITM_TRASH" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="character">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="CH_Brooke" />
+            <xs:enumeration value="CH_Kate" />
+            <xs:enumeration value="CH_Jefferson" />
+            <xs:enumeration value="CH_Juliet" />
+            <xs:enumeration value="CH_Player" />
+            <xs:enumeration value="CH_Victoria" />
+            <xs:enumeration value="CH_Zachary" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:complexType name="check-flag-type">
+        <xs:attribute name="flag" type="flag" use="required" />
+        <xs:attribute name="eq" type="xs:integer" use="optional" />
+        <xs:attribute name="gte" type="xs:integer" use="optional" />
+        <xs:attribute name="lte" type="xs:integer" use="optional" />
+    </xs:complexType>
+    <xs:complexType name="check-item-type">
+        <xs:attribute name="item" type="item" use="required" />
+        <xs:attribute name="eq" type="xs:integer" use="optional" />
+        <xs:attribute name="gte" type="xs:integer" use="optional" />
+        <xs:attribute name="lte" type="xs:integer" use="optional" />
+    </xs:complexType>
+    <xs:complexType name="check-stat-type">
+        <xs:attribute name="char" type="character" use="required" />
+        <xs:attribute name="stat" type="character-stat" use="required" />
+        <xs:attribute name="eq" type="xs:integer" use="optional" />
+        <xs:attribute name="gte" type="xs:integer" use="optional" />
+        <xs:attribute name="lte" type="xs:integer" use="optional" />
+    </xs:complexType>
+    <xs:complexType name="check-perk-type">
+        <xs:attribute name="perk" type="perk" use="required" />
+        <xs:attribute name="inverse" type="xs:boolean" use="optional" />
+    </xs:complexType>
+    <xs:complexType name="nType">
+        <xs:choice maxOccurs="unbounded">
+            <xs:element name="nop">
+                <xs:complexType></xs:complexType>
+            </xs:element>
+            <xs:element name="prefab">
+                <xs:complexType>
+                    <xs:choice maxOccurs="unbounded" minOccurs="0">
+                        <xs:element name="message">
+                            <xs:complexType>
+                                <xs:attribute name="name" type="xs:string" />
+                                <xs:attribute name="string" type="xs:string" />
+                            </xs:complexType>
+                        </xs:element>
+                        <xs:element name="outcome">
+                            <xs:complexType>
+                                <xs:attribute name="name" type="xs:string" use="required" />
+                                <xs:attribute name="output" type="xs:string"  use="required" />
+                                <xs:attribute name="destroy" type="xs:integer" />
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:choice>
+                    <xs:attribute name="name" type="prefab" use="optional" />
+                    <xs:attribute name="resource" type="xs:string" use="optional" />
+                    <xs:attribute name="parent" type="xs:string" use="optional" />
+                    <xs:attribute name="target" type="xs:string" use="optional" />
+                    <xs:attribute name="destroy" type="xs:string" use="optional" />
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="flag">
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="xs:string">
+                            <xs:attribute name="name" type="flag" use="required" />
+                            <xs:attribute name="inc" type="xs:string" use="optional" />
+                            <xs:attribute name="set" type="xs:string" use="optional" />
+                        </xs:extension>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="text">
+                <xs:complexType>
+                    <xs:attribute name="name" type="text-data" use="required" />
+                    <xs:attribute name="set" type="xs:string" />
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="item">
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="xs:string">
+                            <xs:attribute name="name" type="item" use="required" />
+                            <xs:attribute name="inc" type="xs:string" />
+                            <xs:attribute name="set" type="xs:string" />
+                            <xs:attribute name="icon" type="xs:boolean" />
+                        </xs:extension>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="objective">
+                <xs:complexType>
+                    <xs:attribute name="name" type="objective" use="required" />
+                    <xs:attribute name="completed" type="xs:boolean" use="required" />
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="wait">
+                <xs:complexType>
+                    <xs:attribute name="time" type="xs:decimal" use="required" />
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="anim">
+                <xs:complexType>
+                    <xs:attribute name="target" type="xs:string" />
+                    <xs:attribute name="trigger" type="xs:string" />
+                    <xs:attribute name="int" type="xs:string" />
+                    <xs:attribute name="intValue" type="xs:string" />
+                    <xs:attribute name="bool" type="xs:string" />
+                    <xs:attribute name="boolValue" type="xs:string" />
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="sys" type="xs:string" />
+            <xs:element name="dlg">
+                <xs:complexType>
+                    <xs:sequence maxOccurs="unbounded" minOccurs="1">
+                        <xs:element name="m">
+                            <xs:complexType>
+                                <xs:simpleContent>
+                                    <xs:extension base="xs:string">
+                                        <xs:attribute name="wait" type="xs:decimal" />
+                                    </xs:extension>
+                                </xs:simpleContent>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                    <xs:attribute name="char" type="character" />
+                    <xs:attribute name="track" type="bone" />
+                    <xs:attribute name="jawAnim" type="xs:boolean" />
+                    <xs:attribute name="style" type="dialogStyle" />
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="if">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:choice maxOccurs="unbounded">
+                            <xs:element name="check-flag" minOccurs="0" type="check-flag-type" />
+                            <xs:element name="check-perk" minOccurs="0" type="check-perk-type" />
+                            <xs:element name="check-item" minOccurs="0" type="check-item-type" />
+                            <xs:element name="check-stat" minOccurs="0" type="check-stat-type" />
+                        </xs:choice>
+                        <xs:element name="then" minOccurs="1" maxOccurs="1" type="nType" />
+                        <xs:element name="else" minOccurs="0" maxOccurs="1" type="nType" />
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="choice">
+                <xs:complexType>
+                    <xs:sequence maxOccurs="unbounded">
+                        <xs:element name="c">
+                            <xs:complexType>
+                                <xs:choice maxOccurs="unbounded">
+                                    <xs:element name="check-flag" type="check-flag-type" minOccurs="0" maxOccurs="unbounded" />
+                                    <xs:element name="check-perk" type="check-perk-type" minOccurs="0" maxOccurs="unbounded" />
+                                    <xs:element name="check-item" type="check-item-type" minOccurs="0" maxOccurs="unbounded" />
+                                    <xs:element name="check-stat" type="check-stat-type" minOccurs="0" maxOccurs="unbounded" />
+                                    <xs:element name="text" type="xs:string" minOccurs="1" maxOccurs="1" />
+                                    <xs:element name="lock-reason" type="xs:string" minOccurs="0" maxOccurs="1" />
+                                    <xs:element name="then" type="nType" minOccurs="0" maxOccurs="1" />
+                                </xs:choice>
+                                <xs:attribute name="out" type="xs:string" use="required" />
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                    <xs:attribute name="help" type="xs:boolean" />
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="stat">
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="xs:string">
+                            <xs:attribute name="char" type="character" use="required" />
+                            <xs:attribute name="name" type="character-stat" use="required" />
+                            <xs:attribute name="set" type="xs:decimal" use="optional" />
+                            <xs:attribute name="inc" type="xs:decimal" use="optional" />
+                            <xs:attribute name="notify" type="xs:boolean" use="optional" />
+                            <xs:attribute name="clamp-a" type="xs:integer" use="optional" />
+                            <xs:attribute name="clamp-b" type="xs:integer" use="optional" />
+                        </xs:extension>
+                    </xs:simpleContent>
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="rig-track">
+                <xs:complexType>
+                    <xs:attribute name="of" type="character" use="required" />
+                    <xs:attribute name="target" type="xs:string" />
+                    <xs:attribute name="eye" type="xs:decimal"  />
+                    <xs:attribute name="head" type="xs:decimal"  />
+                    <xs:attribute name="root" type="xs:decimal"  />
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="obj">
+                <xs:complexType>
+                    <xs:attribute name="name" type="xs:string" use="required" />
+                    <xs:attribute name="message" type="xs:string" />
+                    <xs:attribute name="destroy" type="xs:decimal" />
+                    <xs:attribute name="active" type="xs:boolean" />
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="console" type="xs:string" />
+            <xs:element name="fade-to-black">
+                <xs:complexType>
+                    <xs:attribute name="speed" type="xs:string"  use="optional" />
+                    <xs:attribute name="time" type="xs:decimal" use="optional" />
+                    <xs:attribute name="mode" type="fadeToBlackMode" use="optional" />
+                    <xs:attribute name="keep" type="xs:boolean" use="optional" />
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="load">
+                <xs:complexType>
+                    <xs:attribute name="stage" type="xs:string" use="required" />
+                    <xs:attribute name="spawn" type="xs:string" use="optional" />
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="cutscene-outcome">
+                <xs:complexType>
+                    <xs:attribute name="value" type="cutscene-outcome" use="optional" />
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="node-output">
+                <xs:complexType>
+                    <xs:attribute name="node" type="xs:string" use="optional" />
+                </xs:complexType>
+            </xs:element>
+        </xs:choice>
+        <xs:attribute name="id" type="xs:string" use="optional" />
+        <xs:attribute name="out" type="xs:string" use="optional" />
+    </xs:complexType>
+
+    <xs:element name="cutscene">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="nodes">
+                    <xs:complexType>
+                        <xs:sequence maxOccurs="unbounded">
+                            <xs:element name="n" type="nType" />
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

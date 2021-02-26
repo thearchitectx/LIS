@@ -1,0 +1,17 @@
+{
+    "name": "TheArchitect.Cutscene",
+    "references": [
+        "GUID:5fc5a838d60de934cad665c75ceba3c9",
+        "GUID:e46cb8a8ce781514aaaf87e841e87d77",
+        "GUID:109851bc0f068164d9845d54f13f2516"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

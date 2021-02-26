@@ -1,0 +1,101 @@
+<?xml version="1.0"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../Cutscene.xsd">
+    <nodes>
+        <n id="n1">
+            <choice>
+                <c out="n-hello"><text>Hello</text></c>
+                <c out="#a"><text>[ Leave ]</text></c>
+            </choice>
+        </n>
+
+        <n id="n-hello">
+            <stat char="CH_Brooke" name="INTEL_0" set="1" notify="false"/>
+            <if>
+                <check-flag flag="BROOKE_MET" eq="0" />
+                <then>
+                    <node-output node="n-first-met" />
+                </then>
+            </if>
+        </n>
+
+        <n id="n-first-met">
+            <dlg char="CH_Brooke" style="subjective">
+                <m>Huh!? Who the are...</m>
+                <m>Oh... It's you... The new guy... I know who you are...</m>
+            </dlg>
+            <choice>
+                <c out="#a">
+                    <text>Whoa... When did I get so famous?</text>
+                    <then>
+                        <dlg char="CH_Brooke" style="subjective">
+                            <m>Ha! You never did, boy...</m>
+                        </dlg>
+                    </then>
+                </c>
+                <c out="#b">
+                    <text>You know me but I don't know you... How fair is that?</text>
+                    <then>
+                        <dlg char="CH_Brooke" style="subjective">
+                            <m>As fair as it gets, boy...</m>
+                        </dlg>
+                    </then>
+                </c>
+            </choice>
+
+            <dlg char="CH_Brooke" style="subjective">
+                <m>I breached the school student database security and stumbled upon your file a few days ago...</m>
+                <m>Unfortunately my rootkit never fully acquired administrative rights, so I just got basic info like your name and weekly schedule...</m>
+                <m>But I won't bore you with details you don't understand...</m>
+            </dlg>
+
+            <choice>
+                <c out="#a">
+                    <check-flag flag="DICK_INTELLIGENCE" gte="2" />
+                    <lock-reason>INTELLIGENCE 2+ REQUIRED FOR THIS ANSWER</lock-reason>
+                    <text>If you're able to override the backdoor flags to run as a daemon during system initialization you might gain root access...</text>
+                    <then>
+                        <stat char="CH_Brooke" name="AFFINITY" inc="5" />
+                        <dlg char="CH_Brooke" style="subjective">
+                            <m>Oh... You mean...</m>
+                            <m wait="1">Oh, my... I think you're right...</m>
+                            <m wait="1">I never thought I would meet someone in this school with such level of knowledge...</m>
+                        </dlg>
+                    </then>
+                </c>
+                <c out="#b">
+                    <check-flag flag="DICK_INTELLIGENCE" gte="1" />
+                    <lock-reason>INTELLIGENCE 1+ REQUIRED FOR THIS ANSWER</lock-reason>
+                    <text>Yeah... I bet IT people in a school like this never install the latest security patches...</text>
+                    <then>
+                        <stat char="CH_Brooke" name="AFFINITY" inc="2" />
+                        <dlg char="CH_Brooke" style="subjective">
+                            <m>Of course they don't... But that doesn't mean I had it easy, you smart ass...</m>
+                            <m wait="1">But... hey... It's cool to finally meet someone in this school who can at least understand my hacking feats...</m>
+                        </dlg>
+                    </then>
+                </c>
+                <c out="#c">
+                    <check-flag flag="DICK_CHARISMA" gte="1" />
+                    <lock-reason>CHARISMA 1+ REQUIRED FOR THIS ANSWER</lock-reason>
+                    <text>You hacked the school database!? Did you do that Ferris Bueller shit and decreased your absent count?</text>
+                    <then>
+                        <dlg char="CH_Brooke" style="subjective">
+                            <m>Urgh... Are you like those young fictional hipsters citing pop culture references way too old for their age?</m>
+                            <m>Please... I already have enough of that with Warren and Max...</m>
+                        </dlg>
+                    </then>
+                </c>
+                <c out="#d">
+                    <text>That's a cool feat... I wish I could do that...</text>
+                    <then>
+                        <dlg char="CH_Brooke" style="subjective">
+                            <m>Yeah... Unfortunately I'm not the tutor type... And my hacker ethics is won't allow me to sell private information...</m>
+                        </dlg>
+                    </then>
+                </c>
+            </choice>
+        </n>
+
+    </nodes>
+</cutscene>

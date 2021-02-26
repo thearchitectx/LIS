@@ -1,0 +1,347 @@
+<?xml version="1.0"?>
+<cutscene
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../Cutscene.xsd">
+    <nodes>
+        <n id="n1">
+            <obj name="/Pause Controller" message="CloseObjectives" />
+            <fade-to-black mode="from" speed="0.5" />
+            <anim target="CH_Kate" int="idle" intValue="4" />
+            <anim target="CH_Kate" int="exp" intValue="1" />
+            <anim target="CH_Jefferson" int="idle" intValue="1" />
+            <anim target="CH_NoNameBoy1" int="idle" intValue="1" />
+            <stat char="CH_Kate" name="INTEL" set="1" notify="false" />
+            <stat char="CH_Kate" name="INTEL_0" set="1" notify="false" />
+            <stat char="CH_Kate" name="CORRUPTION" set="0" notify="false" />
+            <stat char="CH_Jefferson" name="INTEL" set="1" notify="false" />
+            <stat char="CH_Jefferson" name="INTEL_0" set="1" notify="false" />
+            
+            <item name="ITM_MONEY" set="5"  icon="false" />
+            
+            <rig-track of="CH_Kate" eye="0" head="0" />
+            <rig-track of="CH_Jefferson" eye="1" head="1" />
+            
+            <wait time="3" />
+            <sys>*CLICK* or press *SPACE BAR* to advance when the icon below is displayed</sys>
+            
+            <wait time="3" />
+            <sys>During some first person view shots, move the *MOUSE* to look around</sys>
+            <wait time="5" />
+
+            <dlg char="CH_Kate" track="Neck">
+                <m>Sir... There he is...</m>
+                <m>Oh, dear Jesus... Just look at him...</m>
+                <m>I think this one is sick... He's even starting to drool...</m>
+            </dlg>
+
+            <wait time="2"/>
+
+            <dlg char="CH_Jefferson" track="Neck">
+                <m>Humpf... No, dear ${Characters.CH_Kate.DisplayName}... I think he's fine...</m>
+                <m>Unless we're calling chronic laziness a disease now...</m>
+            </dlg>
+
+            <wait time="2"/>
+
+            <dlg char="CH_Jefferson" track="Neck">
+                <m>Heads up, boy!! This is not an appropriate place to take your naps!!</m>
+            </dlg>
+
+            <anim int="step" intValue="1" />
+            <anim trigger="talk" target="Cinemachine" />
+
+            <wait time="3" />
+
+            <sys>
+                When a list of choices or responses pop, you must select one to continue\n\n
+                Actions and choices can affect different characters in several different ways\n\n
+                Your character can learn later how to 'perceive' more details about these events
+            </sys>
+
+            <dlg char="CH_Jefferson" track="Neck">
+                <m>Hey you, you're finally awake...</m>
+            </dlg>
+
+            <choice help="true">
+                <c out="n1-skyrim"><text>Yeah... I was trying to cross the border... Walked right into that imperial ambush...</text></c>
+                <c out="n1-mom"><text>Mom... Please... Just 5 more minutes...</text></c>
+                <c out="n1-dream"><text>Oh, man... You woke me in the middle of a wet dream...\nSome girl with hot legs and short skirt was standing in front of me and...</text></c>
+                <c out="n1-sorry"><text>Oh... I'm sorry, ${Characters.CH_Jefferson.DisplayName}... I had a rough night yesterday...</text></c>
+            </choice>
+        </n>
+
+        <!--  CHOICE n1-skyrim -->
+        <n id="n1-skyrim" out="n2">
+            <stat char="CH_Kate" name="AFFINITY" inc="2" />
+            <stat char="CH_Jefferson" name="AFFINITY" inc="-1" clamp-a="0" />
+
+            <anim target="CH_Kate" trigger="react-surprise1" />
+
+            <dlg char="CH_Kate" track="Neck">
+                <m>Oh no... Did you hear that, ${Characters.CH_Jefferson.DisplayName}?</m>
+            </dlg>
+
+            <rig-track of="CH_Kate" eye="1" />
+            <anim target="Cinemachine/TalkGroup" trigger="CH_Kate" />
+
+            <dlg char="CH_Kate" track="Neck">
+                <m>He is delusional... I think he is very sick...</m>
+                <m>Poor lost soul... We should take him to the infirmary...</m>
+            </dlg>
+
+            <wait time="1" />
+            <anim target="Cinemachine/TalkGroup" trigger="Both" />
+            <anim trigger="react-facepalm1" target="CH_Jefferson" />
+
+            <anim target="Cinemachine/TalkGroup" trigger="CH_Jefferson" />
+            <dlg char="CH_Jefferson" track="Neck">
+                <m>For God's sake, ${Characters.CH_Kate.DisplayName}... How can you be so gullible?</m>
+                <m>He's just reciting one of those stupid internet memes your young colleagues love...</m>
+                <m>Sigh... I understand and appreciate your generation's passion for selfies, but... Videogames and the so-called 'dank memes' are decay marks of western culture...</m>
+            </dlg>
+        </n>
+
+        <!--  CHOICE n1-mom -->
+        <n id="n1-mom" out="n2">
+            <stat char="CH_Kate" name="AFFINITY" inc="1" />
+
+            <anim target="Cinemachine/TalkGroup" trigger="CH_Kate"/>
+            <anim target="CH_Kate" trigger="react-surprise1" />
+
+            <dlg char="CH_Kate" track="Neck">
+                <m>Oh my... He doesn't even know where he is...</m>
+                <m>Is it normal to fall in sleep in a classroom like this? Maybe he's sick indeed...</m>
+            </dlg>
+
+            <wait time="1" />
+            <anim target="Cinemachine/TalkGroup" trigger="Both"/>
+            <dlg char="CH_Jefferson" track="Neck">
+                <m>Falling in deep sleep is not the effect of any illness, dear ${Characters.CH_Kate.DisplayName}...</m>
+                <m>Some say it's a perk of those with a clear conscience...</m>
+            </dlg>
+
+            <anim trigger="react-facepalm1" target="CH_Jefferson" />
+
+            <dlg char="CH_Jefferson" track="Neck">
+                <m>... or those who simply does not care...</m>
+            </dlg>
+
+            <wait time="1" />
+        </n>
+
+        <!--  CHOICE n1-dream -->
+        <n id="n1-dream" out="n2">
+            <stat char="CH_Kate" name="AFFINITY" inc="1" />
+
+            <anim target="CH_Kate" trigger="react-surprise1" />
+            <anim target="Cinemachine/TalkGroup" trigger="CH_Kate"/>
+            <dlg char="CH_Kate" track="Neck">
+                <m>What!? What!? What are you talking about!?</m>
+                <m>What do you mean a... 'wet' dream!?!</m>
+            </dlg>
+
+            <anim target="Cinemachine/TalkGroup" trigger="Both"/>
+            <dlg char="CH_Jefferson" track="Neck">
+                <m>Jesus Christ, ${Characters.CH_Kate.DisplayName}... This is one of the reasons why you get bullied by the other girls...</m>
+            </dlg>
+            <anim trigger="react-facepalm1" target="CH_Jefferson" />
+            <dlg char="CH_Jefferson" track="Neck">
+                <m>This is senior high... Everybody is past eighteen here... You can't ask such questions in front of a teacher...</m>
+            </dlg>
+
+            <anim target="CH_Kate" trigger="react-surprise1" />
+            <dlg char="CH_Kate" track="Neck">
+                <m>What!? No... I know what it is... I mean...</m>
+            </dlg>
+
+            <rig-track of="CH_Kate" eye="1" />
+            <dlg char="CH_Kate" track="Neck">
+                <m>I mean... How dare this boy say such dirty things about... about...</m>
+            </dlg>
+            <rig-track of="CH_Kate" eye="0" />
+
+            <anim trigger="mouth" target="Cinemachine" />
+            <stat char="CH_Kate" name="CORRUPTION" inc="1" />
+            <dlg char="CH_Kate" style="whisper" jawAnim="false">
+                <m>... my legs... what did he say about my legs!?!</m>
+            </dlg>
+            <anim trigger="talk" target="Cinemachine" />
+
+            <anim trigger="react-facepalm1" target="CH_Jefferson" />
+            <dlg char="CH_Jefferson" track="Neck">
+                <m>Yeah... Whatever you say, ${Characters.CH_Kate.DisplayName}...</m>
+            </dlg>
+        </n>
+
+        <!--  CHOICE n1-sorry -->
+        <n id="n1-sorry" out="n2">
+            <stat char="CH_Jefferson" name="AFFINITY" inc="1" />
+            <stat char="CH_Kate" name="AFFINITY" inc="-1" clamp-a="0" />
+            <rig-track of="CH_Kate" eye="1" />
+            <anim target="Cinemachine/TalkGroup" trigger="CH_Kate"/>
+            <anim target="CH_Kate" int="exp" intValue="2" />
+
+            <dlg char="CH_Kate" track="Neck">
+                <m>Wait... Were you really sleeping!?!</m>
+                <m>I can't believe this... Such disrespect... with the teacher... the students... the class...</m>
+                <m>What are you doing in this institution!? You should...</m>
+            </dlg>
+
+            <anim target="Cinemachine/TalkGroup" trigger="Both" />
+            <dlg char="CH_Jefferson" track="Neck">
+                <m>Easy, ${Characters.CH_Kate.DisplayName}... Come on...</m>
+                <m>You don't need to take out on him all the heat you get from the girls that bully you, ok?</m>
+                <m>That's why the cycle never ends...</m>
+            </dlg>
+
+            <anim target="CH_Kate" int="exp" intValue="1" />
+            <anim target="CH_Kate" trigger="react-surprise1" />
+            <dlg char="CH_Kate" track="Neck">
+                <m>But... But I'm not...</m>
+            </dlg>
+
+            <anim trigger="react-facepalm1" target="CH_Jefferson" />
+            <dlg char="CH_Jefferson" track="Neck">
+                <m>Give me a break, will you?</m>
+            </dlg>
+        </n>
+
+        <!-- Join n2 -->
+        <n id="n2">
+            <stat char="CH_Kate" name="INTEL_1" set="1" notify="false" /> <!-- Bullied -->
+            <rig-track of="CH_Jefferson" eye="0" head="0" />
+            <anim target="Cinemachine" trigger="dolly"/>
+            <wait time="2" />
+            <dlg char="CH_Jefferson" track="Neck">
+                <m>Now... I'm aware that my lectures aren't exactly the most exciting material...</m>
+            </dlg>
+            <wait time="1" />
+            <dlg char="CH_Jefferson" track="Neck">
+                <m>But I never saw anyone crash out in the middle of my classes like this...</m>
+            </dlg>
+
+            <choice help="true">
+                <c out="n2-whatever"><text>Whatever...</text></c>
+                <c out="n2-sorry"><text>It won't happen again... I hope so...</text></c>
+                <c out="n2-sedative"><text>You know your class has a strong sedative effect on students, right?</text></c>
+            </choice>
+        </n>
+
+        <!-- CHOICE n2-whatever -->
+        <n id="n2-whatever" out="n3">
+            <stat char="CH_Kate" name="AFFINITY" inc="1" />
+            <rig-track of="CH_Jefferson" eye="1" head="1" />
+            <anim target="Cinemachine" trigger="talk"/>
+            <anim target="CH_Jefferson" trigger="react-facepalm1" />
+            <dlg char="CH_Jefferson" track="Neck">
+                <m>Sigh... Come on, boy... Are you trying to be like those stupid jocks with empty minds and simple goals?</m>
+                <m>Some girls like ${Characters.CH_Kate.DisplayName} here might fall for the act, but it won't bring you any good future in life... </m>
+            </dlg>
+
+            <anim target="Cinemachine/TalkGroup" trigger="Both"/>
+            <anim target="CH_Kate" trigger="react-surprise1" />
+            <dlg char="CH_Kate" track="Neck">
+                <m>${Characters.CH_Jefferson.DisplayName}!?!? What did said about...</m>
+                <m>.......</m>
+                <m>I already have to deal with enough bullying without you 'helping' me, sir...</m>
+            </dlg>
+
+            <dlg char="CH_Jefferson" track="Neck">
+                <m>Ha... I'm just kidding, ${Characters.CH_Kate.DisplayName}... Don't fret...</m>
+            </dlg>
+
+        </n>
+
+        <!-- CHOICE n2-sorry -->
+        <n id="n2-sorry" out="n3">
+            <rig-track of="CH_Jefferson" eye="1" head="1" />
+            <anim target="Cinemachine" trigger="talk"/>
+            <dlg char="CH_Jefferson" track="Neck">
+                <m>Yeah... That's the correct attitude...</m>
+                <m>You see, ${Characters.CH_Kate.DisplayName}... Looks like now you'll have competition to the position of teacher's pet...</m>
+            </dlg>
+
+            <anim target="Cinemachine/TalkGroup" trigger="Both"/>
+            <anim target="CH_Kate" int="exp" intValue="2" />
+            <dlg char="CH_Kate" track="Neck">
+                <m>I... I just try to be a good student, ${Characters.CH_Jefferson.DisplayName}...</m>
+                <m>And I don't think a person who sleeps during classes has any chances success, sir...</m>
+            </dlg>
+
+            <dlg char="CH_Jefferson" track="Neck">
+                <m>Yeah... Building up tension! That's the way to start a good stroy isn't it?</m>
+            </dlg>
+        </n>
+
+        <!-- CHOICE n2-sedative -->
+        <n id="n2-sedative" out="n3">
+            <rig-track of="CH_Jefferson" eye="1" head="1" />
+            <anim target="Cinemachine" trigger="talk"/>
+            <anim target="CH_Jefferson" trigger="react-suspicious1" />
+            <dlg char="CH_Jefferson" track="Neck">
+                <m>Hum... Students... Sedative... That's an interesting choice of words... I'm planning a project using those ideas...</m>
+                <m>Maybe there's a future for you in artistic Photography after all...</m>
+            </dlg>
+
+            <anim target="Cinemachine/TalkGroup" trigger="Both"/>
+            <anim target="CH_Kate" trigger="react-surprise1" />
+            <dlg char="CH_Kate" track="Neck">
+                <m>${Characters.CH_Jefferson.DisplayName}!?! What are you talking about, sir!?!</m>
+            </dlg>
+
+            <anim target="CH_Jefferson" trigger="react-facepalm1" />
+            <dlg char="CH_Jefferson" track="Neck">
+                <m>Urgh... Why are you still here, ${Characters.CH_Kate.DisplayName}?</m>
+                <m>Don't you have anything else to do?</m>
+            </dlg>
+        </n>
+
+        <n id="n3">
+            <anim target="Cinemachine/TalkGroup" trigger="Both"/>
+            <rig-track of="CH_Kate" eye="1" />
+            <dlg char="CH_Kate" track="Neck">
+                <m>${Characters.CH_Jefferson.DisplayName}... I don't know who this boy is... I've never see his face before...</m>
+                <m>Why did he start this class so late in the year?</m>
+            </dlg>
+
+            <dlg char="CH_Jefferson" track="Neck">
+                <m>I don't think it's exactly your business, ${Characters.CH_Kate.DisplayName}...</m>
+                <m>I remember you saying that you hate gossip...</m>
+            </dlg>
+
+            <anim target="CH_Kate" trigger="react-surprise1" />
+            <anim target="CH_Kate" int="exp" intValue="1" />
+            <dlg char="CH_Kate" track="Neck">
+                <m>What!?! But this is not... I...</m>
+                <m> I just wanted to know...</m>
+            </dlg>
+
+            <dlg char="CH_Jefferson" track="Neck">
+                <m>Sigh... Don't worry... I know exactly who our friend here is...</m>
+                <m>I wouldn't let a stranger attend my classes... I'm not paranoid, but I like to feel safe even in these so called 'gun-free' areas...</m>
+            </dlg>
+
+            <wait time="1" />
+
+            <anim target="Cinemachine/TalkGroup" trigger="CH_Jefferson"/>
+            <dlg char="CH_Jefferson" track="Neck">
+                <m>Now... You know you have a task to complete...</m>
+                <m>The principal told me you're supposed to clean up the room every day after class, right?</m>
+                <m>He didn't told me exactly what's the deal with you coming to this institution... But...</m>
+                <m>Well... We can talk about it later... Your colleagues left a mess here, so you'd better make the principal happy by cleaning it up...</m>
+                <m>Talk to me when it's done...</m>
+            </dlg>
+
+            <anim target="Cinemachine/TalkGroup" trigger="Both"/>
+            <dlg char="CH_Jefferson" track="Neck">
+                <m>And you can go now, ${Characters.CH_Kate.DisplayName}... For the love of God...</m>
+            </dlg>
+
+            <objective name="OBJ_IntroCollectTrash" completed="false" />
+            <fade-to-black time="2" keep="true" />
+            <wait time="2" />
+            
+            <load stage="classroom-intro-trash" spawn="Player Spawn/Intro" />
+        </n>
+    </nodes>
+</cutscene>

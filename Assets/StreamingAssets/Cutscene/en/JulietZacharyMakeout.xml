@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<cutscene
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../Cutscene.xsd">
+    <nodes>
+        <n id="root">
+            <fade-to-black mode="from" keep="false" />
+            <wait time="2" />
+
+            <if>
+                <check-flag flag="JULIE_ZACHARY_MAKE_OUT_SEEN" eq="0" />
+                <then>
+                    <dlg char="CH_Juliet" track="Neck">
+                        <m wait="1">Zach... What are you doing...</m>
+                        <m wait="1">Zach... Stop...</m>
+                    </dlg>
+
+                    <dlg char="CH_Zachary" track="Neck">
+                        <m wait="1">Come on, ${Characters.CH_Juliet.DisplayName}... I can't wait for this anymore...</m>
+                        <m>You're driving me nuts here...</m>
+                        <m>I mean... my nuts...</m>
+                        <m wait="1">You know...</m>
+                    </dlg>
+
+                    <dlg char="CH_Juliet" track="Neck">
+                        <m>This is a classroom, you idiot...</m>
+                        <m wait="1">Do you think locking the door will stop creeps from trying to watch us!?</m>
+                    </dlg>
+
+                    <dlg char="CH_Zachary" track="Neck">
+                        <m wait="1">Oh... Come on...</m>
+                    </dlg>
+
+                    <dlg char="CH_Juliet" track="Neck">
+                        <m>Just keep your pants on, big guy...</m>
+                    </dlg>
+
+                    <flag name="JULIE_ZACHARY_MAKE_OUT_SEEN" set="1" />
+                </then>
+                <else>
+                    <dlg char="CH_Juliet" track="Neck">
+                        <m wait="1">Come on, Zach... I have to go home...</m>
+                    </dlg>
+
+                    <dlg char="CH_Zachary" track="Neck">
+                        <m>Just a little more, please...</m>
+                    </dlg>
+                </else>
+            </if>
+
+            <choice>
+                <c out="#a"><text>Leave</text></c>
+            </choice>
+
+            <fade-to-black  keep="true" />
+            <wait time="1" />
+            <load stage="hallway-01" spawn="Player Spawn/Room 103" />
+        </n>
+    </nodes>
+</cutscene>

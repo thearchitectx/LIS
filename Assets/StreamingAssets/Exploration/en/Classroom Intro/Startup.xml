@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../Cutscene.xsd">
+    <nodes>
+        <n id="n1">
+            <anim target="CH_Jefferson" int="idle" intValue="1" />
+            <anim target="CH_Victoria" int="idle" intValue="5" />
+            <obj name="/Pause Controller" message="OpenHelp" />
+            <obj name="/Pause Controller" message="OpenObjectives" />
+            <cutscene-outcome value="_destroyObject" />
+        </n>
+    </nodes>
+</cutscene>

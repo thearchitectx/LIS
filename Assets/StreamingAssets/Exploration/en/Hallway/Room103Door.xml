@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../Cutscene.xsd">
+    <nodes>
+        <n id="n1">
+            <choice>
+                <c out="n1-try-enter">
+                    <check-flag flag="HALLWAY_TRIED_ENTER_ROOM103" eq="0" />
+                    <text>Enter Classroom</text>
+                </c>
+                <c out="n3">
+                    <check-flag flag="HALLWAY_TRIED_ENTER_ROOM103" eq="1" />
+                    <text>Look through keyhole</text>
+                </c>
+                <c out="#a">
+                    <text>Leave</text>
+                </c>
+            </choice>
+        </n>
+        
+        <n id="n1-try-enter" out="n1">
+            <flag name="HALLWAY_TRIED_ENTER_ROOM103" set="1" />
+            <wait time="1" />
+            <dlg style="subjective">
+                <m>It seems this door is locked...</m>
+                <m>But strange sounds can be heard from the inside...</m>
+            </dlg>
+        </n>
+
+        <n id="n3">
+            <fade-to-black keep="true" />
+            <wait time="1" />
+            <load stage="empty-juliet-zachary-makeout" />
+        </n>
+    </nodes>
+</cutscene>

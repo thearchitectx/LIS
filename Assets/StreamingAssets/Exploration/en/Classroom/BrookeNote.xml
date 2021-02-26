@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../Cutscene.xsd">
+    <nodes>
+        <n id="n1">
+            <choice>
+                <c out="read"><text>Read Note</text></c>
+                <c out="#a"><text>Back</text></c>
+            </choice>
+        </n>
+        <n id="read">
+            <wait time="0.5" />
+            <prefab name="PictureViewer">
+                <message name="HideImageForward" />
+                <message name="SetBorderColor" string="#00000000" />
+                <message name="LoadSprite" string="Exploration/Classroom/BrookeNote/BrookeNotePicture" />
+            </prefab>
+            <wait time="0.5" />
+            
+            <dlg style="remote-subjective" char="CH_Brooke">
+                <m>Warren, quit the 'White Knight' bullshit! I'm no fucking damsel in distress for you to save! I can take care of myself!</m>
+                <m>You the brains to come up with a solution nor the balls to simply sneak into the principal's office and get my stuff back, then just leave me alone!</m>
+            </dlg>
+
+            <stat char="CH_Brooke" name="INTEL" set="1" >*${Characters.CH_Brooke.DisplayName}* added to the Intel journal</stat>
+            <stat char="CH_Brooke" name="INTEL_1" set="1" notify="false"/>
+            <stat char="CH_Brooke" name="INTEL_2" set="1" notify="false"/>
+            <obj name="BrookeNote" destroy="0.1" />
+        </n>
+
+    </nodes>
+</cutscene>

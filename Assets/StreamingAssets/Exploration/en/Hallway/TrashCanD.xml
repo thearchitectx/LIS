@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../Cutscene.xsd">
+    <nodes>
+        <n id="n1">
+            <dlg style="subjective">
+                <m>A trashcan... Apparently an invisible object for most students in this school...</m>
+            </dlg>
+            
+            <choice>
+                <c out="n2-rummage">
+                    <check-flag flag="QUEST_KATE_LOCKER" eq="1" />
+                    <text>Rummage</text>
+                </c>
+                <c out="trash-dump">
+                    <check-item item="ITM_TRASH" gte="1" />
+                    <text>Discard Trash</text>
+                </c>
+                <c out="trash-get">
+                    <check-flag flag="HALLWAY_TRASH_CAN_D_TRASH_COUNT" gte="1" />
+                    <text>Collect Trash</text>
+                </c>
+                <c out="#a"><text>Leave</text></c>
+            </choice>
+        </n>
+
+        <n id="n2-rummage" out="n1">
+            <fade-to-black mode="to-from" keep="false" />
+            <wait time="2" />
+            <dlg style="subjective">
+                <m>Surprisingly... There's only trash inside this trash can...</m>
+            </dlg>
+        </n>
+
+        <n id="trash-get">
+            <fade-to-black keep="false" />
+            <wait time="1" />
+
+            <item name="ITM_TRASH" set="${Flags.HALLWAY_TRASH_CAN_D_TRASH_COUNT}">Collected ${Flags.HALLWAY_TRASH_CAN_D_TRASH_COUNT} pieces of trash</item>
+            <flag name="HALLWAY_TRASH_CAN_D_TRASH_COUNT" set="0" />
+
+            <dlg style="subjective">
+                <m>Just honing my homeless skills, I guess...</m>
+            </dlg>
+        </n>
+    </nodes>
+</cutscene>

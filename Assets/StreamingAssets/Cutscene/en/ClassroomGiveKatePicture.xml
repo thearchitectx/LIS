@@ -1,0 +1,209 @@
+<?xml version="1.0"?>
+<cutscene
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../Cutscene.xsd">
+    <nodes>
+        <n id="n1">
+            <fade-to-black mode="from" speed="0.5" />
+            <rig-track of="CH_Jefferson" target="RigTargetPlayer" eye="1" head="1" />
+            <wait time="2" />
+
+            <dlg char="CH_Jefferson" track="Neck">
+                <m>Great... Show me what you got...</m>
+            </dlg>
+            
+            <anim target="CH_Jefferson" trigger="see-picture" />
+            <obj name="RigTargetPhone" active="true" />
+            <rig-track of="CH_Jefferson" target="RigTargetPhone" eye="1" head="1" />
+
+            <wait time="1.5" />
+            
+            <objective name="OBJ_JeffersonFirstPicBring" completed="true" />
+
+            <prefab name="PictureViewer">
+                <message name="LoadPicture" string="${Texts.KATE_HALLWAY_PICTURE}" />
+                <outcome name="ANY" output="#continue" />
+            </prefab>
+            
+            <prefab destroy="PictureViewer" />
+            
+            <dlg char="CH_Jefferson" track="Neck">
+                <m>It's our girl Kate, huh...</m>
+                <m>Hum... These phone cameras have such poor tiny lens... The right focal distance is a fundamental element of good photography...</m>
+                <m>... and... there's clearly room for improvement here... you remember the rule of thirds, right?</m>
+            </dlg>
+
+            <choice>
+                <c out="n1-wrong"><text>Something... about lightning...</text></c>
+                <c out="n1-right"><text>Something... about composition...</text></c>
+                <c out="n1-wrong"><text>Something... about colors...</text></c>
+                <c out="n1-over"><text>Uuhh... I though the class was already over...</text></c>
+            </choice>
+        </n>
+
+        <n id="n1-over" out="n2">
+            <stat char="CH_Jefferson" name="AFFINITY" inc="2" />
+            <dlg char="CH_Jefferson" track="Neck">
+                <m>Yes... Yes... You're right... I have this bad habit of not keeping focused on what really matters...</m>
+                <m>Good to know you can keep the focus when my mind drifts away...</m>
+            </dlg>
+        </n>
+        <n id="n1-wrong" out="n2">
+            <dlg char="CH_Jefferson" track="Neck">
+                <m>You see... That's what happen when you sleep during class...</m>
+                <m>You won't never improve if you refuse to learn...</m>
+            </dlg>
+        </n>
+        <n id="n1-right" out="n2">
+            <flag name="DICK_INTELLIGENCE" inc="1">
+                YOU FEEL MORE *INTELLIGENT*!
+            </flag>
+            <stat char="CH_Jefferson" name="AFFINITY" inc="1" />
+            <dlg char="CH_Jefferson" track="Neck">
+                <m>Exactly... Maybe you slept during my class because you already have the knowledge...</m>
+                <m>Now just a little bit of practice is what you need...</m>
+            </dlg>
+        </n>
+        
+        <n id="n2">
+            <dlg char="CH_Jefferson" track="Neck">
+                <m>But I digress... What really matters here is the subject of the photo...</m>
+                <m>It's our girl ${Characters.CH_Kate.DisplayName}... You chose to snap literally the first girl you met here...</m>
+                <m>You get credits for the objectivity but... I can't see much creative effort...</m>
+            </dlg>
+
+            <choice>
+                <c out="#a"><text>You asked to take a picture of a girl... That's what I brought...</text></c>
+                <c out="#b"><text>Hey... This is not some kind of homework, is it?</text></c>
+            </choice>
+
+            <dlg char="CH_Jefferson" track="Neck">
+                <m>Okay... Okay... Let me comment on what really matters here...</m>
+            </dlg>
+
+            <anim target="CH_Jefferson" trigger="hands-waist" />
+            <obj name="RigTargetPhone" active="false" />
+
+            <rig-track of="CH_Jefferson" eye="1" head="1" target="RigTargetPlayer" />
+            <if>
+                <check-flag flag="QUEST_JEFFERSON_TAKE_PIC" eq="1" />
+                <then>
+                    <dlg char="CH_Jefferson" track="Neck">
+                        <m>You see... This is the kind of picture everybody would expect from ${Characters.CH_Kate.DisplayName}, but...</m>
+                        <m>I believe you have the potential to make these girls change their attitude...</m>
+                    </dlg>
+                </then>
+                <else>
+                    <stat char="CH_Jefferson" name="AFFINITY" inc="1" />
+                    <dlg char="CH_Jefferson" track="Neck">
+                        <m>You managed to make ${Characters.CH_Kate.DisplayName} do one of those trendy poses... Impressive!</m>
+                        <m>Can you see the potential you have to make these girls change their attitude?</m>
+                    </dlg>
+                </else>
+            </if>
+            <wait time="1" />
+            <dlg char="CH_Jefferson" track="Neck">
+                <m>I expect you to go much further than this... And I have some tips to help you achieve this goal...</m>
+            </dlg>
+            <anim target="Cinemachine" trigger="dolly" />
+            <wait time="1" />
+            <dlg char="CH_Jefferson" track="Neck">
+                <m>First... You need information...</m>
+                <m>There is a variety of different personalities in this school... and knowing how to approach each one will give you a huge advantage...</m>
+                <m>It will help to build up your affinity with them, making it easier to talk each one into posing to your camera...</m>
+                <m>It's just like Carl Jung says...</m>
+            </dlg>
+            
+            <choice>
+                <c out="n2-exploit"><text>Exploit people's worst fears in order to win over their hearts, right?</text></c>
+                <c out="n2-persona"><text>Wear the the right persona when dealing with each person, right?</text></c>
+                <c out="n2-yourself"><text>I usually have good results with the "just be yourself" approach...</text></c>
+            </choice>
+        </n>
+        <n id="n2-exploit" out="n3">
+            <anim target="CH_Jefferson" trigger="react-facepalm" />
+            <dlg char="CH_Jefferson" track="Neck">
+                <m>Uuuhh... I don't think Jung ever wrote such creepy thoughts...</m>
+            </dlg>
+        </n>
+        <n id="n2-persona" out="n3">
+            <anim target="CH_Jefferson" trigger="react-suspicious" />
+            <flag name="DICK_INTELLIGENCE" inc="1">
+                YOU FEEL MORE *INTELLIGENT*!
+            </flag>
+            <dlg char="CH_Jefferson" track="Neck">
+                <m>Whoa... Do you actually have knowledge about Jung's ideas? Impressive...</m>
+                <m>...or maybe do you know him because of that stylish Japanese video-game everybody is copying lately?</m>
+            </dlg>
+        </n>
+        <n id="n2-yourself" out="n3">
+            <anim target="CH_Jefferson" trigger="react-suspicious" />
+            <flag name="DICK_INTELLIGENCE" inc="1">
+                YOU FEEL MORE *CHARISMATIC*!
+            </flag>
+            <dlg char="CH_Jefferson" track="Neck">
+                <m>Well... This kind of approach works if you have a good natural level of charisma...</m>
+                <m>...but it still can be combined with the use of privileged information...</m>
+            </dlg>
+        </n>
+        <n id="n3">
+            <wait time="1" />
+            <anim target="Cinemachine" trigger="close" />
+            <dlg char="CH_Jefferson" track="Neck">
+                <m>Anyways... You should always check the information you have before engaging in conversation...</m>
+            </dlg>
+            
+            <sys>Press *ESC* anytime to bring the Pause Screen and click on the *INTEL* button\n\n
+                Information you collect about some characters may help you give the answers the want to hear\n\n
+                It's recommended to gather the maximum INTEL you can about a character before engage in conversations with them
+            </sys>
+            
+            <anim target="Cinemachine" trigger="close" />
+            <dlg char="CH_Jefferson" track="Neck">
+                <m>For example... I found this note a student dropped in hallway... It might give you some insight about her...</m>
+            </dlg>
+            <anim target="Cinemachine" trigger="note" />
+            <dlg char="CH_Jefferson" track="Neck">
+                <m>Formally I'm not allowed to hand you such items... But nothing is stopping to check what's on my table before leaving the room...</m>
+            </dlg>
+           
+            <choice>
+                <c out="#a"><text>So much for teacher's ethics...</text></c>
+                <c out="#b"><text>I don't think turning a blind eye is much different than just handing it...</text></c>
+            </choice>
+            
+            <anim target="Cinemachine" trigger="note" />
+            <dlg char="CH_Jefferson" track="Neck">
+                <m>Whatever you say... Just don't forget to grab the intel...</m>
+            </dlg>
+            
+            <anim target="Cinemachine" trigger="dolly" />
+            
+            <dlg char="CH_Jefferson" track="Neck">
+                <m>Now... I believe you're supposed to talk to the principal before leaving, right?</m>
+                <m>Well... This partnership is also about hitting that disgust man where it hurts the most...</m>
+            </dlg>
+            
+            <choice>
+                <c out="#a"><text>You mean... Kick him in the balls?</text></c>
+                <c out="#b"><text>Whatever you mean... I like the idea!</text></c>
+            </choice>
+            
+            <dlg char="CH_Jefferson" track="Neck">
+                <m>Look... The thing he is most proud of is his perfect "strict" model school... Free of the "unhealthy" and "indecent" youth behaviour as he likes to say...</m>
+                <m>Make this place as "dirty" as you can and you will also be striking him hard... Maybe hard enough for him to leave the school and you alone...</m>
+            </dlg>
+            
+            <wait time="1" />
+            <anim target="Cinemachine" trigger="close" />
+            <dlg char="CH_Jefferson" track="Neck">
+                <m>Now... Beat it... And don't forget your new intel...</m>
+                <m>I'm sure it will help with some new friend you might make in the way to principal's office...</m>
+            </dlg>
+
+            <fade-to-black mode="to" keep="true" />
+            <wait time="1" />
+            <load stage="classroom-01" />
+        </n>
+    </nodes>
+</cutscene>

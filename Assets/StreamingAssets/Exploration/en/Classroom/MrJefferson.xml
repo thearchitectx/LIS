@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../Cutscene.xsd">
+    <nodes>
+        <n id="n1">
+            <if>
+                <check-flag flag="QUEST_JEFFERSON_TAKE_PIC" eq="0" />
+                <then>
+                    <dlg char="CH_Jefferson" style="subjective">
+                        <m>So... Do you have it?</m>
+                        <m wait="1">Come on... Show me you can convince any girl to take a single innocent picture...</m>
+                    </dlg>
+                    <cutscene-outcome value="_end" />
+                </then>
+            </if>
+            <if>
+                <check-flag flag="QUEST_JEFFERSON_TAKE_PIC" gte="1" />
+                <check-flag flag="QUEST_JEFFERSON_TAKE_PIC" lte="2" />
+                <then>
+                    <flag name="QUEST_JEFFERSON_TAKE_PIC" inc="10" />
+                    <dlg char="CH_Jefferson" style="subjective">
+                        <m>So... Do you have it?</m>
+                    </dlg>
+                    <fade-to-black mode="to" keep="true" />
+                    <wait time="1" />
+                    <load stage="classroom-give-kate-picture" />
+                </then>
+            </if>
+        </n>
+    </nodes>
+</cutscene>

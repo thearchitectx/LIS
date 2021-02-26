@@ -1,0 +1,223 @@
+<?xml version="1.0"?>
+<cutscene
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../Cutscene.xsd">
+    <nodes>
+        <n id="root">
+            <obj name="FadeFromBlack" destroy="1" />
+            <obj name="CH_Victoria" destroy="8" />
+            <anim target="CH_Jefferson" int="idle" intValue="2" />
+            <anim target="CH_Victoria" int="idle" intValue="3" />
+            <anim target="CH_Player" int="idle" intValue="7" />
+            
+            <wait time="5" />
+
+            <dlg char="CH_Jefferson" track="Neck">
+                <m>Hey... Can I have your attention now?</m>
+            </dlg>
+
+            <choice>
+                <c out="n1-nail"><text>Damn... I bet you're nailing that ho, aren't you?</text></c>
+                <c out="n1-tease"><text>It must be hard to handle all that tease without getting your hands dirty...</text></c>
+                <c out="n1-hate"><text>She hates me... But I also think she likes you, ${Characters.CH_Jefferson.DisplayName}...</text></c>
+            </choice>
+        </n>
+
+        <n id="n1-nail" out="n2">
+            <anim target="CH_Jefferson" trigger="rect-lean-think1" />
+            <dlg char="CH_Jefferson" track="Neck">
+                <m>Hmm... Let me try to translate your words to proper English...</m>
+                <m>You're asking if I'm having sexual encounters with Miss Chase, right!?</m>
+                <m>Sometimes it's hard for me to follow the "bro talk"... But that one was easy...</m>
+            </dlg>
+        </n>
+
+        <n id="n1-tease" out="n2">
+            <anim target="CH_Jefferson" trigger="rect-lean-think1" />
+            <dlg char="CH_Jefferson"  track="Neck">
+                <m>You're right about my hands being 'clean'... But I'm also pretty sure she's not just teasing though...</m>
+                <m>Victoria is obsessed with demonstrations of power... Pursuing affairs with a teacher is another of those games she plays with real intent...</m>
+            </dlg>
+        </n>
+
+        <n id="n1-hate" out="n2">
+            <anim target="CH_Jefferson" trigger="rect-lean-think1" />
+            <dlg char="CH_Jefferson"  track="Neck">
+                <m>'Hate'... 'Like'... You're using simplistic words to describe the wide range of Miss Chase's intentions, boy...</m>
+                <m>You need to improve your observation skills if you want to succeed int this school...</m>
+            </dlg>
+        </n>
+
+        <n id="n2">
+            <wait time="1" />
+            <anim trigger="Cinemachine Talk Dolly" />
+            <dlg char="CH_Jefferson" track="Neck">
+                <m>Anyways... You should know that any kind of 'intimate' contact between teacher and students is a strict taboo here...</m>
+                <m wait="1">Victoria obviously makes her 'intentions' very clear to me... And yes... I fight the temptations every single day...</m>
+                <m>But I know that if I anything happen between us she would brag about it to the whole school...</m>
+                <m>And I don't need to state the amount of trouble that would bring to me...</m>
+            </dlg>
+
+            <choice>
+                <c out="#sucks"><text>Guess it sucks to be you, then...</text></c>
+                <c out="#trouble"><text>It's clear that her face screams 'trouble'...</text></c>
+            </choice>
+
+            <anim trigger="Cinemachine Talk" />
+            <anim target="CH_Jefferson" trigger="rect-lean-think1" />
+            <dlg char="CH_Jefferson" track="Neck">
+                <m>Well... But you know well what the word 'trouble' means, right? The principal told me a bit about you...</m>
+                <m>Poor school grades history... Records of conduct violation... Repeated truancy...</m>
+            </dlg>
+
+            <choice>
+                <c out="n2-silent"><text>...</text></c>
+                <c out="n2-guilty"><text>Guilty as charged...</text></c>
+                <c out="n2-ed"><text>I blame the education system for not being adapted to my set of skills...</text></c>
+            </choice>
+        </n>
+
+        <n id="n2-silent" out="n3">
+            <anim target="CH_Jefferson" int="idle" intValue="1" />
+            <wait time="1" />
+            <anim trigger="Cinemachine Talk Close" />
+            <dlg char="CH_Jefferson" style="subjective">
+                <m>Yeah... There's no need to be ashamed...</m>
+                <m wait="1">The failure of a student is also a failure of the school...</m>
+            </dlg>
+        </n>
+
+        <n id="n2-guilty" out="n3">
+            <anim target="CH_Jefferson" int="idle" intValue="1" />
+            <wait time="1" />
+            <anim trigger="Cinemachine Talk Close" />
+            <dlg char="CH_Jefferson" style="subjective">
+                <m>Yeah... I didn't expect you to deny these records...</m>
+                <m wait="1">But also didn't expect you to sound pride of them...</m>
+            </dlg>
+        </n>
+
+        <n id="n2-ed" out="n3">
+            <anim target="CH_Jefferson" int="idle" intValue="1" />
+            <wait time="1" />
+            <anim trigger="Cinemachine Talk Close" />
+            <dlg char="CH_Jefferson"  style="subjective">
+                <m>Yeah... I can sympathize with that feeling somehow...</m>
+            </dlg>
+            <dlg char="CH_Jefferson"  style="subjective">
+                <m wait="1">It's part of the reason I can see some future in you...</m>
+            </dlg>
+        </n> 
+
+        <n id="n3">
+            <anim trigger="Cinemachine Talk" />
+            <dlg char="CH_Jefferson" track="Neck">
+                <m>Anyways... The principal didn't seem happy to have you as a student... And I can only wonder what made him accept you in this school...</m>
+                <m>Whatever the reason it was, that unpleasant man is now doing everything he 'lawfully' can to give you a hard time here... Like giving those after class 'tasks'...</m>
+            </dlg>
+
+            <choice>
+                <c out="#a"><text>You don't like him... It seems we have something in common...</text></c>
+                <c out="#b"><text>I don't think the principal is the reason you asked me to talk here today...</text></c>
+            </choice>
+
+            <stat char="CH_Jefferson" name="INTEL_1" set="1" notify="false" /><!-- Principal -->
+            <anim target="CH_Jefferson" trigger="react-suspicious1" />
+            <dlg char="CH_Jefferson" track="Neck">
+                <m>Yeah... I don't think it's wise to keep talking about the man inside the school premises...</m>
+                <m>I called you here to talk about na Art 'project' I want to put in practice in this school...</m>
+                <m wait="1">And you seem the perfect person to help me in this venture...</m>
+            </dlg>
+            
+            <anim trigger="Cinemachine Talk Dolly" />
+            <dlg char="CH_Jefferson"  track="Neck">
+                <m>You see... As an artist, I have this need to capture... beauty... in it natural state...</m>
+                <m>...and this place is full of... jovial... young... raw... beauty...</m>
+                <m>I need to collect it... catalog... transform...</m>
+                <m>Do you understand what I'm trying to say?</m>
+            </dlg>
+
+            <choice>
+                <c out="n3-trouble"><text>Huuh... Sounds like trouble to me...</text></c>
+                <c out="n3-transform"><text>Capture 'beauty' in 'natural state' I get... 'Transform' sounds more shady to me...</text></c>
+                <c out="n3-calendar"><text>Whoa... You wanna make a hot picture calendar with all the barely legal hipsters thots of this school?</text></c>
+            </choice>
+        </n>
+        
+        <n id="n3-calendar" out="n4">
+            <anim trigger="Cinemachine Talk" />
+            <anim target="CH_Jefferson" trigger="react-facepalm1" />
+            <dlg char="CH_Jefferson" style="subjective">
+                <m>Urgh... It's a very blunt way to describe... But I think it's the only way your hormones allow you to think...</m>
+            </dlg>
+        </n>
+        <n id="n3-transform" out="n4">
+            <anim trigger="Cinemachine Talk" />
+            <anim target="CH_Jefferson" trigger="react-suspicious1" />
+            <dlg char="CH_Jefferson" style="subjective">
+                <m>Good... You seem to be actually listening to what I say...</m>
+            </dlg>
+        </n>
+        <n id="n3-trouble" out="n4">
+            <anim trigger="Cinemachine Talk" />
+            <anim target="CH_Jefferson" trigger="react-facepalm1" />
+            <dlg char="CH_Jefferson" style="subjective">
+                <m>Getting cold feet already? Have faith, boy...</m>
+            </dlg>
+        </n>
+
+        <n id="n4">
+            <dlg char="CH_Jefferson" style="subjective">
+                <m>'Transform' is the key concept here because... unfortunately... most female students are not as open to me as Miss Chase...</m>
+                <m wait="1">They are either too shy, or too afraid get in Victoria's way...</m>
+                <m>But you... I sense you're the kind of person who have a unique talent to change this scenario...</m>
+            </dlg>
+
+            <choice>
+                <c out="n4-sleep"><text>And I sense you're the kind of person who would simply give them something to sleep and take your pervy pictures...</text></c>
+                <c out="n4-thankyou"><text>Uuuh... Thank you?</text></c>
+            </choice>
+        </n>
+
+        <n id="n4-sleep" out="n5">
+            <dlg char="CH_Jefferson" style="subjective">
+                <m>Nice... You clearly have the observational skills needed for this task...</m>
+            </dlg>
+        </n>
+        <n id="n4-thankyou" out="n5">
+            <dlg char="CH_Jefferson" style="subjective">
+                <m>Yeah... Don't worry... That was an actual compliment...</m>
+            </dlg>
+        </n>
+
+        <n id="n5">
+            <dlg char="CH_Jefferson" style="subjective">
+                <m>You see... I actually had a plan involving 'chemical' persuasion approach...</m>
+                <m>But then you unexpectedly appeared in my class... And I realized it would be much safer for me if you help in this quest...</m>
+                <m wait="1">Also... As I said... I want my Art to transform! To make a difference in the world...</m>
+                <m>To make it clear... You help me change the students 'attitude' to create a unique yearbook, and I help you with the your 'principal' problem...</m>
+                <m wait="1">So... Are willing to commit to this a partnership?</m>
+            </dlg>
+
+            <choice>
+                <c out="#a"><text>Anything that help me graduate, I guess...</text></c>
+                <c out="#b"><text>Stalk, pick up and corrupt girls? This is the best school assignment ever!</text></c>
+                <c out="#c"><text>This is not even a choice... Either I agree or it's 'Game Over', right?</text></c>
+            </choice>
+
+            <anim trigger="Cinemachine Talk Close" />
+            <dlg char="CH_Jefferson" style="subjective">
+                <m>Excellent... You made the right choice...</m>
+                <m>Let's start with a scouting task... Take a walk in the hallway... Find a girl and take a picture for me...</m>
+                <m>Show me your composition skills... Surprise me... I'll be waiting here...</m>
+            </dlg>
+
+            <fade-to-black keep="true" />
+
+            <wait time="2" />
+            <objective name="OBJ_JeffersonFirstPicTake" completed="false" />
+
+            <load stage="hallway-01" spawn="Player Spawn/Art Class" />
+        </n>
+    </nodes>
+</cutscene>

@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../Cutscene.xsd">
+    <nodes>
+        <n id="n1">
+            <choice>
+                <c out="trash-dump">
+                    <check-item item="ITM_TRASH" gte="1" />
+                    <text>Discard Trash</text>
+                </c>
+                <c out="trash-get">
+                    <check-flag flag="CLASSROOM_TRASH_CAN_TRASH_COUNT" gte="1" />
+                    <text>Collect Trash</text>
+                </c>
+                <c out="#a"><text>Back</text></c>
+            </choice>
+        </n>
+        <n id="trash-dump">
+            <fade-to-black keep="false" />
+            <wait time="1" />
+
+            <flag name="CLASSROOM_TRASH_CAN_TRASH_COUNT" inc="${Items.ITM_TRASH}" />
+            <item name="ITM_TRASH" set="0">DISCARDED ALL TRASH</item>
+
+            <dlg style="subjective">
+                <m>Trash is now in the place it belongs...</m>
+            </dlg>
+        </n>
+        <n id="trash-get">
+            <fade-to-black keep="false" />
+            <wait time="1" />
+
+            <item name="ITM_TRASH" set="${Flags.CLASSROOM_TRASH_CAN_TRASH_COUNT}">Collected ${Flags.CLASSROOM_TRASH_CAN_TRASH_COUNT} pieces of trash</item>
+            <flag name="CLASSROOM_TRASH_CAN_TRASH_COUNT" set="0" />
+
+            <dlg style="subjective">
+                <m>Just honing my homeless skills, I guess...</m>
+            </dlg>
+        </n>
+    </nodes>
+</cutscene>

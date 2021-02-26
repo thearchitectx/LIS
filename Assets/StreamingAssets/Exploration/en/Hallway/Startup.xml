@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../Cutscene.xsd">
+    <nodes>
+        <n id="n1">
+            <anim target="CH_Kate" int="idle" intValue="4" />
+            <cutscene-outcome value="_destroyObject" />
+        </n>
+    </nodes>
+</cutscene>

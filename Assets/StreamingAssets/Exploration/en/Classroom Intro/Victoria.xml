@@ -1,0 +1,243 @@
+<?xml version="1.0"?>
+<cutscene
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../Cutscene.xsd">
+    <nodes>
+        <n id="root">
+            <stat char="CH_Victoria" name="CORRUPTION" set="5" />
+            <wait time="1" />
+            <choice>
+                <c out="hello">
+                    <check-flag flag="INTRO_TALK_VICTORIA" eq="0" />
+                    <text>Uhh... Hello there...</text>
+                </c>
+                <c out="fine-ass">
+                    <check-flag flag="INTRO_TALK_VICTORIA" eq="0" />
+                    <text>Damn... That's a fine jiggling ass...</text>
+                </c>
+                <c out="finished">
+                    <check-flag flag="INTRO_TRASH_SCORE" gte="4" />
+                    <text>${Characters.CH_Jefferson.DisplayName}... I think I completed my 'task'...</text>
+                </c>
+                <c out="check-ass">
+                    <check-flag flag="INTRO_CHECK_VICTORIA" eq="0" />
+                    <text>[ Check her closer ]</text>
+                </c>
+                <c out="cope">
+                    <check-flag flag="INTRO_CHECK_VICTORIA" eq="0" />
+                    <text>[ Cope a feel 'accidentally' ]</text>
+                </c>
+                <c out="_end"><text>[ Leave ]</text></c>
+            </choice>
+        </n>
+        
+        <n id="hello">
+            <flag name="INTRO_TALK_VICTORIA" set="1" />
+            <obj name="Cinemachine Talk" active="true" />
+            <stat char="CH_Victoria" name="INTEL" set="1">*${Characters.CH_Victoria.DisplayName}* added to the Intel Journal</stat>
+            <stat char="CH_Victoria" name="INTEL_0" set="1" />
+
+            <dlg char="CH_Victoria" track="Neck">
+                <m>Sigh...</m>
+            </dlg>
+
+            <wait time="1" />
+
+            
+            <rig-track of="CH_Victoria" head="1" eye="1"  target="Cinemachine Talk" />
+            <rig-track of="CH_Jefferson" head="1" eye="1"  target="Cinemachine Talk" />
+
+            <dlg char="CH_Victoria" track="Neck">
+                <m>Piss off, boy... Can't you see I'm busy?</m>
+                <m>I'm talking to a real man here... I don't need another boot licker following me...</m>
+            </dlg>
+
+            <rig-track of="CH_Jefferson" head="1" eye="1"  target="CH_VictoriaHead" />
+
+            <dlg char="CH_Jefferson" track="Neck">
+                <m>Please, ${Characters.CH_Victoria.DisplayName}... We already talked about this...</m>
+                <m>Don't talk like this to your colleagues... Where are your manners?</m>
+            </dlg>
+
+            <rig-track of="CH_Jefferson" head="1" eye="1"  target="Cinemachine Talk" />
+
+            <dlg char="CH_Jefferson" track="Neck">
+                <m>And you, young man... You have "work" to do...</m>
+                <m>Come talk to me when you're done...</m>
+            </dlg>
+
+            <wait time="1" />
+
+            <rig-track of="CH_Victoria" head="0" eye="0" />
+            <rig-track of="CH_Jefferson" head="1" eye="1"  target="CH_VictoriaHead" />
+
+            <obj name="Cinemachine Talk" active="false" />
+        </n>
+
+        <n id="fine-ass">
+            <flag name="INTRO_TALK_VICTORIA" set="2" />
+            <obj name="Cinemachine Talk" active="true" />
+            <stat char="CH_Victoria" name="INTEL" set="1">*${Characters.CH_Victoria.DisplayName}* added to the Intel Journal</stat>
+            <stat char="CH_Victoria" name="INTEL_0" set="1" />
+
+            <dlg char="CH_Victoria" track="Neck">
+                <m>Urgh... I heard that, you idiot...</m>
+            </dlg>
+
+            <wait time="1" />
+
+            <rig-track of="CH_Jefferson" head="1" eye="1"  target="Cinemachine Talk" />
+            <rig-track of="CH_Victoria" head="1" eye="1"  target="Cinemachine Talk" />
+
+            <dlg char="CH_Victoria" track="Neck">
+                <m>You must have some nerve to say something like that out loud...</m>
+            </dlg>
+            <stat char="CH_Victoria" name="AFFINITY" inc="1" />
+            <dlg char="CH_Victoria" track="Neck">
+                <m>At least it's not another cry baby trying to talk to me...</m>
+                <m>Look... But don't touch!</m>
+            </dlg>
+
+            <rig-track of="CH_Jefferson" head="1" eye="1"  target="CH_VictoriaHead" />
+
+            <dlg char="CH_Jefferson" track="Neck">
+                <m>Well... You try hard to make people afraid of you, ${Characters.CH_Victoria.DisplayName}...</m>
+            </dlg>
+
+            <rig-track of="CH_Jefferson" head="1" eye="1"  target="Cinemachine Talk" />
+
+            <dlg char="CH_Jefferson" track="Neck">
+                <m>And you, young man... That's not the proper way to talk to a lady...</m>
+            </dlg>
+
+            <wait time="1" />
+
+            <dlg char="CH_Jefferson" track="Neck">
+                <m>Now... You have a "work" to do... Come talk to me when you're done...</m>
+            </dlg>
+
+            <wait time="1" />
+
+            <rig-track of="CH_Victoria" head="0" eye="0" />
+            <rig-track of="CH_Jefferson" head="1" eye="1"  target="CH_VictoriaHead" />
+
+            <obj name="Cinemachine Talk" active="false" />
+        </n>
+
+        <n id="cope">
+            <flag name="INTRO_CHECK_VICTORIA" set="2" />
+            <obj name="Cinemachine Talk" active="true" />
+            <stat char="CH_Victoria" name="INTEL" set="1">*${Characters.CH_Victoria.DisplayName}* added to the Intel Journal</stat>
+            
+            <dlg char="CH_Victoria" track="Neck">
+                <m>Don't even think about it...</m>
+            </dlg>
+            
+            <wait time="1" />
+            
+            <rig-track of="CH_Victoria" head="1" eye="1" />
+            <rig-track of="CH_Jefferson" head="1" eye="1"  target="Cinemachine Talk" />
+            
+            <stat char="CH_Victoria" name="INTEL" inc="-1" />
+            
+            <dlg char="CH_Victoria" track="Neck">
+                <m>Yes... I have a sixty sense when it comes to creeps like you...</m>
+                <m>If you value your life then keep your hands to yourself, moron...</m>
+            </dlg>
+
+            <rig-track of="CH_Jefferson" head="1" eye="1"  target="CH_VictoriaHead" />
+
+            <dlg char="CH_Jefferson" track="Neck">
+                <m>I'm kind of lost on your conversation...</m>
+            </dlg>
+
+            <rig-track of="CH_Victoria" head="0" eye="0" />
+
+            <dlg char="CH_Victoria" track="Neck">
+                <m>Forget about him, ${Characters.CH_Jefferson.DisplayName}...</m>
+                <m>Tell me more about your bedroom decoration... I really need to see it in person one day, you know...</m>
+            </dlg>
+
+            <wait time="1" />
+
+            <obj name="Cinemachine Talk" active="false" />
+        </n>
+        
+        <n id="check-ass">
+            <flag name="INTRO_CHECK_VICTORIA" set="1" />
+            <dlg char="CH_Player" style="subjective">
+                <m>I think I can have a closer look without she noticing...</m>
+            </dlg>
+
+            <obj name="Cinemachine Check" active="true" />
+
+            <wait time="2" />
+
+            <dlg char="CH_Player" style="subjective">
+                <m>Nice...</m>
+            </dlg>
+
+            <wait time="1" />
+
+            <choice>
+                <c out="#leave"><text>[Leave]</text></c>
+            </choice>
+
+            <obj name="Cinemachine Check" active="false" />
+        </n>
+
+        <n id="finished">
+            <obj name="Cinemachine Talk" active="true" />
+            <stat char="CH_Victoria" name="INTEL" set="1">*${Characters.CH_Victoria.DisplayName}* added to the Intel Journal</stat>
+            <stat char="CH_Victoria" name="INTEL_0" set="1" />
+            
+            <rig-track of="CH_Jefferson" head="1" eye="1" target="Cinemachine Talk" />
+
+            <dlg char="CH_Jefferson" track="Neck">
+                <m>Indeed... The classroom seems much more pleasant now...</m>
+                <m>I wonder what future can we expect for a world where the youth litters their own space with garbage...</m>
+            </dlg>
+
+            <wait time="1" />
+
+            <rig-track of="CH_Victoria" head="1" eye="1" target="Cinemachine Talk" />
+            <rig-track of="CH_Jefferson" head="1" eye="1" target="Cinemachine Talk" />
+
+            <dlg char="CH_Victoria" track="Neck">
+                <m>Who are you, boy? The garbage man?</m>
+            </dlg>
+            <if>
+                <check-perk perk="PRK_SMELLY" />
+                <then>
+                    <dlg char="CH_Victoria" track="Neck">
+                        <m>Because... Uurgh... You definitely smells like one...</m>
+                    </dlg>
+                </then>
+                <else>
+                    <stat char="CH_Victoria" name="AFFINITY" inc="1" />
+                    <dlg char="CH_Victoria" track="Neck">
+                        <m>At least you got rid of the smell before getting near me... I have enough of those stinky jocks thinking they are some alpha material...</m>
+                    </dlg>
+                </else>
+            </if>
+
+            <rig-track of="CH_Jefferson" head="1" eye="1" target="CH_VictoriaHead" />
+            <rig-track of="CH_Victoria" head="0" eye="0" />
+
+            <dlg char="CH_Jefferson" track="Neck">
+                <m>${Characters.CH_Victoria.DisplayName}... I think we chatted enough for today...</m>
+                <m>Please, give me some privacy now... I have other important matters to deal with...</m>
+            </dlg>
+
+            <dlg char="CH_Victoria" track="Neck">
+                <m>Of course... Whatever you ask me... I'll do it for you...</m>
+                <m>See you next class...</m>
+            </dlg>
+
+            <fade-to-black speed="1" keep="true"/>
+            <wait time="1.5" />
+            <objective name="OBJ_IntroTalk" completed="true" />
+            <load stage="classroom-intro-jefferson" />
+        </n>
+    </nodes>
+</cutscene>

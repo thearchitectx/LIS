@@ -1,0 +1,61 @@
+<?xml version="1.0"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../Cutscene.xsd">
+    <nodes>
+        <n id="n1">
+            <wait time="1" />
+            <choice>
+                <c out="n1-clean"><text>Clean up</text></c>
+                <c out="_end"><text>Leave</text></c>
+            </choice>
+        </n>
+
+        <n id="n1-clean">
+            <flag name="INTRO_TRASH_SCORE" inc="1" />
+            <if>
+                <check-flag flag="INTRO_TRASH_SCORE" eq="1" />
+                <then>
+                    <dlg  style="subjective">
+                        <m>It's a shitty job... But someone has to do it...</m>
+                    </dlg>
+                    <item inc="1" name="ITM_TRASH">COLLECTED *${Flags.INTRO_TRASH_SCORE}* of *4* PIECES OF GARBAGE</item>
+                </then>
+            </if>
+
+            <if>
+                <check-flag flag="INTRO_TRASH_SCORE" eq="2" />
+                <then>
+                    <dlg style="subjective">
+                        <m>I have to clean this shit up...</m>
+                    </dlg>
+                    <item inc="1" name="ITM_TRASH">COLLECTED *${Flags.INTRO_TRASH_SCORE}* of *4* PIECES OF GARBAGE</item>
+                </then>
+            </if>
+
+            <if>
+                <check-flag flag="INTRO_TRASH_SCORE" eq="3" />
+                <then>
+                    <dlg style="subjective">
+                        <m>Students made a fucking mess here...</m>
+                    </dlg>
+                    <item inc="1" name="ITM_TRASH">COLLECTED *${Flags.INTRO_TRASH_SCORE}* of *4* PIECES OF GARBAGE</item>
+                </then>
+            </if>
+            
+            <if>
+                <check-flag flag="INTRO_TRASH_SCORE" gte="4" />
+                <then>
+                    <dlg style="subjective">
+                        <m>I hope this is the last one...</m>
+                    </dlg>
+                    <objective name="OBJ_IntroCollectTrash" completed="true" />
+                    <objective name="OBJ_IntroTalk" completed="false" />
+                    <item inc="1" name="ITM_TRASH">COLLECTED *ALL* PIECES OF GARBAGE</item>
+                </then>
+            </if>
+
+            <cutscene-outcome value="_destroyParent" />
+        </n>
+
+    </nodes>
+</cutscene>

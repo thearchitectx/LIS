@@ -1,0 +1,18 @@
+{
+    "name": "TheArchitect.Exploration",
+    "references": [
+        "GUID:5fc5a838d60de934cad665c75ceba3c9",
+        "GUID:e46cb8a8ce781514aaaf87e841e87d77",
+        "GUID:fb8a079a1694d094883edc2470645a9a",
+        "GUID:4307f53044263cf4b835bd812fc161a4"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
