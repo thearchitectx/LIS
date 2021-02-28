@@ -8,7 +8,7 @@ namespace TheArchitect.Core.Constants
         public const string PREFAB_EVENT_SYSTEM = "UI/EventSystem";
         public const string PREFAB_PANEL_SYSTEM_MESSAGE = "UI/Panel System Message";
         public const string PREFAB_PANEL_DIALOG_OBJECTIVE = "UI/Panel Dialog Objective";
-        public const string PREFAB_PANEL_CHOICE = "UI/Panel Choice";
+        public const string PREFAB_PANEL_CHOICE = "UI/Panel Choice/Panel Choice";
         
         public const string FOLDER_PREFABS = "Prefabs";
         public const string PREFAB_FADE_TO_BLACK = "Prefabs/FadeToBlack/FadeToBlack";

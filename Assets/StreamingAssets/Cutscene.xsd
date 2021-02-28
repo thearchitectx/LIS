@@ -51,6 +51,14 @@
             <xs:enumeration value="PRK_SMELLY" />
         </xs:restriction>
     </xs:simpleType>
+    <xs:simpleType name="choiceIcon">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="DICK_INTELLIGENCE" />
+            <xs:enumeration value="DICK_CHARISMA" />
+            <xs:enumeration value="DICK_KARMA_GOOD" />
+            <xs:enumeration value="DICK_KARMA_EVIL" />
+        </xs:restriction>
+    </xs:simpleType>
     <xs:simpleType name="flag">
         <xs:restriction base="xs:string">
             <xs:enumeration value="DICK_DARING" />
@@ -59,6 +67,7 @@
             <xs:enumeration value="DICK_KARMA" />
             <xs:enumeration value="CLASSROOM_TRASH_CAN_TRASH_COUNT" />
             <xs:enumeration value="BROOKE_MET" />
+            <xs:enumeration value="BROOKE_ABOUT_MAX_AND WARREN" /> <!-- (1)Propose revenge (2)Tried to help -->
             <xs:enumeration value="HALLWAY_TRASH_CAN_A_TRASH_COUNT" />
             <xs:enumeration value="HALLWAY_TRASH_CAN_B_TRASH_COUNT" />
             <xs:enumeration value="HALLWAY_TRASH_CAN_C_TRASH_COUNT" />
@@ -70,6 +79,7 @@
             <xs:enumeration value="JULIE_ZACHARY_MAKE_OUT_SEEN" />
             <xs:enumeration value="KATE_FIRST_MET" />
             <xs:enumeration value="PICKED_BROOKE_NOTE" />
+            <xs:enumeration value="QUEST_BROOKE_CARD" /> <!-- (1)Started  -->
             <xs:enumeration value="QUEST_KATE_LOCKER" /> <!-- (1)Started (2)Searching Key (3)Delivered Key</xs:documentation></xs:annotation></xs:enumeration -->
             <xs:enumeration value="QUEST_JEFFERSON_TAKE_PIC" /><!-- (1)Took Lame Pic (2)Took cool pic (11)Delivered Lame pic (12)Delivered Cool Pic -->
             <xs:enumeration value="TMP_1" />
@@ -94,12 +104,14 @@
     </xs:simpleType>
     <xs:simpleType name="objective">
         <xs:restriction base="xs:string">
+            <xs:enumeration value="OBJ_BrookeMemoryCard" />
             <xs:enumeration value="OBJ_IntroCollectTrash" />
             <xs:enumeration value="OBJ_IntroTalk" />
             <xs:enumeration value="OBJ_JeffersonFirstPicTake" />
             <xs:enumeration value="OBJ_KateHelpLockerOpenLocker" />
             <xs:enumeration value="OBJ_KateHelpLockerFindKey" />
             <xs:enumeration value="OBJ_JeffersonFirstPicBring" />
+            <xs:enumeration value="OBJ_TalkToThePrincipal" />
         </xs:restriction>
     </xs:simpleType>
     <xs:simpleType name="item">
@@ -125,12 +137,14 @@
         <xs:attribute name="eq" type="xs:integer" use="optional" />
         <xs:attribute name="gte" type="xs:integer" use="optional" />
         <xs:attribute name="lte" type="xs:integer" use="optional" />
+        <xs:attribute name="inverse" type="xs:boolean" use="optional" />
     </xs:complexType>
     <xs:complexType name="check-item-type">
         <xs:attribute name="item" type="item" use="required" />
         <xs:attribute name="eq" type="xs:integer" use="optional" />
         <xs:attribute name="gte" type="xs:integer" use="optional" />
         <xs:attribute name="lte" type="xs:integer" use="optional" />
+        <xs:attribute name="inverse" type="xs:boolean" use="optional" />
     </xs:complexType>
     <xs:complexType name="check-stat-type">
         <xs:attribute name="char" type="character" use="required" />
@@ -138,6 +152,7 @@
         <xs:attribute name="eq" type="xs:integer" use="optional" />
         <xs:attribute name="gte" type="xs:integer" use="optional" />
         <xs:attribute name="lte" type="xs:integer" use="optional" />
+        <xs:attribute name="inverse" type="xs:boolean" use="optional" />
     </xs:complexType>
     <xs:complexType name="check-perk-type">
         <xs:attribute name="perk" type="perk" use="required" />
@@ -215,6 +230,7 @@
             <xs:element name="anim">
                 <xs:complexType>
                     <xs:attribute name="target" type="xs:string" />
+                    <xs:attribute name="context" type="xs:string" />
                     <xs:attribute name="trigger" type="xs:string" />
                     <xs:attribute name="int" type="xs:string" />
                     <xs:attribute name="intValue" type="xs:string" />
@@ -271,6 +287,7 @@
                                     <xs:element name="then" type="nType" minOccurs="0" maxOccurs="1" />
                                 </xs:choice>
                                 <xs:attribute name="out" type="xs:string" use="required" />
+                                <xs:attribute name="icon" type="choiceIcon" />
                             </xs:complexType>
                         </xs:element>
                     </xs:sequence>

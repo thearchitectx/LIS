@@ -17,11 +17,79 @@
                     <node-output node="n-first-met" />
                 </then>
             </if>
+            <if>
+                <check-flag flag="QUEST_BROOKE_CARD" eq="1" />
+                <then>
+                    <dlg char="CH_Brooke" style="subjective">
+                        <m>Please... You don't have much time... Find my memory card!</m>
+                    </dlg>
+                    <node-output node="n-hello-choice" />
+                </then>
+                <else>
+                    <rig-track of="CH_Brooke" eye="1" root="0.6" head="0.5" />
+                    <dlg char="CH_Brooke" style="subjective">
+                        <m>Yeah... What's up?</m>
+                    </dlg>
+                    <node-output node="n-hello-choice" />
+                </else>
+            </if>
         </n>
 
-        <n id="n-first-met">
+        <n id="n-hello-choice">
+            <choice>
+                <c out="#n-warren">
+                    <check-flag flag="PICKED_BROOKE_NOTE" eq="1" />
+                    <check-flag flag="QUEST_BROOKE_CARD" eq="0" />
+                    <text>I heard you're friend of a dude called 'Warren'...</text>
+                    <then>
+                        <anim target="CH_Brooke" trigger="react-say"/>
+                        <stat char="CH_Brooke" name="AFFINITY" inc="1" />
+                        <dlg char="CH_Brooke" style="subjective">
+                            <m>Hum... It seems someone else is also in the intel collecting business in this school... I wonder if you'll be partner or competition...</m>
+                            <m>And, yes... I know Warren, but please don't talk to me about him...</m>
+                        </dlg>
+                        <node-output node="n-warren" />
+                    </then>
+                </c>
+                <c out="#n-npc">
+                    <check-flag flag="QUEST_BROOKE_CARD" eq="0" />
+                    <text>So... Uuhh... Did you need something?</text>
+                    <then>
+                        <anim target="CH_Brooke" trigger="react-say"/>
+                        <dlg char="CH_Brooke" style="subjective">
+                            <m>What kind of weird question is that? Do you think I'm like... an NPC... waiting here to give you a quest?</m>
+                            <m>The only reason I'm standing here is because of Warren...</m>
+                        </dlg>
+                        <node-output node="n-warren" />
+                    </then>
+                </c>
+                <c out="#c">
+                    <check-flag flag="QUEST_BROOKE_CARD" inverse="true" eq="1" />
+                    <text>I'm taking pictures for the yearbook, you know...</text>
+                    <then>
+                        <anim target="CH_Brooke" trigger="react-say"/>
+                        <dlg char="CH_Brooke" style="subjective">
+                            <m>Oh? You are? And I suppose you wanna me to pose for you, right?</m>
+                            <m>Yes... That's exactly what a creep would say to make a girl allow him to take pictures of her...</m>
+                            <m>And no... I don't trust you enough to believe your yearbook story...</m>
+                        </dlg>
+                        <node-output node="n-hello-choice" />
+                    </then>
+                </c>
+                <c out="#d">
+                    <text>See you later...</text>
+                </c>
+            </choice>
+            <rig-track of="CH_Brooke" eye="0" root="0" head="0" />
+        </n>
+
+        <n id="n-first-met" out="n-hello-choice">
+            <flag name="BROOKE_MET" set="1" />
             <dlg char="CH_Brooke" style="subjective">
-                <m>Huh!? Who the are...</m>
+                <m>Huh!? Who the hell are...</m>
+            </dlg>
+            <rig-track of="CH_Brooke" eye="1" root="0.6" head="0.5" />
+            <dlg char="CH_Brooke" style="subjective">
                 <m>Oh... It's you... The new guy... I know who you are...</m>
             </dlg>
             <choice>
@@ -44,18 +112,19 @@
             </choice>
 
             <dlg char="CH_Brooke" style="subjective">
-                <m>I breached the school student database security and stumbled upon your file a few days ago...</m>
+                <m>I know you because I hacked the school student database and stumbled upon your file a few days ago...</m>
                 <m>Unfortunately my rootkit never fully acquired administrative rights, so I just got basic info like your name and weekly schedule...</m>
                 <m>But I won't bore you with details you don't understand...</m>
             </dlg>
 
             <choice>
-                <c out="#a">
+                <c out="#a" icon="DICK_INTELLIGENCE">
                     <check-flag flag="DICK_INTELLIGENCE" gte="2" />
                     <lock-reason>INTELLIGENCE 2+ REQUIRED FOR THIS ANSWER</lock-reason>
-                    <text>If you're able to override the backdoor flags to run as a daemon during system initialization you might gain root access...</text>
+                    <text>A rootkit you said... Did you know that if you override the backdoor service flags and run it as a daemon during system initialization you might gain root access and all the info available...</text>
                     <then>
                         <stat char="CH_Brooke" name="AFFINITY" inc="5" />
+                        <anim target="CH_Brooke" trigger="react-surprise"/>
                         <dlg char="CH_Brooke" style="subjective">
                             <m>Oh... You mean...</m>
                             <m wait="1">Oh, my... I think you're right...</m>
@@ -63,39 +132,202 @@
                         </dlg>
                     </then>
                 </c>
-                <c out="#b">
+                <c out="#b" icon="DICK_INTELLIGENCE">
                     <check-flag flag="DICK_INTELLIGENCE" gte="1" />
                     <lock-reason>INTELLIGENCE 1+ REQUIRED FOR THIS ANSWER</lock-reason>
                     <text>Yeah... I bet IT people in a school like this never install the latest security patches...</text>
                     <then>
                         <stat char="CH_Brooke" name="AFFINITY" inc="2" />
+                        <anim target="CH_Brooke" trigger="react-say"/>
                         <dlg char="CH_Brooke" style="subjective">
-                            <m>Of course they don't... But that doesn't mean I had it easy, you smart ass...</m>
-                            <m wait="1">But... hey... It's cool to finally meet someone in this school who can at least understand my hacking feats...</m>
+                            <m>Of course they don't... But that doesn't mean I had it easy, smart ass...</m>
+                            <m wait="1">Anyways... It's cool to finally meet someone in this school who can at least understand my hacking feats...</m>
                         </dlg>
                     </then>
                 </c>
-                <c out="#c">
+                <c out="#c" icon="DICK_CHARISMA">
                     <check-flag flag="DICK_CHARISMA" gte="1" />
                     <lock-reason>CHARISMA 1+ REQUIRED FOR THIS ANSWER</lock-reason>
                     <text>You hacked the school database!? Did you do that Ferris Bueller shit and decreased your absent count?</text>
                     <then>
+                        <anim target="CH_Brooke" trigger="react-facepalm"/>
                         <dlg char="CH_Brooke" style="subjective">
                             <m>Urgh... Are you like those young fictional hipsters citing pop culture references way too old for their age?</m>
-                            <m>Please... I already have enough of that with Warren and Max...</m>
+                            <m>I already have enough of that with Warren and Max...</m>
+                            <m wait="1">And no... I only have read access to some basic information...</m>
                         </dlg>
                     </then>
                 </c>
                 <c out="#d">
                     <text>That's a cool feat... I wish I could do that...</text>
                     <then>
+                        <anim target="CH_Brooke" trigger="react-say"/>
                         <dlg char="CH_Brooke" style="subjective">
-                            <m>Yeah... Unfortunately I'm not the tutor type... And my hacker ethics is won't allow me to sell private information...</m>
+                            <m>Yeah... Unfortunately I'm not the tutor type... And my hacker ethics won't allow me to sell private information...</m>
                         </dlg>
                     </then>
                 </c>
             </choice>
+            <wait time="0.5" />
+            <dlg char="CH_Brooke" style="subjective">
+                <m>Well... Congratulations... We are acquaintances now... My name is ${Characters.CH_Brooke.DisplayName}...</m>
+                <m>Is that all?</m>
+            </dlg>
         </n>
 
+        <n id="n-warren">
+            <flag name="QUEST_BROOKE_CARD" set="1" />
+            <dlg char="CH_Brooke" style="subjective">
+                <m>That clown... He promised to help me after class with a little...  problem... but...</m>
+                <m>He got cold feet on me... Making up every kind of excuse to leave me hanging here...</m>
+                <m>I bet he's just stalking Max around the school, or downloading stupid 80's movies for her or something idiotic like that...</m>
+                <m>And she said she could 'talk' with principal to help me... Like if that would solve anything...</m>
+            </dlg>
+            <wait time="0.5" />
+            <anim target="CH_Brooke" trigger="react-facepalm" />
+            <dlg char="CH_Brooke" style="subjective">
+                <m>Sigh... Those morons deserve each other... This situation makes me hate them so much...</m>
+            </dlg>
+
+            <choice>
+                <c out="#a">
+                    <text>So... You do have a problem to solve... And I'm kinda problem solver myself...</text>
+                    <then>
+                        <anim target="CH_Brooke" trigger="react-facepalm" />
+                        <dlg char="CH_Brooke" style="subjective">
+                            <m>Sign... Yet another good samaritan...</m>
+                            <m>I'm sick of telling my story and just to be let down by my 'helpers'...</m>
+                        </dlg>
+                    </then>
+                </c>
+                <c out="#b" icon="DICK_KARMA_EVIL">
+                    <text>We could plan a little revenge 'prank' for them later... It will make you fell much better...</text>
+                    <then>
+                        <flag name="BROOKE_ABOUT_MAX_AND WARREN" set="1" />
+                        <anim target="CH_Brooke" trigger="react-surprise" />
+                        <anim target="CH_Brooke" trigger="exp-uneasy" />
+                        <dlg char="CH_Brooke" style="subjective">
+                            <m>Oh... Uuuhh... I... I guess...</m>
+                            <m wait="1">I mean... I never tried discharging my frustration on someone else... But people say it's a great feeling...</m>
+                        </dlg>
+                        <anim target="CH_Brooke" trigger="exp-disapprove" />
+                        <dlg char="CH_Brooke" style="subjective">
+                            <m>But first I have my problem to solve... After that, make them pay for leaving me for dead here...</m>
+                        </dlg>
+                        <anim target="CH_Brooke" trigger="exp-neutral" />
+                    </then>
+                </c>
+                <c out="#c" icon="DICK_KARMA_GOOD">
+                    <text>Hey... They tried to help you, right? That's more than most people would do nowadays...</text>
+                    <then>
+                        <flag name="BROOKE_ABOUT_MAX_AND WARREN" set="2" />
+                        <anim target="CH_Brooke" trigger="react-say" />
+                        <dlg char="CH_Brooke" style="subjective">
+                            <m>Well... Can't argue with that... They are good people indeed...</m>
+                            <m>I hope you meet them later... They like your kind of... karmic balance... or something like that...</m>
+                        </dlg>
+                    </then>
+                </c>
+            </choice>
+
+            <choice>
+                <c out="#a"><text>Why don't you tell me what's bothering you now?</text></c>
+                <c out="#b"><text>Now... Just spit it out... What's keeping you here?</text></c>
+            </choice>
+
+            <anim target="CH_Brooke" trigger="react-say" />
+            <dlg char="CH_Brooke" style="subjective">
+                <m>Well... It's my... drone...</m>
+                <m>The principal caught me flying it indoors and confiscated it... I tried to tell him I was just checking if my new propellers were working but...</m>
+                <m>He started talking that bullshit about never bending the rules or whatever...</m>
+            </dlg>
+            <anim target="CH_Brooke" trigger="react-facepalm" />
+            <dlg char="CH_Brooke" style="subjective">
+                <m>It was so embarrassing... Everybody in the hallway passing by snickering while that creepy man lectured me about 'what ties society together'...</m>
+                <m>I... I just want my drone back...</m>
+            </dlg>
+
+            <choice>
+                <c out="#a"><text>The school will give your stuff back later... A couple of days without your drone can't be so bad...</text></c>
+                <c out="#b"><text>I think you're not telling me the whole story... He can't just keep your stuff forever...</text></c>
+            </choice>
+
+            <anim target="CH_Brooke" trigger="idle-uneasy" />
+            <anim target="CH_Brooke" trigger="exp-uneasy" />
+            <rig-track of="CH_Brooke" head="0" eye="0"/>
+            <dlg char="CH_Brooke" style="subjective">
+                <m>Uuuhh... It's not exactly... my drone... I'm worried about...</m>
+                <m wait="0.5">It's the memory card connected connected to the drone I need to get back before... before...</m>
+            </dlg>
+
+            <anim target="CH_Brooke" trigger="idle-upset" />
+            <anim target="CH_Brooke" trigger="exp-normal" />
+            <rig-track of="CH_Brooke" head="0.6" eye="1"/>
+            <dlg char="CH_Brooke" style="subjective">
+                <m wait="1">Look... I don't want to risk having the principal snooping into my memory card, okay?</m>
+                <m>It would be really embarrassing....</m>
+            </dlg>
+            
+            <choice>
+                <c out="#a"><text>Memory card... embarrassing... Hum.... I think I get it...</text></c>
+                <c out="#b"><text>Yeah... I wonder what kind of content could be that card...</text></c>
+            </choice>
+            
+            <anim target="CH_Brooke" trigger="idle-uneasy" />
+            <anim target="CH_Brooke" trigger="react-surprise" />
+            <dlg char="CH_Brooke" style="subjective">
+                <m>What!?! No!!! It's... it's just... evidence...</m>
+                <m>I mean... evidence of... my........ school hacking... only that...</m>
+                <m>I could get into serious trouble if the principal finds it in my memory card...</m>
+            </dlg>
+            
+            <choice>
+                <c out="#a">
+                    <text>Well... Good luck... I'm sure a smart girl like you will figure a solution...</text>
+                    <then>
+                        <stat char="CH_Brooke" name="AFFINITY" inc="1"></stat>
+                        <anim target="CH_Brooke" trigger="idle-upset" />
+                        <anim target="CH_Brooke" trigger="react-say" />
+                        <dlg char="CH_Brooke" style="subjective">
+                            <m>Oh... Thank you... I usually handle my problems by myself indeed...</m>
+                            <m>And I already have a plan! It just requires a bit of your time...</m>
+                        </dlg>
+                    </then>
+                </c>
+                <c out="#b">
+                    <text>Well... Don't worry anymore... I'm here to save the day... and the drone!</text>
+                    <then>
+                        <anim target="CH_Brooke" trigger="idle-upset" />
+                        <anim target="CH_Brooke" trigger="react-facepalm" />
+                        <dlg char="CH_Brooke" style="subjective">
+                            <m>Yeah... I knew you'd say that... Another prince charming for the rescue...</m>
+                            <m>But I don't have any other options... I already have a plan involving your help!</m>
+                        </dlg>
+                    </then>
+                </c>
+            </choice>
+
+            <dlg char="CH_Brooke" style="subjective">
+                <m>As I said earlier... I read your school schedule... I know you will meet the principal in a few of minutes...</m>
+                <m>All you need to do is to figure a way to distract him while you're at his office... Then find my drone...</m>
+                <m>I just need you to take the memory card and leave the drone there, or else it will be too obvious...</m>
+                <m wait="0.5">Yeah... I know my plan involves mostly your action, but... it's my best shot... Can you do that for me?</m>
+            </dlg>
+            
+            <choice>
+                <c out="#a"><text>Of course... I'm glad I can help...</text></c>
+                <c out="#b"><text>It won't be easy... I'll see what I can do...</text></c>
+            </choice>
+            
+            <objective name="OBJ_BrookeMemoryCard" completed="false" />
+            <rig-track of="CH_Brooke" eye="1" head="1" root="1" />
+            <anim target="CH_Brooke" trigger="react-yay" />
+            <dlg char="CH_Brooke" style="subjective">
+                <m>Thanks! Please don't fail me like Warren... I'll be waiting here...</m>
+            </dlg>
+
+            <rig-track of="CH_Brooke" eye="0" head="0" root="0" />
+            <cutscene-outcome value="_end" />
+        </n>
     </nodes>
 </cutscene>

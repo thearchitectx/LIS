@@ -20,6 +20,8 @@ namespace TheArchitect.Cutscene.Action
         public int LayerToWait = int.MinValue;
         [XmlAttribute("target")]
         public string Target = null;
+        [XmlAttribute("context")]
+        public string Context = null;
 
         [XmlIgnore]
         private Animator m_Animator;
@@ -28,9 +30,20 @@ namespace TheArchitect.Cutscene.Action
         {
             if (this.m_Animator == null)
             {
-                this.m_Animator = this.Target == null
-                    ? controller.GetComponent<Animator>()
-                    : controller.FindProxy(Target).GetComponent<Animator>();
+                if (Context == null)
+                    this.m_Animator = this.Target == null
+                        ? controller.GetComponent<Animator>()
+                        : controller.FindProxy(Target)?.GetComponent<Animator>();
+                else
+                    this.m_Animator = this.Target == null
+                        ? controller.FindProxy(Context)?.GetComponent<Animator>()
+                        : controller.FindProxy(Context)?.Find(Target).GetComponent<Animator>();
+
+                if (this.m_Animator==null)
+                {
+                    Debug.LogWarning($"Can't find animator - CONTEXT:'{Context}' TARGET:'{Target}'");
+                    return OUTPUT_NEXT;
+                }
                     
                 if (Int != null)
                     this.m_Animator.SetInteger(Int, IntValue);

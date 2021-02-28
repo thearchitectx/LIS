@@ -9,6 +9,7 @@
             </choice>
         </n>
         <n id="read">
+            <flag name="PICKED_BROOKE_NOTE" set="1" />
             <wait time="0.5" />
             <prefab name="PictureViewer">
                 <message name="HideImageForward" />
@@ -19,7 +20,7 @@
             
             <dlg style="remote-subjective" char="CH_Brooke">
                 <m>Warren, quit the 'White Knight' bullshit! I'm no fucking damsel in distress for you to save! I can take care of myself!</m>
-                <m>You the brains to come up with a solution nor the balls to simply sneak into the principal's office and get my stuff back, then just leave me alone!</m>
+                <m>You neither have the brains to come up with a solution nor the balls to simply sneak into the principal's office and get my stuff back, then just leave me alone!</m>
             </dlg>
 
             <stat char="CH_Brooke" name="INTEL" set="1" >*${Characters.CH_Brooke.DisplayName}* added to the Intel journal</stat>

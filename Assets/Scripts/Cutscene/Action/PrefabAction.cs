@@ -69,12 +69,14 @@ namespace TheArchitect.Cutscene.Action
                         ? this.Resource
                         : $"{ResourcePaths.FOLDER_PREFABS}/{Name}/{Name}";
 
-                    var obj = GameObject.Instantiate(Resources.Load<GameObject>(prefabPath));
-                    if (obj == null) 
+                    GameObject prefab = Resources.Load<GameObject>(prefabPath);
+                    if (prefab == null) 
                     {
                         Debug.LogWarning($"Couldn't load {prefabPath}");
                         return OUTPUT_NEXT;
                     }
+                    
+                    var obj = GameObject.Instantiate(prefab);
                     this.m_Instance = obj.transform;
                     this.m_Instance.name = Target;
                     if (Parent == null)

@@ -4,7 +4,7 @@
     xsi:noNamespaceSchemaLocation="../../../Cutscene.xsd">
     <nodes>
         <n id="root">
-            <stat char="CH_Victoria" name="CORRUPTION" set="5" />
+            <stat char="CH_Victoria" name="CORRUPTION" set="5" notify="false" />
             <wait time="1" />
             <choice>
                 <c out="hello">

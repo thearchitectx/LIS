@@ -3,6 +3,7 @@
     xsi:noNamespaceSchemaLocation="../../../Cutscene.xsd">
     <nodes>
         <n id="n1">
+            <wait time="0.5" />
             <if>
                 <check-flag flag="QUEST_JEFFERSON_TAKE_PIC" eq="0" />
                 <then>
@@ -24,6 +25,16 @@
                     <fade-to-black mode="to" keep="true" />
                     <wait time="1" />
                     <load stage="classroom-give-kate-picture" />
+                </then>
+            </if>
+            <if>
+                <check-flag flag="QUEST_JEFFERSON_TAKE_PIC" gte="10" />
+                <then>
+                    <dlg char="CH_Jefferson" style="subjective">
+                        <m>You should go talk to the principal now, and maybe find new 'friends' in the way there...</m>
+                        <m>I have other matters to attend to...</m>
+                    </dlg>
+                    <cutscene-outcome value="_end" />
                 </then>
             </if>
         </n>

@@ -98,11 +98,12 @@
         </n>
 
         <n id="n2-ed" out="n3">
+            <stat char="CH_Jefferson" name="AFFINITY" inc="1" />
             <anim target="CH_Jefferson" int="idle" intValue="1" />
             <wait time="1" />
             <anim trigger="Cinemachine Talk Close" />
             <dlg char="CH_Jefferson"  style="subjective">
-                <m>Yeah... I can sympathize with that feeling somehow...</m>
+                <m>Yeah... I can sympathize with that feeling...</m>
             </dlg>
             <dlg char="CH_Jefferson"  style="subjective">
                 <m wait="1">It's part of the reason I can see some future in you...</m>
@@ -125,7 +126,7 @@
             <anim target="CH_Jefferson" trigger="react-suspicious1" />
             <dlg char="CH_Jefferson" track="Neck">
                 <m>Yeah... I don't think it's wise to keep talking about the man inside the school premises...</m>
-                <m>I called you here to talk about na Art 'project' I want to put in practice in this school...</m>
+                <m>I called you here to talk about an 'art project' I want to put in practice in this school...</m>
                 <m wait="1">And you seem the perfect person to help me in this venture...</m>
             </dlg>
             
@@ -180,6 +181,7 @@
         </n>
 
         <n id="n4-sleep" out="n5">
+            <flag name="DICK_CHARISMA" inc="1">YOU FEEL MORE *CHARISMATIC*!</flag>
             <dlg char="CH_Jefferson" style="subjective">
                 <m>Nice... You clearly have the observational skills needed for this task...</m>
             </dlg>

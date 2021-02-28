@@ -24,15 +24,22 @@ namespace TheArchitect.Cutscene.Action
         [XmlIgnore]
         private CutsceneNode ElectedNode;
 
+        public override void ResetState()
+        {
+            ElectedNode = null;
+        }
+
         public override string Update(CutsceneInstance cutscene, CutsceneController controller)
         {
             if (ElectedNode == null)
             {
                 ElectedNode = Predicate.Resolve(predicates) ? ThenNode : ElseNode;
+                ElectedNode?.ResetActionStates();
                 return ElectedNode == null ? OUTPUT_NEXT : null;
             }
             else
             {
+                ElectedNode.ResetActionStates();
                 var output = ElectedNode.CurrentAction.Update(cutscene, controller);
                 if (output==OUTPUT_NEXT && ElectedNode.HasNextAction())
                 {
@@ -94,7 +101,11 @@ namespace TheArchitect.Cutscene.Action
             if (Lte > int.MinValue)
                 b = b || flagValue <= Lte;
             
-            return Inverse ? !b : b;
+            b = Inverse ? !b : b;
+            #if UNITY_EDITOR
+            Debug.Log($"CHECK-FLAG Flag='{Flag}' Eq='{Eq}' Gte='{Gte}' Lte='{Lte}' Inverse:{Inverse}: {b}");
+            #endif
+            return b;
         }
     }
 

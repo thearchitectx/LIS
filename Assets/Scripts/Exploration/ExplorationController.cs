@@ -115,8 +115,10 @@ namespace TheArchitect.Exploration
                 cutsceneController.Reload();
                 cutsceneController.OnFinished.AddListener( outcome => {
                     this.m_WorldSelection.Selection = null;
-                    foreach (Transform c in newSelection)
-                        c.gameObject.SetActive(false);
+                    newSelection
+                        ?.GetComponent<WorldSelectableController>()
+                        ?.GetActivationChild().gameObject.SetActive(false);
+                        
                     if (outcome == OUTCOME_DESTROY_PARENT)
                     {
                         newSelection.gameObject.SetActive(false);

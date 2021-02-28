@@ -34,9 +34,9 @@
             </dlg>
 
             <choice>
-                <c out="n1-wrong"><text>Something... about lightning...</text></c>
-                <c out="n1-right"><text>Something... about composition...</text></c>
-                <c out="n1-wrong"><text>Something... about colors...</text></c>
+                <c out="n1-wrong"><text>That thing about... the lightning...</text></c>
+                <c out="n1-right"><text>That thing about... about the composition...</text></c>
+                <c out="n1-wrong"><text>That thing about... about the color balance...</text></c>
                 <c out="n1-over"><text>Uuhh... I though the class was already over...</text></c>
             </choice>
         </n>
@@ -96,8 +96,9 @@
                 <else>
                     <stat char="CH_Jefferson" name="AFFINITY" inc="1" />
                     <dlg char="CH_Jefferson" track="Neck">
-                        <m>You managed to make ${Characters.CH_Kate.DisplayName} do one of those trendy poses... Impressive!</m>
-                        <m>Can you see the potential you have to make these girls change their attitude?</m>
+                        <m>You managed to make ${Characters.CH_Kate.DisplayName} do one of those trendy poses... Impressive...</m>
+                        <m>You pushed her a tiny step closer to become one of those... how do you say... a "TikTok thots", am I right?</m>
+                        <m wait="1">But what matter is... Can you see the potential you have to make these girls change their attitude?</m>
                     </dlg>
                 </else>
             </if>
@@ -154,7 +155,7 @@
             </dlg>
             
             <sys>Press *ESC* anytime to bring the Pause Screen and click on the *INTEL* button\n\n
-                Information you collect about some characters may help you give the answers the want to hear\n\n
+                Information you collect about some characters may help you select the appropriate answers for your goals\n\n
                 It's recommended to gather the maximum INTEL you can about a character before engage in conversations with them
             </sys>
             
@@ -183,6 +184,8 @@
                 <m>Now... I believe you're supposed to talk to the principal before leaving, right?</m>
                 <m>Well... This partnership is also about hitting that disgust man where it hurts the most...</m>
             </dlg>
+
+            <objective name="OBJ_TalkToThePrincipal" completed="false" />
             
             <choice>
                 <c out="#a"><text>You mean... Kick him in the balls?</text></c>

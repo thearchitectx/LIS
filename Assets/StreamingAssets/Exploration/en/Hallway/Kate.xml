@@ -73,28 +73,60 @@
                             <check-stat char="CH_Kate" stat="AFFINITY" gte="1" />
                             <lock-reason>AFFINITY 1+ with Kate required to ask for a better pose</lock-reason>
                             <text>Come on... You can show me a better pose... Cheer up!</text>
+                            <then>
+                                <flag name="QUEST_JEFFERSON_TAKE_PIC" set="2" />
+                                <dlg char="CH_Kate" style="subjective">
+                                    <m wait="1">Oh... Are you sure? I thought the yearbook is supposed to something serious and formal...</m>
+                                    <m wait="1">But... If ${Characters.CH_Jefferson.DisplayName} trusted you to this task, it means you know how it should be done, right?</m>
+                                    <m>Let's see...</m>
+                                </dlg>
+                                <fade-to-black mode="to-from" />
+                                <wait time="1" />
+                                <rig-track of="CH_Kate" root="1" head="0" eye="0.5" />
+                                <anim target="CH_Kate" int="idle" intValue="10" />
+                                <anim target="CH_Kate" int="exp" intValue="4" />
+                                <wait time="1" />
+            
+                                <stat char="CH_Kate" name="CORRUPTION" inc="1" />
+                                <dlg char="CH_Kate" style="subjective">
+                                    <m>How about this one? I've seen some girls taking selfies like this...</m>
+                                </dlg>
+                                <node-output node="n-take-picture" />
+                            </then>
+                        </c>
+                        <c out="#b" icon="DICK_KARMA_EVIL">
+                            <text>Hey... If you want people to stop bullying you, start dropping the strict religious attitude crap and at least give me a cool girl pose...</text>
+                            <then>
+                                <flag name="DICK_KARMA" inc="-1">YOU FELL MORE *EVIL*</flag>
+                                <flag name="QUEST_JEFFERSON_TAKE_PIC" set="2" />
+
+                                <anim target="CH_Kate" int="idle" intValue="4" />
+                                <anim target="CH_Kate" int="exp" intValue="1" />
+                                <dlg char="CH_Kate" style="subjective">
+                                    <m>Oh... I... I... I'm sorry... I was just trying to...</m>
+                                </dlg>
+
+                                <anim target="CH_Kate" int="exp" intValue="2" />
+                                <dlg char="CH_Kate" style="subjective">
+                                    <m wait="1">No... You're right... I need to show these people I can be cool...</m>
+                                    <m>What about this...</m>
+                                </dlg>
+                                <fade-to-black mode="to-from" />
+                                <wait time="1" />
+                                <rig-track of="CH_Kate" root="1" head="0" eye="0.5" />
+                                <anim target="CH_Kate" int="idle" intValue="10" />
+                                <anim target="CH_Kate" int="exp" intValue="4" />
+                                <wait time="1" />
+            
+                                <anim target="CH_Kate" int="exp" intValue="3" />
+                                <stat char="CH_Kate" name="CORRUPTION" inc="2" />
+                                <dlg char="CH_Kate" style="subjective">
+                                    <m>Those stupid cheerleaders take selfies like this... That is how it's done right?</m>
+                                </dlg>
+                                <node-output node="n-take-picture" />
+                            </then>
                         </c>
                         <c out="n-take-picture"><text>[ Take picture ]</text></c>
-                    </choice>
-
-                    <flag name="QUEST_JEFFERSON_TAKE_PIC" set="2" />
-                    <dlg char="CH_Kate" style="subjective">
-                        <m wait="1">Oh... Are you sure? I thought the yearbook is supposed to something serious and formal...</m>
-                        <m wait="1">But... If ${Characters.CH_Jefferson.DisplayName} trusted you to this task, it means you know how it should be done, right?</m>
-                        <m>Let's see...</m>
-                    </dlg>
-                    <fade-to-black mode="to-from" />
-                    <wait time="1" />
-                    <rig-track of="CH_Kate" root="1" head="0" eye="0.5" />
-                    <anim target="CH_Kate" int="idle" intValue="10" />
-                    <anim target="CH_Kate" int="exp" intValue="4" />
-                    <wait time="1" />
-                    <dlg char="CH_Kate" style="subjective">
-                        <m>How about this one?</m>
-                    </dlg>
-
-                    <choice>
-                        <c out="n-take-picture"><text>[ Take Picture ]</text></c>
                     </choice>
                 </then>
                 <else>

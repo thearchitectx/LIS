@@ -11,6 +11,7 @@ namespace TheArchitect.Core.Controllers
     {
         public string Id;
         public string Text;
+        public string Icon;
         public bool Interactable;
     }
 
@@ -28,9 +29,9 @@ namespace TheArchitect.Core.Controllers
         public float m_WheelTimer;
         public float m_ClickTimer = 1f;
 
-        public void AddChoice(string id, string text, bool interactable)
+        public void AddChoice(string id, string text, string icon, bool interactable)
         {
-            this.m_Choices.Add(new Choice() { Id = id, Text = text, Interactable = interactable });
+            this.m_Choices.Add(new Choice() { Id = id, Text = text, Icon = icon, Interactable = interactable });
         }
 
         void Start()
@@ -49,6 +50,7 @@ namespace TheArchitect.Core.Controllers
                 GameObject buttonObject = GameObject.Instantiate(this.m_ButtonTemplate);
                 buttonObject.transform.SetParent(this.transform, false);
                 buttonObject.GetComponentInChildren<Text>().text = c.Text;
+
                 Button b = buttonObject.GetComponentInChildren<Button>();
                 b.interactable = c.Interactable;
                 b.onClick.AddListener(
@@ -58,6 +60,20 @@ namespace TheArchitect.Core.Controllers
                     b.Select();
                     first = false;
                 }
+                
+                Image imageIcon = buttonObject.transform.Find("Image Icon").GetComponent<Image>();
+                if (c.Icon != null && c.Icon != "")
+                    imageIcon.sprite = Resources.Load<Sprite>(c.Icon);
+                imageIcon.gameObject.SetActive(imageIcon.sprite);
+
+                // Fix padding for icon
+                if (imageIcon.sprite!=null) 
+                {
+                    LayoutGroup layout = b.GetComponentInChildren<LayoutGroup>();
+                    RectOffset padding = new RectOffset(layout.padding.left+32, layout.padding.right, layout.padding.top, layout.padding.bottom);
+                    layout.padding = padding;
+                }
+
             }
 
 

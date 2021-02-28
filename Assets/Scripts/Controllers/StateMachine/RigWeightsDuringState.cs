@@ -1,29 +1,39 @@
 ﻿using TheArchitect.Core.Constants;
 using UnityEngine;
 
-public class RigWeightDuringState : StateMachineBehaviour
+[System.Serializable]
+public struct RigWeightDuringStateData
 {
-   [SerializeField] private SkeletonRig m_AffectedRig;
-   [SerializeField] private float m_TargetWeight = 0;
-   private RigWeightDamper m_Rig;
+   [SerializeField] public SkeletonRig Rig;
+   [SerializeField] public float TargetWeight;
+}
+
+public class RigWeightsDuringState : StateMachineBehaviour
+{
+   
+   [SerializeField] private RigWeightDuringStateData[] m_Data;
+   private RigWeightDamper[] m_Rigs;
 
     // OnStateEnter is called before OnStateEnter is called on any state inside this state machine
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-       this.m_Rig = animator.transform.Find(SkeletonPaths.GetPathTo(m_AffectedRig)).GetComponent<RigWeightDamper>();
+       this.m_Rigs = new RigWeightDamper[this.m_Data.Length];
+       for (var i = 0; i < this.m_Data.Length; i++)
+         this.m_Rigs[i] = animator.transform.Find(SkeletonPaths.GetPathTo(this.m_Data[i].Rig)).GetComponent<RigWeightDamper>();
     }
 
     // OnStateUpdate is called before OnStateUpdate is called on any state inside this state machine
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-       if (!animator.IsInTransition(layerIndex))
-         this.m_Rig.SetWeightKeepRestore(m_TargetWeight);
+       for (var i = 0; i < this.m_Data.Length; i++)
+         this.m_Rigs[i].SetWeightKeepRestore(this.m_Data[i].TargetWeight);
     }
 
     // OnStateExit is called before OnStateExit is called on any state inside this state machine
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-      this.m_Rig.RestoreWeight();
+      for (var i = 0; i < this.m_Rigs.Length; i++)
+         this.m_Rigs[i].RestoreWeight();
     }
 
     // OnStateMove is called before OnStateMove is called on any state inside this state machine

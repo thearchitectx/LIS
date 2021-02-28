@@ -8,6 +8,15 @@ using TheArchitect.Cutscene.Data;
 
 namespace TheArchitect.Cutscene.Action
 {
+    public enum ChoiceIcon
+    {
+        NONE,
+        DICK_INTELLIGENCE,
+        DICK_CHARISMA,
+        DICK_KARMA_GOOD,
+        DICK_KARMA_EVIL
+    }
+
     public class Choice
     {
         [XmlElement("check-flag", typeof(CheckFlag)),
@@ -21,8 +30,24 @@ namespace TheArchitect.Cutscene.Action
         public string Text;
         [XmlElement("lock-reason")]
         public string LockReason = null;
+        [XmlAttribute("icon")]
+        public ChoiceIcon Icon = ChoiceIcon.NONE;
         [XmlElement("then")]
         public CutsceneNode ThenNode;
+
+        public string IconPath
+        {
+            get {
+                switch (Icon)
+                {
+                    case ChoiceIcon.DICK_INTELLIGENCE: return "UI/Sprites/dick-intelligence";
+                    case ChoiceIcon.DICK_CHARISMA: return "UI/Sprites/dick-charisma";
+                    case ChoiceIcon.DICK_KARMA_GOOD: return "UI/Sprites/dick-karma-g";
+                    case ChoiceIcon.DICK_KARMA_EVIL: return "UI/Sprites/dick-karma-e";
+                    default: return null;
+                }
+            }
+        }
     }
 
     public class ChoiceAction : CutsceneAction
@@ -82,7 +107,11 @@ namespace TheArchitect.Cutscene.Action
                     bool condition = Predicate.Resolve(c.Predicates);
                     if (c.LockReason !=null || condition)
                     {
-                        this.m_Panel.AddChoice(c.Output, condition ? ResourceString.Parse(c.Text) : c.LockReason, condition);
+                        this.m_Panel.AddChoice(
+                            c.Output,
+                            condition ? ResourceString.Parse(c.Text) : c.LockReason,
+                            c.IconPath,
+                            condition);
                     }
                 }
                 
