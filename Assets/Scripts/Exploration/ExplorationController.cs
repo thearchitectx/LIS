@@ -19,6 +19,7 @@ namespace TheArchitect.Exploration
         [SerializeField] private Game m_Game;
         
         private Animator m_Animator;
+        public bool ForceDisablePlayer = false;
 
         // Start is called before the first frame update
         void Start()
@@ -49,8 +50,6 @@ namespace TheArchitect.Exploration
             this.m_Player.transform.position = this.m_Game.State.GetSpawnPosition();
             this.m_Player.transform.rotation = this.m_Game.State.GetSpawnRotation();
             Physics.SyncTransforms();
-
-            Debug.Log($"SPAWN COORDS: {this.m_Player.transform.position}");
         }
 
         // Update is called once per frame
@@ -59,12 +58,11 @@ namespace TheArchitect.Exploration
             if (Time.timeScale == 0)
                 return;
 
-            this.m_Player.gameObject.SetActive(this.m_WorldSelection.Selection == null);
+            this.m_Player.gameObject.SetActive(this.m_WorldSelection.Selection == null && !this.m_Game.DisablePlayer);
 
             this.m_Game.State.SetSpawnPosition(this.m_Player.transform.position);
             this.m_Game.State.SetSpawnRotation(this.m_Player.transform.rotation);
 
-            // this.m_PathFollower.ReadInput = false;
             if (this.m_WorldSelection.Selection != null)
             {
             }
@@ -82,9 +80,16 @@ namespace TheArchitect.Exploration
         {
             // Deactivate current selection children
             if (this.m_WorldSelection.Selection != null) 
-                this.m_WorldSelectablesParent.Find(this.m_WorldSelection.Selection.Name)
+            {
+                GameObject activation = this.m_WorldSelectablesParent.Find(this.m_WorldSelection.Selection.Name)
                     ?.GetComponent<WorldSelectableController>()
-                    ?.GetActivationChild().gameObject.SetActive(false);
+                    ?.GetActivationChild().gameObject;
+                
+                foreach (Transform t in activation.transform)
+                    Destroy(t.gameObject);
+
+                activation.SetActive(false);
+            }
                     
             Transform hover = this.m_WorldSelectablesParent.Find(this.m_WorldSelection.Hover.Name);
             if (hover == null)

@@ -4,7 +4,7 @@ using System.Collections;
  
 public class AnimationPostProcessor : AssetPostprocessor {
  
-    static readonly string[] positionBones = {"Hips", "EyesBrown1", "EyesBrown1", "Lip", "Cheek", "Snear", "Laugh" };
+    static readonly string[] positionBones = {"Hips", "EyesBrown1", "EyesBrown1", "Lip", "Cheek", "Snear", "Laugh", "Boob" };
 
     void OnPostprocessAnimation(GameObject go, AnimationClip ac)
     {

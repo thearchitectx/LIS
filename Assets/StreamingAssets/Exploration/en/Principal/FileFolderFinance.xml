@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../Cutscene.xsd">
+    <include node-prefix="inc-quest-brooke-card-">QuestBrookeCardCheck.xml</include>
+    <nodes>
+        <n id="n1">
+            <choice>
+                <c out="n2"><text>Check File</text></c>
+                <c out="#a"><text>Leave</text></c>
+            </choice>
+        </n>
+        <n id="n2">
+            <prefab name="ModelViewer">
+                <message name="LoadModel" string="Models/FileFolder/SK_FileFolder" />
+                <message name="DisableMotion"  />
+            </prefab>
+
+            <if>
+                <check-flag flag="TUTORIAL_MODEL_VIEWER" eq="0" />
+                <then>
+                    <flag name="TUTORIAL_MODEL_VIEWER" set="1" />
+                    <sys>
+                        Sometimes you'll need to analyze an item or object in order to find details about them\n\n
+                        *Move mouse* and use *W,S,A, D* keys to analyse the object and try to find where its secrets lie\n\n
+                        *Click* the mouse to give up searching\n\n
+                        Don't be fooled! Resident Evil is the one who did this first!
+                    </sys>
+                </then>
+            </if>
+
+            <prefab name="ModelViewer">
+                <message name="EnableMotion"  />
+                <outcome name="HOTSPOT_FOUND" output="#continue" />
+                <outcome name="QUIT" output="n-cancel" />
+            </prefab>
+
+            <anim context="ModelViewer" target="SK_FileFolder" bool="open" boolValue="true" />
+            
+            <wait time="1" />
+
+            <if>
+                <check-flag flag="QUEST_BROOKE_CARD_FOUND_TIP_FINANCE" eq="0" />
+                <then>
+                    <flag name="QUEST_BROOKE_CARD_FOUND_TIP_FINANCE" set="1" />
+
+                    <dlg style="subjective">
+                        <m>There are lots of accounting and fiscal reports here... The mere sight of all theses numbers is boring to death...</m>
+                        <m wait="1">But wait...</m>
+                        <m>Here it says that a huge chunk of school expenses and investments during these last years were paid thanks to the generous donations from one the student's family...</m>
+                        <m>Prescott... There's probably a dorm or some other building here named after him...</m>
+                        <m>... and the principal probably licks this man's boots...</m>
+                    </dlg>
+                    
+                    <wait time="0.5" />
+
+                    <node-output node="inc-quest-brooke-card-check"/>
+                </then>
+                <else>
+                    <dlg style="subjective">
+                        <m>This information is already known...</m>
+                        <m>Prescott seems to be the name of the man who could ask anything to the principal...</m>
+                    </dlg>
+                </else>
+            </if>
+            
+        </n>
+
+        <n id="n-cancel">
+            <prefab destroy="ModelViewer" />
+        </n>
+    </nodes>
+</cutscene>

@@ -11,6 +11,7 @@ public class RegionCheckRigActivator : MonoBehaviour
     [SerializeField] public RigWeightDamper[] Rigs;
     [SerializeField] public float CapsuleHeight = 1.5f;
     [SerializeField] public float CapsuleRadius = 3;
+    [SerializeField] public Transform Deactivator;
 
     // Start is called before the first frame update
     void Start()
@@ -21,6 +22,9 @@ public class RegionCheckRigActivator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Deactivator != null && Deactivator.gameObject.activeSelf)
+            return;
+
         bool targetInRegion = Physics.CheckCapsule(this.transform.position, this.transform.position+ new Vector3(0, CapsuleHeight,0), CapsuleRadius, LayerMask);
         foreach (var r in Rigs)
             r.SetWeight(targetInRegion? 1 : 0);

@@ -1,0 +1,215 @@
+<?xml version="1.0"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../Cutscene.xsd">
+    <include node-prefix="inc-quest-brooke-card-">QuestBrookeCardCheck.xml</include>
+    <nodes>
+        <n id="n">
+            <if>
+                <check-flag flag="JUSTIN_MET" eq="0" />
+                <then>
+                    <flag name="JUSTIN_MET" set="1" />
+                    <anim target="CH_Justin" trigger="exp-neutral" />
+                    <dlg char="CH_Justin" track="Neck">
+                        <m>Hey, dude! Welcome!</m>
+                        <m>I see you're new around here, so let me introduce myself...</m>
+                    </dlg>
+                    <wait time="0.5" />
+                    <anim target="CH_Justin" trigger="react-say" />
+                    <dlg char="CH_Justin" track="Neck">
+                        <m>My name is ${Characters.CH_Justin.DisplayName}... a fellow student, skater, and supplier of rare items of general interest...</m>
+                        <m>...and this is where I set up shop...</m>
+                    </dlg>
+                    <anim target="CH_Justin" trigger="exp-snicker" />
+                    <choice>
+                        <c out="#a"><text>You sell 'rare' items in front the principal's office? Do you share a cut with him or something?</text></c>
+                        <c out="#b"><text>You must have a high daring level to sell shady right stuff under the principal's nose...</text></c>
+                    </choice>
+                    <anim target="CH_Justin" trigger="exp-neutral" />
+                    <dlg char="CH_Justin" track="Neck">
+                        <m>Nah... The funny thing is... This a legit part-time internship... I'm even earning course credits, can you believe that!?</m>
+                        <m>I'm mean... I'm supposed to do some kind of office work like booking meetings, organizing files and shit...</m>
+                        <m>But I think the principal is so afraid of me screwing up his precious school documents that he give almost no tasks... He actually avoids having contact with me...</m>
+                        <m>...which gives me all the time and space I need to take care of my side-business ...</m>
+                    </dlg>
+                </then>
+                <else>
+                    <anim target="CH_Justin" trigger="exp-neutral" />
+                    <dlg char="CH_Justin" track="Neck">
+                        <m>Hey, dude! What's up?</m>
+                    </dlg>
+                    <anim target="CH_Justin" trigger="exp-snicker" />
+                </else>
+            </if>
+            <node-output node="n-choice" />
+        </n>
+
+        <n id="n-choice">
+            <choice>
+                <c out="#a">
+                    <text>What do you have to sell?</text>
+                    <then>
+                        <dlg char="CH_Justin" track="Neck">
+                            <m>I have a cool selection of mostly legal wares here for your enjoyment...</m>
+                        </dlg>
+                        <node-output node="n-choice-shop"/>
+                    </then>
+                </c>
+                <c out="n-choice-principal">
+                    <check-flag flag="JUSTIN_PRINCIPAL" eq="0" />
+                    <text>What can you tell me about the principal?</text>
+                </c>
+                <c out="n-choice-drone">
+                    <check-flag flag="JUSTIN_BIRDS" eq="0" />
+                    <check-flag flag="QUEST_BROOKE_CARD" eq="1" />
+                    <text>Did you see a drone lying around here?</text>
+                </c>
+                <c out="#leave"><text>[ Leave ]</text></c>
+            </choice>
+        </n>
+
+        <n id="n-choice-drone" out="n-choice">
+            <flag name="JUSTIN_BIRDS" set="1" />
+            <anim target="CH_Justin" trigger="exp-neutral" />
+            <dlg char="CH_Justin" track="Neck">
+                <m>Whoa... Do you also know about them?</m>
+                <m wait="0.5">Those things flying around the campus? Sent by the government to spy on us?</m>
+            </dlg>
+            <anim target="CH_Justin" trigger="react-say" />
+            <dlg char="CH_Justin" track="Neck">
+                <m>I'm mean... most people still believe these things are just some magical feathered animals able to fly and shit...</m>
+                <m>But we know all about those creepy little robots... And we'll reveal the truth to world!</m>
+                <m>The days of those 'birds' are counted!</m>
+            </dlg>
+            <anim target="CH_Justin" trigger="exp-snicker" />
+            <choice>
+                <c out="#a">
+                    <text>BIRDS AREN'T REAL!!!</text>
+                    <then>
+                        <flag name="JUSTIN_BIRDS" set="1" />
+                        <anim target="CH_Justin" trigger="react-say" />
+                        <dlg char="CH_Justin" track="Neck">
+                            <m>I knew you were a believer! Welcome our group, brother!!</m>
+                        </dlg>
+                        <anim target="CH_Justin" trigger="exp-snicker" />
+                    </then>
+                </c>
+                <c out="#b">
+                    <text>Suuuure... Whatever you said...</text>
+                    <then>
+                        <flag name="JUSTIN_BIRDS" set="2" />
+                        <anim target="CH_Justin" trigger="react-say" />
+                        <anim target="CH_Justin" trigger="exp-normal" />
+                        <dlg char="CH_Justin" track="Neck">
+                            <m>That's okay, dude... I know it's hard to face reality... But one day you'll witness the truth...</m>
+                        </dlg>
+                    </then>
+                </c>
+            </choice>
+            <node-output node="n-choice" />
+        </n>
+
+        <n id="n-choice-principal" out="n-choice">
+            <flag name="JUSTIN_PRINCIPAL" set="1" />
+            <anim target="CH_Justin" trigger="exp-neutral" />
+            <dlg char="CH_Justin" track="Neck">
+                <m>Oh... The principal...</m>
+            </dlg>
+            <anim target="CH_Justin" trigger="react-say" />
+            <dlg char="CH_Justin" track="Neck">
+                <m>I'm sorry, dude... But I can't disclose any secret information about my boss...</m>
+                <m>It's a professional contract thing or whatever...</m>
+            </dlg>
+            <choice>
+                <c out="#a" icon="DICK_CHARISMA">
+                    <check-flag flag="DICK_CHARISMA" gte="1" />
+                    <lock-reason>Come on, dude... Give a hand to a fellow bro here...\n[CHARISMA 1+ NEEDED]</lock-reason>
+                    <text>Come on, dude... Give a hand to a fellow bro here...</text>
+                    <then>
+                        <anim target="CH_Justin" trigger="react-say" />
+                        <dlg char="CH_Justin" track="Neck">
+                            <m>Well... I think a little bit of gossip won't hurt...</m>
+                            <m>I heard the Principal had to finish a school meeting early because one of the rich kid's parents called asking to see him...</m>
+                            <m wait="0.3">This is how the world works, isn't? Money is power...</m>
+                            <m>Sorry... But I can't say much more than that about the boss...</m>
+                        </dlg>
+                        <flag name="QUEST_BROOKE_CARD_FOUND_TIP_MEETING" set="1" />
+                        <wait time="1" />
+                        <node-output node="inc-quest-brooke-card-check" />
+                    </then>
+                </c>
+                <c out="#b">
+                    <text>Yeah... Whatever...</text>
+                </c>
+            </choice>
+            <anim target="CH_Justin" trigger="react-say" />
+            <dlg char="CH_Justin" track="Neck">
+                <m>But... Hey... I'm not supposed to be a security officer here...</m>
+                <m>So feel free to look around... Who knows what you can find...</m>
+                <m>Those file folders seems particularly full of info...</m>
+            </dlg>
+        </n>
+
+        <n id="n-choice-shop">
+            <anim target="CH_Justin" trigger="exp-neutral" />
+            <anim target="CH_Justin" trigger="react-say" />
+            <choice>
+                <c out="#a">
+                    <text>${Items.ITM_LOCKPICK.LabelUpper} [$${Items.ITM_LOCKPICK.Price}]</text>
+                    <then>
+                        <text name="TXT_ARG_0" set="ITM_LOCKPICK" />
+                        <text name="TXT_ARG_1" set="${Items.ITM_LOCKPICK.LabelUpper}" />
+                        <text name="TXT_ARG_2" set="${Items.ITM_LOCKPICK.Description}" />
+                        <text name="TXT_ARG_3" set="${Items.ITM_LOCKPICK.Description}" />
+                        <text name="TXT_ARG_4" set="${Items.ITM_LOCKPICK.IconPath}" />
+                        <flag name="FLG_ARG_0" set="${Items.ITM_LOCKPICK.Price}" />
+                        <node-output node="n-choice-shop-buy" />
+                    </then>
+                </c>
+                <c out="#b">
+                    <check-item item="ITM_MONEY" gte="9999999" />
+                    <lock-reason>NOT AVAILABLE YET</lock-reason>
+                    <text>NOT AVAILABLE YET</text>
+                </c>
+                <c out="#c">
+                    <check-item item="ITM_MONEY" gte="9999999" />
+                    <lock-reason>NOT AVAILABLE YET</lock-reason>
+                    <text>NOT AVAILABLE YET</text>
+                </c>
+                <c out="n-choice">
+                    <text>No shopping right now...</text>
+                </c>
+            </choice>
+        </n>
+
+        <n id="n-choice-shop-buy">
+            <prefab name="PictureViewer">
+                <message name="LoadSprite" string="${Texts.TXT_ARG_4}" />
+                <message name="HideImageForward" />
+                <message name="SetBorderColor" string="#00000000" />
+            </prefab>
+            <dlg style="subjective">
+                <m>${Texts.TXT_ARG_2}</m>
+            </dlg>
+            <choice>
+                <c out="#a">
+                    <check-item item="ITM_MONEY" gte="${Flags.FLG_ARG_0}" />
+                    <lock-reason>You don't have $${Flags.FLG_ARG_0}</lock-reason>
+                    <text>[ BUY ${Texts.TXT_ARG_1}]</text>
+                    <then>
+                        <item name="ITM_MONEY" dec="${Flags.FLG_ARG_0}" />
+                        <item var="${Texts.TXT_ARG_0}" inc="1">You bought ${Texts.TXT_ARG_1} for $${Flags.FLG_ARG_0}</item>
+                        <anim target="CH_Justin" trigger="react-say" />
+                        <dlg char="CH_Justin" track="Neck">
+                            <m>Another satisfied customer...</m>
+                        </dlg>
+                    </then>
+                </c>
+                <c out="#b">
+                    <text>[ NOPE ]</text>
+                </c>
+            </choice>
+            <prefab destroy="PictureViewer" />
+            <node-output node="n-choice-shop" />
+        </n>
+    </nodes>
+</cutscene>

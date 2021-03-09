@@ -4,11 +4,21 @@ using TheArchitect.Cutscene.Action;
 
 namespace TheArchitect.Cutscene.Data
 {
+    public class CutsceneInclude
+    {
+        [XmlAttribute("node-prefix")]
+        public string Prefix;
+        [XmlText]
+        public string Path;
+    }
+
     [XmlRoot("cutscene")]
     public class CutsceneInstance 
     {
         [XmlArray("nodes"), XmlArrayItem("n")]
         public CutsceneNode[] Nodes { get; set; }
+        [XmlElement("include")]
+        public CutsceneInclude[] Includes { get; set; }
 
         [XmlIgnore] public string Outcome;
         [XmlIgnore] private int m_CurrentNode;
@@ -19,6 +29,18 @@ namespace TheArchitect.Cutscene.Data
         [XmlIgnore] public CutsceneNode CurrentNode 
         {
             get { return m_CurrentNode < this.Nodes.Length ? this.Nodes[m_CurrentNode] : null; } 
+        }
+
+        public void IncludeNodes(CutsceneInclude include, CutsceneInstance loadedInclude)
+        {
+            var n = new CutsceneNode[Nodes.Length + loadedInclude.Nodes.Length];
+            Nodes.CopyTo(n, 0);
+            loadedInclude.Nodes.CopyTo(n, Nodes.Length);
+
+            for (var i = Nodes.Length; i<n.Length; i++)
+                n[i].m_Id = include.Prefix + loadedInclude.Nodes[i-Nodes.Length].m_Id;
+
+            this.Nodes = n;
         }
 
         public void Update(CutsceneController controller)
@@ -69,7 +91,7 @@ namespace TheArchitect.Cutscene.Data
             if (n>-1)
             {
                 this.m_CurrentNode = n;
-                this.Nodes[n].ResetActionStates();
+                this.Nodes[n].ResetState();
             }
             else
             {

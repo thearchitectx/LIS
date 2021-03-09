@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.Rendering.PostProcessing;
 using TheArchitect.Core.Constants;
 using TheArchitect.Core;
+using TheArchitect.Core.Controllers;
 using TheArchitect.Core.Data;
 
 namespace TheArchitect.Controllers.UI.PanelPause
@@ -11,22 +12,38 @@ namespace TheArchitect.Controllers.UI.PanelPause
     public class PauseController : MonoBehaviour
     {
         public const string PLAYER_PREF_HIDE_OBJECTIVES = "PauseController.HIDE_OBJECTIVES";
+        public const string PLAYER_PREF_IGNORE_EXCEPTION = "PauseController.PLAYER_PREF_IGNORE_EXCEPTION";
         [SerializeField] public GameObject CanvasPausePrefab;
         [SerializeField] public GameObject CanvasSavePrefab;
         [SerializeField] public GameObject CanvasHelpPrefab;
+        [SerializeField] public GameObject CanvasExceptionPrefab;
         [SerializeField] public GameObject CanvasObjectivePrefab;
         [SerializeField] private PostProcessVolume PostProcessPause;
 
         private Transform m_CanvasPause;
         private Transform m_CanvasSave;
         private Transform m_CanvasHelp;
+        private PanelException m_PanelException;
         private Transform m_CanvasObjective;
         private Canvas[] m_DisabledCanvases;
+
+        private bool m_IgnoreException;
 
         void Start()
         {
             if (PlayerPrefs.GetInt(PLAYER_PREF_HIDE_OBJECTIVES, 0) == 0)
                 OpenObjectives();
+            this.m_IgnoreException = PlayerPrefs.GetInt(PLAYER_PREF_IGNORE_EXCEPTION, 0) == 1;
+        }
+
+        void OnDisable()
+        {
+            Application.logMessageReceived -= HandleException;
+        }
+
+        void OnEnable()
+        {
+            Application.logMessageReceived += HandleException;
         }
 
         void Update()
@@ -45,6 +62,14 @@ namespace TheArchitect.Controllers.UI.PanelPause
                     OpenHelp();
                 else
                     CloseHelp();
+            }
+
+            if (m_CanvasPause == null && Input.GetKeyDown(KeyCode.F12))
+            {
+                this.m_IgnoreException = !this.m_IgnoreException;
+                PlayerPrefs.SetInt(PLAYER_PREF_IGNORE_EXCEPTION, this.m_IgnoreException ? 1 : 0);
+                PlayerPrefs.Save();
+                Resources.Load<TheArchitect.Core.Data.Variables.Console>(ResourcePaths.SO_CONSOLE).Log("EXCEPTION DIALOG "+ (this.m_IgnoreException?"DISABLED":"ENABLED"));
             }
 
             if (m_CanvasPause == null && Input.GetKeyDown(KeyCode.Tab))
@@ -140,6 +165,31 @@ namespace TheArchitect.Controllers.UI.PanelPause
                 this.m_CanvasPause.gameObject.SetActive(true);
             }
 
+        }
+
+        private void HandleException(string condition, string stackTrace, LogType type)
+        {
+            if (type == LogType.Exception && this.m_PanelException == null && !this.m_IgnoreException)
+            {
+                Time.timeScale = 0;
+                this.m_PanelException = Instantiate(CanvasExceptionPrefab).GetComponentInChildren<PanelException>();
+                this.m_PanelException.transform.SetParent(this.transform, false);
+                this.m_PanelException.TextException.text = condition + "\n"+ stackTrace;
+                this.m_PanelException.ButtonWhatever.onClick.AddListener(() => {
+                    Destroy(this.m_PanelException.gameObject);
+                    Time.timeScale = 1;
+                });
+                this.m_PanelException.ButtonStopShowing.onClick.AddListener(() => {
+                    PlayerPrefs.SetInt(PLAYER_PREF_IGNORE_EXCEPTION, 1);
+                    Destroy(this.m_PanelException.gameObject);
+                    Time.timeScale = 1;
+                });
+                this.m_PanelException.ButtonCopy.onClick.AddListener( () => {
+                    GUIUtility.systemCopyBuffer = this.m_PanelException.TextException.text;
+                    this.m_PanelException.ButtonCopy.GetComponentInChildren<Text>().text = "COPIED!";
+                });
+
+            }
         }
     }
 

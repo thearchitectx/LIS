@@ -34,7 +34,7 @@ namespace TheArchitect.Core.Controllers
                 StringVariable sv = Resources.Load<StringVariable>($"{ResourcePaths.SO_OBJECTIVES}/{q}");
                 string objName = sv != null ? sv.Value : q;
                 m_Text.text += $"{append}{objName}";
-                append = "\n";
+                append = "\n\n";
             }
             if (m_Text.text == "")
                 m_Text.text = "NO CURRENT OBJECTIVES";

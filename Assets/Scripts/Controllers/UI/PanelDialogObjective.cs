@@ -124,9 +124,9 @@ namespace TheArchitect.Core.Controllers
 
             if (this.TrackedTransform != null && this.m_Style != DialogStyle.SUBJECTIVE)
             {
-                Vector2 pos = Camera.main.WorldToViewportPoint(TrackedTransform.position);
+                Vector3 pos = Camera.main.WorldToViewportPoint(TrackedTransform.position);
                 pos = new Vector2(
-                    pos.x * this.m_CanvasTransform.rect.width,
+                    pos.z >= 0 ? pos.x * this.m_CanvasTransform.rect.width : 0,
                     (1 - pos.y) * this.m_CanvasTransform.rect.height
                 );
 

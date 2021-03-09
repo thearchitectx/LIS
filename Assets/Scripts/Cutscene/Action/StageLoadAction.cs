@@ -13,6 +13,12 @@ namespace TheArchitect.Cutscene.Action
 
         public override string Update(CutsceneInstance cutscene, CutsceneController controller)
         {
+            if (Stage=="title")
+            {
+                UnityEngine.SceneManagement.SceneManager.LoadScene("Title");
+                return null;
+            }
+
             if (Spawn!=null && Spawn!="")
             {
                 controller.Game.SetTextState("TEXT_SPAWN_POINT", Spawn);

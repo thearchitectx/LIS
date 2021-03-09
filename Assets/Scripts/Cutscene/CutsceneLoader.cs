@@ -24,12 +24,25 @@ namespace TheArchitect.Cutscene
                 return new CutsceneInstance();
             }
 
-			try {
+            return _Load(path);
+        }
+
+        private static CutsceneInstance _Load(string path)
+        {
+            try {
 	            using (StreamReader stream = File.OpenText(path))
 	            {
                     XmlSerializer serializer = new XmlSerializer(typeof(CutsceneInstance));
                     XmlReader xmlReader = XmlReader.Create(stream);
-                    return (CutsceneInstance)serializer.Deserialize(xmlReader);
+                    CutsceneInstance ci = (CutsceneInstance)serializer.Deserialize(xmlReader);
+                    if (ci.Includes!=null)
+                        foreach (var i in ci.Includes)
+                        {
+                            CutsceneInstance included = _Load(Path.Combine(Path.GetDirectoryName(path), i.Path));
+                            ci.IncludeNodes(i, included);
+                        }
+
+                    return ci;
                 }
 			} catch (System.Exception e) {
 				Debug.LogWarning(e);

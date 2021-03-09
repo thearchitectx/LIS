@@ -13,6 +13,8 @@ namespace TheArchitect.Cutscene.Action
     {
         [XmlAttribute("name")]
         public string Name;
+        [XmlAttribute("ref")]
+        public string Ref;
         [XmlAttribute("inc")]
         public string Inc = null;
         [XmlAttribute("set")]
@@ -22,15 +24,21 @@ namespace TheArchitect.Cutscene.Action
         
         public override string Update(CutsceneInstance cutscene, CutsceneController controller)
         {
+            string resolvedName = Name;
+            if (!string.IsNullOrEmpty(Ref))
+            {
+                resolvedName = controller.Game.GetTextState(Ref);
+            }
+
             if (Inc!=null)
             {
-                int v = controller.Game.GetFlagState(Name);
-                controller.Game.SetFlagState(Name, v + ResourceString.ParseToInt(Inc));
+                int v = controller.Game.GetFlagState(resolvedName);
+                controller.Game.SetFlagState(resolvedName, v + ResourceString.ParseToInt(Inc));
             }
 
             if (Set != null)
             {
-                controller.Game.SetFlagState(Name, ResourceString.ParseToInt(Set));
+                controller.Game.SetFlagState(resolvedName, ResourceString.ParseToInt(Set));
             }
 
             if (Message!=null && Message!="")

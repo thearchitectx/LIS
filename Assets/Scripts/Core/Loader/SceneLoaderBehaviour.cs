@@ -32,12 +32,15 @@ namespace TheArchitect.Core.Loader
             {
                 this.m_LoadSceneOperation = SceneManager.LoadSceneAsync(this.m_Stage.Scene.ToString());
                 this.m_LoadSceneOperation.completed += op => {
-                    m_LoadMechanicOperation = Resources.LoadAsync<GameObject>(this.m_Stage.MechanicPrefab);
-                    m_LoadMechanicOperation.completed += op2 => {
-                        GameObject prefab = m_LoadMechanicOperation.asset as GameObject;
-                        GameObject mechanic = GameObject.Instantiate(prefab);
-                        mechanic.name = prefab.name;
-                    };
+                    if (!string.IsNullOrEmpty(this.m_Stage.MechanicPrefab))
+                    {
+                        m_LoadMechanicOperation = Resources.LoadAsync<GameObject>(this.m_Stage.MechanicPrefab);
+                        m_LoadMechanicOperation.completed += op2 => {
+                            GameObject prefab = m_LoadMechanicOperation.asset as GameObject;
+                            GameObject mechanic = GameObject.Instantiate(prefab);
+                            mechanic.name = prefab.name;
+                        };
+                    }
                 };
             }
 

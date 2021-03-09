@@ -1,5 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:simpleType name="variable">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="$\{.+\}"/>
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="int-or-variable">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="((\d+(\.\d+){0,1})|($\{.+\}))"/>
+        </xs:restriction>
+    </xs:simpleType>
     <xs:simpleType name="dialogStyle">
         <xs:restriction base="xs:string">
             <xs:enumeration value="whisper"/>
@@ -18,8 +28,11 @@
     </xs:simpleType>
     <xs:simpleType name="prefab">
         <xs:restriction base="xs:string">
-            <xs:enumeration value="PictureViewer"/>
+            <xs:enumeration value="LockPick" />
+            <xs:enumeration value="ModelViewer" />
             <xs:enumeration value="PictureTaker" />
+            <xs:enumeration value="PictureViewer"/>
+            <xs:enumeration value="TimelineUI"/>
         </xs:restriction>
     </xs:simpleType>
     <xs:simpleType name="cutscene-outcome">
@@ -31,6 +44,7 @@
     </xs:simpleType>
     <xs:simpleType name="bone">
         <xs:restriction base="xs:string">
+            <xs:enumeration value="Root" />
             <xs:enumeration value="Hips" />
             <xs:enumeration value="Spine" />
             <xs:enumeration value="Spine1" />
@@ -43,7 +57,13 @@
     </xs:simpleType>
     <xs:simpleType name="text-data">
         <xs:restriction base="xs:string">
+            <xs:enumeration value="TXT_ARG_0" />
+            <xs:enumeration value="TXT_ARG_1" />
+            <xs:enumeration value="TXT_ARG_2" />
+            <xs:enumeration value="TXT_ARG_3" />
+            <xs:enumeration value="TXT_ARG_4" />
             <xs:enumeration value="KATE_HALLWAY_PICTURE" />
+            <xs:enumeration value="PARAM_FILE_FOLDER" />
         </xs:restriction>
     </xs:simpleType>
     <xs:simpleType name="perk">
@@ -61,6 +81,7 @@
     </xs:simpleType>
     <xs:simpleType name="flag">
         <xs:restriction base="xs:string">
+            <xs:enumeration value="#DISABLE_PLAYER" />
             <xs:enumeration value="DICK_DARING" />
             <xs:enumeration value="DICK_INTELLIGENCE" />
             <xs:enumeration value="DICK_CHARISMA" />
@@ -76,13 +97,31 @@
             <xs:enumeration value="INTRO_TRASH_SCORE" />
             <xs:enumeration value="INTRO_TALK_VICTORIA" />
             <xs:enumeration value="INTRO_CHECK_VICTORIA" />
+            <xs:enumeration value="INTRO_TRASH_NAPKIN" />
+            <xs:enumeration value="INTRO_TRASH_SODA_A" />
+            <xs:enumeration value="INTRO_TRASH_SODA_B" />
+            <xs:enumeration value="INTRO_TRASH_BOTTLE" />
             <xs:enumeration value="JULIE_ZACHARY_MAKE_OUT_SEEN" />
+            <xs:enumeration value="JUSTIN_BIRDS" /> <!-- (1)BIRDS AREN'T REAL!!! (2) Whatever you said -->
+            <xs:enumeration value="JUSTIN_MET" />
+            <xs:enumeration value="JUSTIN_PRINCIPAL" />
             <xs:enumeration value="KATE_FIRST_MET" />
             <xs:enumeration value="PICKED_BROOKE_NOTE" />
-            <xs:enumeration value="QUEST_BROOKE_CARD" /> <!-- (1)Started  -->
+            <xs:enumeration value="PRINCIPAL_CH_LOCATION" /> <!-- (0) Office (1) Meeting Prescott Prank -->
+            <xs:enumeration value="PRINCIPAL_TRASH_CAN_TRASH_COUNT" />
+            <xs:enumeration value="PRINCIPAL_DRAWER1_UNLOCKED" />
+            <xs:enumeration value="PRINCIPAL_DRAWER2_UNLOCKED" />
+            <xs:enumeration value="QUEST_BROOKE_CARD_FOUND_TIP_MEETING" />
+            <xs:enumeration value="QUEST_BROOKE_CARD_FOUND_TIP_FINANCE" />
+            <xs:enumeration value="QUEST_BROOKE_CARD" /> <!-- (1)Started (2)Entered Office (NO HELP) (3) Entered Office (BROOKE HELPED)-->
             <xs:enumeration value="QUEST_KATE_LOCKER" /> <!-- (1)Started (2)Searching Key (3)Delivered Key</xs:documentation></xs:annotation></xs:enumeration -->
             <xs:enumeration value="QUEST_JEFFERSON_TAKE_PIC" /><!-- (1)Took Lame Pic (2)Took cool pic (11)Delivered Lame pic (12)Delivered Cool Pic -->
             <xs:enumeration value="TMP_1" />
+            <xs:enumeration value="TUTORIAL_MODEL_VIEWER" />
+            <xs:enumeration value="TUTORIAL_LOCKPICK" />
+            <xs:enumeration value="FLG_ARG_0" />
+            <xs:enumeration value="FLG_ARG_1" />
+            <xs:enumeration value="FLG_ARG_2" />
         </xs:restriction>
     </xs:simpleType>
     <xs:simpleType name="character-stat">
@@ -104,21 +143,25 @@
     </xs:simpleType>
     <xs:simpleType name="objective">
         <xs:restriction base="xs:string">
-            <xs:enumeration value="OBJ_BrookeMemoryCard" />
+            <xs:enumeration value="OBJ_BrookeMemoryCard01" />
             <xs:enumeration value="OBJ_IntroCollectTrash" />
             <xs:enumeration value="OBJ_IntroTalk" />
             <xs:enumeration value="OBJ_JeffersonFirstPicTake" />
             <xs:enumeration value="OBJ_KateHelpLockerOpenLocker" />
             <xs:enumeration value="OBJ_KateHelpLockerFindKey" />
             <xs:enumeration value="OBJ_JeffersonFirstPicBring" />
+            <xs:enumeration value="OBJ_PrincipalPrank" />
             <xs:enumeration value="OBJ_TalkToThePrincipal" />
         </xs:restriction>
     </xs:simpleType>
     <xs:simpleType name="item">
         <xs:restriction base="xs:string">
+            <xs:enumeration value="ITM_BROOKE_MEMORY_CARD" />
             <xs:enumeration value="ITM_LOCKER_KEY" />
+            <xs:enumeration value="ITM_LOCKPICK" />
             <xs:enumeration value="ITM_MONEY" />
             <xs:enumeration value="ITM_TRASH" />
+            <xs:enumeration value="ITM_VIP_LIST" />
         </xs:restriction>
     </xs:simpleType>
     <xs:simpleType name="character">
@@ -127,9 +170,12 @@
             <xs:enumeration value="CH_Kate" />
             <xs:enumeration value="CH_Jefferson" />
             <xs:enumeration value="CH_Juliet" />
+            <xs:enumeration value="CH_Justin" />
             <xs:enumeration value="CH_Player" />
+            <xs:enumeration value="CH_Principal" />
             <xs:enumeration value="CH_Victoria" />
             <xs:enumeration value="CH_Zachary" />
+            <xs:enumeration value="THE_ARCHITECT" />
         </xs:restriction>
     </xs:simpleType>
     <xs:complexType name="check-flag-type">
@@ -142,7 +188,7 @@
     <xs:complexType name="check-item-type">
         <xs:attribute name="item" type="item" use="required" />
         <xs:attribute name="eq" type="xs:integer" use="optional" />
-        <xs:attribute name="gte" type="xs:integer" use="optional" />
+        <xs:attribute name="gte" type="int-or-variable" use="optional" />
         <xs:attribute name="lte" type="xs:integer" use="optional" />
         <xs:attribute name="inverse" type="xs:boolean" use="optional" />
     </xs:complexType>
@@ -191,7 +237,8 @@
                 <xs:complexType>
                     <xs:simpleContent>
                         <xs:extension base="xs:string">
-                            <xs:attribute name="name" type="flag" use="required" />
+                            <xs:attribute name="name" type="flag" use="optional" />
+                            <xs:attribute name="ref" type="text-data" use="optional" />
                             <xs:attribute name="inc" type="xs:string" use="optional" />
                             <xs:attribute name="set" type="xs:string" use="optional" />
                         </xs:extension>
@@ -208,10 +255,12 @@
                 <xs:complexType>
                     <xs:simpleContent>
                         <xs:extension base="xs:string">
-                            <xs:attribute name="name" type="item" use="required" />
-                            <xs:attribute name="inc" type="xs:string" />
-                            <xs:attribute name="set" type="xs:string" />
-                            <xs:attribute name="icon" type="xs:boolean" />
+                            <xs:attribute name="name" type="item" use="optional" />
+                            <xs:attribute name="var" type="variable" use="optional" />
+                            <xs:attribute name="inc" type="xs:string" use="optional" />
+                            <xs:attribute name="dec" type="xs:string" use="optional" />
+                            <xs:attribute name="set" type="xs:string" use="optional" />
+                            <xs:attribute name="icon" type="xs:boolean" use="optional" />
                         </xs:extension>
                     </xs:simpleContent>
                 </xs:complexType>
@@ -234,8 +283,10 @@
                     <xs:attribute name="trigger" type="xs:string" />
                     <xs:attribute name="int" type="xs:string" />
                     <xs:attribute name="intValue" type="xs:string" />
+                    <xs:attribute name="float" type="xs:string" />
+                    <xs:attribute name="floatValue" type="xs:string" />
                     <xs:attribute name="bool" type="xs:string" />
-                    <xs:attribute name="boolValue" type="xs:string" />
+                    <xs:attribute name="boolValue" type="xs:boolean" />
                 </xs:complexType>
             </xs:element>
             <xs:element name="sys" type="xs:string" />
@@ -253,9 +304,11 @@
                         </xs:element>
                     </xs:sequence>
                     <xs:attribute name="char" type="character" />
+                    <xs:attribute name="char-transform" type="xs:string" />
                     <xs:attribute name="track" type="bone" />
                     <xs:attribute name="jawAnim" type="xs:boolean" />
                     <xs:attribute name="style" type="dialogStyle" />
+                    <xs:attribute name="timed" type="xs:decimal" />
                 </xs:complexType>
             </xs:element>
             <xs:element name="if">
@@ -351,6 +404,12 @@
                     <xs:attribute name="node" type="xs:string" use="optional" />
                 </xs:complexType>
             </xs:element>
+            <xs:element name="sfx">
+                <xs:complexType>
+                    <xs:attribute name="clip" type="xs:string" use="required" />
+                    <xs:attribute name="wait" type="xs:boolean" />
+                </xs:complexType>
+            </xs:element>
         </xs:choice>
         <xs:attribute name="id" type="xs:string" use="optional" />
         <xs:attribute name="out" type="xs:string" use="optional" />
@@ -359,6 +418,15 @@
     <xs:element name="cutscene">
         <xs:complexType>
             <xs:sequence>
+                <xs:element name="include" minOccurs="0" maxOccurs="unbounded">
+                    <xs:complexType>
+                        <xs:simpleContent>
+                            <xs:extension base="xs:string">
+                                <xs:attribute name="node-prefix" type="xs:string" use="required" />
+                            </xs:extension>
+                        </xs:simpleContent>
+                    </xs:complexType>
+                </xs:element>
                 <xs:element name="nodes">
                     <xs:complexType>
                         <xs:sequence maxOccurs="unbounded">

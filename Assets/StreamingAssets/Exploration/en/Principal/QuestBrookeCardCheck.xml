@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../Cutscene.xsd">
+    <nodes>
+        <n id="check">
+            <flag name="TMP_1" set="0" />
+            <if>
+                <check-flag flag="QUEST_BROOKE_CARD_FOUND_TIP_MEETING" gte="1"/>
+                <then>
+                    <flag name="TMP_1" inc="1" />
+                </then>
+            </if>
+            <if>
+                <check-flag flag="QUEST_BROOKE_CARD_FOUND_TIP_FINANCE" gte="1"/>
+                <then>
+                    <flag name="TMP_1" inc="1" />
+                </then>
+            </if>
+            <if>
+                <check-item item="ITM_VIP_LIST" gte="1" />
+                <then>
+                    <flag name="TMP_1" inc="1" />
+                </then>
+            </if>
+            <if>
+                <check-flag flag="TMP_1" gte="3"/>
+                <then>
+                    <dlg style="subjective">
+                        <m>Hum... If the Principal received a message from Sean Prescott's asking him to go urgently to some distant place, he'd leave the office free for exploration for a few minutes!</m>
+                        <m>A spoofed message using Prescott's number would do the trick...</m>
+                        <m>The best place to do this would be right at his door...</m>
+                    </dlg>
+                    <objective name="OBJ_PrincipalPrank" completed="false" />
+                </then>
+                <else>
+                    <dlg style="subjective">
+                        <m>This piece of info could help me figure a way to make the Principal leave his office for some time...</m>
+                        <m>But it seems there are more pieces of this puzzle to be found...</m>
+                    </dlg>
+                    <console>FOUND *${Flags.TMP_1}* OF *3* UNIQUE '*PRINCIPAL PRANK*' TIPS</console>
+                </else>
+            </if>
+        </n>
+    </nodes>
+</cutscene>

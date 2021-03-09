@@ -20,9 +20,6 @@ public class InputAxisMover : MonoBehaviour
     [SerializeField] private string m_AxisZ = "";
     [SerializeField] private float m_SpeedZ = 0.05f;
 
-    [Header("Options")]
-    [SerializeField] private bool m_LocalCoordinates = true;
-
     void Update()
     {
         Vector3 v = new Vector3();

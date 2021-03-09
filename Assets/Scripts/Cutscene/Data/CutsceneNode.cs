@@ -45,6 +45,7 @@ namespace TheArchitect.Cutscene
             XmlElement("objective", typeof(ObjectiveAction)),
             XmlElement("item", typeof(ItemAction)),
             XmlElement("text", typeof(SetText)),
+            XmlElement("sfx", typeof(SFXAction)),
         ]
         public CutsceneAction[] Actions
         {
@@ -69,8 +70,9 @@ namespace TheArchitect.Cutscene
             return CurrentAction;
         }
 
-        public void ResetActionStates()
+        public void ResetState()
         {
+            this.m_CurrentAction = 0;
             foreach (var a in  this.m_Actions)
                 a.ResetState();
         }

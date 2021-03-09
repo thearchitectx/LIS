@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<cutscene
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../Cutscene.xsd">
+    <nodes>
+        <n id="root">
+            <fade-to-black mode="from" keep="false" />
+            <wait time="3" />
+            <dlg char="CH_Principal" track="Root" style="remote">
+                <m>Dear God... There's still so work to be done in the performance reports...</m>
+                <m>Why there's always so much...</m>
+            </dlg>
+
+            <sfx clip="beep" wait="true" />
+
+            <dlg char="CH_Principal" track="Root" style="remote">
+                <m wait="1">Huh... A message... from...</m>
+                <m wait="1">From Sean Prescott!?!</m>
+                <m wait="3">Oh, Lord... He's asking to meet him at the parking lot right now...</m>
+                <m>I can't let the man waiting...</m>
+            </dlg>
+            <anim int="step" intValue="2" />
+            <wait time="1" />
+            <sfx clip="door-transition" />
+            <dlg char="CH_Principal" style="remote-subjective">
+                <m>Get out of the way, boys... I have urgent matters to take care of...</m>
+            </dlg>
+            <sfx clip="swoosh" />
+            <wait time="2" />
+            
+            <anim int="step" intValue="3" />
+            
+            <dlg style="subjective">
+                <m>Exactly as planned... The principal left in such a hurry that he didn't even locked the door...</m>
+                <m>The way is open to sneak into his office...</m>
+            </dlg>
+            
+            <fade-to-black mode="to" keep="true" speed="1" />
+            <wait time="1" />
+            
+            <flag name="PRINCIPAL_CH_LOCATION" set="1" />
+            
+            <load stage="principal-office-drone-card" spawn="Player Spawn/Door" />
+
+            <sfx clip="door-transition" />
+        </n>
+    </nodes>
+</cutscene>

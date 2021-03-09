@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../Cutscene.xsd">
+    <nodes>
+        <n id="n1">
+            <dlg style="subjective">
+                <m>There's a drone here... Is this the one Brooke was talking about?</m>
+                <m>She said I shouldn't take it with me... I just need to locate the memory card slot...</m>
+            </dlg>
+            <fade-to-black mode="to" keep="true"/>
+            <wait time="1" />
+            
+            <prefab name="ModelViewer">
+                <message name="LoadModel" string="Models/Drone/SK_Drone"/>
+            </prefab>
+
+            <anim context="ModelViewer" target="SK_Drone" float="speed" floatValue="0.1" />
+            
+            <fade-to-black mode="from" />
+
+            <prefab name="ModelViewer">
+                <outcome name="HOTSPOT_FOUND" output="n-card-found" />
+                <outcome name="QUIT" output="#quit" />
+            </prefab>
+
+            <prefab destroy="ModelViewer" />
+        </n>
+
+        <n id="n-card-found">
+            <item name="ITM_BROOKE_MEMORY_CARD" set="1">FOUND ${Items.ITM_BROOKE_MEMORY_CARD.LabelUpper}</item>
+            <dlg style="subjective">
+                <m>Here... I found it!!</m>
+            </dlg>
+            <prefab name="PictureViewer">
+                <message name="LoadSprite" string="${Items.ITM_BROOKE_MEMORY_CARD.IconPath}"/>
+                <message name="SetBorderColor" string="#00000000"/>
+                <message name="HideImageForward" />
+            </prefab>
+            <dlg style="subjective">
+                <m>Nice...</m>
+                <m>But... These new memory cards are getting really tiny... I don't think it's safe to put it in my pocket and risk dropping it while I walk...</m>
+                <m wait="1">I'd better connect it to my phone... Just to make sure I won't lose it...</m>
+            </dlg>
+            
+            <wait time="1" />
+            <prefab destroy="PictureViewer" />
+            <sfx clip="beep" />
+            <wait time="1" />
+
+            <dlg style="subjective">
+                <m>Huh!? "Auto-playing memory-card content"!? I thought I had disabled that... Stupid phone... It's not secure to simply play the...</m>
+                <m>Holy shit...</m>
+            </dlg>
+
+            <fade-to-black keep="true" />
+            <wait time="1" />
+            <load stage="toilet-brooke-selfie" />
+        </n>
+    </nodes>
+</cutscene>

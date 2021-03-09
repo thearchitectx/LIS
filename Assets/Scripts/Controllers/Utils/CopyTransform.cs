@@ -4,7 +4,14 @@ using UnityEngine;
 
 public class CopyTransform : MonoBehaviour
 {
+
+    public enum CopyTransformSecondarySource
+    {
+        NONE, MAIN_CAMERA
+    }
+
     [SerializeField] public Transform m_Source;
+    [SerializeField] private CopyTransformSecondarySource m_SecondarySource = CopyTransformSecondarySource.NONE;
     [SerializeField] private bool m_CopyWorldPosition;
     [SerializeField] private bool m_CopyWorldRotation;
     [SerializeField] private Vector3 m_PositionOffset;
@@ -22,12 +29,18 @@ public class CopyTransform : MonoBehaviour
 
     void Update()
     {
-        if (m_LastSource != m_Source && TargetTransitionSpeed > 0)
+        Transform source = m_Source;
+        if (m_Source == null && m_SecondarySource == CopyTransformSecondarySource.MAIN_CAMERA)
+        {
+            source = Camera.main.transform;
+        }
+
+        if (m_LastSource != source && TargetTransitionSpeed > 0)
         {
             m_TransitionProgress = 0;
         }
 
-        if (this.m_Source!=null)
+        if (source!=null)
         {
             if (this.m_CopyWorldPosition)
             {
@@ -37,18 +50,18 @@ public class CopyTransform : MonoBehaviour
 
                     this.transform.position = Vector3.Lerp(
                         this.transform.position,
-                        this.m_Source.transform.position + m_PositionOffset,
+                        source.transform.position + m_PositionOffset,
                         m_TransitionProgress
                     );
                 }
                 else
                 {
-                    this.transform.position = this.m_Source.transform.position + m_PositionOffset;
+                    this.transform.position = source.transform.position + m_PositionOffset;
                 }
             }
             if (this.m_CopyWorldRotation)
             {
-                this.transform.rotation = this.m_Source.transform.rotation;
+                this.transform.rotation = source.transform.rotation;
                 this.transform.Rotate(m_RotationOffset);
             }
         }

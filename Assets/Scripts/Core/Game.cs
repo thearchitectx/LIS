@@ -13,6 +13,7 @@ namespace TheArchitect.Core
     [CreateAssetMenu(fileName = "Game", menuName = "Data/Game State")]
     public class Game : ScriptableObject
     {
+        public const string FLAG_DISABLE_PLAYER = "#DISABLE_PLAYER";
         [SerializeField] public bool EditorAutoNewGame;
         [SerializeField] private string m_StartStage;
 
@@ -24,9 +25,18 @@ namespace TheArchitect.Core
         [NonSerialized] public bool AllowSaving;
 
         [NonSerialized] public UnityEvent<string> OnObjectivesUpdate = new UnityEvent<string>();
+        [NonSerialized] public bool DisablePlayer = false;
         
         public GameState State {
-            get { return m_State; }
+            get { 
+                if (m_State==null) 
+                {
+                    this.m_State = new GameState();
+                    CacheData();
+                }
+                
+                return m_State; 
+            }
             
             set {
                 this.m_State = value;
@@ -155,6 +165,9 @@ namespace TheArchitect.Core
 
         public void SetFlagState(string name, int state)
         {
+            if (name==FLAG_DISABLE_PLAYER)
+                DisablePlayer = state != 0;
+                
             #if UNITY_EDITOR
             Debug.Log($"SetFlagState {name} {state}");
             #endif
@@ -173,7 +186,10 @@ namespace TheArchitect.Core
 
         public void SetTextState(string name, string state)
         {
-            this.m_State.TextIndex[name] = new TextData() {Name = name, State = state};
+            if (state==null)
+                this.m_State.TextIndex.Remove(name);
+            else
+                this.m_State.TextIndex[name] = new TextData() {Name = name, State = state};
         }
         #endregion
 

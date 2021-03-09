@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<cutscene
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../Cutscene.xsd">
+    <nodes>
+        <n id="n1">
+            <wait time="5" />
+            <prefab name="TimelineUI">
+                <message name="DisableUI"/>
+            </prefab>
+
+            <dlg style="subjective">
+                <m>So... That "hacking evidence" she was talking about is all bullshit...</m>
+                <m>This clip is what she didn't wanted the principal to discover...</m>
+            </dlg>
+            
+            <wait time="1" />
+            
+            <dlg style="subjective">
+                <m>Well... I'm pretty sure using the school restrooms to record this kind of content is against some rule...</m>
+            </dlg>
+
+            <sys>
+                You can use the video player controls to pause, and change playback speed\n\n
+                You can drag the progress bar to pause the clip in a specific time\n\n
+                Keep the mouse quiet to hide the UI\n\n
+                Press the 'X' button to exit
+            </sys>
+
+            <prefab name="TimelineUI">
+                <message name="EnableUI"/>
+                <outcome name="CLOSE" output="#a" />
+            </prefab>
+            
+            
+            <prefab name="TimelineUI">
+                <message name="DisableUI"/>
+            </prefab>
+            <dlg char="THE_ARCHITECT" style="remote-subjective">
+                <m>Content of this PREVIEW build ends here. Keep tuned for more!</m>
+            </dlg>
+            
+            <fade-to-black keep="true" />
+            <wait time="1" />
+            <load stage="title" />
+        </n>
+    </nodes>
+</cutscene>

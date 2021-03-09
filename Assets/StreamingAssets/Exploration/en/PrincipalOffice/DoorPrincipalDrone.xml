@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../Cutscene.xsd">
+    <nodes>
+        <n id="n">
+            <dlg style="subjective">
+                <m>I can't leave now... This my only opportunity to find Brooke's drone...</m>
+            </dlg>
+        </n>
+    </nodes>
+</cutscene>

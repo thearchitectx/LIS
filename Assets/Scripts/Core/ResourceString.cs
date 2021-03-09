@@ -13,6 +13,7 @@ namespace TheArchitect.Core
         public const string RANDOM = "Random";
         private static Regex regexVariable = new Regex(@"\${([^\${}]+)}*");
         private static Regex regexEmphasis = new Regex(@"\*([^\*]+)\**");
+        private static Regex regexSmall = new Regex(@"\|([^\*]+)\|*");
         private static Regex regexLineSpaceDiscard = new Regex(@"^[\s]*|\n\s*|[\s]+$");
 
         public static int ParseToInt(string s)
@@ -62,7 +63,7 @@ namespace TheArchitect.Core
                         game.GetTextState(path[1]).ToString()
                     );
                 }
-                else if (path[0]==ITEMS)
+                else if (path[0]==ITEMS && path.Length == 2)
                 {
                     int value = 0;
                     Game game = Resources.Load<Game>(ResourcePaths.SO_GAME);
@@ -107,6 +108,17 @@ namespace TheArchitect.Core
                     finalString = finalString.Replace(
                         match.Value,
                         $"<color=cyan>{match.Groups[1].Value}</color>"
+                    );
+                }
+            }
+            
+            foreach (Match match in regexSmall.Matches(finalString))
+            {
+                if (match.Groups.Count > 1)
+                {
+                    finalString = finalString.Replace(
+                        match.Value,
+                        $"<i>{match.Groups[1].Value}</i>"
                     );
                 }
             }

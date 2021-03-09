@@ -11,7 +11,7 @@
         <n id="n2">
             <fade-to-black keep="true" />
             <wait time="1" />
-            <load stage="toilet-men-01" />
+            <load stage="toilet-men-01" spawn="Player Spawn/Exit Door" />
         </n>
     </nodes>
 </cutscene>

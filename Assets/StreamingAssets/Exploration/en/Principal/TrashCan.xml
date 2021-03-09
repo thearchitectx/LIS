@@ -4,7 +4,7 @@
     <nodes>
         <n id="n1">
             <dlg style="subjective">
-                <m>A trashcan... Disgusting...</m>
+                <m>Yet another trashcan...</m>
             </dlg>
             
             <choice>
@@ -17,32 +17,26 @@
                     <text>Discard Trash</text>
                 </c>
                 <c out="trash-get">
-                    <check-flag flag="HALLWAY_TRASH_CAN_B_TRASH_COUNT" gte="1" />
+                    <check-flag flag="PRINCIPAL_TRASH_CAN_TRASH_COUNT" gte="1" />
                     <text>Collect Trash</text>
                 </c>
                 <c out="#a"><text>Leave</text></c>
             </choice>
         </n>
 
-        <n id="n2-rummage">
+        <n id="n2-rummage" out="n1">
             <fade-to-black mode="to-from" keep="false" />
             <wait time="2" />
             <dlg style="subjective">
-                <m>There's a small key in the trash can...</m>
-                <m>It's probably the one used to mess with a locker combination...</m>
+                <m>Nothing much useful here...</m>
             </dlg>
-
-            <flag name="QUEST_KATE_LOCKER" set="2" />
-            <item name="ITM_LOCKER_KEY" set="1">*LOCKER KEY* FOUND</item>
-            <objective name="OBJ_KateHelpLockerFindKey" completed="true" />
-            <objective name="OBJ_KateHelpLockerOpenLocker" completed="false" />
         </n>
 
         <n id="trash-dump">
             <fade-to-black keep="false" />
             <wait time="1" />
 
-            <flag name="HALLWAY_TRASH_CAN_B_TRASH_COUNT" inc="${Items.ITM_TRASH}" />
+            <flag name="PRINCIPAL_TRASH_CAN_TRASH_COUNT" inc="${Items.ITM_TRASH}" />
             <item name="ITM_TRASH" set="0">DISCARDED ALL TRASH</item>
 
             <dlg style="subjective">
@@ -53,8 +47,8 @@
             <fade-to-black keep="false" />
             <wait time="1" />
 
-            <item name="ITM_TRASH" set="${Flags.HALLWAY_TRASH_CAN_B_TRASH_COUNT}">Collected ${Flags.HALLWAY_TRASH_CAN_B_TRASH_COUNT} pieces of trash</item>
-            <flag name="HALLWAY_TRASH_CAN_B_TRASH_COUNT" set="0" />
+            <item name="ITM_TRASH" set="${Flags.PRINCIPAL_TRASH_CAN_TRASH_COUNT}">Collected ${Flags.PRINCIPAL_TRASH_CAN_TRASH_COUNT} pieces of trash</item>
+            <flag name="PRINCIPAL_TRASH_CAN_TRASH_COUNT" set="0" />
 
             <dlg style="subjective">
                 <m>Just honing my homeless skills, I guess...</m>

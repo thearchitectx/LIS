@@ -54,11 +54,21 @@ namespace TheArchitect.Cutscene.Action
                 Transform d = controller.FindProxy(Destroy);
                 if (d!=null)
                     GameObject.Destroy(d.gameObject);
+                else
+                    Debug.LogWarning($"Can't find target to destroy: {Destroy}");
             }
 
             Target = Target == null ? Name : Target;
+            if (Target == null && Resource!=null)
+            {
+                Target = Resource.Contains("/") ? Resource.Substring(Resource.LastIndexOf("/") + 1) : Resource;
+            }
+            
             if (Target == null)
+            {
+                Debug.LogWarning($"Can't resolve a target {Name} | {Resource}");
                 return OUTPUT_NEXT;
+            }
 
             if (this.m_Instance == null)
             {

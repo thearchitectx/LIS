@@ -11,6 +11,7 @@
         </n>
 
         <n id="n1-clean">
+            <flag ref="TXT_ARG_0" set="1" />
             <flag name="INTRO_TRASH_SCORE" inc="1" />
             <if>
                 <check-flag flag="INTRO_TRASH_SCORE" eq="1" />

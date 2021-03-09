@@ -13,12 +13,17 @@ namespace TheArchitect.Cutscene
         [SerializeField] private CutsceneContext m_Context;
         [SerializeField] private string m_ScriptPath;
         [SerializeField] private CutsceneProxy[] m_Proxies;
+        [SerializeField] private CutsceneParam[] m_TextParams;
 
         private CutsceneInstance m_Cutscene;
         public UnityEvent<string> OnFinished = new UnityEvent<string>();
 
         public void Reload()
         {
+            if (this.m_TextParams!=null)
+                foreach (var p in this.m_TextParams)
+                    Game.SetTextState(p.Name, p.Value);
+
             this.m_Cutscene = CutsceneLoader.Load(m_Context, m_ScriptPath);
             this.OnFinished.RemoveAllListeners();
         }
@@ -40,8 +45,13 @@ namespace TheArchitect.Cutscene
                 if (this.m_Cutscene.Finished)
                 {
                     Game.AllowSaving = true;
+                    if (this.m_TextParams!=null)
+                        foreach (var p in this.m_TextParams)
+                            Game.SetTextState(p.Name, null);
+                    
                     this.OnFinished.Invoke(this.m_Cutscene.Outcome);
                     this.OnFinished.RemoveAllListeners();
+
                     if (this.m_Cutscene.Outcome == CutsceneAction.OUTCOME_DESTROY_OBJECT) 
                         Destroy(this.gameObject, 1);
                     else if (this.m_Cutscene.Outcome == CutsceneAction.OUTCOME_DESTROY_CONTROLLER)
@@ -59,6 +69,7 @@ namespace TheArchitect.Cutscene
         {
             if (name == null)
                 return null;
+
             foreach (var p in this.m_Proxies)
             {
                 if (p.Name == name)
@@ -66,6 +77,13 @@ namespace TheArchitect.Cutscene
                     return p.Transform;
                 }
             }
+
+            if (name.StartsWith("/"))
+                return GameObject.Find(name.Substring(1))?.transform;
+
+            if (name.StartsWith("../"))
+                return transform.parent.Find(name.Substring(3))?.transform;
+
             return this.transform.Find(name);
         }
 
@@ -76,6 +94,13 @@ namespace TheArchitect.Cutscene
     {
         public string Name;
         public Transform Transform;
+    }
+
+    [System.Serializable]
+    public class CutsceneParam
+    {
+        public string Name;
+        [TextArea] public string Value;
     }
 
 }

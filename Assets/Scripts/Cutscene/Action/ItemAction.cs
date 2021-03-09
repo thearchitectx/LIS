@@ -14,8 +14,12 @@ namespace TheArchitect.Cutscene.Action
         public string Message;
         [XmlAttribute("name")]
         public string Name;
+        [XmlAttribute("var")]
+        public string Var;
         [XmlAttribute("inc")]
         public string Inc = null;
+        [XmlAttribute("dec")]
+        public string Dec = null;
         [XmlAttribute("set")]
         public string Set = null;
         [XmlAttribute("icon")]
@@ -25,13 +29,17 @@ namespace TheArchitect.Cutscene.Action
         {
             var console = Resources.Load<Console>(ResourcePaths.SO_CONSOLE);
             var item = Resources.Load<Item>($"{ResourcePaths.SO_ITEMS}/{Name}");
+            if (item==null)
+                item = Resources.Load<Item>($"{ResourcePaths.SO_ITEMS}/{ResourceString.Parse(Var)}");
 
             if (item == null)
-                console.Log($"ITEM NOT FOUND: '{Name}'");
+                console.Log($"ITEM NOT FOUND: '{Name}' / '{Var}'");
             else
             {
                 if (Inc != null)
                     controller.Game.AddItem(item, ResourceString.ParseToInt(Inc));
+                if (Dec != null)
+                    controller.Game.AddItem(item, ResourceString.ParseToInt(Dec) * -1);
                 if (Set != null)
                     controller.Game.SetItem(item, ResourceString.ParseToInt(Set));
 

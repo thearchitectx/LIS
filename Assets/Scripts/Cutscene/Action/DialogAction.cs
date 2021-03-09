@@ -20,9 +20,11 @@ namespace TheArchitect.Cutscene.Action
     {
         [XmlElement("m")] public DialogMessage[] Messages = null;
         [XmlAttribute("char")] public string CharacterId = null;
+        [XmlAttribute("char-transform")] public string CharacterTransformPath = null;
         [XmlAttribute("track")] public string Track = null;
         [XmlAttribute("style")] public DialogStyle Style = DialogStyle.DEFAULT;
         [XmlAttribute("jawAnim")] public bool m_JawAnim = true;
+        [XmlAttribute("timed")] public float Timed = 0;
         
         [XmlIgnore] private GameObject m_Canvas;
         [XmlIgnore] private PanelDialogObjective m_Panel;
@@ -30,8 +32,8 @@ namespace TheArchitect.Cutscene.Action
         [XmlIgnore] private Character m_Character = null;
         [XmlIgnore] private RigWeightDamper m_JawRig = null;
         [XmlIgnore] private RigWeightDamper m_LipsRig = null;
-
-        private float m_WaitTimer = 0;
+        [XmlIgnore] private float m_CloseTimer = -1;
+        [XmlIgnore] private float m_WaitTimer = 0;
 
         public override string Update(CutsceneInstance cutscene, CutsceneController controller)
         {
@@ -47,11 +49,15 @@ namespace TheArchitect.Cutscene.Action
                 m_CurrentMessage = 0;
                 return OUTPUT_NEXT;
             }
-
+  
             if (m_Canvas == null)
             {
+                this.m_CloseTimer = this.Timed;
                 this.m_Character = Resources.Load<Character>($"{ResourcePaths.SO_CHARACTERS}/{CharacterId}");
-                Transform characterTransform = controller.FindProxy(CharacterId);
+                
+                Transform characterTransform = CharacterTransformPath == null
+                    ? controller.FindProxy(CharacterId)
+                    : controller.FindProxy(CharacterTransformPath);
 
                 if (m_JawAnim && characterTransform!=null)
                 {
@@ -76,7 +82,9 @@ namespace TheArchitect.Cutscene.Action
                 
                 if (this.Track != null && characterTransform!=null)
                 {
-                    Transform trackedTransform = characterTransform.Find(SkeletonPaths.GetPathTo(this.Track));
+                    Transform trackedTransform = this.Track == "Root"
+                        ? characterTransform
+                        : characterTransform.Find(SkeletonPaths.GetPathTo(this.Track));
 
                     this.m_Panel.TrackedTransform = trackedTransform;
                 }
@@ -114,7 +122,14 @@ namespace TheArchitect.Cutscene.Action
                     return OUTPUT_NEXT;
                 }
             }
-            else
+            
+            if (this.m_CloseTimer > 0)
+                this.m_CloseTimer -= Time.deltaTime;
+            else if (Timed > 0)
+            {
+                DestroyDialogPanel();
+                return OUTPUT_NEXT;
+            }
 
             // Randomize Jaw Rig to simulate speech
             if (this.m_Panel!=null && this.m_Panel.IsRollingText && this.m_JawRig != null && !this.m_JawRig.IsMoving())
@@ -138,6 +153,11 @@ namespace TheArchitect.Cutscene.Action
             return null;
         }
 
+        public override void ResetState()
+        {
+            DestroyDialogPanel();
+        }
+
         private void DestroyDialogPanel()
         {
             if (m_Canvas!=null)
@@ -149,6 +169,8 @@ namespace TheArchitect.Cutscene.Action
                 this.m_JawRig.SetWeight(0);
             if (this.m_LipsRig != null)
                 this.m_LipsRig.SetWeight(0);
+            this.m_CloseTimer = -1;
+            this.m_WaitTimer = 0;
         }
 
     }

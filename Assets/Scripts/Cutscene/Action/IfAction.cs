@@ -34,12 +34,11 @@ namespace TheArchitect.Cutscene.Action
             if (ElectedNode == null)
             {
                 ElectedNode = Predicate.Resolve(predicates) ? ThenNode : ElseNode;
-                ElectedNode?.ResetActionStates();
+                ElectedNode?.ResetState();
                 return ElectedNode == null ? OUTPUT_NEXT : null;
             }
             else
             {
-                ElectedNode.ResetActionStates();
                 var output = ElectedNode.CurrentAction.Update(cutscene, controller);
                 if (output==OUTPUT_NEXT && ElectedNode.HasNextAction())
                 {
@@ -103,7 +102,7 @@ namespace TheArchitect.Cutscene.Action
             
             b = Inverse ? !b : b;
             #if UNITY_EDITOR
-            Debug.Log($"CHECK-FLAG Flag='{Flag}' Eq='{Eq}' Gte='{Gte}' Lte='{Lte}' Inverse:{Inverse}: {b}");
+            // Debug.Log($"CHECK-FLAG Flag='{Flag}' Eq='{Eq}' Gte='{Gte}' Lte='{Lte}' Inverse:{Inverse}: {b}");
             #endif
             return b;
         }
@@ -118,7 +117,7 @@ namespace TheArchitect.Cutscene.Action
         [XmlAttribute("eq")]
         public int Eq = int.MinValue;
         [XmlAttribute("gte")]
-        public int Gte = int.MinValue;
+        public string Gte;
         [XmlAttribute("lte")]
         public int Lte = int.MinValue;
 
@@ -128,8 +127,8 @@ namespace TheArchitect.Cutscene.Action
             bool b = false;
             if (Eq > int.MinValue)
                 b = b || itemCount == Eq;
-            if (Gte > int.MinValue)
-                b = b || itemCount >= Gte;
+            if (!string.IsNullOrEmpty(Gte))
+                b = b || itemCount >= ResourceString.ParseToInt(Gte);
             if (Lte > int.MinValue)
                 b = b || itemCount <= Lte;
             

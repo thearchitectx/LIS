@@ -109,7 +109,7 @@ namespace TheArchitect.Cutscene.Action
                     {
                         this.m_Panel.AddChoice(
                             c.Output,
-                            condition ? ResourceString.Parse(c.Text) : c.LockReason,
+                            condition ? ResourceString.Parse(c.Text) : ResourceString.Parse(c.LockReason),
                             c.IconPath,
                             condition);
                     }
@@ -125,10 +125,12 @@ namespace TheArchitect.Cutscene.Action
                 if (c.ThenNode != null)
                 {
                     this.m_SelectedSubnode = c.ThenNode;
+                    this.m_SelectedSubnode.ResetState();
                     return null;
                 }
-                else
+                else {
                     return this.m_SelectedChoice.StartsWith("#") ? OUTPUT_NEXT : this.m_SelectedChoice;
+                }
             }
             
             return null;

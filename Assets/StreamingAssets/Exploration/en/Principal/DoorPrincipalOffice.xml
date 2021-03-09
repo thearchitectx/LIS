@@ -1,17 +1,70 @@
 <?xml version="1.0"?>
 <cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="../../../Cutscene.xsd">
+    <include node-prefix="inc-quest-brooke-card">./QuestBrookeCardCheck.xml</include>
     <nodes>
-        <n id="n1">
+        <n id="n">
+            <if>
+                <check-flag flag="PRINCIPAL_CH_LOCATION" eq="0" />
+                <then>
+                    <dlg style="subjective">
+                        <m>The Principal seems to be in the house... I can't simply enter the place at this moment...</m>
+                    </dlg>
+                </then>
+            </if>
             <choice>
-                <c out="n2"><text>Enter Principal's Office</text></c>
+                <c out="n-knock">
+                    <check-flag flag="PRINCIPAL_CH_LOCATION" eq="0" />
+                    <text>KNOCK</text>
+                </c>
+                <c out="n-prank" icon="DICK_INTELLIGENCE">
+                    <check-flag flag="QUEST_BROOKE_CARD_FOUND_TIP_MEETING" gte="1" />
+                    <check-flag flag="QUEST_BROOKE_CARD_FOUND_TIP_FINANCE" gte="1" />
+                    <check-flag flag="QUEST_BROOKE_CARD" lte="1" />
+                    <check-item item="ITM_VIP_LIST" gte="1" />
+                    <text>SEND DIVERSION PRANK MESSAGE TO THE PRINCIPAL</text>
+                </c>
                 <c out="#a"><text>Leave</text></c>
             </choice>
         </n>
-        <n id="n2">
-            <fade-to-black keep="true" />
+
+        <n id="n-prank">
+            <if>
+                <check-flag flag="DICK_INTELLIGENCE" lte="1" />
+                <then>
+                    <console>*INTELLIGENCE* 2+ IS NEEDED FOR THIS ACTION</console>
+                    <dlg style="subjective">
+                        <m>Damn it... I have this app capable of sending spoofed messages... But I have no idea of what parameters to use for the local network...</m>
+                        <m wait="1">Sigh... I'd better find someone smart enough and willing to help me with this...</m>
+                    </dlg>
+                </then>
+            </if>
+
+            <if>
+                <check-flag flag="QUEST_BROOKE_CARD" eq="0" />
+                <then>
+                    <dlg style="subjective">
+                        <m>Hum... There's no reason to gain private access to the principal's office at this moment...</m>
+                        <m>I should keep this card secured to use when it's really needed...</m>
+                    </dlg>
+                </then>
+            </if>
+
+            <dlg style="subjective">
+                <m>Okay... I have an app capable of sending spoofed messages here... I just need to configure it to this new network and...</m>
+                <m wait="1">... done...</m>
+                <m wait="0.5">Now... The principal is about to be surprised by an urgent request... Let's do this...</m>
+            </dlg>
+            <fade-to-black mode="to" keep="true" />
             <wait time="1" />
-            <load stage="principal-office-01" />
+            <flag name="QUEST_BROOKE_CARD" set="2" />
+            <load stage="principal-prank" />
+        </n>
+
+        <n id="n-knock">
+            <dlg style="remote-subjective" char="THE_ARCHITECT">
+                <m>SORRY... THIS SCENE IS NOT IMPLEMENTED YET...</m>
+            </dlg>
         </n>
     </nodes>
 </cutscene>

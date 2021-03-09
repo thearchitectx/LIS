@@ -3,7 +3,16 @@
     xsi:noNamespaceSchemaLocation="../../../Cutscene.xsd">
     <nodes>
         <n id="n1">
-            <cutscene-outcome value="_destroyObject" />
+            <prefab resource="Exploration/Principal/JustinWall/CH_Justin" target="CH_Justin" parent="Dynamic" />
+            <if>
+                <check-flag flag="JUSTIN_MET" eq="0" />
+                <then>
+                    <dlg char="CH_Justin" char-transform="../Dynamic/CH_Justin" track="Neck" timed="5">
+                        <m>Psst! Hey... Over here...</m>
+                    </dlg>
+                    <cutscene-outcome value="_destroyObject" />
+                </then>
+            </if>
         </n>
     </nodes>
 </cutscene>

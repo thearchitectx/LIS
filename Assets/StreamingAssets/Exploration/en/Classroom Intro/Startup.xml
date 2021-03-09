@@ -3,6 +3,30 @@
     xsi:noNamespaceSchemaLocation="../../../Cutscene.xsd">
     <nodes>
         <n id="n1">
+            <if>
+                <check-flag flag="INTRO_TRASH_NAPKIN" eq="0" />
+                <then>
+                    <prefab resource="Exploration/IntroGetTrash/Napkin" parent="Dynamic" />
+                </then>
+            </if>
+            <if>
+                <check-flag flag="INTRO_TRASH_SODA_A" eq="0" />
+                <then>
+                    <prefab resource="Exploration/IntroGetTrash/Soda Can A" parent="Dynamic" />
+                </then>
+            </if>
+            <if>
+                <check-flag flag="INTRO_TRASH_SODA_B" eq="0" />
+                <then>
+                    <prefab resource="Exploration/IntroGetTrash/Soda Can B" parent="Dynamic" />
+                </then>
+            </if>
+            <if>
+                <check-flag flag="INTRO_TRASH_BOTTLE" eq="0" />
+                <then>
+                    <prefab resource="Exploration/IntroGetTrash/Water Bottle" parent="Dynamic" />
+                </then>
+            </if>
             <anim target="CH_Jefferson" int="idle" intValue="1" />
             <anim target="CH_Victoria" int="idle" intValue="5" />
             <obj name="/Pause Controller" message="OpenHelp" />

@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../Cutscene.xsd">
+    <nodes>
+        <n id="n1">
+            <choice>
+                <c out="n2"><text>Check File</text></c>
+                <c out="#a"><text>Leave</text></c>
+            </choice>
+        </n>
+        <n id="n2">
+            <prefab name="ModelViewer">
+                <message name="LoadModel" string="Models/FileFolder/SK_FileFolder" />
+                <message name="DisableMotion"  />
+            </prefab>
+
+            <if>
+                <check-flag flag="TUTORIAL_MODEL_VIEWER" eq="0" />
+                <then>
+                    <flag name="TUTORIAL_MODEL_VIEWER" set="1" />
+                    <sys>
+                        Sometimes you'll need to analyze an item or object in order to find details about them\n\n
+                        *Move mouse* and use *W,S,A, D* keys to analyse the object and try to find where its secrets lie\n\n
+                        *Click* the mouse to give up searching\n\n
+                        Don't be fooled! Resident Evil is the one who did this first!
+                    </sys>
+                </then>
+            </if>
+
+            <prefab name="ModelViewer">
+                <message name="EnableMotion"  />
+                <outcome name="HOTSPOT_FOUND" output="#continue" />
+                <outcome name="QUIT" output="n-cancel" />
+            </prefab>
+
+            <anim context="ModelViewer" target="SK_FileFolder" bool="open" boolValue="true" />
+            
+            <wait time="1" />
+
+            <dlg style="subjective">
+                <m>${Texts.PARAM_FILE_FOLDER}</m>
+            </dlg>
+
+            <prefab destroy="ModelViewer" />
+        </n>
+
+        <n id="n-cancel">
+            <prefab destroy="ModelViewer" />
+        </n>
+    </nodes>
+</cutscene>

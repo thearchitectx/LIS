@@ -165,7 +165,7 @@
         
         <n id="check-ass">
             <flag name="INTRO_CHECK_VICTORIA" set="1" />
-            <dlg char="CH_Player" style="subjective">
+            <dlg style="subjective">
                 <m>I think I can have a closer look without she noticing...</m>
             </dlg>
 
@@ -173,7 +173,7 @@
 
             <wait time="2" />
 
-            <dlg char="CH_Player" style="subjective">
+            <dlg style="subjective">
                 <m>Nice...</m>
             </dlg>
 

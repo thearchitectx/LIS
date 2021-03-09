@@ -10,10 +10,14 @@ namespace TheArchitect.Cutscene.Action
         public string Trigger = null;
         [XmlAttribute("int")]
         public string Int = null;
+        [XmlAttribute("float")]
+        public string Float = null;
         [XmlAttribute("bool")]
         public string Bool = null;
         [XmlAttribute("intValue")]
         public int IntValue = int.MinValue;
+        [XmlAttribute("floatValue")]
+        public float FloatValue = float.MinValue;
         [XmlAttribute("boolValue")]
         public bool BoolValue = false;
         [XmlAttribute("sync")]
@@ -30,23 +34,35 @@ namespace TheArchitect.Cutscene.Action
         {
             if (this.m_Animator == null)
             {
-                if (Context == null)
-                    this.m_Animator = this.Target == null
-                        ? controller.GetComponent<Animator>()
-                        : controller.FindProxy(Target)?.GetComponent<Animator>();
+                Transform t = null;
+                if (string.IsNullOrEmpty(Context))
+                    t = string.IsNullOrEmpty(this.Target)
+                        ? controller.transform
+                        : controller.FindProxy(Target);
                 else
-                    this.m_Animator = this.Target == null
-                        ? controller.FindProxy(Context)?.GetComponent<Animator>()
-                        : controller.FindProxy(Context)?.Find(Target).GetComponent<Animator>();
+                    t = string.IsNullOrEmpty(this.Target)
+                        ? controller.FindProxy(Context)
+                        : controller.FindProxy(Context)?.Find(Target);
+
+                if (t==null)
+                {
+                    Debug.LogWarning($"Can't find target - CONTEXT:'{Context}' TARGET:'{Target}'");
+                    return OUTPUT_NEXT;
+                }
+
+                this.m_Animator = t.GetComponent<Animator>();
 
                 if (this.m_Animator==null)
                 {
-                    Debug.LogWarning($"Can't find animator - CONTEXT:'{Context}' TARGET:'{Target}'");
+                    Debug.LogWarning($"Can't find animator on target - CONTEXT:'{Context}' TARGET:'{Target}'");
                     return OUTPUT_NEXT;
                 }
                     
                 if (Int != null)
                     this.m_Animator.SetInteger(Int, IntValue);
+
+                if (Float != null)
+                    this.m_Animator.SetFloat(Float, FloatValue);
                 
                 if (Bool != null)
                     this.m_Animator.SetBool(Bool, BoolValue);

@@ -5,6 +5,13 @@
         <n id="n1">
             <choice>
                 <c out="n-hello"><text>Hello</text></c>
+                <c out="n-principal-prank">
+                    <check-flag flag="QUEST_BROOKE_CARD" eq="1" />
+                    <check-flag flag="QUEST_BROOKE_CARD_FOUND_TIP_FINANCE" eq="1" />
+                    <check-flag flag="QUEST_BROOKE_CARD_FOUND_TIP_MEETING" eq="1" />
+                    <check-item item="ITM_VIP_LIST" gte="1" />
+                    <text>Hey... A have plan to make the principal leave his office...</text>
+                </c>
                 <c out="#a"><text>[ Leave ]</text></c>
             </choice>
         </n>
@@ -257,7 +264,7 @@
             <rig-track of="CH_Brooke" head="0" eye="0"/>
             <dlg char="CH_Brooke" style="subjective">
                 <m>Uuuhh... It's not exactly... my drone... I'm worried about...</m>
-                <m wait="0.5">It's the memory card connected connected to the drone I need to get back before... before...</m>
+                <m wait="0.5">It's the memory card connected to the drone I need to get back before... before...</m>
             </dlg>
 
             <anim target="CH_Brooke" trigger="idle-upset" />
@@ -319,7 +326,7 @@
                 <c out="#b"><text>It won't be easy... I'll see what I can do...</text></c>
             </choice>
             
-            <objective name="OBJ_BrookeMemoryCard" completed="false" />
+            <objective name="OBJ_BrookeMemoryCard01" completed="false" />
             <rig-track of="CH_Brooke" eye="1" head="1" root="1" />
             <anim target="CH_Brooke" trigger="react-yay" />
             <dlg char="CH_Brooke" style="subjective">
@@ -328,6 +335,44 @@
 
             <rig-track of="CH_Brooke" eye="0" head="0" root="0" />
             <cutscene-outcome value="_end" />
+        </n>
+
+        <n id="n-principal-prank">
+            <rig-track of="CH_Brooke" eye="1" root="0.6" head="0.5" />
+            <anim target="CH_Brooke" trigger="react-yay" />
+            <dlg char="CH_Brooke" style="subjective">
+                <m>OMFG!! Really!?</m>
+                <m>Do you need any help?</m>
+            </dlg>
+            <choice>
+                <c out="#a">
+                    <text>Can you configure this app to send a spoofed message to the principal's phone?</text>
+                    <then>
+                        <anim target="CH_Brooke" trigger="react-say" />
+                        <dlg char="CH_Brooke" style="subjective">
+                            <m>Of course I can...</m>
+                            <m>And I think I know what this plan of yours is about... That's a really nice idea!</m>
+                            <m wait="0.5">So let's do it now! Get into there while I send the spoofed message!</m>
+                            <m>The principal is about to receive an urgent request from someone important!</m>
+                        </dlg>
+                        <fade-to-black keep="true" />
+                        <wait time="1" />
+                        <flag name="QUEST_BROOKE_CARD" set="3" />
+                        <load stage="principal-prank" />
+                    </then>
+                </c>
+                <c out="#b">
+                    <text>Nope... It's okay... I can do it...</text>
+                    <then>
+                        <anim target="CH_Brooke" trigger="react-say" />
+                        <dlg char="CH_Brooke" style="subjective">
+                            <m>Then why the hell you didn't put this plan into action yet!?</m>
+                            <m>Come on... The clock is ticking...</m>
+                        </dlg>
+                    </then>
+                </c>
+            </choice>
+            <rig-track of="CH_Brooke" eye="0" root="0" head="0" />
         </n>
     </nodes>
 </cutscene>

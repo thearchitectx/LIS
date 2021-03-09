@@ -1,0 +1,123 @@
+<?xml version="1.0"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../Cutscene.xsd">
+    <include node-prefix="inc-quest-brooke-card-">QuestBrookeCardCheck.xml</include>
+    <nodes>
+        <n id="n">
+            <choice>
+                <c out="n-check"><text>CHECK DRAWER</text></c>
+                <c out="#a"><text>LEAVE</text></c>
+            </choice>
+        </n>
+        <n id="n-check">
+            <if>
+                <check-flag flag="PRINCIPAL_DRAWER2_UNLOCKED" eq="0" />
+                <then>
+                    <node-output node="n-check-unlock"/>
+                </then>
+            </if>
+
+            <anim target="Drawer" bool="open" boolValue="true" />
+            <wait time="1" />
+            <if>
+                <check-flag flag="QUEST_BROOKE_CARD_FOUND_TIP_MEETING" eq="0" />
+                <then>
+                    <flag name="QUEST_BROOKE_CARD_FOUND_TIP_MEETING" set="1" />
+                    <dlg style="subjective">
+                        <m>There is a file of school meeting minutes here... Let's check what happened in the latest one...</m>
+                    </dlg>
+                    
+                    <prefab name="PictureViewer">
+                        <message name="LoadSprite" string="${Items.ITM_VIP_LIST.IconPath}"/>
+                        <message name="SetBorderColor" string="#00000000"/>
+                        <message name="HideImageForward" />
+                    </prefab>
+                    
+                    <dlg style="subjective">
+                        <m>"Meeting started at 16PM", blah blah blah... "Administration issues", blah, blah...</m>
+                        <m wait="1">Wait... this line is interesting...</m>
+                    </dlg>
+                    <dlg style="remote-subjective">
+                        <m wait="0.4">Mr. Wells had to close the meeting earlier due to a urgent call from a student's parent VIP asking to meet him...</m>
+                    </dlg>
+
+                    <prefab destroy="PictureViewer" />
+
+                    <dlg style="subjective">
+                        <m>So the principal halts anything he's doing to promptly serve the rich students' parents... Interesting...</m>
+                    </dlg>
+
+                    <anim target="Drawer" bool="open" boolValue="false" />
+                    <node-output node="inc-quest-brooke-card-check"/>
+                </then>
+                <else>
+                    <dlg style="subjective">
+                        <m>There is a file of school meeting minutes here... but I already know about the principal's urgent leave to answer a VIP parent...</m>
+                    </dlg>
+                    <anim target="Drawer" bool="open" boolValue="false" />
+                </else>
+            </if>
+        </n>
+
+        <n id="n-check-unlock">
+            <dlg style="subjective">
+                <m>Another set of locked drawers... A lockpick could solve the problem...</m>
+            </dlg>
+            <choice>
+                <c out="#a">
+                    <check-item item="ITM_LOCKPICK" gte="1" />
+                    <text>USE LOCKPICK [x${Items.ITM_LOCKPICK}]</text>
+                    <lock-reason>YOU NEED A ${Items.ITM_LOCKPICK.LabelUpper} TO UNLOCK THE DRAWERS</lock-reason>
+                    <then>
+                        <fade-to-black mode="to" keep="true" />
+                        <wait time="1" />
+                        <prefab name="LockPick">
+                            <message name="MsgGenerate" string="6" />
+                            <message name="DisableInput"  />
+                        </prefab>
+                        <fade-to-black mode="from" />
+                        <wait time="1" />
+                        <if>
+                            <check-flag flag="TUTORIAL_LOCKPICK" eq="0" />
+                            <then>
+                                <flag name="TUTORIAL_LOCKPICK" set="1" />
+                                <sys>
+                                    *Move mouse* or use *A,D* keys to position the pick and *left click* when the lock is positioned under a tumbler to activate it\n\n
+                                    After discovering the first loose tumbler, you need to figure the correct sequence\n\n
+                                    The next correct tumbler is always one directly left or right from the latest you activated\n\n
+                                    The lock will reset if you activate a tumbler in the wrong sequence. *Right click* if you want to give up
+                                </sys>
+                            </then>
+                        </if>
+                        <prefab name="LockPick">
+                            <message name="EnableInput"  />
+                            <outcome name="UNLOCKED" output="n-check-unlock-win" />
+                            <outcome name="QUIT" output="n-check-unlock-clear" />
+                        </prefab>
+
+                    </then>
+                </c>
+                <c out="_end">
+                    <text>LEAVE</text>
+                </c>
+            </choice>
+        </n>
+
+
+        <n id="n-check-unlock-win">
+            <item name="ITM_LOCKPICK" dec="1">THE LOCKPICK NOW USELESS</item>
+            <flag name="PRINCIPAL_DRAWER2_UNLOCKED" set="1" />
+            <dlg style="subjective">
+                <m>Nice... It's unlocked</m>
+            </dlg>
+            <node-output node="n-check-unlock-clear" />
+        </n>
+
+        <n id="n-check-unlock-clear">
+            <fade-to-black mode="to" />
+            <wait time="0.9" />
+            <prefab destroy="LockPick" />
+            <node-output node="_end" />
+        </n>
+    </nodes>
+</cutscene>
