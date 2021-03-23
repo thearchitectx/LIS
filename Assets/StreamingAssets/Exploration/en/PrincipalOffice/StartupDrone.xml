@@ -3,13 +3,37 @@
     xsi:noNamespaceSchemaLocation="../../../Cutscene.xsd">
     <nodes>
         <n id="n1">
-            <flag name="#DISABLE_PLAYER" set="1" />
-            <dlg style="subjective">
-                <m>Okay... The principal won't take long before noticing someone tricked him...</m>
-                <m>I don't have time to explore and check everything here... I just need to find the drone and get out as soon as I can...</m>
-            </dlg>
-            <flag name="#DISABLE_PLAYER" set="0" />
-            <cutscene-outcome value="_destroyObject" />
+            <if>
+                <check-flag flag="QUEST_BROOKE_CARD" lte="10" />
+                <then>
+                    <flag name="#DISABLE_PLAYER" set="1" />
+                    <dlg style="subjective">
+                        <m>Okay... The principal won't take long before noticing someone tricked him...</m>
+                        <m>I don't have time to explore and check everything here... I just need to find the drone and get out as soon as I can...</m>
+                    </dlg>
+                    <flag name="#DISABLE_PLAYER" set="0" />
+                    <cutscene-outcome value="_destroyObject" />
+                </then>
+                <else>
+                    <flag name="PRINCIPAL_CH_LOCATION" set="0" />
+                    <flag name="#DISABLE_PLAYER" set="1" />
+                    <wait time="1" />
+                    <dlg char="CH_Principal" style="remote" track="Root">
+                        <m>I can't believe this is happening...</m>
+                        <m>If I catch the brat who made me call Mr. Prescott...</m>
+                    </dlg>
+
+                    <dlg style="subjective">
+                        <m>Oh, shit... I can hear the Principal outside the building... He's coming back!!</m>
+                        <m>I'd better get out of here right now!</m>
+                    </dlg>
+
+                    <fade-to-black mode="to" keep="true" speed="0.5" />
+                    <wait time="2" />
+
+                    <load stage="school-hall-principal-drone" spawn="Player Spawn/Principal" />
+                </else>
+            </if>
         </n>
     </nodes>
 </cutscene>

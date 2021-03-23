@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:simpleType name="objective">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="OBJ_BrookeMemoryCard01" />
+            <xs:enumeration value="OBJ_BrookeMemoryCard02" />
+            <xs:enumeration value="OBJ_IntroCollectTrash" />
+            <xs:enumeration value="OBJ_IntroTalk" />
+            <xs:enumeration value="OBJ_JeffersonFirstPicTake" />
+            <xs:enumeration value="OBJ_KateHelpLockerOpenLocker" />
+            <xs:enumeration value="OBJ_KateHelpLockerFindKey" />
+            <xs:enumeration value="OBJ_JeffersonFirstPicBring" />
+            <xs:enumeration value="OBJ_PrincipalPrank" />
+            <xs:enumeration value="OBJ_TalkToThePrincipal" />
+            <xs:enumeration value="OBJ_TalkToSamuel" />
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>

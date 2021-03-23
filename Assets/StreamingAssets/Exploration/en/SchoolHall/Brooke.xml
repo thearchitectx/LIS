@@ -4,18 +4,14 @@
     <nodes>
         <n id="n1">
             <choice>
-                <c out="n-hello"><text>Hello</text></c>
-                <c out="n-principal-prank">
-                    <check-flag flag="QUEST_BROOKE_CARD" eq="1" />
-                    <check-flag flag="QUEST_BROOKE_CARD_FOUND_TIP_FINANCE" eq="1" />
-                    <check-flag flag="QUEST_BROOKE_CARD_FOUND_TIP_MEETING" eq="1" />
-                    <check-item item="ITM_VIP_LIST" gte="1" />
-                    <text>Hey... A have plan to make the principal leave his office...</text>
-                </c>
+                <c out="n-hello"><text>Hey there...</text></c>
                 <c out="#a"><text>[ Leave ]</text></c>
             </choice>
         </n>
 
+        <!-- ############################################# -->
+        <!-- ############################################# -->
+        <!-- ############################################# -->
         <n id="n-hello">
             <stat char="CH_Brooke" name="INTEL_0" set="1" notify="false"/>
             <if>
@@ -42,6 +38,9 @@
             </if>
         </n>
 
+        <!-- ############################################# -->
+        <!-- ############################################# -->
+        <!-- ############################################# -->
         <n id="n-hello-choice">
             <choice>
                 <c out="#n-warren">
@@ -52,7 +51,7 @@
                         <anim target="CH_Brooke" trigger="react-say"/>
                         <stat char="CH_Brooke" name="AFFINITY" inc="1" />
                         <dlg char="CH_Brooke" style="subjective">
-                            <m>Hum... It seems someone else is also in the intel collecting business in this school... I wonder if you'll be partner or competition...</m>
+                            <m>Hum... It seems someone else is also in the intel collecting business in this school...</m>
                             <m>And, yes... I know Warren, but please don't talk to me about him...</m>
                         </dlg>
                         <node-output node="n-warren" />
@@ -69,6 +68,17 @@
                         </dlg>
                         <node-output node="n-warren" />
                     </then>
+                </c>
+                <c out="n-principal-prank">
+                    <check-flag flag="QUEST_BROOKE_CARD" eq="1" />
+                    <check-flag flag="QUEST_BROOKE_CARD_FOUND_TIP_FINANCE" eq="1" />
+                    <check-flag flag="QUEST_BROOKE_CARD_FOUND_TIP_MEETING" eq="1" />
+                    <check-item item="ITM_VIP_LIST" gte="1" />
+                    <text>A have plan to make the principal leave his office...</text>
+                </c>
+                <c out="n-found-card">
+                    <check-item item="ITM_BROOKE_MEMORY_CARD" gte="1" />
+                    <text>I found your memory card!</text>
                 </c>
                 <c out="#c">
                     <check-flag flag="QUEST_BROOKE_CARD" inverse="true" eq="1" />
@@ -90,6 +100,9 @@
             <rig-track of="CH_Brooke" eye="0" root="0" head="0" />
         </n>
 
+        <!-- ############################################# -->
+        <!-- ############################################# -->
+        <!-- ############################################# -->
         <n id="n-first-met" out="n-hello-choice">
             <flag name="BROOKE_MET" set="1" />
             <dlg char="CH_Brooke" style="subjective">
@@ -182,6 +195,9 @@
             </dlg>
         </n>
 
+        <!-- ############################################# -->
+        <!-- ############################################# -->
+        <!-- ############################################# -->
         <n id="n-warren">
             <flag name="QUEST_BROOKE_CARD" set="1" />
             <dlg char="CH_Brooke" style="subjective">
@@ -210,6 +226,7 @@
                 <c out="#b" icon="DICK_KARMA_EVIL">
                     <text>We could plan a little revenge 'prank' for them later... It will make you fell much better...</text>
                     <then>
+                        <flag name="DICK_KARMA" inc="-1">YOUR KARMA BALANCED TOWARDS THE *EVIL* SIDE</flag>
                         <flag name="BROOKE_ABOUT_MAX_AND WARREN" set="1" />
                         <anim target="CH_Brooke" trigger="react-surprise" />
                         <anim target="CH_Brooke" trigger="exp-uneasy" />
@@ -227,6 +244,7 @@
                 <c out="#c" icon="DICK_KARMA_GOOD">
                     <text>Hey... They tried to help you, right? That's more than most people would do nowadays...</text>
                     <then>
+                        <flag name="DICK_KARMA" inc="1">YOUR KARMA BALANCED TOWARDS THE *GOOD* SIDE</flag>
                         <flag name="BROOKE_ABOUT_MAX_AND WARREN" set="2" />
                         <anim target="CH_Brooke" trigger="react-say" />
                         <dlg char="CH_Brooke" style="subjective">
@@ -337,6 +355,9 @@
             <cutscene-outcome value="_end" />
         </n>
 
+        <!-- ############################################# -->
+        <!-- ############################################# -->
+        <!-- ############################################# -->
         <n id="n-principal-prank">
             <rig-track of="CH_Brooke" eye="1" root="0.6" head="0.5" />
             <anim target="CH_Brooke" trigger="react-yay" />
@@ -372,6 +393,23 @@
                     </then>
                 </c>
             </choice>
+            <rig-track of="CH_Brooke" eye="0" root="0" head="0" />
+        </n>
+
+        <!-- ############################################# -->
+        <!-- ############################################# -->
+        <!-- ############################################# -->
+        <n id="n-found-card">
+            <anim target="CH_Brooke" />
+            <rig-track of="CH_Brooke" eye="1" head="1" root="1" />
+            <anim target="CH_Brooke" trigger="react-yay" />
+            <dlg char="CH_Brooke" style="subjective">
+                <m>You did!?!?! I can't believe it!!!</m>
+            </dlg>
+            <wait time="1" />
+            <dlg char="THE_ARCHITECT" style="remote-subjective">
+                <m>This quest continues next version!</m>
+            </dlg>
             <rig-track of="CH_Brooke" eye="0" root="0" head="0" />
         </n>
     </nodes>

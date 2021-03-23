@@ -97,9 +97,16 @@ namespace TheArchitect.Controllers.UI.PanelSaveIO
 
                 item.ButtonDelete.gameObject.SetActive(slot!="autosave" && label != null);
                 item.ButtonDelete.onClick.AddListener( () => {
-                    string path = GameState.GetSlotPath(rootPath, slot);
-                    Directory.Delete(path, true);
-                    ReadData();
+                    const string TEXT_CONFIRM = "CONFIRM?";
+                    Text btText = item.ButtonDelete.GetComponentInChildren<Text>();
+                    if (btText.text==TEXT_CONFIRM)
+                    {
+                        string path = GameState.GetSlotPath(rootPath, slot);
+                        Directory.Delete(path, true);
+                        ReadData();
+                    }
+                    else
+                        btText.text = TEXT_CONFIRM;
                 });
             });
         }

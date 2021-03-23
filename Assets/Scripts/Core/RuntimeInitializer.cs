@@ -21,7 +21,7 @@ namespace TheArchitect.Core
                     loader.Load(game.LoadingStage);
                     game.LoadingStage = null;
                 }
-                else if (scene.name!="Title")
+                else if (scene.name!="Title" && scene.name!="Settings")
                 {
                     GameObject console = GameObject.Instantiate(Resources.Load<GameObject>(ResourcePaths.PREFAB_CONSOLE));
                     console.name = "Console";

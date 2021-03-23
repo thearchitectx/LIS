@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:simpleType name="flag">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="#DISABLE_PLAYER" />
+            <xs:enumeration value="DICK_DARING" />
+            <xs:enumeration value="DICK_INTELLIGENCE" />
+            <xs:enumeration value="DICK_CHARISMA" />
+            <xs:enumeration value="DICK_KARMA" />
+            <xs:enumeration value="CLASSROOM_TRASH_CAN_TRASH_COUNT" />
+            <xs:enumeration value="BROOKE_MET" />
+            <xs:enumeration value="BROOKE_ABOUT_MAX_AND WARREN" /> <!-- (1)Propose revenge (2)Tried to help -->
+            <xs:enumeration value="HALLWAY_TRASH_CAN_A_TRASH_COUNT" />
+            <xs:enumeration value="HALLWAY_TRASH_CAN_B_TRASH_COUNT" />
+            <xs:enumeration value="HALLWAY_TRASH_CAN_C_TRASH_COUNT" />
+            <xs:enumeration value="HALLWAY_TRASH_CAN_D_TRASH_COUNT" />
+            <xs:enumeration value="HALLWAY_TRIED_ENTER_ROOM103" />
+            <xs:enumeration value="INTRO_TRASH_SCORE" />
+            <xs:enumeration value="INTRO_TALK_VICTORIA" />
+            <xs:enumeration value="INTRO_CHECK_VICTORIA" />
+            <xs:enumeration value="INTRO_TRASH_NAPKIN" />
+            <xs:enumeration value="INTRO_TRASH_SODA_A" />
+            <xs:enumeration value="INTRO_TRASH_SODA_B" />
+            <xs:enumeration value="INTRO_TRASH_BOTTLE" />
+            <xs:enumeration value="JULIE_ZACHARY_MAKE_OUT_SEEN" />
+            <xs:enumeration value="JUSTIN_BIRDS" /> <!-- (1)BIRDS AREN'T REAL!!! (2) Whatever you said -->
+            <xs:enumeration value="JUSTIN_MET" />
+            <xs:enumeration value="JUSTIN_PRINCIPAL" />
+            <xs:enumeration value="KATE_FIRST_MET" />
+            <xs:enumeration value="PICKED_BROOKE_NOTE" />
+            <xs:enumeration value="PRINCIPAL_CH_MET" /> <!-- (1) In the first meeting (2) Finished first meeting -->
+            <xs:enumeration value="PRINCIPAL_CH_LOCATION" /> <!-- (0) Office (1) Meeting Prescott Prank -->
+            <xs:enumeration value="PRINCIPAL_TRASH_CAN_TRASH_COUNT" />
+            <xs:enumeration value="PRINCIPAL_DRAWER1_UNLOCKED" />
+            <xs:enumeration value="PRINCIPAL_DRAWER2_UNLOCKED" />
+            <xs:enumeration value="QUEST_BROOKE_CARD_FOUND_TIP_MEETING" />
+            <xs:enumeration value="QUEST_BROOKE_CARD_FOUND_TIP_FINANCE" />
+            <xs:enumeration value="QUEST_BROOKE_CARD" /> <!-- (1)Started (2)Entered Office (NO HELP) (3) Entered Office (BROOKE HELPED) +(10) Found card -->
+            <xs:enumeration value="QUEST_KATE_LOCKER" /> <!-- (1)Started (2)Searching Key (3)Delivered Key</xs:documentation></xs:annotation></xs:enumeration -->
+            <xs:enumeration value="QUEST_JEFFERSON_TAKE_PIC" /> <!-- (1)Took Lame Pic (2)Took cool pic (11)Delivered Lame pic (12)Delivered Cool Pic -->
+            <xs:enumeration value="TMP_1" />
+            <xs:enumeration value="TUTORIAL_MODEL_VIEWER" />
+            <xs:enumeration value="TUTORIAL_LOCKPICK" />
+            <xs:enumeration value="FLG_ARG_0" />
+            <xs:enumeration value="FLG_ARG_1" />
+            <xs:enumeration value="FLG_ARG_2" />
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>

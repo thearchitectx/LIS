@@ -17,14 +17,19 @@ namespace TheArchitect.Controllers.FirstPerson
         [SerializeField] private LayerMask m_GroundedLayerMask;
         [SerializeField] private Vector3 m_Velocity;
         [SerializeField] private bool m_Grounded;
+        [SerializeField] private AudioClip[] m_FootStepClips;
 
         private CharacterController m_CharacterController;
+        private AudioSource[] m_AudioSources;
+        private float m_StepDist;
+        private bool m_StepLeft;
         private bool m_Crouched;
         public float Gravity = -9.81f;
 
         void Start()
         {
             this.m_CharacterController = GetComponent<CharacterController>();
+            this.m_AudioSources = GetComponents<AudioSource>();
         }
 
         void Update()
@@ -32,15 +37,14 @@ namespace TheArchitect.Controllers.FirstPerson
 
             if (Time.deltaTime==0)
                 return;
-            this.m_Grounded = Physics.CheckSphere(this.transform.position, 0.1f, m_GroundedLayerMask) && this.m_Velocity.y <= 0;
+            this.m_Grounded = Physics.CheckSphere(this.transform.position, 0.1f) && this.m_Velocity.y <= 0;
 
             float x = Input.GetAxis("Horizontal");
             float z = Input.GetAxis("Vertical");
 
-
             Vector3 move = transform.right * x + transform.forward * z;
 
-            this.m_CharacterController.Move(move * this.m_Speed * (this.m_Crouched?0.25f:1f) * Time.deltaTime);
+            CollisionFlags collisionMove = this.m_CharacterController.Move(move * this.m_Speed * (this.m_Crouched?0.25f:1f) * Time.deltaTime);
 
             this.m_Crouched = Input.GetButton("Circle");
 
@@ -55,7 +59,20 @@ namespace TheArchitect.Controllers.FirstPerson
             } else if (Input.GetButtonDown("Jump")) {
                 m_Velocity.y = this.m_JumpSpeed;
             } else {
-                m_Velocity.y = -3;
+                //m_Velocity.y = -3;
+            }
+
+            // Footstep sound
+            if ( this.m_Grounded && (collisionMove & CollisionFlags.Sides)==0) 
+            {
+                m_StepDist += (Mathf.Abs(move.x)+Mathf.Abs(move.z)) * Time.deltaTime;
+                if (m_StepDist>0.6f)
+                {
+                    m_StepDist = 0;
+                    this.m_AudioSources[m_StepLeft?0:1].PlayOneShot(this.m_FootStepClips[UnityEngine.Random.Range(0, this.m_FootStepClips.Length)]);
+                    m_StepLeft = !m_StepLeft;
+                }
+                
             }
 
             this.m_CharacterController.Move(m_Velocity * Time.deltaTime);

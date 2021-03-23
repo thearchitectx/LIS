@@ -7,9 +7,9 @@ namespace TheArchitect.Core.Data
     [CreateAssetMenu(fileName = "New Item", menuName = "Data/Item")]
     public class Item : ScriptableObject
     {
-        [SerializeField] public string m_Label;
-        [SerializeField] public int m_Price;
-        [SerializeField] [TextArea] public string m_Description;
+        [SerializeField] private string m_Label;
+        [SerializeField] private int m_Price;
+        [SerializeField] [TextArea] private string m_Description;
 
         public string Label { get { return this.m_Label; } }
         public string LabelUpper { get { return this.m_Label.ToUpper(); } }

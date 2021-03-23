@@ -27,7 +27,7 @@ public class CopyTransform : MonoBehaviour
         this.m_TransitionProgress = 1;
     }
 
-    void Update()
+    void LateUpdate()
     {
         Transform source = m_Source;
         if (m_Source == null && m_SecondarySource == CopyTransformSecondarySource.MAIN_CAMERA)

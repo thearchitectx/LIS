@@ -173,6 +173,8 @@
 
             <wait time="2" />
 
+            <flag name="DICK_DARING" inc="1">YOU FEEL MORE *DARING*!</flag>
+
             <dlg style="subjective">
                 <m>Nice...</m>
             </dlg>

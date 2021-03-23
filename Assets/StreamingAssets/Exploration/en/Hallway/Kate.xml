@@ -100,7 +100,7 @@
                         <c out="#b" icon="DICK_KARMA_EVIL">
                             <text>Hey... If you want people to stop bullying you, start dropping the strict religious attitude crap and at least give me a cool girl pose...</text>
                             <then>
-                                <flag name="DICK_KARMA" inc="-1">YOU FELL MORE *EVIL*</flag>
+                                <flag name="DICK_KARMA" inc="-1">YOUR KARMA BALANCED TOWARDS THE *EVIL* SIDE</flag>
                                 <flag name="QUEST_JEFFERSON_TAKE_PIC" set="2" />
 
                                 <anim target="CH_Kate" int="idle" intValue="4" />

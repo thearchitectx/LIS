@@ -25,7 +25,15 @@ namespace TheArchitect.Core
         [NonSerialized] public bool AllowSaving;
 
         [NonSerialized] public UnityEvent<string> OnObjectivesUpdate = new UnityEvent<string>();
-        [NonSerialized] public bool DisablePlayer = false;
+        
+        [NonSerialized] private bool m_DisablePlayer;
+        public bool DisablePlayer {
+             get { return m_DisablePlayer; }
+             set {
+                 this.SetFlagState(FLAG_DISABLE_PLAYER, value ? 1 : 0);
+             }
+         }
+
         
         public GameState State {
             get { 
@@ -59,8 +67,7 @@ namespace TheArchitect.Core
         public void NewGame()
         {
             Debug.Log($"Starting new game");
-            if (this.m_State == null)
-                this.m_State = new GameState();
+            this.m_State = new GameState();
 
             if (this.m_StartStage == null || this.m_StartStage == "")
                 this.m_StartStage = "classroom-intro";
@@ -158,7 +165,7 @@ namespace TheArchitect.Core
         public int GetFlagState(string name)
         {
             Flag f;
-            return this.m_State.FlagIndex.TryGetValue(name, out f)
+            return this.State.FlagIndex.TryGetValue(name, out f)
                 ? f.State
                 : 0;
         }
@@ -166,12 +173,12 @@ namespace TheArchitect.Core
         public void SetFlagState(string name, int state)
         {
             if (name==FLAG_DISABLE_PLAYER)
-                DisablePlayer = state != 0;
+                m_DisablePlayer = state != 0;
                 
             #if UNITY_EDITOR
             Debug.Log($"SetFlagState {name} {state}");
             #endif
-            this.m_State.FlagIndex[name] = new Flag() { Name = name, State = state };
+            this.State.FlagIndex[name] = new Flag() { Name = name, State = state };
         }
         #endregion
 
@@ -179,7 +186,7 @@ namespace TheArchitect.Core
         public string GetTextState(string name)
         {
             TextData t;
-            return this.m_State.TextIndex.TryGetValue(name, out t)
+            return this.State.TextIndex.TryGetValue(name, out t)
                 ? t.State
                 : null;
         }
@@ -187,9 +194,9 @@ namespace TheArchitect.Core
         public void SetTextState(string name, string state)
         {
             if (state==null)
-                this.m_State.TextIndex.Remove(name);
+                this.State.TextIndex.Remove(name);
             else
-                this.m_State.TextIndex[name] = new TextData() {Name = name, State = state};
+                this.State.TextIndex[name] = new TextData() {Name = name, State = state};
         }
         #endregion
 

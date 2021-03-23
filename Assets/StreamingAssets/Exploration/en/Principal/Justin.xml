@@ -61,7 +61,7 @@
                 <c out="n-choice-drone">
                     <check-flag flag="JUSTIN_BIRDS" eq="0" />
                     <check-flag flag="QUEST_BROOKE_CARD" eq="1" />
-                    <text>Did you see a drone lying around here?</text>
+                    <text>Did you see a drone around here?</text>
                 </c>
                 <c out="#leave"><text>[ Leave ]</text></c>
             </choice>
@@ -77,8 +77,8 @@
             <anim target="CH_Justin" trigger="react-say" />
             <dlg char="CH_Justin" track="Neck">
                 <m>I'm mean... most people still believe these things are just some magical feathered animals able to fly and shit...</m>
-                <m>But we know all about those creepy little robots... And we'll reveal the truth to world!</m>
-                <m>The days of those 'birds' are counted!</m>
+                <m>But we know all about those creepy little robots, right!?</m>
+                <m>The days of those such called 'birds' are counted!</m>
             </dlg>
             <anim target="CH_Justin" trigger="exp-snicker" />
             <choice>
@@ -88,7 +88,7 @@
                         <flag name="JUSTIN_BIRDS" set="1" />
                         <anim target="CH_Justin" trigger="react-say" />
                         <dlg char="CH_Justin" track="Neck">
-                            <m>I knew you were a believer! Welcome our group, brother!!</m>
+                            <m>I knew you were a believer! Welcome to our group, brother!!</m>
                         </dlg>
                         <anim target="CH_Justin" trigger="exp-snicker" />
                     </then>

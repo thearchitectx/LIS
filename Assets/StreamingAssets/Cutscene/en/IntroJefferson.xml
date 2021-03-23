@@ -181,7 +181,7 @@
         </n>
 
         <n id="n4-sleep" out="n5">
-            <flag name="DICK_CHARISMA" inc="1">YOU FEEL MORE *CHARISMATIC*!</flag>
+            <flag name="DICK_CHARISMA" inc="1">YOU FEEL YOUR *CHARISMA* IMPROVE!</flag>
             <dlg char="CH_Jefferson" style="subjective">
                 <m>Nice... You clearly have the observational skills needed for this task...</m>
             </dlg>

@@ -24,6 +24,7 @@ namespace TheArchitect.SceneObjects
         [SerializeField] private RectTransform m_CanvasTransform;
         [SerializeField] private RectTransform m_ImageContainer;
         
+        private float m_Timer = 0;
         private bool m_MotionActive = true;
 
         public void DisableMotion()
@@ -76,6 +77,8 @@ namespace TheArchitect.SceneObjects
             if (Time.deltaTime == 0)
                 return;
 
+            this.m_Timer += Time.deltaTime;
+
             if (this.m_MotionActive)
             {
                 this.m_TransformModel.Rotate(new Vector3(
@@ -84,7 +87,7 @@ namespace TheArchitect.SceneObjects
                     Space.World
                 );
 
-                if (Input.GetMouseButtonDown(1) || Input.GetMouseButtonDown(0))
+                if (this.m_Timer > 2 && (Input.GetMouseButtonDown(1) || Input.GetMouseButtonDown(0)))
                 {
                     Outcome = QUIT;
                 }

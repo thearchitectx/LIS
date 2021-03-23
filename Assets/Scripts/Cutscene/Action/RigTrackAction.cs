@@ -20,6 +20,8 @@ namespace TheArchitect.Cutscene.Action
         public float Root = float.NaN;
         [XmlAttribute("target")]
         public string Target = null;
+        [XmlAttribute("target-transition-speed")]
+        public int TargetTransitionSpeed = int.MinValue;
 
         public override string Update(CutsceneInstance cutscene, CutsceneController controller)
         {
@@ -50,7 +52,12 @@ namespace TheArchitect.Cutscene.Action
                     CopyTransform copyTransform = rig.GetComponentInChildren<CopyTransform>();
                     LogIf(copyTransform == null, $"Copy Transform not found in {rig.name}");
 
-                    copyTransform.m_Source = controller.FindProxy(Target);
+                    if (TargetTransitionSpeed > 0)
+                        copyTransform.TargetTransitionSpeed = TargetTransitionSpeed;
+
+                    copyTransform.m_Source = Target == "camera"
+                        ? Camera.main.transform
+                        : controller.FindProxy(Target);
                 }
             }
         }

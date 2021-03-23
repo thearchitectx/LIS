@@ -42,7 +42,13 @@ namespace TheArchitect.Controllers.UI.PanelPause
 
         public void Quit()
         {
-            Application.Quit();
+            const string CONFIRM = "CONFIRM?";
+            
+            Text t = ButtonQuit.GetComponentInChildren<Text>();
+            if (t.text == CONFIRM)
+                UnityEngine.SceneManagement.SceneManager.LoadScene("Title");
+            else
+                t.text = CONFIRM;
         }
 
         public void Back()
@@ -53,6 +59,11 @@ namespace TheArchitect.Controllers.UI.PanelPause
         public void LoadSave()
         {
             this.transform.GetComponentInParent<PauseController>().ToggleLoadSave();
+        }
+
+        public void Trophies()
+        {
+            this.transform.GetComponentInParent<PauseController>().ToggleTrophies();
         }
 
         void Update()

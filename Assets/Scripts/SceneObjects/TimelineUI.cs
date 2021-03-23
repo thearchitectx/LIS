@@ -17,7 +17,7 @@ namespace TheArchitect.SceneObjects
         [SerializeField] private Button m_ButtonClose;
         [SerializeField] private Image m_ImageProgress;
         [SerializeField] private PlayableDirector m_Director;
-        [SerializeField] private float m_HideTime = 4;
+        [SerializeField] private float m_HideTime = 5;
         
         private Canvas m_Canvas;
         private Image m_ButtonPlayImage;

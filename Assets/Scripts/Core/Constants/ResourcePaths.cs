@@ -15,6 +15,7 @@ namespace TheArchitect.Core.Constants
         public const string PREFAB_FADE_FROM_BLACK = "Prefabs/FadeFromBlack/FadeFromBlack";
         public const string PREFAB_FADE_TO_FROM_BLACK = "Prefabs/FadeToFromBlack/FadeToFromBlack";
         public const string PREFAB_PAUSE_CONTROLLER = "Prefabs/PauseController/PauseController";
+        public const string PREFAB_TROPHY_NOTIFICATION = "Prefabs/TrophyNotification/TrophyNotification";
 
         public const string SO_GAME = "ScriptableObjects/Game";
         public const string SO_STAGES = "ScriptableObjects/Stages";
@@ -23,6 +24,7 @@ namespace TheArchitect.Core.Constants
         public const string SO_OBJECTIVES = "ScriptableObjects/Objectives";
         public const string SO_ITEMS = "ScriptableObjects/Items";
         public const string SO_CHARACTERS = "ScriptableObjects/Characters";
+        public const string SO_TROPHIES = "ScriptableObjects/Trophies";
 
     }
 }

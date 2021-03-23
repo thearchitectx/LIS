@@ -8,7 +8,11 @@ namespace TheArchitect.Core.Constants
 
     public enum SkeletonRig {
         HEAD,
-        EYES
+        EYES,
+        HAND_LEFT,
+        HAND_RIGHT,
+        FOOT_LEFT,
+        FOOT_RIGHT,
     }
     
     public struct SkeletonPaths
@@ -18,6 +22,10 @@ namespace TheArchitect.Core.Constants
         public const string RIG_EYETRACK = "Rig Eye Track";
         public const string RIG_JAW_TALK = "Jaw Talk";
         public const string RIG_LIPS_TALK = "Lips Talk";
+        public const string RIG_HAND_LEFT = "IK Left Hand";
+        public const string RIG_HAND_RIGHT = "IK Right Hand";
+        public const string RIG_FOOT_LEFT = "IK Left Foot";
+        public const string RIG_FOOT_RIGHT = "IK Right Foot";
 
         public const string BONE_HIPS = "Hips";
         public const string BONE_SPINE = "Spine";
@@ -61,6 +69,10 @@ namespace TheArchitect.Core.Constants
             {
                 case SkeletonRig.HEAD: return RIG_HEADTRACK;
                 case SkeletonRig.EYES: return RIG_EYETRACK;
+                case SkeletonRig.HAND_LEFT: return RIG_HAND_LEFT;
+                case SkeletonRig.HAND_RIGHT: return RIG_HAND_RIGHT;
+                case SkeletonRig.FOOT_LEFT: return RIG_FOOT_LEFT;
+                case SkeletonRig.FOOT_RIGHT: return RIG_FOOT_RIGHT;
             }
 
             return null;

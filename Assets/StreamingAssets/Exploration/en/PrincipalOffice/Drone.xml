@@ -47,6 +47,7 @@
             <sfx clip="beep" />
             <wait time="1" />
 
+            <trophy unlock="001-birds-are-not-real-01" />
             <dlg style="subjective">
                 <m>Huh!? "Auto-playing memory-card content"!? I thought I had disabled that... Stupid phone... It's not secure to simply play the...</m>
                 <m>Holy shit...</m>

@@ -3,6 +3,16 @@
     xsi:noNamespaceSchemaLocation="../../../Cutscene.xsd">
     <nodes>
         <n id="n1">
+            <if>
+                <check-flag flag="QUEST_JEFFERSON_TAKE_PIC" lte="10" />
+                <then>
+                    <dlg style="subjective">
+                        <m>${Characters.CH_Kate.DisplayName} is the easiest "target" for the picture ${Characters.CH_Jefferson.DisplayName} asked...</m>
+                        <m>I'd better finish the task before leaving the hallway...</m>
+                    </dlg>
+                    <node-output node="_end" />
+                </then>
+            </if>
             <choice>
                 <c out="n2"><text>Enter Main Hall</text></c>
                 <c out="#a"><text>Leave</text></c>

@@ -20,8 +20,7 @@ namespace TheArchitect.Cutscene
             string path = $"{Application.streamingAssetsPath}/{context.ToString()}/en/{resourcePath}.xml";
             if (!File.Exists(path)) 
             {
-                Debug.LogWarning($"Can't find '{path}'");
-                return new CutsceneInstance();
+                throw new System.Exception($"Can't find '{path}'");
             }
 
             return _Load(path);

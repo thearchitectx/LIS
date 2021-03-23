@@ -37,21 +37,26 @@
                         <m>Damn it... I have this app capable of sending spoofed messages... But I have no idea of what parameters to use for the local network...</m>
                         <m wait="1">Sigh... I'd better find someone smart enough and willing to help me with this...</m>
                     </dlg>
+                    <node-output node="_end" />
                 </then>
             </if>
-
+            
             <if>
                 <check-flag flag="QUEST_BROOKE_CARD" eq="0" />
                 <then>
                     <dlg style="subjective">
                         <m>Hum... There's no reason to gain private access to the principal's office at this moment...</m>
-                        <m>I should keep this card secured to use when it's really needed...</m>
+                        <m>I'd better wait to use this trick when it's really needed...</m>
                     </dlg>
+                    <node-output node="_end" />
                 </then>
             </if>
 
             <dlg style="subjective">
                 <m>Okay... I have an app capable of sending spoofed messages here... I just need to configure it to this new network and...</m>
+            </dlg>
+            <sfx clip="beep" wait="true" />
+            <dlg style="subjective">
                 <m wait="1">... done...</m>
                 <m wait="0.5">Now... The principal is about to be surprised by an urgent request... Let's do this...</m>
             </dlg>
@@ -62,9 +67,28 @@
         </n>
 
         <n id="n-knock">
-            <dlg style="remote-subjective" char="THE_ARCHITECT">
-                <m>SORRY... THIS SCENE IS NOT IMPLEMENTED YET...</m>
+            <sfx clip="knock-door" wait="true" />
+            <if>
+                <check-flag flag="PRINCIPAL_CH_MET" eq="0" />
+                <then>
+                    <flag name="PRINCIPAL_CH_MET" set="1" />
+                    <wait time="2" />
+                    <dlg char="CH_Principal" style="subjective">
+                        <m>Sigh...</m>
+                        <m wait="1">Come in...</m>
+                    </dlg>
+                    <fade-to-black speed="0.5"  keep="true" />
+                    <wait time="2" />
+                    <load stage="principal-office-meeting" />
+                </then>
+            </if>
+
+            <wait time="1" />
+            <dlg char="CH_Principal" style="subjective">
+                <m>I know it's you... And we don't have anything more to talk at this moment...</m>
+                <m>Just leave... I have work to do...</m>
             </dlg>
+            <node-output node="_end" />
         </n>
     </nodes>
 </cutscene>

@@ -18,11 +18,13 @@ namespace TheArchitect.Controllers.UI.PanelPause
         [SerializeField] public GameObject CanvasHelpPrefab;
         [SerializeField] public GameObject CanvasExceptionPrefab;
         [SerializeField] public GameObject CanvasObjectivePrefab;
+        [SerializeField] public GameObject CanvasTrophiesPrefab;
         [SerializeField] private PostProcessVolume PostProcessPause;
 
         private Transform m_CanvasPause;
         private Transform m_CanvasSave;
         private Transform m_CanvasHelp;
+        private Transform m_CanvasTrophies;
         private PanelException m_PanelException;
         private Transform m_CanvasObjective;
         private Canvas[] m_DisabledCanvases;
@@ -103,6 +105,12 @@ namespace TheArchitect.Controllers.UI.PanelPause
                 Destroy(this.m_CanvasSave.gameObject);
                 this.m_CanvasSave = null;
             }
+
+            if (this.m_CanvasTrophies!=null)
+            {
+                Destroy(this.m_CanvasTrophies.gameObject);
+                this.m_CanvasTrophies = null;
+            }
             
             Destroy(this.m_CanvasPause.gameObject);
             this.m_CanvasPause = null;
@@ -129,7 +137,7 @@ namespace TheArchitect.Controllers.UI.PanelPause
 
         public void OpenObjectives()
         {
-            PlayerPrefs.SetInt("HIDE_OBJECTIVES", 0);
+            PlayerPrefs.SetInt(PLAYER_PREF_HIDE_OBJECTIVES, 0);
             PlayerPrefs.Save();
             if (this.m_CanvasObjective == null)
             {
@@ -141,7 +149,7 @@ namespace TheArchitect.Controllers.UI.PanelPause
 
         public void CloseObjectives()
         {
-            PlayerPrefs.SetInt("HIDE_OBJECTIVES", 1);
+            PlayerPrefs.SetInt(PLAYER_PREF_HIDE_OBJECTIVES, 1);
             PlayerPrefs.Save();
             if (this.m_CanvasObjective!=null)
                 Destroy(this.m_CanvasObjective.gameObject);
@@ -162,6 +170,25 @@ namespace TheArchitect.Controllers.UI.PanelPause
             else
             {
                 Destroy(this.m_CanvasSave.gameObject);
+                this.m_CanvasPause.gameObject.SetActive(true);
+            }
+
+        }
+
+        public void ToggleTrophies()
+        {
+            if (this.m_CanvasTrophies == null)
+            {
+                this.m_CanvasTrophies = Instantiate(this.CanvasTrophiesPrefab).GetComponent<Transform>();
+                this.m_CanvasTrophies.SetParent(this.transform, false);
+                this.m_CanvasTrophies.GetComponentInChildren<PanelTrophies>()
+                    .ButtonBack.onClick.AddListener(() => ToggleTrophies()
+                );
+                this.m_CanvasPause.gameObject.SetActive(false);
+            }
+            else
+            {
+                Destroy(this.m_CanvasTrophies.gameObject);
                 this.m_CanvasPause.gameObject.SetActive(true);
             }
 

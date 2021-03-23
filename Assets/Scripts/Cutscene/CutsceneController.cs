@@ -20,6 +20,7 @@ namespace TheArchitect.Cutscene
 
         public void Reload()
         {
+            this.Game.DisablePlayer = false;
             if (this.m_TextParams!=null)
                 foreach (var p in this.m_TextParams)
                     Game.SetTextState(p.Name, p.Value);

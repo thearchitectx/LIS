@@ -1,0 +1,152 @@
+<?xml version="1.0"?>
+<cutscene
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../Cutscene.xsd">
+    <nodes>
+        <n id="n1">
+            <wait time="3" />
+            <trophy unlock="002-enemy-mine-01" />
+            <stat char="CH_Principal" name="INTEL" set="1">*${Characters.CH_Principal.DisplayName}* added to the Intel journal</stat>
+            <stat char="CH_Principal" name="INTEL_1" set="1" notify="false"/>
+            <stat char="CH_Principal" name="INTEL_2" set="1" notify="false"/>
+
+            <dlg char="CH_Principal" style="subjective">
+                <m>Give me a minute to finish this...</m>
+                <m wait="0.5">You don't need to sit... This meeting won't take long...</m>
+            </dlg>
+            <anim target="Cinemachine" trigger="cm-back" />
+            <wait time="9" />
+            
+            <anim target="Cinemachine" trigger="cm-feet" />
+            <wait time="1" />
+            <sys>
+                Some stressful situations require quick and tricky action taking!\n\n
+                *LEFT CLICK* or press *SPACE BAR* when the choice wheel highlights your choice before time tuns out!
+            </sys>
+
+            <prefab name="TensionChoice">
+                <message name="MessageChoice0" string="KEEP SILENT" />
+                <message name="MessageChoice1" string="HUM THE IMPERIAL MARCH" />
+                <message name="MessageChoice2" string="TAP THE FLOOR LOUDER" />
+                <message name="MessageChoice3" string="STARE THE FLOOR" />
+                <outcome name="0" output="n1-silent" store="TXT_TMP_0" />
+                <outcome name="1" output="n1-daring" store="TXT_TMP_0" />
+                <outcome name="2" output="n1-daring" store="TXT_TMP_0" />
+                <outcome name="3" output="n1-silent" store="TXT_TMP_0" />
+            </prefab>
+        </n>
+
+        <n id="n1-daring" out="n2">
+            <wait time="1" />
+            <prefab destroy="TensionChoice" />
+            <wait time="0.5" />
+            
+            <anim target="Cinemachine" trigger="cm-back" />
+            <anim target="CH_Principal" trigger="idle-sit-look" />
+            <dlg char="CH_Principal" track="Neck">
+                <m>Sigh.......</m>
+            </dlg>
+
+            <rig-track of="CH_Principal" eye="0" head="0" target="Cinemachine/Subjective" target-transition-speed="1000" />
+            <wait time="1" />
+            <anim target="Cinemachine" trigger="cm-subjective" />
+            
+            <rig-track of="CH_Principal" eye="1" head="1" />
+            
+            <flag name="DICK_DARING" inc="1">YOU FEEL MORE *DARING*!</flag>
+
+            <dlg char="CH_Principal" track="Neck">
+                <m>So this is what you think?</m>
+                <m>That this is a joke? An act? Some sort of of game where you are the hero and I'm the evil villain?</m>
+            </dlg>
+            <wait time="1" />
+            <anim target="CH_Principal" trigger="react-sit-facepalm" />
+            <wait time="0.2" />
+            <dlg char="CH_Principal" track="Neck">
+                <m>I have to break the news to you, young man... You're simply... wrong...</m>
+            </dlg>
+        </n>
+
+        <n id="n1-silent" out="n2">
+            <wait time="1" />
+            <prefab destroy="TensionChoice" />
+            <wait time="4" />
+            
+            <anim target="Cinemachine" trigger="cm-back" />
+            <anim target="CH_Principal" trigger="idle-sit-look" />
+            <dlg char="CH_Principal" track="Neck">
+                <m>Humpf...</m>
+            </dlg>
+
+            <rig-track of="CH_Principal" eye="0" head="0" target="Cinemachine/Subjective" target-transition-speed="1000" />
+            <wait time="1" />
+            <anim target="Cinemachine" trigger="cm-subjective" />
+            
+            <rig-track of="CH_Principal" eye="1" head="1" target="Cinemachine/Subjective" target-transition-speed="1" />
+            
+            <dlg char="CH_Principal" track="Neck">
+                <m>So... Are you trying to act as a patient well behaved student now?</m>
+                <m>Like a tiger pretending it's changing its stripes?</m>
+            </dlg>
+            <wait time="1" />
+            <anim target="CH_Principal" trigger="react-sit-facepalm" />
+            <wait time="0.2" />
+            <dlg char="CH_Principal" track="Neck">
+                <m>You have to understand, young man... I'm not like the other educators you encountered during your life...</m>
+            </dlg>
+        </n>
+        
+        <n id="n2">
+            <wait time="1" />
+            <dlg char="CH_Principal" track="Neck">
+                <m>I know your record and every little stain you spread across it...</m>
+            </dlg>
+            <wait time="0.5" />
+            
+            <anim target="Cinemachine" trigger="cm-subjective" />
+            <wait time="0.5" />
+            <dlg char="CH_Principal" track="Neck">
+                <m>The only reason you're in this school today is due some kind of loophole in our oldest regulations... Something I'm still trying to fix...</m>
+                <m>I won't allow such error to be repeated... However... As a man who always play by the rules, I just have to accept you were lawfully registered in Blackwell Academy...</m>
+            </dlg>
+
+            <anim target="Cinemachine" trigger="cm-back" />
+            <dlg char="CH_Principal" track="Neck">
+                <m>Rules, you see... Something you clearly despise... but also the basic foundation of our society...</m>
+                <m>The same rules that allow the educational staff to create internship programs for Blackwell... and enroll students on it as they see fit...</m>
+            </dlg>
+
+            <wait time="1" />
+            <anim target="Cinemachine" trigger="cm-subjective" />
+            <anim target="CH_Principal" trigger="react-sit-facepalm" />
+            <dlg char="CH_Principal" track="Neck">
+                <m>Like this obnoxious boy, Justin... Miss Grant somehow thought that enrolling him in the administrative internship would help on his "focus" problem...</m>
+            </dlg>
+            <wait time="1" />
+            <dlg char="CH_Principal" track="Neck">
+                <m>Well... I created something special for you... The "general maintenance helper" internship...</m>
+                <m wait="0.5">Our eccentric janitor... Samuel... He's getting old and tired, so you'll help him doing tasks like the one you had after class today...</m>
+            </dlg>
+            
+            <anim target="Cinemachine" trigger="cm-back" />
+            <dlg char="CH_Principal" track="Neck">
+                <m>I think it's the type of work that would develop the "humility" skills you need...</m>
+                <m wait="0.5">So, please... Leave my office now and look for Samuel...</m>
+                <m>He will be the one assigning you tasks...</m>
+            </dlg>
+            <anim target="Cinemachine" trigger="cm-subjective" />
+            <dlg char="CH_Principal" track="Neck">
+                <m>Now... Get out of my sight...</m>
+            </dlg>
+
+            <fade-to-black speed="0.5" keep="true" />
+            <wait time="2" />
+
+            <sfx clip="door-transition" wait="true" />
+            <objective name="OBJ_TalkToThePrincipal" completed="true" />
+            <objective name="OBJ_TalkToSamuel" completed="false" />
+
+            <load stage="principal-01" spawn="Player Spawn/Principal Office" />
+        </n>
+    </nodes>
+</cutscene>

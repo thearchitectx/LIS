@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:include schemaLocation="Cutscene-flag.xsd" />
+    <xs:include schemaLocation="Cutscene-sfx.xsd" />
+    <xs:include schemaLocation="Cutscene-objective.xsd" />
+    <xs:include schemaLocation="Cutscene-trophy.xsd" />
     <xs:simpleType name="variable">
         <xs:restriction base="xs:string">
             <xs:pattern value="$\{.+\}"/>
@@ -32,6 +36,7 @@
             <xs:enumeration value="ModelViewer" />
             <xs:enumeration value="PictureTaker" />
             <xs:enumeration value="PictureViewer"/>
+            <xs:enumeration value="TensionChoice"/>
             <xs:enumeration value="TimelineUI"/>
         </xs:restriction>
     </xs:simpleType>
@@ -62,6 +67,7 @@
             <xs:enumeration value="TXT_ARG_2" />
             <xs:enumeration value="TXT_ARG_3" />
             <xs:enumeration value="TXT_ARG_4" />
+            <xs:enumeration value="TXT_TMP_0" />
             <xs:enumeration value="KATE_HALLWAY_PICTURE" />
             <xs:enumeration value="PARAM_FILE_FOLDER" />
         </xs:restriction>
@@ -79,51 +85,6 @@
             <xs:enumeration value="DICK_KARMA_EVIL" />
         </xs:restriction>
     </xs:simpleType>
-    <xs:simpleType name="flag">
-        <xs:restriction base="xs:string">
-            <xs:enumeration value="#DISABLE_PLAYER" />
-            <xs:enumeration value="DICK_DARING" />
-            <xs:enumeration value="DICK_INTELLIGENCE" />
-            <xs:enumeration value="DICK_CHARISMA" />
-            <xs:enumeration value="DICK_KARMA" />
-            <xs:enumeration value="CLASSROOM_TRASH_CAN_TRASH_COUNT" />
-            <xs:enumeration value="BROOKE_MET" />
-            <xs:enumeration value="BROOKE_ABOUT_MAX_AND WARREN" /> <!-- (1)Propose revenge (2)Tried to help -->
-            <xs:enumeration value="HALLWAY_TRASH_CAN_A_TRASH_COUNT" />
-            <xs:enumeration value="HALLWAY_TRASH_CAN_B_TRASH_COUNT" />
-            <xs:enumeration value="HALLWAY_TRASH_CAN_C_TRASH_COUNT" />
-            <xs:enumeration value="HALLWAY_TRASH_CAN_D_TRASH_COUNT" />
-            <xs:enumeration value="HALLWAY_TRIED_ENTER_ROOM103" />
-            <xs:enumeration value="INTRO_TRASH_SCORE" />
-            <xs:enumeration value="INTRO_TALK_VICTORIA" />
-            <xs:enumeration value="INTRO_CHECK_VICTORIA" />
-            <xs:enumeration value="INTRO_TRASH_NAPKIN" />
-            <xs:enumeration value="INTRO_TRASH_SODA_A" />
-            <xs:enumeration value="INTRO_TRASH_SODA_B" />
-            <xs:enumeration value="INTRO_TRASH_BOTTLE" />
-            <xs:enumeration value="JULIE_ZACHARY_MAKE_OUT_SEEN" />
-            <xs:enumeration value="JUSTIN_BIRDS" /> <!-- (1)BIRDS AREN'T REAL!!! (2) Whatever you said -->
-            <xs:enumeration value="JUSTIN_MET" />
-            <xs:enumeration value="JUSTIN_PRINCIPAL" />
-            <xs:enumeration value="KATE_FIRST_MET" />
-            <xs:enumeration value="PICKED_BROOKE_NOTE" />
-            <xs:enumeration value="PRINCIPAL_CH_LOCATION" /> <!-- (0) Office (1) Meeting Prescott Prank -->
-            <xs:enumeration value="PRINCIPAL_TRASH_CAN_TRASH_COUNT" />
-            <xs:enumeration value="PRINCIPAL_DRAWER1_UNLOCKED" />
-            <xs:enumeration value="PRINCIPAL_DRAWER2_UNLOCKED" />
-            <xs:enumeration value="QUEST_BROOKE_CARD_FOUND_TIP_MEETING" />
-            <xs:enumeration value="QUEST_BROOKE_CARD_FOUND_TIP_FINANCE" />
-            <xs:enumeration value="QUEST_BROOKE_CARD" /> <!-- (1)Started (2)Entered Office (NO HELP) (3) Entered Office (BROOKE HELPED)-->
-            <xs:enumeration value="QUEST_KATE_LOCKER" /> <!-- (1)Started (2)Searching Key (3)Delivered Key</xs:documentation></xs:annotation></xs:enumeration -->
-            <xs:enumeration value="QUEST_JEFFERSON_TAKE_PIC" /><!-- (1)Took Lame Pic (2)Took cool pic (11)Delivered Lame pic (12)Delivered Cool Pic -->
-            <xs:enumeration value="TMP_1" />
-            <xs:enumeration value="TUTORIAL_MODEL_VIEWER" />
-            <xs:enumeration value="TUTORIAL_LOCKPICK" />
-            <xs:enumeration value="FLG_ARG_0" />
-            <xs:enumeration value="FLG_ARG_1" />
-            <xs:enumeration value="FLG_ARG_2" />
-        </xs:restriction>
-    </xs:simpleType>
     <xs:simpleType name="character-stat">
         <xs:restriction base="xs:string">
             <xs:enumeration value="AFFINITY" />
@@ -139,19 +100,6 @@
             <xs:enumeration value="INTEL_8" />
             <xs:enumeration value="INTEL_9" />
             <xs:enumeration value="CORRUPTION" />
-        </xs:restriction>
-    </xs:simpleType>
-    <xs:simpleType name="objective">
-        <xs:restriction base="xs:string">
-            <xs:enumeration value="OBJ_BrookeMemoryCard01" />
-            <xs:enumeration value="OBJ_IntroCollectTrash" />
-            <xs:enumeration value="OBJ_IntroTalk" />
-            <xs:enumeration value="OBJ_JeffersonFirstPicTake" />
-            <xs:enumeration value="OBJ_KateHelpLockerOpenLocker" />
-            <xs:enumeration value="OBJ_KateHelpLockerFindKey" />
-            <xs:enumeration value="OBJ_JeffersonFirstPicBring" />
-            <xs:enumeration value="OBJ_PrincipalPrank" />
-            <xs:enumeration value="OBJ_TalkToThePrincipal" />
         </xs:restriction>
     </xs:simpleType>
     <xs:simpleType name="item">
@@ -183,6 +131,11 @@
         <xs:attribute name="eq" type="xs:integer" use="optional" />
         <xs:attribute name="gte" type="xs:integer" use="optional" />
         <xs:attribute name="lte" type="xs:integer" use="optional" />
+        <xs:attribute name="inverse" type="xs:boolean" use="optional" />
+    </xs:complexType>
+    <xs:complexType name="check-text-type">
+        <xs:attribute name="text" type="text-data" use="required" />
+        <xs:attribute name="eq" type="xs:string" use="optional" />
         <xs:attribute name="inverse" type="xs:boolean" use="optional" />
     </xs:complexType>
     <xs:complexType name="check-item-type">
@@ -222,6 +175,7 @@
                             <xs:complexType>
                                 <xs:attribute name="name" type="xs:string" use="required" />
                                 <xs:attribute name="output" type="xs:string"  use="required" />
+                                <xs:attribute name="store" type="text-data"  use="optional" />
                                 <xs:attribute name="destroy" type="xs:integer" />
                             </xs:complexType>
                         </xs:element>
@@ -249,6 +203,11 @@
                 <xs:complexType>
                     <xs:attribute name="name" type="text-data" use="required" />
                     <xs:attribute name="set" type="xs:string" />
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="trophy">
+                <xs:complexType>
+                    <xs:attribute name="unlock" type="trophy" use="required" />
                 </xs:complexType>
             </xs:element>
             <xs:element name="item">
@@ -316,6 +275,7 @@
                     <xs:sequence>
                         <xs:choice maxOccurs="unbounded">
                             <xs:element name="check-flag" minOccurs="0" type="check-flag-type" />
+                            <xs:element name="check-text" minOccurs="0" type="check-text-type" />
                             <xs:element name="check-perk" minOccurs="0" type="check-perk-type" />
                             <xs:element name="check-item" minOccurs="0" type="check-item-type" />
                             <xs:element name="check-stat" minOccurs="0" type="check-stat-type" />
@@ -366,6 +326,7 @@
                 <xs:complexType>
                     <xs:attribute name="of" type="character" use="required" />
                     <xs:attribute name="target" type="xs:string" />
+                    <xs:attribute name="target-transition-speed" type="xs:decimal" />
                     <xs:attribute name="eye" type="xs:decimal"  />
                     <xs:attribute name="head" type="xs:decimal"  />
                     <xs:attribute name="root" type="xs:decimal"  />
@@ -406,7 +367,7 @@
             </xs:element>
             <xs:element name="sfx">
                 <xs:complexType>
-                    <xs:attribute name="clip" type="xs:string" use="required" />
+                    <xs:attribute name="clip" type="sfx-clip" use="required" />
                     <xs:attribute name="wait" type="xs:boolean" />
                 </xs:complexType>
             </xs:element>

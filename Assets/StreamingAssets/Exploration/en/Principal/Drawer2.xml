@@ -105,7 +105,7 @@
 
 
         <n id="n-check-unlock-win">
-            <item name="ITM_LOCKPICK" dec="1">THE LOCKPICK NOW USELESS</item>
+            <item name="ITM_LOCKPICK" dec="1">THE LOCKPICK IS NOW USELESS</item>
             <flag name="PRINCIPAL_DRAWER2_UNLOCKED" set="1" />
             <dlg style="subjective">
                 <m>Nice... It's unlocked</m>

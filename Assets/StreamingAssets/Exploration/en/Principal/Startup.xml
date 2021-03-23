@@ -13,6 +13,21 @@
                     <cutscene-outcome value="_destroyObject" />
                 </then>
             </if>
+            <if>
+                <check-flag flag="PRINCIPAL_CH_MET" eq="1" />
+                <then>
+                    <flag name="PRINCIPAL_CH_MET" set="2" />
+                    <flag name="#DISABLE_PLAYER" set="1" />
+                    
+                    <dlg style="subjective">
+                        <m>So... The principal declares open war...</m>
+                        <m wait="1">Well... I have no other option than fighting with the weapons I have...</m>
+                    </dlg>
+
+                    <flag name="#DISABLE_PLAYER" set="0" />
+                    <cutscene-outcome value="_destroyObject" />
+                </then>
+            </if>
         </n>
     </nodes>
 </cutscene>

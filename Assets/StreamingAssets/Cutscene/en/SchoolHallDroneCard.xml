@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../Cutscene.xsd">
+    <!-- Runs after checking Brooke's drone memory card -->
+    <nodes>
+        <n id="n1">
+            <wait time="1" />
+            <dlg char="CH_Principal" track="Neck">
+                <m>It was him... I know it... He's the who did this little plank...</m>
+                <m wait="1">Be prepared, kid... One day I'll catch you in the act... And your expulsion memo is ready, just waiting for this day...</m>
+            </dlg>
+
+            <anim int="step" intValue="2" />
+            <wait time="1" />
+
+            <dlg char="CH_Principal" track="Neck">
+                <m>Damn it... And now I have to deal with Justin again...</m>
+                <m>Urgh... I hate my life...</m>
+            </dlg>
+
+            <fade-to-black mode="to" keep="true" />
+            <wait time="0.5" />
+            <sfx clip="door-transition" wait="true" />
+            <wait time="0.5" />
+
+            <objective name="OBJ_PrincipalPrank" completed="true" />
+            <objective name="OBJ_BrookeMemoryCard01" completed="true" />
+            <objective name="OBJ_BrookeMemoryCard02" completed="false" />
+
+            <load stage="school-hall-01" spawn="Player Spawn/Corner A" />
+        </n>
+    </nodes>
+</cutscene>

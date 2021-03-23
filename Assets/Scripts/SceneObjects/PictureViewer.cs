@@ -18,7 +18,17 @@ namespace TheArchitect.SceneObjects
         private Sprite m_ImageSprite = null;
         private byte[] m_Buf = null;
         private float m_Timer = 0.5f;
+        private int m_FixedWidth = int.MinValue;
 
+        public void FixedWidth(string widthAsInt)
+        {
+            int.TryParse(widthAsInt, out this.m_FixedWidth);
+        }
+
+        public void FixedScreenWidth()
+        {
+            this.m_FixedWidth = 500;
+        }
 
         public void LoadPicture(string name)
         {
@@ -41,7 +51,10 @@ namespace TheArchitect.SceneObjects
             {
                 this.m_ImagePicture.sprite = this.m_ImageSprite;
                 this.m_ImagePicture.color = Color.white;
-                this.m_Container.sizeDelta = new Vector2(this.m_ImageSprite.texture.width, this.m_ImageSprite.texture.height);
+                if (this.m_FixedWidth > 0)
+                    this.m_Container.sizeDelta = new Vector2(this.m_FixedWidth, this.m_FixedWidth * this.m_ImageSprite.texture.height / this.m_ImageSprite.texture.width);
+                else
+                    this.m_Container.sizeDelta = new Vector2(this.m_ImageSprite.texture.width, this.m_ImageSprite.texture.height);
             }
         }
 
@@ -71,7 +84,11 @@ namespace TheArchitect.SceneObjects
                 this.m_ImagePicture.sprite = m_ImageSprite;
                 this.m_ImagePicture.color = Color.white;
                 
-                m_Container.sizeDelta = new Vector2(tex.width / 1.6f, tex.height / 1.6f);
+                Debug.Log($"WIDTH: {new Vector2(this.m_FixedWidth, this.m_FixedWidth * this.m_ImageSprite.texture.height / this.m_ImageSprite.texture.width)}");
+                if (this.m_FixedWidth > 0)
+                    this.m_Container.sizeDelta = new Vector2(this.m_FixedWidth, this.m_FixedWidth * this.m_ImageSprite.texture.height / this.m_ImageSprite.texture.width);
+                else
+                    this.m_Container.sizeDelta = new Vector2(tex.width, tex.height);
             }
 
             if (this.m_Timer <= 0 && (Input.GetMouseButtonDown(0) || Input.GetButtonDown("Jump")))

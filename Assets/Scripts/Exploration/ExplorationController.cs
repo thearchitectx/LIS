@@ -39,9 +39,9 @@ namespace TheArchitect.Exploration
             if (spawnPoint != null)
             {
                 Transform t = transform.Find(spawnPoint);
-                Debug.Log($"SPAWN POINT COORDS: {t.position}");
                 if (t != null)
                 {
+                    Debug.Log($"SPAWN POINT COORDS: {t.position}");
                     this.m_Game.State.SetSpawnPosition(t.position);
                     this.m_Game.State.SetSpawnRotation(t.rotation);
                 }

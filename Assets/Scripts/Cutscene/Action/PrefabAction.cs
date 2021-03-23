@@ -21,6 +21,8 @@ namespace TheArchitect.Cutscene.Action
         public string Name;
         [XmlAttribute("output")]
         public string Output;
+        [XmlAttribute("store")]
+        public string Store;
         [XmlAttribute("destroy")]
         public int Destroy = int.MinValue;
     }
@@ -66,7 +68,8 @@ namespace TheArchitect.Cutscene.Action
             
             if (Target == null)
             {
-                Debug.LogWarning($"Can't resolve a target {Name} | {Resource}");
+                if (Destroy == null)
+                    Debug.LogWarning($"Can't resolve a target Name: '{Name}'  Resource: '{Resource}'");
                 return OUTPUT_NEXT;
             }
 
@@ -114,7 +117,12 @@ namespace TheArchitect.Cutscene.Action
                     foreach (var o in Outcomes) 
                         if (o.Name == this.m_SceneObject.Outcome)
                         {
-                            if (o.Destroy > 0) GameObject.Destroy(this.m_SceneObject.gameObject, o.Destroy);
+                            if (o.Destroy > 0)
+                                GameObject.Destroy(this.m_SceneObject.gameObject, o.Destroy);
+
+                            if (!string.IsNullOrEmpty(o.Store))
+                                controller.Game.SetTextState(o.Store, o.Name);
+
                             return o.Output.StartsWith("#") ? OUTPUT_NEXT : o.Output;
                         }
 

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:simpleType name="sfx-clip">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="beep" />
+            <xs:enumeration value="door-transition" />
+            <xs:enumeration value="knock-door" />
+            <xs:enumeration value="swoosh" />
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>

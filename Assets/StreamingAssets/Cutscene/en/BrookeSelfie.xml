@@ -4,6 +4,7 @@
     xsi:noNamespaceSchemaLocation="../../Cutscene.xsd">
     <nodes>
         <n id="n1">
+            <flag name="QUEST_BROOKE_CARD" inc="10"></flag>
             <wait time="5" />
             <prefab name="TimelineUI">
                 <message name="DisableUI"/>
@@ -21,7 +22,7 @@
             </dlg>
 
             <sys>
-                You can use the video player controls to pause, and change playback speed\n\n
+                You can use your phone video player controls to pause, and change playback speed\n\n
                 You can drag the progress bar to pause the clip in a specific time\n\n
                 Keep the mouse quiet to hide the UI\n\n
                 Press the 'X' button to exit
@@ -32,17 +33,10 @@
                 <outcome name="CLOSE" output="#a" />
             </prefab>
             
-            
-            <prefab name="TimelineUI">
-                <message name="DisableUI"/>
-            </prefab>
-            <dlg char="THE_ARCHITECT" style="remote-subjective">
-                <m>Content of this PREVIEW build ends here. Keep tuned for more!</m>
-            </dlg>
-            
-            <fade-to-black keep="true" />
+            <fade-to-black keep="true" speed="1" />
             <wait time="1" />
-            <load stage="title" />
+            
+            <load stage="principal-office-drone-card" />
         </n>
     </nodes>
 </cutscene>
