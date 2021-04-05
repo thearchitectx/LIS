@@ -6,9 +6,10 @@
             <if>
                 <check-flag flag="QUEST_JEFFERSON_TAKE_PIC" gte="10" />
                 <then>
-                    <prefab resource="Exploration/SchoolHall/Dynamic/BrookeLostCard/CH_Brooke" 
-                        target="CH_Brooke"
+                    <prefab resource="Exploration/SchoolHall/Dynamic/BrookeLostCard/BrookeLostCard" 
+                        target="BrookeLostCard"
                         parent="Dynamic" />
+                    <anim context="Dynamic" target="BrookeLostCard" idle="UPSET" />
                 </then>
             </if>
             <cutscene-outcome value="_destroyObject" />

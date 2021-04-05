@@ -6,9 +6,6 @@
         <n id="root">
             <obj name="FadeFromBlack" destroy="1" />
             <obj name="CH_Victoria" destroy="8" />
-            <anim target="CH_Jefferson" int="idle" intValue="2" />
-            <anim target="CH_Victoria" int="idle" intValue="3" />
-            <anim target="CH_Player" int="idle" intValue="7" />
             
             <wait time="5" />
 
@@ -24,7 +21,7 @@
         </n>
 
         <n id="n1-nail" out="n2">
-            <anim target="CH_Jefferson" trigger="rect-lean-think1" />
+            <anim target="CH_Jefferson" trigger="react-lean-wall-think" />
             <dlg char="CH_Jefferson" track="Neck">
                 <m>Hmm... Let me try to translate your words to proper English...</m>
                 <m>You're asking if I'm having sexual encounters with Miss Chase, right!?</m>
@@ -33,7 +30,7 @@
         </n>
 
         <n id="n1-tease" out="n2">
-            <anim target="CH_Jefferson" trigger="rect-lean-think1" />
+            <anim target="CH_Jefferson" trigger="react-lean-wall-think" />
             <dlg char="CH_Jefferson"  track="Neck">
                 <m>You're right about my hands being 'clean'... But I'm also pretty sure she's not just teasing though...</m>
                 <m>Victoria is obsessed with demonstrations of power... Pursuing affairs with a teacher is another of those games she plays with real intent...</m>
@@ -41,7 +38,7 @@
         </n>
 
         <n id="n1-hate" out="n2">
-            <anim target="CH_Jefferson" trigger="rect-lean-think1" />
+            <anim target="CH_Jefferson" trigger="react-lean-wall-think" />
             <dlg char="CH_Jefferson"  track="Neck">
                 <m>'Hate'... 'Like'... You're using simplistic words to describe the wide range of Miss Chase's intentions, boy...</m>
                 <m>You need to improve your observation skills if you want to succeed int this school...</m>
@@ -64,7 +61,7 @@
             </choice>
 
             <anim trigger="Cinemachine Talk" />
-            <anim target="CH_Jefferson" trigger="rect-lean-think1" />
+            <anim target="CH_Jefferson" trigger="react-lean-wall-think" />
             <dlg char="CH_Jefferson" track="Neck">
                 <m>Well... But you know well what the word 'trouble' means, right? The principal told me a bit about you...</m>
                 <m>Poor school grades history... Records of conduct violation... Repeated truancy...</m>
@@ -78,9 +75,9 @@
         </n>
 
         <n id="n2-silent" out="n3">
-            <anim target="CH_Jefferson" int="idle" intValue="1" />
-            <wait time="1" />
             <anim trigger="Cinemachine Talk Close" />
+            <anim target="CH_Jefferson" trigger="idle-hands-waist" />
+            <wait time="1" />
             <dlg char="CH_Jefferson" style="subjective">
                 <m>Yeah... There's no need to be ashamed...</m>
                 <m wait="1">The failure of a student is also a failure of the school...</m>
@@ -88,9 +85,9 @@
         </n>
 
         <n id="n2-guilty" out="n3">
-            <anim target="CH_Jefferson" int="idle" intValue="1" />
-            <wait time="1" />
             <anim trigger="Cinemachine Talk Close" />
+            <anim target="CH_Jefferson" trigger="idle-hands-waist" />
+            <wait time="1" />
             <dlg char="CH_Jefferson" style="subjective">
                 <m>Yeah... I didn't expect you to deny these records...</m>
                 <m wait="1">But also didn't expect you to sound pride of them...</m>
@@ -98,10 +95,10 @@
         </n>
 
         <n id="n2-ed" out="n3">
-            <stat char="CH_Jefferson" name="AFFINITY" inc="1" />
-            <anim target="CH_Jefferson" int="idle" intValue="1" />
-            <wait time="1" />
             <anim trigger="Cinemachine Talk Close" />
+            <stat char="CH_Jefferson" name="AFFINITY" inc="1" />
+            <anim target="CH_Jefferson" trigger="idle-hands-waist" />
+            <wait time="1" />
             <dlg char="CH_Jefferson"  style="subjective">
                 <m>Yeah... I can sympathize with that feeling...</m>
             </dlg>

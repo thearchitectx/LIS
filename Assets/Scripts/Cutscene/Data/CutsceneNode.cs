@@ -46,6 +46,7 @@ namespace TheArchitect.Cutscene
             XmlElement("item", typeof(ItemAction)),
             XmlElement("text", typeof(SetText)),
             XmlElement("trophy", typeof(TrophyAction)),
+            XmlElement("walker", typeof(WalkerAction)),
             XmlElement("sfx", typeof(SFXAction)),
         ]
         public CutsceneAction[] Actions

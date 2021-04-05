@@ -11,12 +11,13 @@
             <dlg char="CH_Jefferson" track="Neck">
                 <m>Great... Show me what you got...</m>
             </dlg>
+            
             <trophy unlock="000-teachers-pet-01" />
             <anim target="CH_Jefferson" trigger="see-picture" />
             <obj name="RigTargetPhone" active="true" />
-            <rig-track of="CH_Jefferson" target="RigTargetPhone" eye="1" head="1" />
 
             <wait time="1.5" />
+            <rig-track of="CH_Jefferson" target="RigTargetPhone" eye="1" head="1" />
             
             <objective name="OBJ_JeffersonFirstPicBring" completed="true" />
 

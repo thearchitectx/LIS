@@ -7,7 +7,6 @@
                 <check-flag flag="QUEST_JEFFERSON_TAKE_PIC" lte="10" />
                 <then>
                     <prefab target="CH_Kate" resource="Exploration/Hallway/Dynamic/KateOnLocker" parent="Dynamic" />
-                    <anim context="Dynamic" target="CH_Kate" int="idle" intValue="4" />
                 </then>
             </if>
             <cutscene-outcome value="_destroyObject" />

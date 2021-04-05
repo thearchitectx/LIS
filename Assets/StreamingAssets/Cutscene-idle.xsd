@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:simpleType name="idle">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="STAND_HANDS_WAIST" />
+            <xs:enumeration value="UNEASY" />
+            <xs:enumeration value="POSE_PRAY" />
+            <xs:enumeration value="POSE_CHEER" />
+            <xs:enumeration value="UPSET" />
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>

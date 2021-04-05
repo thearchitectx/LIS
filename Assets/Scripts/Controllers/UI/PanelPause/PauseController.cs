@@ -11,6 +11,7 @@ namespace TheArchitect.Controllers.UI.PanelPause
 
     public class PauseController : MonoBehaviour
     {
+        public const string PLAYER_PREF_SHOW_FPS = "PauseController.SHOW_FPS";
         public const string PLAYER_PREF_HIDE_OBJECTIVES = "PauseController.HIDE_OBJECTIVES";
         public const string PLAYER_PREF_IGNORE_EXCEPTION = "PauseController.PLAYER_PREF_IGNORE_EXCEPTION";
         [SerializeField] public GameObject CanvasPausePrefab;
@@ -19,8 +20,10 @@ namespace TheArchitect.Controllers.UI.PanelPause
         [SerializeField] public GameObject CanvasExceptionPrefab;
         [SerializeField] public GameObject CanvasObjectivePrefab;
         [SerializeField] public GameObject CanvasTrophiesPrefab;
+        [SerializeField] public GameObject CanvasFPSPrefab;
         [SerializeField] private PostProcessVolume PostProcessPause;
 
+        private Transform m_CanvasFPS;
         private Transform m_CanvasPause;
         private Transform m_CanvasSave;
         private Transform m_CanvasHelp;
@@ -35,6 +38,8 @@ namespace TheArchitect.Controllers.UI.PanelPause
         {
             if (PlayerPrefs.GetInt(PLAYER_PREF_HIDE_OBJECTIVES, 0) == 0)
                 OpenObjectives();
+            if (PlayerPrefs.GetInt(PLAYER_PREF_SHOW_FPS, 0) == 1)
+                ShowFPS();
             this.m_IgnoreException = PlayerPrefs.GetInt(PLAYER_PREF_IGNORE_EXCEPTION, 0) == 1;
         }
 
@@ -72,6 +77,10 @@ namespace TheArchitect.Controllers.UI.PanelPause
                 PlayerPrefs.SetInt(PLAYER_PREF_IGNORE_EXCEPTION, this.m_IgnoreException ? 1 : 0);
                 PlayerPrefs.Save();
                 Resources.Load<TheArchitect.Core.Data.Variables.Console>(ResourcePaths.SO_CONSOLE).Log("EXCEPTION DIALOG "+ (this.m_IgnoreException?"DISABLED":"ENABLED"));
+            }
+            if (m_CanvasPause == null && Input.GetKeyDown(KeyCode.F11))
+            {
+                ToggleFPS();
             }
 
             if (m_CanvasPause == null && Input.GetKeyDown(KeyCode.Tab))
@@ -121,6 +130,27 @@ namespace TheArchitect.Controllers.UI.PanelPause
                 if (c!=null) c.enabled = true;
 
             this.m_DisabledCanvases = null;
+        }
+
+        public void ToggleFPS()
+        {
+            if (m_CanvasFPS==null)
+                ShowFPS();
+            else
+                HideFPS();
+        }
+
+        public void ShowFPS()
+        {
+            m_CanvasFPS = GameObject.Instantiate(CanvasFPSPrefab).transform;
+            m_CanvasFPS.SetParent(this.transform);
+            PlayerPrefs.SetInt(PLAYER_PREF_SHOW_FPS, 1);
+        }
+
+        public void HideFPS()
+        {
+            Destroy(m_CanvasFPS.gameObject);
+            PlayerPrefs.SetInt(PLAYER_PREF_SHOW_FPS, 0);
         }
 
         public void OpenHelp()

@@ -4,6 +4,7 @@
     <nodes>
         <n id="n1">
             <wait time="0.5" />
+            <rig-track of="CH_Jefferson" head="1" eye="1" />
             <if>
                 <check-flag flag="QUEST_JEFFERSON_TAKE_PIC" eq="0" />
                 <then>

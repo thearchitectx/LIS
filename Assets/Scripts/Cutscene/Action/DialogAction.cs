@@ -132,18 +132,21 @@ namespace TheArchitect.Cutscene.Action
             }
 
             // Randomize Jaw Rig to simulate speech
-            if (this.m_Panel!=null && this.m_Panel.IsRollingText && this.m_JawRig != null && !this.m_JawRig.IsMoving())
-                this.m_JawRig.SetWeight(
-                    this.m_JawRig.GetRigWeight() > 0.25f
-                        ? UnityEngine.Random.Range(0f, 0.25f)
-                        : UnityEngine.Random.Range(0.25f, 1)
-                );
-            if (this.m_Panel!=null && this.m_Panel.IsRollingText && this.m_LipsRig != null && !this.m_LipsRig.IsMoving())
-                this.m_LipsRig.SetWeight(
-                    this.m_LipsRig.GetRigWeight() > 0.25f
-                        ? UnityEngine.Random.Range(0f, 0.25f)
-                        : UnityEngine.Random.Range(0.25f, 1)
-                );
+            if (this.m_Panel!=null && this.m_Panel.IsRollingText)
+            {
+                if (this.m_JawRig != null && !this.m_JawRig.IsMoving())
+                    this.m_JawRig.SetWeightKeepRestore(
+                        this.m_JawRig.GetRigWeight() > 0.25f
+                            ? UnityEngine.Random.Range(0f, 0.25f)
+                            : UnityEngine.Random.Range(0.25f, 1)
+                    );
+                if (this.m_LipsRig != null && !this.m_LipsRig.IsMoving())
+                    this.m_LipsRig.SetWeightKeepRestore(
+                        this.m_LipsRig.GetRigWeight() > 0.25f
+                            ? UnityEngine.Random.Range(0f, 0.25f)
+                            : UnityEngine.Random.Range(0.25f, 1)
+                    );
+            } 
 
             if (this.m_Panel!=null && !this.m_Panel.IsRollingText && this.m_JawRig != null)
                 this.m_JawRig.SetWeight(0);

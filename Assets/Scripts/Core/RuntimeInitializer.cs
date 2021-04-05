@@ -10,6 +10,10 @@ namespace TheArchitect.Core
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         static void OnBeforeSceneLoadRuntimeMethod()
         {
+            #if UNITY_EDITOR
+            QualitySettings.vSyncCount = 0;  // VSync must be disabled
+            Application.targetFrameRate = 30;
+            #endif
             Game game = Resources.Load<Game>("ScriptableObjects/Game");
 
             SceneManager.sceneLoaded += (scene, loadMode) => {

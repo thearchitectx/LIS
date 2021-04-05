@@ -4,6 +4,9 @@
     <xs:include schemaLocation="Cutscene-sfx.xsd" />
     <xs:include schemaLocation="Cutscene-objective.xsd" />
     <xs:include schemaLocation="Cutscene-trophy.xsd" />
+    <xs:include schemaLocation="Cutscene-idle.xsd" />
+    <xs:include schemaLocation="Cutscene-expressions.xsd" />
+    <xs:include schemaLocation="Cutscene-reacts.xsd" />
     <xs:simpleType name="variable">
         <xs:restriction base="xs:string">
             <xs:pattern value="$\{.+\}"/>
@@ -210,6 +213,12 @@
                     <xs:attribute name="unlock" type="trophy" use="required" />
                 </xs:complexType>
             </xs:element>
+            <xs:element name="walker">
+                <xs:complexType>
+                    <xs:attribute name="target" type="xs:string" use="required" />
+                    <xs:attribute name="destination" type="xs:string" />
+                </xs:complexType>
+            </xs:element>
             <xs:element name="item">
                 <xs:complexType>
                     <xs:simpleContent>
@@ -240,6 +249,9 @@
                     <xs:attribute name="target" type="xs:string" />
                     <xs:attribute name="context" type="xs:string" />
                     <xs:attribute name="trigger" type="xs:string" />
+                    <xs:attribute name="idle" type="idle" />
+                    <xs:attribute name="expression" type="expression" />
+                    <xs:attribute name="react" type="react" />
                     <xs:attribute name="int" type="xs:string" />
                     <xs:attribute name="intValue" type="xs:string" />
                     <xs:attribute name="float" type="xs:string" />

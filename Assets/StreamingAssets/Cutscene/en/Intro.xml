@@ -6,9 +6,7 @@
         <n id="n1">
             <obj name="/Pause Controller" message="CloseObjectives" />
             <fade-to-black mode="from" speed="0.5" />
-            <anim target="CH_Kate" int="idle" intValue="4" />
             <anim target="CH_Kate" int="exp" intValue="1" />
-            <anim target="CH_Jefferson" int="idle" intValue="1" />
             <anim target="CH_NoNameBoy1" int="idle" intValue="1" />
             <stat char="CH_Kate" name="INTEL" set="1" notify="false" />
             <stat char="CH_Kate" name="INTEL_0" set="1" notify="false" />
@@ -269,7 +267,7 @@
             </dlg>
 
             <dlg char="CH_Jefferson" track="Neck">
-                <m>Yeah... Building up tension! That's the way to start a good stroy isn't it?</m>
+                <m>Yeah... Building up tension! That's the way to start a good story isn't it?</m>
             </dlg>
         </n>
 

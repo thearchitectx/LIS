@@ -68,7 +68,7 @@
 
             <wait time="1" />
 
-            <rig-track of="CH_Victoria" head="0" eye="0" />
+            <rig-track of="CH_Victoria" head="1" eye="1" target="CH_JeffersonSpine2"  />
             <rig-track of="CH_Jefferson" head="1" eye="1"  target="CH_VictoriaHead" />
 
             <obj name="Cinemachine Talk" active="false" />
@@ -118,7 +118,7 @@
 
             <wait time="1" />
 
-            <rig-track of="CH_Victoria" head="0" eye="0" />
+            <rig-track of="CH_Victoria" head="1" eye="1" target="CH_JeffersonSpine2"  />
             <rig-track of="CH_Jefferson" head="1" eye="1"  target="CH_VictoriaHead" />
 
             <obj name="Cinemachine Talk" active="false" />
@@ -151,7 +151,7 @@
                 <m>I'm kind of lost on your conversation...</m>
             </dlg>
 
-            <rig-track of="CH_Victoria" head="0" eye="0" />
+            <rig-track of="CH_Victoria" head="1" eye="1" target="CH_JeffersonSpine2"  />
 
             <dlg char="CH_Victoria" track="Neck">
                 <m>Forget about him, ${Characters.CH_Jefferson.DisplayName}...</m>
@@ -224,7 +224,7 @@
             </if>
 
             <rig-track of="CH_Jefferson" head="1" eye="1" target="CH_VictoriaHead" />
-            <rig-track of="CH_Victoria" head="0" eye="0" />
+            <rig-track of="CH_Victoria" head="1" eye="1" target="CH_JeffersonSpine2"  />
 
             <dlg char="CH_Jefferson" track="Neck">
                 <m>${Characters.CH_Victoria.DisplayName}... I think we chatted enough for today...</m>
