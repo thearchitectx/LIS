@@ -1,0 +1,377 @@
+<?xml version="1.0"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../Cutscene.xsd">
+    <nodes>
+        <n id="n1">
+            <rig-track of="CH_Samuel" eye="0" head="0" />
+            <if>
+                <check-flag flag="QUEST_CLEAN_GIRLS_RESTROOM" eq="1" />
+                <then>
+                    <dlg char="CH_Samuel" style="subjective">
+                        <m>You have work to do, man... Report when you're done....</m>
+                    </dlg>
+                </then>
+                <else>
+                    <dlg char="CH_Samuel" style="subjective">
+                        <m>Greetings, youngster...</m>
+                    </dlg>
+                </else>
+            </if>
+            <node-output node="dialog-root"/>
+        </n>
+
+        <!-- ############################################################ 
+             # dialog-root ############################################## 
+             ############################################################ -->
+        <n id="dialog-root">
+            <choice>
+                <c out="#whats-up">
+                    <check-flag flag="SAMUEL_MET" lte="1" />
+                    <text>What's up?</text>
+                    <then>
+                        <obj name="mop" active="false" />
+                        <rig-track of="CH_Samuel" eye="1" head="0.75" />
+                        <anim target="CH_Samuel" idle="STAND_HANDS_WAIST" />
+                        <node-output node="whats-up" />
+                    </then>
+                </c>
+
+                <c out="#helper">
+                    <check-flag flag="SAMUEL_MET" gte="2" />
+                    <check-flag flag="QUEST_CLEAN_GIRLS_RESTROOM" eq="0" />
+                    <text>The principal said I'm supposed to be your... helper?</text>
+                    <then>
+                        <obj name="mop" active="false" />
+                        <rig-track of="CH_Samuel" eye="1" head="0.75" />
+                        <anim target="CH_Samuel" idle="STAND_HANDS_WAIST" />
+                        <node-output node="helper" />
+                    </then>
+                </c>
+                
+                <c out="#two-girls">
+                    <check-flag flag="SAMUEL_MET" gte="2" />
+                    <check-flag flag="SAMUEL_SMOOTH_TALK" eq="0" />
+                    <text>I saw two girls coming out of this room earlier...</text>
+                    <then>
+                        <obj name="mop" active="false" />
+                        <rig-track of="CH_Samuel" eye="1" head="0.75" />
+                        <anim target="CH_Samuel" idle="STAND_HANDS_WAIST" />
+                        <node-output node="two-girls" />
+                    </then>
+                </c>
+
+                <c out="#cleaned-girls-restroom">
+                    <check-flag flag="QUEST_CLEAN_GIRLS_RESTROOM" gte="5" />
+                    <text>Hey... I finished the job at the girl's room...</text>
+                    <then>
+                        <dlg char="THE_ARCHITECT" style="remote-subjective">
+                            <m>THIS QUEST CONTENT ENDS HERE IN THIS VERSION !</m>
+                        </dlg>
+                    </then>
+                </c>
+
+                <c out="mop-end">
+                    <text>Talk to you later...</text>
+                </c>
+            </choice>
+        </n>
+        
+
+        <!-- ########################################################### 
+             # two-girls ############################################### 
+             ########################################################### -->
+        <n id="two-girls">
+            <anim target="CH_Samuel" react="SAY01" />
+            <dlg char="CH_Samuel" style="subjective">
+                <m>Oh, man... They're hot, aren't they?\nBut they're also a thorn in my side...</m>
+                <m>I mean... I don't care about what that rich kids club says about me... But those two are on a quest to "expose" me...</m>
+                <m>I'm trying to stay more time at the men's room also to avoid them... But that's not stopping them to coming to accuse me of my "crimes"...</m>
+            </dlg>
+            <choice>
+                <c out="#a">
+                    <text>I thought you liked their smell...</text>
+                    <then>
+                        <anim target="CH_Samuel" react="SAY02" />
+                        <dlg char="CH_Samuel" style="subjective">
+                            <m>Not while they scream nasty shit at my face...</m>
+                            <m wait="0.5">They're wasting their breath trying to intimidate me... But it's starting to get quite annoying...</m>
+                        </dlg>
+                    </then>
+                </c>
+                <c out="#b">
+                    <text>You survived them until now... What's the secret?</text>
+                    <then>
+                        <anim target="CH_Samuel" react="SAY02" />
+                        <dlg char="CH_Samuel" style="subjective">
+                            <m>Well... The secret is my overwhelming charm, of course...</m>
+                        </dlg>
+                        <wait time="1" />
+                        <anim target="CH_Samuel" react="LAUGH01" />
+                        <dlg char="CH_Samuel" style="subjective">
+                            <m>Nah... Of course not...</m>
+                        </dlg>
+                    </then>
+                </c>
+            </choice>
+
+            <wait time="0.5" />
+            <anim target="CH_Samuel" react="SAY01" />
+            <dlg char="CH_Samuel" style="subjective">
+                <m>The thing is... All these girls are susceptible to the fine art of 'smooth talking'...</m>
+                <m>You need to learn how to quick fire a nice streak of good comebacks to their arguments...</m>
+                <m>If you stun them enough with your answers, they'll open their guards for brief moment for you to attack...</m>
+            </dlg>
+            
+            <choice>
+                <c out="#a"><text>I hope you're not using "attack" literally here...</text></c>
+                <c out="#b"><text>Come on... There's not such thing as this mind control bullshit...</text></c>
+            </choice>
+            
+            <anim target="CH_Samuel" react="LAUGH01" />
+            <dlg char="CH_Samuel" style="subjective">
+                <m>Nah... That's not the kind of weirdo I am...</m>
+                <m wait="1">You see... It's all about context... You won't hypnotize anyone and make them do anything against their will...</m>
+                <m>You'll just sound much more convincing for a brief moment...</m>
+            </dlg>
+            <anim target="CH_Samuel" react="SAY01" />
+            <dlg char="CH_Samuel" style="subjective">
+                <m>That's how I convinced those girls that the rumors they hear about me is nothing but fake news...</m>
+                <m wait="0.5">You should try... The more you improve yourself the easier it gets...</m>
+            </dlg>
+
+            <flag name="SAMUEL_SMOOTH_TALK" set="1">YOU UNLOCKED THE SMOOTH TALK PERK!</flag>
+
+            <node-output node="dialog-root" />
+        </n>
+
+        <!-- ###########################################################
+             # helper ################################################## 
+             ########################################################### -->
+        <n id="helper">
+            <anim target="CH_Samuel" react="LAUGH01" expression="HAPPY" />
+            <dlg char="CH_Samuel" style="subjective" neutral-expression="true">
+                <m>Bwahaha! Isn't that man ridiculous?</m>
+                <m wait="0.5">I mean... After many years working here, this job started to really bore me... So I started spacing out here moping this very spot for hours dreaming about the cuties of this school...</m>
+                <m>But that idiot thinks I'm taking longer to get work done because I'm getting old or some shit like that...</m>
+            </dlg>
+            <anim target="CH_Samuel" react="LAUGH01" />
+            <dlg char="CH_Samuel" style="subjective" neutral-expression="true">
+                <m>And as he doesn't have the balls to fire an ancient Blackwell heritage like me, it fell for you to do the actual work...</m>
+            </dlg>
+
+            <choice>
+                <c out="#a">
+                    <text>It seems he is mixing business and pleasure by appointing me to this 'internship'...</text>
+                    <then>
+                        <anim target="CH_Samuel" react="SAY01"  expression="NEUTRAL"/>
+                        <dlg char="CH_Samuel" style="subjective">
+                            <m>Hey... We live in a society, you know... that likes to look down physical labor...</m>
+                            <m>But you should be proud... How would the world work without us, the blue collar army?</m>
+                        </dlg>
+                    </then>
+                </c>
+                <c out="#b">
+                    <text>So I have to cover the poor work of a lazy ass... Internship is indeed an accurate preview for adult life, I guess...</text>
+                    <then>
+                        <anim target="CH_Samuel" react="SAY01"  expression="NEUTRAL" />
+                        <dlg char="CH_Samuel" style="subjective">
+                            <m>You see... It's not that I'm lazy... I simply don't care... Not nearly as much as before...</m>
+                            <m>It's one of the few good perks of getting old...</m>
+                        </dlg>
+                    </then>
+                </c>
+            </choice>
+
+            <dlg char="CH_Samuel" style="subjective">
+                <m>Also... This job offers some benefits that you might not be aware of...</m>
+            </dlg>
+            <wait time="0.5" />
+            <anim target="CH_Samuel" react="SAY01" />
+            <dlg char="CH_Samuel" style="subjective">
+                <m>For example... What do think about getting into the girl's restroom?</m>
+                <m>Because that's the place we need some garbage collection next!</m>
+                <m>Nice, huh!?</m>
+            </dlg>
+            
+            <choice>
+                <c out="#a">
+                    <check-flag flag="QUEST_BROOKE_RECORD_VIDEO" eq="1" />
+                    <text>That's actually quite... convenient... I'm on a quest about getting in there...</text>
+                </c>
+                <c out="#b"><text>Yeah... Sure... It's my dream...</text></c>
+                <c out="#c"><text>I bet that's what made you choose this job...</text></c>
+            </choice>
+
+            <anim target="CH_Samuel" react="SAY02" />
+            <dlg char="CH_Samuel" style="subjective">
+                <m>Whatever you say, man... But there's more...</m>
+                <m>Do a good job and I'll give you some unique rewards as incentive... I'm sure you'll appreciate it...</m>
+            </dlg>
+            <anim target="CH_Samuel" react="LAUGH01" />
+            <dlg char="CH_Samuel" style="subjective">
+                <m wait="0.5">I wanna see the faces of school staff when you become the top apprentice of Blackwell...</m>
+            </dlg>
+            
+            <anim target="CH_Samuel" react="SAY01" />
+            <dlg char="CH_Samuel" style="subjective">
+                <m>Now... You need to wait for the girls restroom to be empty before going in... Just knock and ask if there's anyone in...</m>
+                <m>Yeah... It sucks, but you don't wanna give reasons for the principal to bust your ass...</m>
+                <m wait="0.5">Report to me when the work is done... Have fun!</m>
+            </dlg>
+
+            <objective name="OBJ_TalkToSamuel" completed="true" />
+            <objective name="OBJ_CleanGirlsRestroom" completed="false" />
+            <flag name="QUEST_CLEAN_GIRLS_RESTROOM" set="1" />
+
+            <node-output node="dialog-root" />
+        </n>
+
+        <!-- ########################################################### 
+             # whats-up ############################################## 
+             ########################################################### -->
+        <n id="whats-up">
+            <if>
+                <check-flag flag="SAMUEL_MET" eq="0" />
+                <then>
+                    <flag name="SAMUEL_MET" set="1" />
+                    <dlg char="CH_Samuel" style="subjective">
+                        <m>So... Another student eager to take a route on life's crossroads...</m>
+                    </dlg>
+                </then>
+            </if>
+            <if>
+                <check-flag flag="SAMUEL_MET" eq="1" />
+                <check-flag flag="PRINCIPAL_CH_MET" eq="0" />
+                <then>
+                    <anim target="CH_Samuel" react="SAY02" />
+                    <dlg char="CH_Samuel" style="subjective">
+                        <m>It would be entertaining to chat with you...</m>
+                        <m>But sometimes... just sometimes... The universe demands order...</m>
+                        <m>So, please... First, meet the principal and then we can continue this conversation...</m>
+                    </dlg>
+                </then>
+            </if>
+            <if>
+                <check-flag flag="SAMUEL_MET" eq="1" />
+                <check-flag flag="PRINCIPAL_CH_MET" gte="1" />
+                <then>
+                    <flag name="SAMUEL_MET" set="2" />
+                    <node-output node="first-chat" />
+                </then>
+            </if>
+            <if>
+                <check-flag flag="SAMUEL_MET" gte="2" />
+                <then>
+                    <node-output node="dialog-root" />
+                </then>
+            </if>
+            <node-output node="mop-end" />
+        </n>
+        
+        <!-- ########################################################### 
+             # first-chat ############################################## 
+             ########################################################### -->
+        <n id="first-chat">
+            <dlg char="CH_Samuel" style="subjective">
+                <m>You already met the Principal, am I right?</m>
+            </dlg>
+            <anim target="CH_Samuel" react="SAY01" />
+            <dlg char="CH_Samuel" style="subjective">
+                <m wait="0.5">How could I be aware of that fact? Some might wonder...</m>
+                <m>Those unfruitful concerns that consume the world's vital energy...</m>
+                <m>But the truth is always like sunshine... It enlightens but also always cast a shadow...</m>
+                <m>All I can say is... My spirit animal whispers, even when I don't ask...</m>
+            </dlg>
+            <choice shuffled="true">
+                <c out="#a">
+                    <text>The "Wise Mystical Janitor"? Seriously? This school looks hip at first, but I'm starting to feel in "Not Another Teen Movie"...</text>
+                    <then>
+                        <flag name="DICK_CHARISMA" inc="1">YOU FEEL YOUR *CHARISMA* IMPROVE!</flag>
+                        <anim target="CH_Samuel" react="LAUGH01" expression="HAPPY" />
+                        <dlg char="CH_Samuel" style="subjective" neutral-expression="true">
+                            <m>Ha... Check out this one... The first who actually gets it...</m>
+                            <m wait="0.5">I know exactly what are you talking about, man... Isn't Mr. T the best?</m>
+                        </dlg>
+                    </then>
+                </c>
+                <c out="#b">
+                    <text>Two questions... What are you smoking? Can I have some?</text>
+                    <then>
+                        <rig-track of="CH_Samuel" eye="0" />
+                        <anim target="CH_Samuel" react="FACEPALM" expression="EYE_ROLL" />
+                        <dlg char="CH_Samuel" style="subjective">
+                            <m>Oh... So smart...</m>
+                            <m>Like I haven't heard that like a hundred times already...</m>
+                        </dlg>
+                    </then>
+                </c>
+                <c out="#c">
+                    <text>The spirit animal... Like our destiny shining at the horizon, prompting us to face it in many different lifetimes...</text>
+                    <then>
+                        <anim target="CH_Samuel" react="FACEPALM" expression="DISAPPROVE" />
+                        <dlg char="CH_Samuel" style="subjective">
+                            <m>Hey... Are you trying to actually say something or just trying to mock me?</m>
+                            <m>I can't say which one you're doing worst...</m>
+                        </dlg>
+                    </then>
+                </c>
+            </choice>
+            
+            <rig-track of="CH_Samuel" head="1" eye="1" />
+            <anim target="CH_Samuel" react="SAY02" expression="NEUTRAL" />
+            <dlg char="CH_Samuel" style="subjective">
+                <m wait="0.5">Sigh... I feel there's no problem to open up about it with you...</m>
+                <m>Because... Yes... Of course it's an act...</m>
+                <m>I mean... Look at me... It's like someone designed me to look like a creep...</m>
+            </dlg>
+            <wait time="0.5" />
+            <anim target="CH_Samuel" react="SAY01"  />
+            <dlg char="CH_Samuel" style="subjective">
+                <m>I had to come up with some cool quirk that would balance my appearance... Or else all the girl's in this school would be too afraid of me and never come near...</m>
+                <m wait="0.5">And if they didn't come near... how would I know the sweet scent of each one of them? How would I know each detail of their skin?</m>
+            </dlg>
+            <anim target="CH_Samuel" blink="CLOSED"  />
+            <dlg char="CH_Samuel" style="subjective">
+                <m>Oh, boy... And they smell so good...</m>
+            </dlg>
+            
+            <choice shuffled="true">
+                <c out="#a">
+                    <text>Forget about looks... A man on his 50s pulling tricks to sniff up teenage girls is the sheer definition of a creep...</text>
+                    <then>
+                        <anim target="CH_Samuel" react="FACEPALM"  blink="NEUTRAL" />
+                        <dlg char="CH_Samuel" style="subjective">
+                            <m>Bullshit... Have you ever seen a good looking man being judged like that?</m>
+                            <m>If George Clooney walked around sniffing girls he would be called 'eccentric', not a 'creep'!</m>
+                        </dlg>
+                    </then>
+                </c>
+                <c out="#b">
+                    <text>Shit... I bet you're the kind of guy that keep tabs on the number of times you fap for each one of these girls...</text>
+                    <then>
+                        <anim target="CH_Samuel" react="LAUGH01"  blink="HAPPY" expression="HAPPY" />
+                        <dlg char="CH_Samuel" style="subjective" neutral-expression="true">
+                            <m>Ha... Of course I do... Did you know there's an app for that?</m>
+                            <m wait="0.5">However it lacks some features... Like... How should I count when I have more than one of them in my fantasies at the same time?</m>
+                        </dlg>
+                    </then>
+                </c>
+            </choice>
+
+            <wait time="0.5" />
+            <anim target="CH_Samuel" react="SAY02" expression="NEUTRAL" blink="NEUTRAL" />
+            <dlg char="CH_Samuel" style="subjective">
+                <m>Anyways... You're not here to talk about my lifestyle, aren't you?</m>
+            </dlg>
+            <node-output node="dialog-root" />
+        </n>
+
+        <!-- ########################################################### 
+             # mop-end ############################################## 
+             ########################################################### -->
+        <n id="mop-end">
+            <obj name="mop" active="true" />
+            <anim target="CH_Samuel" idle="CLEANING_MOP01" expression="NEUTRAL" blink="NEUTRAL" />
+        </n>
+    </nodes>
+</cutscene>

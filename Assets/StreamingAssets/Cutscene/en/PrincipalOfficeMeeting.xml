@@ -5,7 +5,7 @@
     <nodes>
         <n id="n1">
             <wait time="3" />
-            <trophy unlock="002-enemy-mine-01" />
+            <trophy unlock="enemy-mine-01" />
             <stat char="CH_Principal" name="INTEL" set="1">*${Characters.CH_Principal.DisplayName}* added to the Intel journal</stat>
             <stat char="CH_Principal" name="INTEL_1" set="1" notify="false"/>
             <stat char="CH_Principal" name="INTEL_2" set="1" notify="false"/>
@@ -125,7 +125,7 @@
             <wait time="1" />
             <dlg char="CH_Principal" track="Neck">
                 <m>Well... I created something special for you... The "general maintenance helper" internship...</m>
-                <m wait="0.5">Our eccentric janitor... Samuel... He's getting old and tired, so you'll help him doing tasks like the one you had after class today...</m>
+                <m wait="0.5">Our janitor... Samuel... He's getting old and tired, so you'll help him doing tasks like the one you had after class today...</m>
             </dlg>
             
             <anim target="Cinemachine" trigger="cm-back" />

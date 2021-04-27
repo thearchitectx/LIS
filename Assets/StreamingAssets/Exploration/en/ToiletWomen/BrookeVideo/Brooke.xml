@@ -1,0 +1,150 @@
+<?xml version="1.0"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../../Cutscene.xsd">
+    <nodes>
+        <n id="n1">
+            <if>
+                <check-flag flag="QUEST_BROOKE_RECORD_VIDEO_PROGRESS" eq="0" />
+                <then>
+                    <flag name="QUEST_BROOKE_RECORD_VIDEO_PROGRESS" set="1" />
+                    <anim target="CH_Brooke" blink="CLOSED" />
+                    <dlg char="CH_Brooke" track="Spine2" style="whisper">
+                        <m wait="1">Focus... I need to focus... No one is forcing me to do this...</m>
+                    </dlg>
+
+                    <choice>
+                        <c out="#a" icon="DICK_KARMA_GOOD">
+                            <check-flag flag="DICK_KARMA" gte="1" />
+                            <lock-reason>Hey... If you're not feeling okay about this, we can do it later or even call it off...\n[GOOD KARMA 1+ REQUIRED]</lock-reason>
+                            <text>Hey... If you're not feeling good okay this, we can just call it off...</text>
+                            <then>
+                                <flag name="QUEST_BROOKE_RECORD_VIDEO_MOOD" inc="30" />
+                                <anim target="CH_Brooke" idle="UPSET" expression="HAPPY" blink="HAPPY"  />
+                                <rig-track of="CH_Brooke" head="0.7" eye="1" />
+                                <dlg char="CH_Brooke" track="Spine2" neutral-expression="true">
+                                    <m>Oh... Thank you for being so patient with me...</m>
+                                    <m>It's just... I'm not used to simply... expose myself... in front of a boy...</m>
+                                </dlg>
+                                <anim target="CH_Brooke" expression="UNEASY"  />
+                            </then>
+                        </c>
+                        <c out="#b">
+                            <text>Why don't you just try to forget I'm here and relax?</text>
+                            <then>
+                                <anim target="CH_Brooke" idle="UNEASY" react="FACEPALM"  />
+                                <dlg char="CH_Brooke" track="Spine2">
+                                    <m>Yeah... Yeah... Like it's easy to look through your grin and pretend I'm alone...</m>
+                                </dlg>
+                            </then>
+                        </c>
+                    </choice>
+                    <rig-track of="CH_Brooke" head="0" eye="0" />
+                    <node-output node="_end" />
+                </then>
+            </if>
+
+            <if>
+                <check-flag flag="QUEST_BROOKE_RECORD_VIDEO_PROGRESS" eq="1" />
+                <then>
+                    <flag name="QUEST_BROOKE_RECORD_VIDEO_PROGRESS" set="2" />
+                    <choice>
+                        <c out="#come-on">
+                            <text>Come on... We're wasting time... Just do it so we can start recording...</text>
+                            <then>
+                                <anim target="CH_Brooke" react="PISSED_OFF01" expression="DISAPPROVE" blink="NEUTRAL" />
+                                <dlg char="CH_Brooke" track="Spine2">
+                                    <m wait="0.1">Hey... This is not a show, okay!?</m>
+                                </dlg>
+                                <anim target="CH_Brooke" idle="UPSET" expression="NEUTRAL"  />
+                                <dlg char="CH_Brooke" track="Spine2">
+                                    <m>I need to do this at my own pace...</m>
+                                    <m>Like... First getting rid of my glasses...</m>
+                                </dlg>
+                            </then>
+                        </c>
+                        <c out="#glasses">
+                            <text>So... Why don't you start slow by taking off your glasses?</text>
+                            <then>
+                                <flag name="MAX_RESTROOM_DIALOG" inc="10" />
+                                <anim target="CH_Brooke" react="SAY02" expression="NEUTRAL" blink="NEUTRAL" />
+                                <rig-track of="CH_Brooke" head="0.7" eye="1" />
+                                <dlg char="CH_Brooke" track="Spine2">
+                                    <m wait="0.5">Oh... Yeah... I think that's a good idea...</m>
+                                </dlg>
+                            </then>
+                        </c>
+                    </choice>
+
+                    <fade-to-black keep="true" />
+                    <wait time="1" />
+                    <sfx clip="swoosh" />
+                    <obj name="CH_BrookeGlasses" active="false" />
+                    <fade-to-black mode="from" />
+                    <wait time="2" />
+                    
+                    <rig-track of="CH_Brooke" head="0" eye="0" />
+                    <node-output node="_end" />
+                </then>
+            </if>
+            
+            <if>
+                <check-flag flag="QUEST_BROOKE_RECORD_VIDEO_PROGRESS" eq="2" />
+                <then>
+                    <flag name="QUEST_BROOKE_RECORD_VIDEO_PROGRESS" set="3" />
+                    <choice>
+                        <c out="#a" icon="DICK_CHARISMA">
+                            <check-flag flag="DICK_CHARISMA" gte="2" />
+                            <lock-reason>Whoa... You look beautiful without those glasses...\n[CHARISMA +2 REQUIRED]</lock-reason>
+                            <text>Whoa... You look beautiful without those glasses...</text>
+                            <then>
+                                <rig-track of="CH_Brooke" head="0.7" eye="1" />
+                                <anim target="CH_Brooke" react="SAY02" />
+                                <dlg char="CH_Brooke" track="Neck">
+                                    <m>You mean... I look ugly when I use the glasses!?!?</m>
+                                    <m>I mean... That could be also a compliment, not a comparison, but...</m>
+                                </dlg>
+                                <anim target="CH_Brooke" react="SAY02" />
+                                <dlg char="CH_Brooke" track="Neck">
+                                    <m wait="1">Uhh... Forget about it... Sorry... I don't deal well with ambiguous logic......</m>
+                                </dlg>
+                            </then>
+                        </c>
+                        <c out="#b" icon="DICK_INTELLIGENCE">
+                            <check-flag flag="DICK_INTELLIGENCE" gte="2" />
+                            <lock-reason>Cool... The deep fake editor works better without the glasses blocking the reference points on your face... [INTELLIGENCE +1 REQUIRED]</lock-reason>
+                            <text>Cool... The deep fake editor works better without the glasses blocking the reference points on your face...</text>
+                            <then>
+                                <rig-track of="CH_Brooke" head="0.7" eye="1" />
+                                <anim target="CH_Brooke" react="SURPRISE" />
+                                <flag name="QUEST_BROOKE_RECORD_VIDEO_MOOD" inc="30" />
+                                <dlg char="CH_Brooke" track="Neck">
+                                    <m>Whoa... I didn't know that...</m>
+                                    <m>Thank God you're here...</m>
+                                </dlg>
+                                <anim target="CH_Brooke" idle="UNEASY" expression="UNEASY" />
+                                <rig-track of="CH_Brooke" head="0" eye="0" />
+                                <anim react="SAY02" blink="CLOSED" />
+                                <dlg char="CH_Brooke" track="Neck">
+                                    <m wait="1">I mean... It's not that wanted you here to... to see my... it's... just to help me with the deep fake...</m>
+                                </dlg>
+                            </then>
+                        </c>
+                        <c out="#c">
+                            <text>So... Uuuuhh....</text>
+                        </c>
+                    </choice>
+                        
+                    <anim target="CH_Brooke" idle="UPSET" blink="CLOSED" />
+                    <dlg char="CH_Brooke" track="Neck">
+                        <m>Sigh... Okay... I can't stall this anymore...</m>
+                        <m>Get my phone and start recording...</m>
+                    </dlg>
+
+                    <fade-to-black mode="to" keep="true" />
+                    <wait time="1" />
+                    <load stage="toilet-women-record-brooke-video-scene" />
+                </then>
+            </if>
+        </n>
+    </nodes>
+</cutscene>

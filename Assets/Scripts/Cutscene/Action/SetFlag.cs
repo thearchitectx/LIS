@@ -19,6 +19,10 @@ namespace TheArchitect.Cutscene.Action
         public string Inc = null;
         [XmlAttribute("set")]
         public string Set = null;
+        [XmlAttribute("bit-set")]
+        public string Bit1 = null;
+        [XmlAttribute("bit-unset")]
+        public string Bit0 = null;
         [XmlText]
         public string Message = null;
         
@@ -39,6 +43,18 @@ namespace TheArchitect.Cutscene.Action
             if (Set != null)
             {
                 controller.Game.SetFlagState(resolvedName, ResourceString.ParseToInt(Set));
+            }
+
+            if (Bit0 != null)
+            {
+                int v = controller.Game.GetFlagState(resolvedName);
+                controller.Game.SetFlagState(resolvedName, v & ~(1 << ResourceString.ParseToInt(Bit0)));
+            }
+
+            if (Bit1 != null)
+            {
+                int v = controller.Game.GetFlagState(resolvedName);
+                controller.Game.SetFlagState(resolvedName, v | 1 << ResourceString.ParseToInt(Bit1));
             }
 
             if (Message!=null && Message!="")

@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../../Cutscene.xsd">
+    <nodes>
+        <n id="n1">
+            <obj name="Hint" active="false" />
+
+            <dlg char="CH_Brooke" track="Spine2">
+                <m>Wait... You work with Samuel, right? Don't you have the key to this door?</m>
+                <m>Please... Lock it for me...</m>
+            </dlg>
+
+            <choice>
+                <c out="#lie" icon="DICK_KARMA_EVIL">
+                    <check-flag flag="DICK_KARMA" lte="-1" />
+                    <lock-reason><![CDATA[Sure.... I totally have the key... Let me use it...\n<i>[ Lie ]</i> [ EVIL KARMA 1+ REQUIRED]]></lock-reason>
+                    <text><![CDATA[Sure.... I totally have the key... Let me use it...\n<color=gray><i>[ Lie and pretend to lock the door ]</i></color>]]></text>
+                    <then>
+                        <sfx clip="lock" wait="true" />
+                        <wait time="0.5" />
+                        
+                        <flag name="QUEST_BROOKE_RECORD_VIDEO_MOOD" inc="30" />
+                        <dlg char="CH_Brooke" track="Spine2">
+                            <m>Phew... That is relief...</m>
+                            <m>Thank you...</m>
+                        </dlg>
+
+                        <wait time="0.5" />
+                    </then>
+                </c>
+                <c out="#nope">
+                    <text>Sorry... Samuel never gave me the key...\nBut don't worry... I will hear if someone approaches the door...</text>
+                    <then>
+                        <dlg char="CH_Brooke" track="Spine2">
+                            <m>Oh, God...... So we'll have to trust your perception skill to not get busted?</m>
+                            <m>That doesn't feel that much reliably to me...</m>
+                        </dlg>
+                        <wait time="0.5" />
+                    </then>
+                </c>
+            </choice>
+            
+            <cutscene-outcome value="_destroyParent" />
+        </n>
+    </nodes>
+</cutscene>

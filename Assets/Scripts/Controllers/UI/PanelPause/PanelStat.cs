@@ -8,6 +8,7 @@ namespace TheArchitect.Controllers.UI.PanelPause
     {
         [SerializeField] public Text TextLabel;
         [SerializeField] public Text TextValue;
+        [SerializeField] public Image ImageStar;
     }
 
 }

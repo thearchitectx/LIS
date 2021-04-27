@@ -17,6 +17,7 @@ namespace TheArchitect.Controllers.FirstPerson
         [SerializeField] private LayerMask m_GroundedLayerMask;
         [SerializeField] private Vector3 m_Velocity;
         [SerializeField] private bool m_Grounded;
+        [SerializeField] private bool m_WalkEnabled = true;
         [SerializeField] private AudioClip[] m_FootStepClips;
 
         private CharacterController m_CharacterController;
@@ -39,8 +40,17 @@ namespace TheArchitect.Controllers.FirstPerson
                 return;
             this.m_Grounded = Physics.CheckSphere(this.transform.position, 0.1f) && this.m_Velocity.y <= 0;
 
-            float x = Input.GetAxis("Horizontal");
-            float z = Input.GetAxis("Vertical");
+            var x = m_WalkEnabled ? Input.GetAxis("Horizontal") : 0f;
+            var z = m_WalkEnabled ? Input.GetAxis("Vertical") : 0f;
+            var v = new Vector2(x, z).normalized;
+            x = v.x;
+            z = v.y;
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                x *= 2;
+                z *= 2;
+            }
+
 
             Vector3 move = transform.right * x + transform.forward * z;
 

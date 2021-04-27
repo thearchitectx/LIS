@@ -14,8 +14,6 @@ namespace TheArchitect.Exploration
         [SerializeField] private LayerMask m_DistanceCheckMask;
         private RectTransform m_CanvasTransform;
 
-        private Transform m_HighlightAll;
-
         public WorldSelection WorldSelection { get { return m_WorldSelection; } }
 
         void Start()

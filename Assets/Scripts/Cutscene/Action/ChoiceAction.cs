@@ -14,15 +14,20 @@ namespace TheArchitect.Cutscene.Action
         DICK_INTELLIGENCE,
         DICK_CHARISMA,
         DICK_KARMA_GOOD,
-        DICK_KARMA_EVIL
+        DICK_KARMA_EVIL,
+        SMOOTH_TALK,
+        AXIS_INTERACTION,
+        AXIS_INTERACTION_HEART,
     }
 
     public class Choice
     {
         [XmlElement("check-flag", typeof(CheckFlag)),
-         XmlElement("check-stat", typeof(CheckStat)),
-         XmlElement("check-item", typeof(CheckItem)),
-         XmlElement("check-perk", typeof(CheckPerk))]
+            XmlElement("check-perk", typeof(CheckPerk)),
+            XmlElement("check-stat", typeof(CheckStat)),
+            XmlElement("check-item", typeof(CheckItem)),
+            XmlElement("check-text", typeof(CheckText)),
+            XmlElement("check-group", typeof(CheckGroupPredicate))]
         public Predicate[] Predicates;
         [XmlAttribute("out")]
         public string Output;
@@ -32,6 +37,8 @@ namespace TheArchitect.Cutscene.Action
         public string LockReason = null;
         [XmlAttribute("icon")]
         public ChoiceIcon Icon = ChoiceIcon.NONE;
+        [XmlAttribute("icon-text")]
+        public string IconText = null;
         [XmlElement("then")]
         public CutsceneNode ThenNode;
 
@@ -44,6 +51,9 @@ namespace TheArchitect.Cutscene.Action
                     case ChoiceIcon.DICK_CHARISMA: return "UI/Sprites/dick-charisma";
                     case ChoiceIcon.DICK_KARMA_GOOD: return "UI/Sprites/dick-karma-g";
                     case ChoiceIcon.DICK_KARMA_EVIL: return "UI/Sprites/dick-karma-e";
+                    case ChoiceIcon.SMOOTH_TALK: return "ScriptableObjects/Perks/PRK_SMOOTH_TALKER";
+                    case ChoiceIcon.AXIS_INTERACTION: return "UI/Sprites/mouse-control";
+                    case ChoiceIcon.AXIS_INTERACTION_HEART: return "UI/Sprites/mouse-control-heart";
                     default: return null;
                 }
             }
@@ -56,6 +66,8 @@ namespace TheArchitect.Cutscene.Action
         public Choice[] Choices = null;
         [XmlAttribute("help")]
         public bool ShowHelp;
+        [XmlAttribute("shuffled")]
+        public bool Shuffled = false;
 
         [XmlIgnore] private GameObject m_Canvas;
         [XmlIgnore] private PanelChoice m_Panel;
@@ -101,6 +113,10 @@ namespace TheArchitect.Cutscene.Action
                 this.m_Panel.transform.SetParent(this.m_Canvas.transform, false);
                 this.m_Panel.ShowHelpText = this.ShowHelp;
 
+                if (Shuffled)
+                {
+                    ShuffleChoices();
+                }
                 for (int i=0; i < Choices.Length; i++)
                 {
                     Choice c = Choices[i];
@@ -111,6 +127,7 @@ namespace TheArchitect.Cutscene.Action
                             c.Output,
                             condition ? ResourceString.Parse(c.Text) : ResourceString.Parse(c.LockReason),
                             c.IconPath,
+                            c.IconText,
                             condition);
                     }
                 }
@@ -147,6 +164,17 @@ namespace TheArchitect.Cutscene.Action
             }
 
             return new Choice() { Output = OUTPUT_NEXT };
+        }
+
+        public void ShuffleChoices()
+        {
+             for (int i = 0; i < Choices.Length - 1; i++) 
+            {
+                int rnd = Random.Range(i, Choices.Length);
+                var tempGO = Choices[rnd];
+                Choices[rnd] = Choices[i];
+                Choices[i] = tempGO;
+            }
         }
         
     }

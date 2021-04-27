@@ -41,6 +41,7 @@ namespace TheArchitect.Core.Controllers
 			}
 
 			var trophies = Resources.LoadAll<Trophy>(ResourcePaths.SO_TROPHIES);
+			Array.Sort(trophies, (t1, t2) => t1.Order > t2.Order ? 1 : -1);
 
 			foreach (var trophy in trophies)
 			{

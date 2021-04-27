@@ -54,14 +54,24 @@ namespace TheArchitect.SceneObjects
         // Start is called before the first frame update
         void Start()
         {
+            string[] shuffledTexts = new string[this.m_Texts.Length];
+            System.Array.Copy(this.m_Texts, shuffledTexts, shuffledTexts.Length);
+            for (int i = 0; i < this.m_Texts.Length - 1; i++) 
+            {
+                int rnd = Random.Range(i, shuffledTexts.Length);
+                var tempGO = shuffledTexts[rnd];
+                shuffledTexts[rnd] = shuffledTexts[i];
+                shuffledTexts[i] = tempGO;
+            }
+
             this.Outcome = null;
             this.m_TextChoices = new Text[m_ImageChoices.Length];
 
             for ( var i=0; i < this.m_ImageChoices.Length; i++)
                 this.m_TextChoices[i] = this.m_ImageChoices[i].GetComponentInChildren<Text>();
 
-            for (var i=0; i<this.m_Texts.Length; i++)
-                this.m_TextChoices[i].text = this.m_Texts[i];
+            for (var i=0; i<shuffledTexts.Length; i++)
+                this.m_TextChoices[i].text = shuffledTexts[i];
 
             this.m_SpinTimer = 0;
             this.m_SpinAcceleration = 100;
@@ -146,7 +156,7 @@ namespace TheArchitect.SceneObjects
                 this.m_SpinPos = Mathf.Repeat(this.m_SpinPos, 360);
                 this.m_ImageTimer.transform.parent.gameObject.SetActive(false);
 
-                Outcome = selected.ToString();
+                Outcome = System.Array.IndexOf<string>(this.m_Texts, this.m_TextChoices[selected].text).ToString();
             }
         }
 

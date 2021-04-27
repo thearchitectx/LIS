@@ -5,6 +5,7 @@
             <xs:enumeration value="beep" />
             <xs:enumeration value="door-transition" />
             <xs:enumeration value="knock-door" />
+            <xs:enumeration value="lock" />
             <xs:enumeration value="swoosh" />
         </xs:restriction>
     </xs:simpleType>

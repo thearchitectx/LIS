@@ -4,14 +4,38 @@
     <nodes>
         <n id="n1">
             <if>
-                <check-flag flag="QUEST_JEFFERSON_TAKE_PIC" gte="10" />
+                <check-group op="AND">
+                    <check-flag flag="QUEST_JEFFERSON_TAKE_PIC" gte="10" />
+                    <check-flag flag="QUEST_BROOKE_RECORD_VIDEO" lte="1" />
+                </check-group>
                 <then>
                     <prefab resource="Exploration/SchoolHall/Dynamic/BrookeLostCard/BrookeLostCard" 
                         target="BrookeLostCard"
                         parent="Dynamic" />
-                    <anim context="Dynamic" target="BrookeLostCard" idle="UPSET" />
                 </then>
             </if>
+
+            <if>
+                <check-flag flag="QUEST_CLEAN_GIRLS_RESTROOM" gte="1" />
+                <check-flag flag="QUEST_CLEAN_GIRLS_RESTROOM" lte="2" />
+                <then>
+                    <prefab resource="Exploration/SchoolHall/Dynamic/TaylorAtRestroomDoor/TaylorAtRestroomDoor" 
+                        target="TaylorAtRestroomDoor"
+                        parent="Dynamic" />
+
+                    <obj name="Door Women Room" active="false" />
+                </then>
+            </if>
+
+            <if>
+                <check-flag flag="PICKED_BRACELET" eq="0" />
+                <then>
+                    <prefab resource="Exploration/SchoolHall/Dynamic/Bracelet/Bracelet" 
+                        target="Bracelet"
+                        parent="Dynamic" />
+                </then>
+            </if>
+
             <cutscene-outcome value="_destroyObject" />
         </n>
     </nodes>

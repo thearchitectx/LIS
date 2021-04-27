@@ -17,14 +17,11 @@ namespace TheArchitect.Exploration
         [SerializeField] private Transform m_WorldSelectablesParent;
         [SerializeField] private Console m_Console;
         [SerializeField] private Game m_Game;
+        [SerializeField] private Transform m_DefaultSpawnPoint;
         
-        private Animator m_Animator;
-        public bool ForceDisablePlayer = false;
-
         // Start is called before the first frame update
         void Start()
         {
-            this.m_Animator = GetComponent<Animator>();
             this.m_WorldSelection.Selection = null;
 
             GameObject g = Instantiate(Resources.Load<GameObject>(ResourcePaths.PREFAB_FADE_FROM_BLACK));
@@ -46,6 +43,11 @@ namespace TheArchitect.Exploration
                     this.m_Game.State.SetSpawnRotation(t.rotation);
                 }
             }
+            else if (this.m_DefaultSpawnPoint != null)
+            {
+                this.m_Game.State.SetSpawnPosition(this.m_DefaultSpawnPoint.position);
+                this.m_Game.State.SetSpawnRotation(this.m_DefaultSpawnPoint.rotation);
+            }
 
             this.m_Player.transform.position = this.m_Game.State.GetSpawnPosition();
             this.m_Player.transform.rotation = this.m_Game.State.GetSpawnRotation();
@@ -63,10 +65,7 @@ namespace TheArchitect.Exploration
             this.m_Game.State.SetSpawnPosition(this.m_Player.transform.position);
             this.m_Game.State.SetSpawnRotation(this.m_Player.transform.rotation);
 
-            if (this.m_WorldSelection.Selection != null)
-            {
-            }
-            else
+            if (this.m_Player.gameObject.activeSelf && this.m_WorldSelection.Selection == null)
             {
                 if ( (Input.GetMouseButtonDown(0) || Input.GetButtonDown("Submit")) && this.m_WorldSelection.Hover != null)
                 {

@@ -1,0 +1,490 @@
+<?xml version="1.0"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../Cutscene.xsd">
+    <include node-prefix="smooth-talk-">../_Lib/SmoothTalkTutorial.xml</include>
+    <nodes>
+        <n id="n1">
+            <rig-track of="CH_Taylor" eye="1" head="1" />
+            <dlg char="CH_Taylor" style="subjective">
+                <m>Urgh... What do you want now?</m>
+            </dlg>
+            <node-output node="dialog-root"/>
+        </n>
+
+        <!-- 
+        ############################################################ 
+        ## dialog-root #############################################
+        ############################################################ -->
+        <n id="dialog-root">
+            <choice>
+                <c out="funny">
+                    <check-flag flag="TAYLOR_GIRLS_RESTROOM" bit-unset="0" />
+                    <text>It's funny how we keep meeting at restroom doors...</text>
+                </c>
+                <c out="about-courtney">
+                    <check-flag flag="TAYLOR_GIRLS_RESTROOM" bit-set="0" />
+                    <check-flag flag="TAYLOR_GIRLS_RESTROOM" bit-unset="1" />
+                    <text>Now that Courtney is not here, why don't you tell me about your peculiar 'behaviour' around her...</text>
+                </c>
+                <c out="check-restroom">
+                    <check-flag flag="TAYLOR_GIRLS_RESTROOM" bit-set="0" />
+                    <check-flag flag="TAYLOR_GIRLS_RESTROOM" bit-unset="2" />
+                    <text>I need to check if the ladies room is empty to... you know... internship duties...</text>
+                </c>
+
+                <c out="victoria-is-protesting">
+                    <check-flag flag="TAYLOR_GIRLS_RESTROOM" bit-set="0" />
+                    <check-flag flag="TAYLOR_GIRLS_RESTROOM" bit-set="2" />
+                    <check-flag flag="TAYLOR_GIRLS_RESTROOM" bit-unset="3" />
+                    <text>'Victoria is protesting' ? I can't see her anywhere around here...</text>
+                </c>
+
+                <c out="found-bracelet">
+                    <check-item item="ITM_BRACELET" gte="1" />
+                    <check-flag flag="TAYLOR_GIRLS_RESTROOM" bit-set="1" />
+                    <text>Hey... I found this bracelet... Is it the one Courtney is looking for?</text>
+                </c>
+
+                <c out="#smooth-talk" icon="SMOOTH_TALK">
+                    <check-perk perk="PRK_SMOOTH_TALKER" />
+                    <check-flag flag="TAYLOR_GIRLS_RESTROOM" bit-set="3" />
+                    <check-flag flag="TAYLOR_GIRLS_RESTROOM" bit-unset="6" />
+                    <text>Listen... I really need to check the restroom...</text>
+                    <then>
+                        <flag name="TAYLOR_GIRLS_RESTROOM" bit-set="6" />
+                        <inject node="smooth-talk-lib-play" />
+                        <flag name="TMP_1" set="0" />
+                        <node-output node="smooth-talk" />
+                    </then>
+                </c>
+                <c out="leave"><text>[ Leave ]</text></c>
+            </choice>
+        </n>
+
+        <!-- 
+        ############################################################ 
+        ## smooth-talk ##########################################
+        ############################################################ -->
+        <n id="smooth-talk">
+            <bgm loop="loop-smooth-talk-01" />
+            <prefab name="SmoothTalk">
+                <message name="ClearOutcome" />
+                <message name="SetEnemyName" string="TAYLOR" />
+                <message name="Move" />
+                <outcome name="GIRL_MOVE" output="smooth-talk-girl-move" />
+            </prefab>
+        </n>
+        <n id="smooth-talk-girl-move">
+            <prefab name="SmoothTalk">
+                <message name="ClearOutcome" />
+            </prefab>
+            <anim target="CH_Taylor" react="SAY01" />
+            <if>
+                <check-flag flag="TMP_1" mod="3" eq="0" />
+                <then>
+                    <dlg char="CH_Taylor" style="subjective">
+                        <m>Do you really think that will convince me?</m>
+                    </dlg>
+                </then>
+            </if>
+            <if>
+                <check-flag flag="TMP_1" mod="3" eq="1" />
+                <then>
+                    <dlg char="CH_Taylor" style="subjective">
+                        <m>Oh please... Give me a break...</m>
+                    </dlg>
+                </then>
+            </if>
+            <if>
+                <check-flag flag="TMP_1" mod="3" eq="2" />
+                <then>
+                    <dlg char="CH_Taylor" style="subjective">
+                        <m>No way... I don't think so...</m>
+                    </dlg>
+                </then>
+            </if>
+            <flag name="TMP_1" inc="1"></flag>
+
+            <prefab name="SmoothTalk">
+                <message name="ClearOutcome" />
+                <message name="MoveOnInput" />
+                <outcome name="WIN" output="smooth-talk-win" />
+                <outcome name="LOST" output="smooth-talk-lost" />
+                <outcome name="MOVE_SUCCESS" output="smooth-talk-move-success" />
+                <outcome name="MOVE_FAIL" output="smooth-talk-move-fail" />
+            </prefab>
+        </n>
+
+        <n id="smooth-talk-move-success">
+            <anim target="CH_Taylor" react="SURPRISE" />
+            
+            <wait time="1" />
+            <prefab name="SmoothTalk">
+                <message name="Move" />
+            </prefab>
+
+            <wait time="2.5" rnd="2" />
+            <node-output node="smooth-talk" />
+        </n>
+        <n id="smooth-talk-move-fail">
+            <prefab name="SmoothTalk">
+                <message name="ClearOutcome" />
+            </prefab>
+            <anim target="CH_Taylor" react="PISSED_OFF01" />
+            <if>
+                <check-flag flag="TMP_1" mod="3" eq="0" />
+                <then>
+                    <dlg char="CH_Taylor" style="subjective">
+                        <m>You don't get it, do you!?</m>
+                    </dlg>
+                </then>
+            </if>
+            <if>
+                <check-flag flag="TMP_1" mod="3" eq="1" />
+                <then>
+                    <dlg char="CH_Taylor" style="subjective">
+                        <m>That was ridiculous...</m>
+                    </dlg>
+                </then>
+            </if>
+            <if>
+                <check-flag flag="TMP_1" mod="3" eq="2" />
+                <then>
+                    <dlg char="CH_Taylor" style="subjective">
+                        <m>Urgh... No!</m>
+                    </dlg>
+                </then>
+            </if>
+            <prefab name="SmoothTalk">
+                <message name="Move" />
+            </prefab>
+
+            <wait time="2.5" rnd="2" />
+            <node-output node="smooth-talk" />
+        </n>
+
+        <!-- 
+        ############################################################ 
+        ## smooth-talk-win #########################################
+        ############################################################ -->
+        <n id="smooth-talk-win">
+            <wait time="2" />
+            <prefab destroy="SmoothTalk"></prefab>
+            
+            <rig-track of="CH_Taylor" head="1" eye="0" />
+            <anim target="CH_Taylor" react="SURPRISE" idle="UNEASY" blink="NEUTRAL" expression="UNEASY" />
+            <bgm />
+            <dlg char="CH_Taylor" style="subjective">
+                <m>You... You really have a way with words...</m>
+                <m>I mean... You always sound so right...</m>
+            </dlg>
+
+            <inject node="smooth-talk-lib-win" />
+            <choice shuffled="true">
+                <c out="#a">
+                    <text>Nothing weird will happen while I clean the restroom, so you can leave now...</text>
+                    <then>
+                        <rig-track of="CH_Taylor" head="1" eye="1" />
+                        <anim target="CH_Taylor" react="SAY02" idle="UPSET" blink="NEUTRAL" expression="NEUTRAL" />
+                        <dlg char="CH_Taylor" style="subjective">
+                            <m>Yeah... If you say so...</m>
+                            <m>I should look for Courtney...</m>
+                            <m>Bye!</m>
+                        </dlg>
+                        <flag name="QUEST_CLEAN_GIRLS_RESTROOM" set="3" />
+                        <objective name="OBJ_TaylorOutOfGirlsRoomDoor" completed="true" />
+                        <fade-to-black mode="to" speed="2" keep="true" layer="-1" />
+                        <wait time="1" />
+                        <sfx clip="swoosh" />
+                        <obj name="CH_Taylor" active="false" />
+                        <fade-to-black mode="from" speed="2" />
+                        <dlg style="subjective">
+                            <m>Whoa... That Jedi mind trick thing really works...</m>
+                            <m>I wonder how far I can push its limits...</m>
+                        </dlg>
+                        <wait time="0.5" />
+                        <fade-to-black mode="to" speed="2" keep="true" layer="-1" />
+                        <wait time="0.5" />
+                        <load stage="school-hall-01" />
+                    </then>
+                </c>
+                <c out="#b">
+                    <text>Let's enter the girls' room together and do weird things there...</text>
+                    <then>
+                        <rig-track of="CH_Taylor" head="1" eye="1" />
+                        <anim target="CH_Taylor" react="PISSED_OFF01" idle="ARMS_CROSSED_F01" expression="DISAPPROVE"/>
+                        <dlg char="CH_Taylor" style="subjective">
+                            <m>What did you say!?!</m>
+                            <m>I don't know if heard what I think I heard... But I don't wanna know!!</m>
+                            <m>Just leave me alone, you weirdo!</m>
+                        </dlg>
+                        <fade-to-black mode="to" speed="2" keep="true" layer="-1" />
+                        <wait time="0.5" />
+                        <dlg style="subjective">
+                            <m>I think I pushed it too much...</m>
+                            <m>But I'm sure there's another way I can make she leave...</m>
+                        </dlg>
+                        <load stage="school-hall-01" />
+                    </then>
+                </c>
+            </choice>
+        </n>
+        <!-- 
+        ############################################################ 
+        ## smooth-talk-lost ##########################################
+        ############################################################ -->
+        <n id="smooth-talk-lost">
+            <bgm />
+            <wait time="2" />
+            <prefab destroy="SmoothTalk"></prefab>
+            <anim target="CH_Taylor" react="PISSED_OFF01" idle="ARMS_CROSSED_F01" expression="DISAPPROVE"/>
+            <dlg char="CH_Taylor" style="subjective">
+                <m>As I told before... The girls' room is not for you...</m>
+                <m>Now leave me alone...</m>
+            </dlg>
+            <fade-to-black mode="to" speed="2" keep="true" layer="-1" />
+            <wait time="0.5" />
+            <dlg style="subjective">
+                <m>Shit... That wasn't very smooth...</m>
+                <m>But I'm sure there's another way I can make she leave...</m>
+            </dlg>
+            <load stage="school-hall-01" />
+        </n>
+
+        <!-- 
+        ############################################################ 
+        ## found-bracelet ##########################################
+        ############################################################ -->
+        <n id="found-bracelet">
+            <flag name="TAYLOR_GIRLS_RESTROOM" bit-set="7" />
+            <rig-track of="CH_Taylor" head="1" eye="1" />
+            <anim target="CH_Taylor" react="SURPRISE"  />
+            <dlg char="CH_Taylor" style="subjective">
+                <m>Really!? Please, show me!!</m>
+            </dlg>
+            
+            <wait time="0.5" />
+            <item name="ITM_BRACELET" set="0">YOU GAVE THE *BRACELET* TO *TAYLOR*</item>
+            <wait time="0.5" />
+
+            <anim target="CH_Taylor" react="YAY" idle="COCKY01" expression="HAPPY" blink="HAPPY" />
+            
+            <dlg char="CH_Taylor" style="subjective" neutral-expression="true">
+                <m>Yes!! This is the one!! You found it!!</m>
+                <m>Oh my God... Thank so you much!!</m>
+            </dlg>
+            
+            <anim target="CH_Taylor" idle="UNEASY" expression="HAPPY" blink="HAPPY" />
+            <choice>
+                <c out="#a">
+                    <text>Hey... I can finally see you smiling! That's what I call a reward!</text>
+                    <then>
+                        <stat char="CH_Taylor" name="AFFINITY" inc="5" notify="true" />
+                        <dlg char="CH_Taylor" style="subjective" neutral-expression="true">
+                            <m>I... I'm just not used to people doing nice and saying nice things for me...</m>
+                        </dlg>
+                        <anim target="CH_Taylor" react="YAY" idle="COCKY01" expression="HAPPY" blink="HAPPY" />
+                        <dlg char="CH_Taylor" style="subjective" neutral-expression="true">
+                            <m>Thanks again!!</m>
+                        </dlg>
+                    </then>
+                </c>
+                <c out="#b">
+                    <text>You should run to put the bracelet on Courtney... You know... Hold her hand, her arm, slide the thing to fit in her wrist... </text>
+                    <then>
+                        <anim target="CH_Taylor" react="SURPRISE" expression="UNEASY" />
+                        <dlg char="CH_Taylor" style="subjective">
+                            <m>Oh my... You mean...</m>
+                        </dlg>
+
+                        <stat char="CH_Taylor" name="CORRUPTION" inc="5" />
+                        <rig-track of="CH_Taylor" eye="0.5" head="0.5" />
+                        <anim target="CH_Taylor" idle="HORNY01" expression="UNEASY"  />
+                        <dlg char="CH_Taylor" style="subjective" neutral-expression="true">
+                            <m>Yeah... To think that I can feel that pale smooth skin... and...</m>
+                            <m>and...</m>
+                        </dlg>
+                        <wait time="1" />
+                        
+                        <rig-track of="CH_Taylor" eye="1" head="1" />
+                        <anim target="CH_Taylor" idle="UNEASY" expression="NEUTRAL"  />
+                        <dlg char="CH_Taylor" style="subjective" neutral-expression="true">
+                            <m>Uhh... Excuse me... I... I need to go find her...</m>
+                        </dlg>
+                    </then>
+                </c>
+            </choice>
+            
+            <flag name="QUEST_CLEAN_GIRLS_RESTROOM" set="3" />
+            <objective name="OBJ_TaylorOutOfGirlsRoomDoor" completed="true" />
+            <fade-to-black mode="to" speed="2" keep="true" layer="-1" />
+            <wait time="1" />
+            <sfx clip="swoosh" />
+            <obj name="CH_Taylor" active="false" />
+            <fade-to-black mode="from" speed="2" />
+            <dlg style="subjective">
+                <m>Yeah... The path is clear now...</m>
+            </dlg>
+            <wait time="0.5" />
+            <fade-to-black mode="to" speed="2" keep="true" layer="-1" />
+            <wait time="0.5" />
+            <load stage="school-hall-01" />
+        </n>
+
+        <!-- 
+        ############################################################ 
+        ## victoria-is-protesting ##################################
+        ############################################################ -->
+        <n id="victoria-is-protesting">
+            <flag name="TAYLOR_GIRLS_RESTROOM" bit-set="3" />
+            <anim target="CH_Taylor" react="SAY01" />
+            <dlg char="CH_Taylor" style="subjective">
+                <m>Victoria must be busy with... other important matters... because she... she asked me to stay here...</m>
+            </dlg>
+            <rig-track of="CH_Taylor" eye="0" head="0" />
+            <anim target="CH_Taylor" idle="UPSET" />
+            <dlg char="CH_Taylor" style="subjective">
+                <m wait="0.5">Yeah... I know it sounds stupid, but... I don't click with most people around here and she... is my friend... So I always do as she says...</m>
+            </dlg>
+            
+            <choice>
+                <c out="#a" icon="DICK_KARMA_EVIL">
+                    <text>She's making you her lapdog... Everybody sees that... Do you really need of a friend like that?</text>
+                    <then>
+                        <flag name="DICK_KARMA" inc="-1">YOUR KARMA BALANCED TOWARDS THE *EVIL* SIDE</flag>
+                        <flag name="TAYLOR_GIRLS_RESTROOM" bit-set="4" />
+                        
+                        <rig-track of="CH_Taylor" head="0" eye="0"  />
+                        <anim target="CH_Taylor" idle="UNEASY" expression="UNEASY" />
+                        <dlg char="CH_Taylor" style="subjective">
+                            <m>Well... She is really bossy sometimes... and mean... and selfish... and greedy... and...</m>
+                        </dlg>
+                        
+                        <stat char="CH_Taylor" name="VICTORIA_LOYALTY" inc="-1" notify="true" />
+                        <wait time="1" />
+                        <rig-track of="CH_Taylor" head="1" eye="1"  />
+                        <anim target="CH_Taylor" idle="ARMS_CROSSED_F01" expression="DISAPPROVE" />
+                        <dlg char="CH_Taylor" style="subjective">
+                            <m>But she accepted me in the Vortex Club... And I... I must be loyal and stand my ground here...</m>
+                        </dlg>      
+                    </then>
+                </c>
+                <c out="#b" icon="DICK_KARMA_GOOD">
+                    <text>Hey... I get it's not easy to make friends... I just hope she doesn't push you around like she does with everyone else...</text>
+                    <then>
+                        <flag name="DICK_KARMA" inc="-1">YOUR KARMA BALANCED TOWARDS THE *GOOD* SIDE</flag>
+                        <stat char="CH_Taylor" name="AFFINITY" inc="5" notify="true" />
+                        <flag name="TAYLOR_GIRLS_RESTROOM" bit-set="5" />
+                        
+                        <rig-track of="CH_Taylor" head="1" eye="1" />
+                        <anim target="CH_Taylor" idle="UPSET" blink="HAPPY" />
+                        <dlg char="CH_Taylor" style="subjective" neutral-expression="true">
+                            <m>Oh... Thank you... I guess...</m>
+                            <m>That was kind of... sweet...</m>
+                        </dlg>
+                        <wait time="0.5" />
+                        <anim target="CH_Taylor" idle="ARMS_CROSSED_F01" expression="DISAPPROVE" />
+                        <dlg char="CH_Taylor" style="subjective">
+                            <m>But don't you think that will make me leave my post... I still stand for Victoria...</m>
+                        </dlg>
+                    </then>
+                </c>
+            </choice>
+            <node-output node="dialog-root"/>
+        </n>
+
+        <!-- 
+        ############################################################ 
+        ## check-restroom ##########################################
+        ############################################################ -->
+        <n id="check-restroom">
+            <flag name="TAYLOR_GIRLS_RESTROOM" bit-set="2" />
+            <anim target="CH_Taylor" react="SAY01" idle="ARMS_CROSSED_F01" expression="DISAPPROVE" blink="NEUTRAL" />
+            <dlg char="CH_Taylor" style="subjective">
+                <m>Yeah... I know about the janitor's schedule... Which became your schedule now, it appears...</m>
+                <m>You should know Victoria is protesting against creepy men being allowed in our restroom every day at this time...</m>
+                <m>Even if the place is empty, she says you weirdos do all kinds of pervert shit while alone in there... And the school should hire a female for the job...</m>
+                <m>So... I will stay put here 'using' the restroom as it's my right...</m>
+            </dlg>
+            <anim target="CH_Taylor" react="PISSED_OFF01" />
+            <dlg char="CH_Taylor" style="subjective">
+                <m>Which means you can't come in!! So beat it!!</m>
+            </dlg>
+            <objective name="OBJ_TaylorOutOfGirlsRoomDoor" completed="false" />
+            <node-output node="leave"/>
+        </n>
+
+        <!-- 
+        ############################################################ 
+        ## funny ###################################################
+        ############################################################ -->
+        <n id="funny">
+            <flag name="TAYLOR_GIRLS_RESTROOM" bit-set="0" />
+            
+            <anim target="CH_Taylor" react="PISSED_OFF01" expression="DISAPPROVE" />
+            <dlg char="CH_Taylor" style="subjective">
+                <m>Hey!!</m>
+                <m>We don't 'keep meeting'... You're the one who keeps bothering me...</m>
+                <m>And you can't say shit like that... What would Courtney think of me...</m>
+            </dlg>
+            <node-output node="dialog-root"/>
+        </n>
+
+        <!-- 
+        ############################################################ 
+        ## about-courtney ##########################################
+        ############################################################ -->
+        <n id="about-courtney">
+            <flag name="TAYLOR_GIRLS_RESTROOM" bit-set="1" />
+
+            <rig-track of="CH_Taylor" head="0" eye="0" />
+            <anim target="CH_Taylor" idle="UNEASY" react="SURPRISE" expression="UNEASY"/>
+            <dlg char="CH_Taylor" style="subjective">
+                <m>What!?</m>
+                <m>I... I don't know what are you talking about...</m>
+            </dlg>
+            
+            <wait time="1" />
+            <anim target="CH_Taylor" idle="EMBARRASSED01" blink="CLOSED"/>
+            <dlg char="CH_Taylor" style="subjective">
+                <m>Oh my God... Is it so easy to notice!?</m>
+                <m>I have to get a hold of myself... But she's so... so...</m>
+            </dlg>
+            
+            <choice>
+                <c out="#a"><text>Yeah... I observed a certain pattern...</text></c>
+                <c out="#b"><text>You have the hots for her don't you? Nice...</text></c>
+            </choice>
+            
+            <rig-track of="CH_Taylor" head="1" eye="1" />
+            <anim target="CH_Taylor" react="PISSED_OFF01" idle="ARMS_CROSSED_F01" expression="DISAPPROVE" blink="NEUTRAL" />
+            <dlg char="CH_Taylor" style="subjective">
+                <m>Hey! Don't you dare say that to anyone!!</m>
+            </dlg>
+            <anim target="CH_Taylor" idle="UPSET" expression="NEUTRAL" blink="NEUTRAL" />
+            <dlg char="CH_Taylor" style="subjective">
+                <m wait="1">I... I just wish she was here now... But she is trying to find the lucky bracelet she lost when we left class...</m>
+                <m>I told her it probably fell somewhere here the in main hall, but she insists in trying to find it in the second floor...</m>
+            </dlg>
+            <anim target="CH_Taylor" idle="UPSET" expression="NEUTRAL" blink="NEUTRAL" react="SAY02" />
+            <dlg char="CH_Taylor" style="subjective">
+                <m>I wish I could be the one who finds it... I'd run to show her how she needs me...</m>
+            </dlg>
+            <anim target="CH_Taylor" idle="ARMS_CROSSED_F01" expression="NEUTRAL" blink="NEUTRAL" />
+            <dlg char="CH_Taylor" style="subjective">
+                <m>But for now I'm on guard duty...</m>
+            </dlg>
+
+            <node-output node="dialog-root"/>
+        </n>
+
+        <!-- 
+        ############################################################ 
+        ## leave ###################################################
+        ############################################################ -->
+        <n id="leave">
+            <rig-track of="CH_Taylor" head="0" eye="0" />
+            <anim target="CH_Taylor" idle="ARMS_CROSSED_F01" expression="DISAPPROVE" blink="NEUTRAL" />
+        </n>
+    </nodes>
+</cutscene>

@@ -2,9 +2,12 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
     <xs:simpleType name="trophy">
         <xs:restriction base="xs:string">
-            <xs:enumeration value="000-teachers-pet-01" />
-            <xs:enumeration value="001-birds-are-not-real-01" />
-            <xs:enumeration value="002-enemy-mine-01" />
+            <xs:enumeration value="teachers-pet-01" />
+            <xs:enumeration value="birds-are-not-real-01" />
+            <xs:enumeration value="birds-are-not-real-02" />
+            <xs:enumeration value="enemy-mine-01" />
+            <xs:enumeration value="polaroid-fever-01" />
+            <xs:enumeration value="polaroid-fever-02" />
         </xs:restriction>
     </xs:simpleType>
 </xs:schema>

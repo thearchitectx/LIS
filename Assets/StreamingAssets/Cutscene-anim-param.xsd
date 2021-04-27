@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:simpleType name="idle">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="STAND_HANDS_WAIST" />
+            <xs:enumeration value="UNEASY" />
+            <xs:enumeration value="POSE_PRAY" />
+            <xs:enumeration value="POSE_CHEER" />
+            <xs:enumeration value="UPSET" />
+            <xs:enumeration value="EMBARRASSED01" />
+            <xs:enumeration value="COCKY01" />
+            <xs:enumeration value="ARMS_CROSSED_F01" />
+            <xs:enumeration value="CLEANING_MOP01" />
+            <xs:enumeration value="HORNY01" />
+            <xs:enumeration value="SICK01" />
+            <xs:enumeration value="CHECK_PHONE" />
+            <xs:enumeration value="POSE_SEXY01" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="expression">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="UNEASY" />
+            <xs:enumeration value="DISAPPROVE" />
+            <xs:enumeration value="NEUTRAL" />
+            <xs:enumeration value="SMILE_CHEER" />
+            <xs:enumeration value="HAPPY" />
+            <xs:enumeration value="EYE_ROLL" />
+            <xs:enumeration value="HORNY01" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="react">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="FACEPALM" />
+            <xs:enumeration value="SUSPICIOUS" />
+            <xs:enumeration value="SURPRISE" />
+            <xs:enumeration value="LEAN_THINK" />
+            <xs:enumeration value="YAY" />
+            <xs:enumeration value="SAY01" />
+            <xs:enumeration value="SAY02" />
+            <xs:enumeration value="PISSED_OFF01" />
+            <xs:enumeration value="LAUGH01" />
+            <xs:enumeration value="GIGGLE" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="blink">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="NEUTRAL" />
+            <xs:enumeration value="HAPPY" />
+            <xs:enumeration value="CLOSED" />
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>

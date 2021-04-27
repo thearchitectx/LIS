@@ -13,7 +13,9 @@ namespace TheArchitect.Cutscene.Action
         [XmlEnum(Name="from")]
         FROM,
         [XmlEnum(Name="to-from")]
-        TO_FROM
+        TO_FROM,
+        [XmlEnum(Name="none")]
+        NONE,
     }
 
     public class FadeToBlackAction : CutsceneAction
@@ -25,6 +27,8 @@ namespace TheArchitect.Cutscene.Action
         public FadeToBlackMode Mode;
         [XmlAttribute("keep")]
         public bool Keep = false;
+        [XmlAttribute("layer")]
+        public int SortingOrder = int.MinValue;
         private GameObject gameObject;
 
         public float Time = 1;
@@ -38,6 +42,8 @@ namespace TheArchitect.Cutscene.Action
             GameObject prefab;
             switch (Mode)
             {
+                case FadeToBlackMode.NONE: 
+                    return OUTPUT_NEXT;
                 case FadeToBlackMode.TO_FROM: 
                     prefab = Resources.Load<GameObject>(ResourcePaths.PREFAB_FADE_TO_FROM_BLACK); 
                     Time = 0.5f;
@@ -57,6 +63,11 @@ namespace TheArchitect.Cutscene.Action
             gameObject.transform.SetParent(controller.transform);
             Animator animator = gameObject.GetComponent<Animator>();
             animator.speed = Speed;
+
+            if (SortingOrder>int.MinValue)
+            {
+                gameObject.GetComponent<Canvas>().sortingOrder = SortingOrder;
+            }
 
             if (!Keep)
             {

@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../Cutscene.xsd">
+    <nodes>
+        <n id="n1">
+            <if>
+                <check-group op="OR">
+                    <check-flag flag="QUEST_BROOKE_RECORD_VIDEO" eq="11" />
+                    <check-flag flag="QUEST_BROOKE_RECORD_VIDEO" eq="12" />
+                </check-group>
+                <then>
+                    <anim target="CH_Brooke" idle="ARMS_CROSSED_F01" />
+                    <rig-track of="CH_Brooke" head="1" eye="1" />
+                    <dlg char="CH_Brooke" style="subjective">
+                        <m wait="0.5">Well... I suppose I have to thank you...</m>
+                        <m>Despite that 'funny' proposition... You actually helped me a lot...</m>
+                    </dlg>
+                </then>
+            </if> 
+            <if>
+                <check-flag flag="QUEST_BROOKE_RECORD_VIDEO" eq="13" />
+                <then>
+                    <trophy unlock="birds-are-not-real-02" />
+                    <anim target="CH_Brooke" idle="HORNY01" expression="UNEASY" />
+                    <dlg char="CH_Brooke" style="subjective">
+                        <m wait="1">Whoa... That was... educative...</m>
+                    </dlg>
+
+                    <anim target="CH_Brooke" idle="UNEASY" expression="UNEASY" />
+                    <dlg char="CH_Brooke" style="subjective">
+                        <m>I mean... You taught me a lot about how to make a deep fake video...</m>
+                    </dlg>
+                </then>
+            </if>
+            <if>
+                <check-flag flag="QUEST_BROOKE_RECORD_VIDEO" eq="15" />
+                <then>
+                    <anim target="CH_Brooke" idle="UPSET"  />
+                    <rig-track of="CH_Brooke" head="1" eye="1" />
+                    <dlg char="CH_Brooke" style="subjective">
+                        <m wait="1">Hey... Thanks a lot for your help...</m>
+                        <m>What we recorded here should be enough for my deep fake... I hope so...</m>
+                    </dlg>
+                </then>
+            </if>
+            
+            <rig-track of="CH_Brooke" head="1" eye="1" />
+            <anim target="CH_Brooke" idle="UPSET" expression="UNEASY" react="SAY02" />
+            <dlg char="CH_Brooke" style="subjective">
+                <m wait="1">I obviously don't need to say that you can never talk with anyone about what we did here, right?</m>
+            </dlg>
+
+            <anim target="CH_Brooke" idle="UPSET" expression="UNEASY" react="SAY01" />
+            <dlg char="CH_Brooke" style="subjective">
+                <m>I've gotta go now... I have some editing and uploading to make...</m>
+                <m>See you later... I guess...</m>
+            </dlg>
+
+            <fade-to-black speed="0.5" keep="true" />
+            <wait time="2" />
+            <sfx clip="swoosh" wait="true" />
+
+            <flag name="#ALLOW_SAVING" set="1" />
+            <load stage="toilet-women-01" />
+        </n>
+    </nodes>
+</cutscene>

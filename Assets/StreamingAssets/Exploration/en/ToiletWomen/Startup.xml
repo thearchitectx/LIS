@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../Cutscene.xsd">
+    <nodes>
+        <n id="n1">
+            <inject node="add-trash-items" />
+
+            <!-- MEET MAX SCENE TRIGGER -->
+            <if>
+                <check-flag flag="MAX_MET_RESTROOM" eq="0" />
+                <then>
+                    <prefab resource="Exploration/ToiletWomen/Dynamic/Max Scene Trigger" 
+                        target="Max Scene Trigger"
+                        parent="Dynamic" />
+                </then>
+            </if>
+
+            <!-- Checks flag QUEST_BROOKE_RECORD_VIDEO for the empty girl rooms objective -->
+            <if>
+                <check-group op="AND">
+                    <check-flag flag="MAX_MET_RESTROOM" gte="1" />
+                    <check-flag flag="QUEST_BROOKE_RECORD_VIDEO" eq="1" />
+                </check-group>
+                <then>
+                    <objective name="OBJ_BrookeDeepFakeCheckGirlsRestroom" completed="true" />
+                    <objective name="OBJ_BrookeDeepFakeReportToBrooke" completed="false" />
+                    <flag name="#DISABLE_PLAYER" set="1" />
+                    <dlg style="subjective">
+                        <m>Hey... Now I have access to an empty girl's restroom... I should tell Brooke...</m>
+                    </dlg>
+                    <flag name="#DISABLE_PLAYER" set="0" />
+                </then>
+            </if>
+
+            <!-- Brooke Video -->
+            <if>
+                <check-flag flag="QUEST_BROOKE_RECORD_VIDEO" eq="2" />
+                <then>
+                    <prefab resource="Exploration/ToiletWomen/Dynamic/BrookeVideo" 
+                        target="BrookeVideo"
+                        parent="Dynamic" />
+                </then>
+            </if>
+
+
+            <cutscene-outcome value="_destroyObject" />
+        </n>
+
+        <n id="add-trash-items">
+            <if>
+                <check-flag flag="QUEST_CLEAN_GIRLS_RESTROOM_TRASH" bit-unset="0" />
+                <then>
+                    <prefab resource="Exploration/ToiletWomen/Dynamic/Pizza" 
+                        target="Pizza"
+                        parent="Dynamic" />
+                </then>
+            </if>
+            <if>
+                <check-flag flag="QUEST_CLEAN_GIRLS_RESTROOM_TRASH" bit-unset="1" />
+                <then>
+                    <prefab resource="Exploration/ToiletWomen/Dynamic/Banana" 
+                        target="Banana"
+                        parent="Dynamic" />
+                </then>
+            </if>
+            <if>
+                <check-flag flag="QUEST_CLEAN_GIRLS_RESTROOM_TRASH" bit-unset="2" />
+                <then>
+                    <prefab resource="Exploration/ToiletWomen/Dynamic/Paper Towel" 
+                        target="Paper Towel"
+                        parent="Dynamic" />
+                </then>
+            </if>
+            <if>
+                <check-flag flag="QUEST_CLEAN_GIRLS_RESTROOM_TRASH" bit-unset="3" />
+                <then>
+                    <prefab resource="Exploration/ToiletWomen/Dynamic/Can" 
+                        target="Can"
+                        parent="Dynamic" />
+                </then>
+            </if>
+            <if>
+                <check-flag flag="QUEST_CLEAN_GIRLS_RESTROOM_TRASH" bit-unset="4" />
+                <then>
+                    <prefab resource="Exploration/ToiletWomen/Dynamic/Bottle" 
+                        target="Bottle"
+                        parent="Dynamic" />
+                </then>
+            </if>
+        </n>
+    </nodes>
+</cutscene>

@@ -25,6 +25,7 @@ namespace TheArchitect.Cutscene.Action
         [XmlAttribute("style")] public DialogStyle Style = DialogStyle.DEFAULT;
         [XmlAttribute("jawAnim")] public bool m_JawAnim = true;
         [XmlAttribute("timed")] public float Timed = 0;
+        [XmlAttribute("neutral-expression")] public bool NeutralExpressionWhileSaying = false;
         
         [XmlIgnore] private GameObject m_Canvas;
         [XmlIgnore] private PanelDialogObjective m_Panel;
@@ -34,6 +35,9 @@ namespace TheArchitect.Cutscene.Action
         [XmlIgnore] private RigWeightDamper m_LipsRig = null;
         [XmlIgnore] private float m_CloseTimer = -1;
         [XmlIgnore] private float m_WaitTimer = 0;
+
+        [XmlIgnore] private Animator m_Animator;
+        [XmlIgnore] private int m_OriginalExpression = -1;
 
         public override string Update(CutsceneInstance cutscene, CutsceneController controller)
         {
@@ -58,6 +62,12 @@ namespace TheArchitect.Cutscene.Action
                 Transform characterTransform = CharacterTransformPath == null
                     ? controller.FindProxy(CharacterId)
                     : controller.FindProxy(CharacterTransformPath);
+
+                if (characterTransform!=null)
+                {
+                    this.m_Animator = characterTransform.GetComponent<Animator>();
+                    this.m_OriginalExpression = this.m_Animator != null ? this.m_Animator.GetInteger("exp") : -1;
+                }
 
                 if (m_JawAnim && characterTransform!=null)
                 {
@@ -132,26 +142,39 @@ namespace TheArchitect.Cutscene.Action
             }
 
             // Randomize Jaw Rig to simulate speech
-            if (this.m_Panel!=null && this.m_Panel.IsRollingText)
+            if (this.m_Panel!=null)
             {
-                if (this.m_JawRig != null && !this.m_JawRig.IsMoving())
-                    this.m_JawRig.SetWeightKeepRestore(
-                        this.m_JawRig.GetRigWeight() > 0.25f
-                            ? UnityEngine.Random.Range(0f, 0.25f)
-                            : UnityEngine.Random.Range(0.25f, 1)
-                    );
-                if (this.m_LipsRig != null && !this.m_LipsRig.IsMoving())
-                    this.m_LipsRig.SetWeightKeepRestore(
-                        this.m_LipsRig.GetRigWeight() > 0.25f
-                            ? UnityEngine.Random.Range(0f, 0.25f)
-                            : UnityEngine.Random.Range(0.25f, 1)
-                    );
+                if (this.m_Panel.IsRollingText)
+                {
+                    if (this.m_Animator!=null && this.NeutralExpressionWhileSaying)
+                        this.m_Animator.SetInteger("exp", (int) AnimateAction.CharacterExpression.NEUTRAL);
+
+                    // Randomize Jaw Rig to simulate speech
+                    if (this.m_JawRig != null && !this.m_JawRig.IsMoving())
+                        this.m_JawRig.SetWeightKeepRestore(
+                            this.m_JawRig.GetRigWeight() > 0.25f
+                                ? UnityEngine.Random.Range(0f, 0.25f)
+                                : UnityEngine.Random.Range(0.25f, 1)
+                        );
+                    if (this.m_LipsRig != null && !this.m_LipsRig.IsMoving())
+                        this.m_LipsRig.SetWeightKeepRestore(
+                            this.m_LipsRig.GetRigWeight() > 0.25f
+                                ? UnityEngine.Random.Range(0f, 0.25f)
+                                : UnityEngine.Random.Range(0.25f, 1)
+                        );
+                }
+                else
+                {
+                    if (this.m_Animator!=null && this.m_OriginalExpression > -1 && this.NeutralExpressionWhileSaying)
+                        this.m_Animator.SetInteger("exp", this.m_OriginalExpression);
+                    if (this.m_JawRig != null)
+                        this.m_JawRig.SetWeight(0);
+                    if (this.m_LipsRig != null)
+                        this.m_LipsRig.SetWeight(0);
+
+                }
             } 
 
-            if (this.m_Panel!=null && !this.m_Panel.IsRollingText && this.m_JawRig != null)
-                this.m_JawRig.SetWeight(0);
-            if (this.m_Panel!=null && !this.m_Panel.IsRollingText && this.m_LipsRig != null)
-                this.m_LipsRig.SetWeight(0);
             
             return null;
         }
@@ -174,6 +197,8 @@ namespace TheArchitect.Cutscene.Action
                 this.m_LipsRig.SetWeight(0);
             this.m_CloseTimer = -1;
             this.m_WaitTimer = 0;
+            this.m_Animator = null;
+            this.m_OriginalExpression = -1;
         }
 
     }

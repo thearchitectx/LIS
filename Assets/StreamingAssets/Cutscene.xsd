@@ -4,9 +4,7 @@
     <xs:include schemaLocation="Cutscene-sfx.xsd" />
     <xs:include schemaLocation="Cutscene-objective.xsd" />
     <xs:include schemaLocation="Cutscene-trophy.xsd" />
-    <xs:include schemaLocation="Cutscene-idle.xsd" />
-    <xs:include schemaLocation="Cutscene-expressions.xsd" />
-    <xs:include schemaLocation="Cutscene-reacts.xsd" />
+    <xs:include schemaLocation="Cutscene-anim-param.xsd" />
     <xs:simpleType name="variable">
         <xs:restriction base="xs:string">
             <xs:pattern value="$\{.+\}"/>
@@ -20,6 +18,7 @@
     <xs:simpleType name="dialogStyle">
         <xs:restriction base="xs:string">
             <xs:enumeration value="whisper"/>
+            <xs:enumeration value="whisper-subjective"/>
             <xs:enumeration value="remote"/>
             <xs:enumeration value="remote-subjective"/>
             <xs:enumeration value="default"/>
@@ -28,6 +27,7 @@
     </xs:simpleType>
     <xs:simpleType name="fadeToBlackMode">
         <xs:restriction base="xs:string">
+            <xs:enumeration value="none"/>
             <xs:enumeration value="to"/>
             <xs:enumeration value="from" />
             <xs:enumeration value="to-from" />
@@ -35,12 +35,16 @@
     </xs:simpleType>
     <xs:simpleType name="prefab">
         <xs:restriction base="xs:string">
+            <xs:enumeration value="FlagGauge" />
             <xs:enumeration value="LockPick" />
+            <xs:enumeration value="SmoothTalk" />
             <xs:enumeration value="ModelViewer" />
             <xs:enumeration value="PictureTaker" />
             <xs:enumeration value="PictureViewer"/>
             <xs:enumeration value="TensionChoice"/>
             <xs:enumeration value="TimelineUI"/>
+            <xs:enumeration value="VideoRecorder"/>
+            <xs:enumeration value="SimpleMessage"/>
         </xs:restriction>
     </xs:simpleType>
     <xs:simpleType name="cutscene-outcome">
@@ -78,6 +82,7 @@
     <xs:simpleType name="perk">
         <xs:restriction base="xs:string">
             <xs:enumeration value="PRK_SMELLY" />
+            <xs:enumeration value="PRK_SMOOTH_TALKER" />
         </xs:restriction>
     </xs:simpleType>
     <xs:simpleType name="choiceIcon">
@@ -86,6 +91,9 @@
             <xs:enumeration value="DICK_CHARISMA" />
             <xs:enumeration value="DICK_KARMA_GOOD" />
             <xs:enumeration value="DICK_KARMA_EVIL" />
+            <xs:enumeration value="SMOOTH_TALK" />
+            <xs:enumeration value="AXIS_INTERACTION" />
+            <xs:enumeration value="AXIS_INTERACTION_HEART" />
         </xs:restriction>
     </xs:simpleType>
     <xs:simpleType name="character-stat">
@@ -103,10 +111,12 @@
             <xs:enumeration value="INTEL_8" />
             <xs:enumeration value="INTEL_9" />
             <xs:enumeration value="CORRUPTION" />
+            <xs:enumeration value="VICTORIA_LOYALTY" />
         </xs:restriction>
     </xs:simpleType>
     <xs:simpleType name="item">
         <xs:restriction base="xs:string">
+            <xs:enumeration value="ITM_BRACELET" />
             <xs:enumeration value="ITM_BROOKE_MEMORY_CARD" />
             <xs:enumeration value="ITM_LOCKER_KEY" />
             <xs:enumeration value="ITM_LOCKPICK" />
@@ -118,13 +128,17 @@
     <xs:simpleType name="character">
         <xs:restriction base="xs:string">
             <xs:enumeration value="CH_Brooke" />
+            <xs:enumeration value="CH_Courtney" />
             <xs:enumeration value="CH_Kate" />
             <xs:enumeration value="CH_Jefferson" />
             <xs:enumeration value="CH_Juliet" />
             <xs:enumeration value="CH_Justin" />
+            <xs:enumeration value="CH_Max" />
             <xs:enumeration value="CH_Player" />
             <xs:enumeration value="CH_Principal" />
             <xs:enumeration value="CH_Victoria" />
+            <xs:enumeration value="CH_Samuel" />
+            <xs:enumeration value="CH_Taylor" />
             <xs:enumeration value="CH_Zachary" />
             <xs:enumeration value="THE_ARCHITECT" />
         </xs:restriction>
@@ -134,11 +148,15 @@
         <xs:attribute name="eq" type="xs:integer" use="optional" />
         <xs:attribute name="gte" type="xs:integer" use="optional" />
         <xs:attribute name="lte" type="xs:integer" use="optional" />
+        <xs:attribute name="mod" type="xs:integer" use="optional" />
+        <xs:attribute name="bit-set" type="xs:unsignedByte" use="optional" />
+        <xs:attribute name="bit-unset" type="xs:unsignedByte" use="optional" />
         <xs:attribute name="inverse" type="xs:boolean" use="optional" />
     </xs:complexType>
     <xs:complexType name="check-text-type">
         <xs:attribute name="text" type="text-data" use="required" />
         <xs:attribute name="eq" type="xs:string" use="optional" />
+        <xs:attribute name="neq" type="xs:string" use="optional" />
         <xs:attribute name="inverse" type="xs:boolean" use="optional" />
     </xs:complexType>
     <xs:complexType name="check-item-type">
@@ -160,6 +178,24 @@
         <xs:attribute name="perk" type="perk" use="required" />
         <xs:attribute name="inverse" type="xs:boolean" use="optional" />
     </xs:complexType>
+    <xs:complexType name="check-group-type">
+        <xs:choice maxOccurs="unbounded">
+            <xs:element name="check-flag" minOccurs="0" type="check-flag-type" />
+            <xs:element name="check-text" minOccurs="0" type="check-text-type" />
+            <xs:element name="check-perk" minOccurs="0" type="check-perk-type" />
+            <xs:element name="check-item" minOccurs="0" type="check-item-type" />
+            <xs:element name="check-stat" minOccurs="0" type="check-stat-type" />
+            <xs:element name="check-group" minOccurs="0" type="check-group-type" />
+        </xs:choice>
+        <xs:attribute name="op" use="required">
+            <xs:simpleType>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="AND"/>
+                    <xs:enumeration value="OR"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+    </xs:complexType>
     <xs:complexType name="nType">
         <xs:choice maxOccurs="unbounded">
             <xs:element name="nop">
@@ -176,10 +212,11 @@
                         </xs:element>
                         <xs:element name="outcome">
                             <xs:complexType>
-                                <xs:attribute name="name" type="xs:string" use="required" />
+                                <xs:attribute name="name" type="xs:string" use="optional" />
                                 <xs:attribute name="output" type="xs:string"  use="required" />
                                 <xs:attribute name="store" type="text-data"  use="optional" />
-                                <xs:attribute name="destroy" type="xs:integer" />
+                                <xs:attribute name="clear" type="xs:boolean"   use="optional"/>
+                                <xs:attribute name="destroy" type="xs:integer"  use="optional" />
                             </xs:complexType>
                         </xs:element>
                     </xs:choice>
@@ -198,6 +235,8 @@
                             <xs:attribute name="ref" type="text-data" use="optional" />
                             <xs:attribute name="inc" type="xs:string" use="optional" />
                             <xs:attribute name="set" type="xs:string" use="optional" />
+                            <xs:attribute name="bit-set" type="xs:string" use="optional" />
+                            <xs:attribute name="bit-unset" type="xs:string" use="optional" />
                         </xs:extension>
                     </xs:simpleContent>
                 </xs:complexType>
@@ -242,6 +281,7 @@
             <xs:element name="wait">
                 <xs:complexType>
                     <xs:attribute name="time" type="xs:decimal" use="required" />
+                    <xs:attribute name="rnd" type="xs:decimal" use="optional" />
                 </xs:complexType>
             </xs:element>
             <xs:element name="anim">
@@ -252,6 +292,7 @@
                     <xs:attribute name="idle" type="idle" />
                     <xs:attribute name="expression" type="expression" />
                     <xs:attribute name="react" type="react" />
+                    <xs:attribute name="blink" type="blink" />
                     <xs:attribute name="int" type="xs:string" />
                     <xs:attribute name="intValue" type="xs:string" />
                     <xs:attribute name="float" type="xs:string" />
@@ -280,6 +321,7 @@
                     <xs:attribute name="jawAnim" type="xs:boolean" />
                     <xs:attribute name="style" type="dialogStyle" />
                     <xs:attribute name="timed" type="xs:decimal" />
+                    <xs:attribute name="neutral-expression" type="xs:boolean" />
                 </xs:complexType>
             </xs:element>
             <xs:element name="if">
@@ -291,6 +333,7 @@
                             <xs:element name="check-perk" minOccurs="0" type="check-perk-type" />
                             <xs:element name="check-item" minOccurs="0" type="check-item-type" />
                             <xs:element name="check-stat" minOccurs="0" type="check-stat-type" />
+                            <xs:element name="check-group" minOccurs="0" type="check-group-type"  />
                         </xs:choice>
                         <xs:element name="then" minOccurs="1" maxOccurs="1" type="nType" />
                         <xs:element name="else" minOccurs="0" maxOccurs="1" type="nType" />
@@ -307,16 +350,36 @@
                                     <xs:element name="check-perk" type="check-perk-type" minOccurs="0" maxOccurs="unbounded" />
                                     <xs:element name="check-item" type="check-item-type" minOccurs="0" maxOccurs="unbounded" />
                                     <xs:element name="check-stat" type="check-stat-type" minOccurs="0" maxOccurs="unbounded" />
+                                    <xs:element name="check-group" type="check-group-type" minOccurs="0" maxOccurs="unbounded" />
                                     <xs:element name="text" type="xs:string" minOccurs="1" maxOccurs="1" />
                                     <xs:element name="lock-reason" type="xs:string" minOccurs="0" maxOccurs="1" />
                                     <xs:element name="then" type="nType" minOccurs="0" maxOccurs="1" />
                                 </xs:choice>
                                 <xs:attribute name="out" type="xs:string" use="required" />
                                 <xs:attribute name="icon" type="choiceIcon" />
+                                <xs:attribute name="icon-text" type="xs:string" />
                             </xs:complexType>
                         </xs:element>
                     </xs:sequence>
                     <xs:attribute name="help" type="xs:boolean" />
+                    <xs:attribute name="shuffled" type="xs:boolean" />
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="switch-text">
+                <xs:complexType>
+                    <xs:sequence maxOccurs="unbounded">
+                        <xs:element name="case">
+                            <xs:complexType>
+                                <xs:simpleContent>
+                                    <xs:extension base="xs:string">
+                                        <xs:attribute name="eq" type="xs:string" use="required" />
+                                    </xs:extension>
+                                </xs:simpleContent>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:sequence>
+                    <xs:attribute name="check" type="xs:string" use="required" />
+                    <xs:attribute name="text" type="text-data" use="required" />
                 </xs:complexType>
             </xs:element>
             <xs:element name="stat">
@@ -359,6 +422,7 @@
                     <xs:attribute name="time" type="xs:decimal" use="optional" />
                     <xs:attribute name="mode" type="fadeToBlackMode" use="optional" />
                     <xs:attribute name="keep" type="xs:boolean" use="optional" />
+                    <xs:attribute name="layer" type="xs:integer" use="optional" />
                 </xs:complexType>
             </xs:element>
             <xs:element name="load">
@@ -377,10 +441,22 @@
                     <xs:attribute name="node" type="xs:string" use="optional" />
                 </xs:complexType>
             </xs:element>
+            <xs:element name="inject">
+                <xs:complexType>
+                    <xs:attribute name="node" type="xs:string" use="required" />
+                </xs:complexType>
+            </xs:element>
             <xs:element name="sfx">
                 <xs:complexType>
                     <xs:attribute name="clip" type="sfx-clip" use="required" />
                     <xs:attribute name="wait" type="xs:boolean" />
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="bgm">
+                <xs:complexType>
+                    <xs:attribute name="loop" use="optional"  />
+                    <xs:attribute name="volume" type="xs:decimal" use="optional"  />
+                    <xs:attribute name="fade-speed" type="xs:decimal" use="optional"  />
                 </xs:complexType>
             </xs:element>
         </xs:choice>

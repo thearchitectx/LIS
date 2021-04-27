@@ -9,6 +9,8 @@
             
             <wait time="5" />
 
+            <bgm loop="loop-jefferson" volume="0.2" fade-speed="0.05" />
+            <rig-track of="CH_Jefferson" head="0.25" eye="1" />
             <dlg char="CH_Jefferson" track="Neck">
                 <m>Hey... Can I have your attention now?</m>
             </dlg>
@@ -77,6 +79,7 @@
         <n id="n2-silent" out="n3">
             <anim trigger="Cinemachine Talk Close" />
             <anim target="CH_Jefferson" trigger="idle-hands-waist" />
+            <rig-track of="CH_Jefferson" head="1" eye="1" />
             <wait time="1" />
             <dlg char="CH_Jefferson" style="subjective">
                 <m>Yeah... There's no need to be ashamed...</m>
@@ -87,6 +90,7 @@
         <n id="n2-guilty" out="n3">
             <anim trigger="Cinemachine Talk Close" />
             <anim target="CH_Jefferson" trigger="idle-hands-waist" />
+            <rig-track of="CH_Jefferson" head="1" eye="1" />
             <wait time="1" />
             <dlg char="CH_Jefferson" style="subjective">
                 <m>Yeah... I didn't expect you to deny these records...</m>
@@ -98,6 +102,7 @@
             <anim trigger="Cinemachine Talk Close" />
             <stat char="CH_Jefferson" name="AFFINITY" inc="1" />
             <anim target="CH_Jefferson" trigger="idle-hands-waist" />
+            <rig-track of="CH_Jefferson" head="1" eye="1" />
             <wait time="1" />
             <dlg char="CH_Jefferson"  style="subjective">
                 <m>Yeah... I can sympathize with that feeling...</m>
@@ -212,7 +217,7 @@
             </dlg>
 
             <fade-to-black keep="true" />
-
+            <bgm />
             <wait time="2" />
             <objective name="OBJ_JeffersonFirstPicTake" completed="false" />
 

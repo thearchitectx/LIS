@@ -6,7 +6,7 @@ namespace TheArchitect.Core.Data
     public class Perk : ScriptableObject
     {
         [SerializeField] public string Label;
-        [SerializeField] public string Description;
+        [SerializeField] [TextArea] public string Description;
 
         public virtual bool IsActive(Game game)
         {

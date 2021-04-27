@@ -73,7 +73,7 @@ public class JiggleBone : MonoBehaviour {
  
 		// ==================================================
 		// Green line is the bone's local up vector
-		// Blue line is the bone's local foward vector
+		// Blue line is the bone's local forward vector
 		// Yellow line is the target postion
 		// Red line is the dynamic postion
 		#if UNITY_EDITOR

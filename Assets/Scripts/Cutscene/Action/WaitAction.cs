@@ -8,22 +8,33 @@ namespace TheArchitect.Cutscene.Action
     {
         [XmlAttribute("time")]
         public float Time = 0;
+        [XmlAttribute("rnd")]
+        public float Rnd = 0;
+
+        private float m_Timer = float.NaN;
+
+        public override void ResetState()
+        {
+            m_Timer = float.NaN;
+        }
 
         public override string Update(CutsceneInstance cutscene, CutsceneController controller)
         {
-            Time -= UnityEngine.Time.deltaTime;
+            if (float.IsNaN(m_Timer))
+                m_Timer = Rnd > 0
+                    ? UnityEngine.Random.Range(Time-Rnd, Time+Rnd)
+                    : Time;
+
+            m_Timer -= UnityEngine.Time.deltaTime;
+
             #if UNITY_EDITOR
             if (Input.GetKey(KeyCode.Z) && Input.GetKey(KeyCode.X)) {
                 return OUTPUT_NEXT;
             }
             #endif
 
-            return Time <= 0 ? OUTPUT_NEXT : null;
+            return m_Timer <= 0 ? OUTPUT_NEXT : null;
         }
 
-        public override object Valid(CutsceneInstance cutscene)
-        {
-            return Time > 0;
-        }
     }
 }

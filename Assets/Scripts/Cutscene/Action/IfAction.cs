@@ -12,7 +12,9 @@ namespace TheArchitect.Cutscene.Action
         [XmlElement("check-flag", typeof(CheckFlag)),
             XmlElement("check-perk", typeof(CheckPerk)),
             XmlElement("check-stat", typeof(CheckStat)),
-            XmlElement("check-item", typeof(CheckItem))
+            XmlElement("check-item", typeof(CheckItem)),
+            XmlElement("check-text", typeof(CheckText)),
+            XmlElement("check-group", typeof(CheckGroupPredicate))
         ]
         public Predicate[] predicates;
 
@@ -88,21 +90,67 @@ namespace TheArchitect.Cutscene.Action
         public int Gte = int.MinValue;
         [XmlAttribute("lte")]
         public int Lte = int.MinValue;
+        [XmlAttribute("mod")]
+        public int Mod = int.MinValue;
+        [XmlAttribute("bit-set")]
+        public byte BitSet = byte.MaxValue;
+        [XmlAttribute("bit-unset")]
+        public byte BitUnset = byte.MaxValue;
 
         public override bool Resolve()
         {
             var flagValue = Resources.Load<Game>(ResourcePaths.SO_GAME).GetFlagState(Flag);
             bool b = false;
+            if (Mod > int.MinValue)
+                flagValue = flagValue % Mod;
             if (Eq > int.MinValue)
                 b = b || flagValue == Eq;
             if (Gte > int.MinValue)
                 b = b || flagValue >= Gte;
             if (Lte > int.MinValue)
                 b = b || flagValue <= Lte;
+            if (BitSet < 32)
+                b = b || ( (flagValue & (1 << BitSet)) != 0 );
+            if (BitUnset < 32)
+                b = b || ( (flagValue & (1 << BitUnset)) == 0 );
             
             b = Inverse ? !b : b;
             #if UNITY_EDITOR
-            // Debug.Log($"CHECK-FLAG Flag='{Flag}' Eq='{Eq}' Gte='{Gte}' Lte='{Lte}' Inverse:{Inverse}: {b}");
+            Debug.Log($"CHECK-FLAG Flag='{Flag}' Eq='{Eq}' Gte='{Gte}' Lte='{Lte}' Inverse:{Inverse}: {b}");
+            #endif
+            return b;
+        }
+    }
+
+    public  class CheckGroupPredicate  : Predicate
+    {
+        [XmlElement("check-flag", typeof(CheckFlag)),
+            XmlElement("check-perk", typeof(CheckPerk)),
+            XmlElement("check-stat", typeof(CheckStat)),
+            XmlElement("check-item", typeof(CheckItem)),
+            XmlElement("check-text", typeof(CheckText)),
+            XmlElement("check-group", typeof(CheckGroupPredicate))
+        ]
+        public Predicate[] predicates;
+        [XmlAttribute("op")]
+        public string Op;
+
+        public override bool Resolve()
+        {
+            if (predicates==null || predicates.Length == 0)
+                return true;
+
+            bool b = Op == "OR" ? false : true;
+            foreach (var p in predicates)
+            {
+                if (Op == "OR")
+                    b |= p.Resolve();
+                else
+                    b &= p.Resolve();
+            }
+
+            #if UNITY_EDITOR
+            Debug.Log($"CheckGroupPredicate Op='{Op}': {b}");
             #endif
             return b;
         }
@@ -179,6 +227,27 @@ namespace TheArchitect.Cutscene.Action
         {
             bool b = Resources.Load<Game>(ResourcePaths.SO_GAME).HasActivePerk(Perk);
             return Inverse ? !b : b;
+        }
+    }
+
+    public class CheckText : Predicate
+    {
+        [XmlAttribute("text")]
+        public string Text;
+        [XmlAttribute("eq")]
+        public string Eq = null;
+        [XmlAttribute("neq")]
+        public string Neq = null;
+
+        public override bool Resolve()
+        {
+            var textValue = Resources.Load<Game>(ResourcePaths.SO_GAME).GetTextState(Text);
+            bool b = false;
+            if (!string.IsNullOrEmpty(Eq))
+                b = b || textValue == Eq;
+            if (!string.IsNullOrEmpty(Neq))
+                b = b || textValue != Neq;
+            return b;
         }
     }
 }

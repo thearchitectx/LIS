@@ -6,8 +6,8 @@
         <n id="n1">
             <wait time="1" />
             <dlg char="CH_Principal" track="Neck">
-                <m>It was him... I know it... He's the who did this little plank...</m>
-                <m wait="1">Be prepared, kid... One day I'll catch you in the act... And your expulsion memo is ready, just waiting for this day...</m>
+                <m>It was him... I know... He's the who did this little prank...</m>
+                <m wait="1">Be prepared, kid... One day I'll catch you in the act... Your expulsion memo is ready, just waiting for this day...</m>
             </dlg>
 
             <anim int="step" intValue="2" />

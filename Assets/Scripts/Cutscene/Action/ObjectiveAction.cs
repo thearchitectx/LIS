@@ -18,10 +18,21 @@ namespace TheArchitect.Cutscene.Action
         
         public override string Update(CutsceneInstance cutscene, CutsceneController controller)
         {
+            bool before = controller.Game.HasObjective(Name);
+
             if (Completed)
                 controller.Game.RemoveObjective(Name);
             else
                 controller.Game.AddObjective(Name);
+            
+            bool after  = controller.Game.HasObjective(Name);
+
+            if (before != after)
+            {
+                var consoleMessages = Resources.Load<Console>(ResourcePaths.SO_CONSOLE);
+                consoleMessages.Log( Completed ? "Objective Completed!" : "New Objective!" );
+            }
+
             return OUTPUT_NEXT;
         }
 

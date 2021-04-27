@@ -14,6 +14,7 @@ public class CopyTransform : MonoBehaviour
     [SerializeField] private CopyTransformSecondarySource m_SecondarySource = CopyTransformSecondarySource.NONE;
     [SerializeField] private bool m_CopyWorldPosition;
     [SerializeField] private bool m_CopyWorldRotation;
+    [SerializeField] private bool localSpaceOffset = false;
     [SerializeField] private Vector3 m_PositionOffset;
     [SerializeField] private Vector3 m_RotationOffset;
     [SerializeField] public float TargetTransitionSpeed = 1f;
@@ -44,19 +45,20 @@ public class CopyTransform : MonoBehaviour
         {
             if (this.m_CopyWorldPosition)
             {
+                var p = localSpaceOffset ? source.transform.InverseTransformPoint(m_PositionOffset) : m_PositionOffset;
                 if (m_TransitionProgress < 1)
                 {
                     m_TransitionProgress += (Time.deltaTime * TargetTransitionSpeed);
 
                     this.transform.position = Vector3.Lerp(
                         this.transform.position,
-                        source.transform.position + m_PositionOffset,
+                        source.transform.position + p,
                         m_TransitionProgress
                     );
                 }
                 else
                 {
-                    this.transform.position = source.transform.position + m_PositionOffset;
+                    this.transform.position = source.transform.position + p;
                 }
             }
             if (this.m_CopyWorldRotation)

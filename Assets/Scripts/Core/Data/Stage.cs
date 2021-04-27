@@ -7,7 +7,7 @@ namespace TheArchitect.Core.Data
     public class Stage : ScriptableObject
     {
         [SerializeField] public BakedScene Scene;
-        [SerializeField] public string MechanicPrefab;
+        [SerializeField] [TextArea] public string MechanicPrefab;
     }
 
 }

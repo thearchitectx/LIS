@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../Cutscene.xsd">
+    <nodes>
+        <n id="n1">
+            <if>
+                <check-flag flag="TAYLOR_GIRLS_RESTROOM" bit-set="1" />
+                <then>
+                    <dlg style="subjective">
+                        <m>Hum... This could be the bracelet Taylor talked about...</m>
+                    </dlg>
+                </then>
+                <else>
+                    <dlg style="subjective">
+                        <m>A girl's bracelet... Looks like someone lost it here...</m>
+                    </dlg>
+                </else>
+            </if>
+
+            <choice>
+                <c out="#a">
+                    <text>[ Take it ]</text>
+                    <then>
+                        <flag name="PICKED_BRACELET" set="1" />
+                        <item name="ITM_BRACELET" inc="1">YOU FOUND A GIRL'S *BRACELET*!</item>
+                        <obj name="Bracelet" destroy="0.1" />
+                    </then>
+                </c>
+                <c out="#b"><text>[ Leave ]</text></c>
+            </choice>
+        </n>
+    </nodes>
+</cutscene>

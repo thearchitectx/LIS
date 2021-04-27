@@ -28,7 +28,7 @@ namespace TheArchitect.Core.Loader
         // Update is called once per frame
         void Update()
         {
-            if (this.m_Stage != null && this.m_LoadSceneOperation == null)
+            if (this.m_Stage != null && this.m_LoadSceneOperation == null && Time.timeSinceLevelLoad > 0.05f)
             {
                 this.m_LoadSceneOperation = SceneManager.LoadSceneAsync(this.m_Stage.Scene.ToString());
                 this.m_LoadSceneOperation.completed += op => {
@@ -37,8 +37,15 @@ namespace TheArchitect.Core.Loader
                         m_LoadMechanicOperation = Resources.LoadAsync<GameObject>(this.m_Stage.MechanicPrefab);
                         m_LoadMechanicOperation.completed += op2 => {
                             GameObject prefab = m_LoadMechanicOperation.asset as GameObject;
-                            GameObject mechanic = GameObject.Instantiate(prefab);
-                            mechanic.name = prefab.name;
+                            if (prefab==null)
+                            {
+                                Debug.LogWarning($"Can't find mechanic prefab: {this.m_Stage.MechanicPrefab}");
+                            }
+                            else
+                            {
+                                GameObject mechanic = GameObject.Instantiate(prefab);
+                                mechanic.name = prefab.name;
+                            }
                         };
                     }
                 };
@@ -53,7 +60,7 @@ namespace TheArchitect.Core.Loader
                 this.m_ImageProgress.fillAmount = m_LoadMechanicOperation.progress;
             }
 
-            float col = m_TextProgress.color.r+Time.deltaTime;
+            float col = m_TextProgress.color.r+Time.deltaTime * 2;
             this.m_TextProgress.color = new Color(col, col, col);
             this.m_ImageProgress.color = new Color(0, 0, col);
 

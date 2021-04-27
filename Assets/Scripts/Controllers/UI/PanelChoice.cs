@@ -12,6 +12,7 @@ namespace TheArchitect.Core.Controllers
         public string Id;
         public string Text;
         public string Icon;
+        public string IconText;
         public bool Interactable;
     }
 
@@ -29,9 +30,9 @@ namespace TheArchitect.Core.Controllers
         public float m_WheelTimer;
         public float m_ClickTimer = 1f;
 
-        public void AddChoice(string id, string text, string icon, bool interactable)
+        public void AddChoice(string id, string text, string icon, string iconText, bool interactable)
         {
-            this.m_Choices.Add(new Choice() { Id = id, Text = text, Icon = icon, Interactable = interactable });
+            this.m_Choices.Add(new Choice() { Id = id, Text = text, Icon = icon, IconText = iconText, Interactable = interactable });
         }
 
         void Start()
@@ -65,6 +66,14 @@ namespace TheArchitect.Core.Controllers
                 if (c.Icon != null && c.Icon != "")
                     imageIcon.sprite = Resources.Load<Sprite>(c.Icon);
                 imageIcon.gameObject.SetActive(imageIcon.sprite);
+                Text textIcon = buttonObject.transform.Find("Text Icon").GetComponent<Text>();
+                if (!string.IsNullOrEmpty(c.IconText) && !string.IsNullOrEmpty(c.Icon))
+                    textIcon.text = c.IconText;
+                Image imageShadow = imageIcon.transform.Find("Image Shadow").GetComponent<Image>();
+
+                imageIcon.gameObject.SetActive(imageIcon.sprite);
+                textIcon.gameObject.SetActive(!string.IsNullOrEmpty(c.IconText));
+                imageShadow.gameObject.SetActive(!string.IsNullOrEmpty(c.IconText));
 
                 // Fix padding for icon
                 if (imageIcon.sprite!=null) 
@@ -82,6 +91,15 @@ namespace TheArchitect.Core.Controllers
 
         void Update()
         {
+            if (Time.deltaTime==0)
+                return;
+
+            #if UNITY_EDITOR
+            if (Input.GetKeyDown(KeyCode.U) && Input.GetKey(KeyCode.LeftControl))
+                foreach (var b in this.GetComponentsInChildren<Button>())
+                    b.interactable = true;
+            #endif
+                
             this.m_LastSelected = this.m_EventSystem.currentSelectedGameObject != null
                 ? this.m_EventSystem.currentSelectedGameObject
                 : this.m_LastSelected;
@@ -91,8 +109,12 @@ namespace TheArchitect.Core.Controllers
 
             if (this.m_LastSelected != null && Input.GetMouseButtonDown(0) && this.m_ClickTimer < 0)
             {
-                m_LastSelected.GetComponent<Button>().onClick.Invoke();
-                return;
+                Button b = m_LastSelected.GetComponent<Button>();
+                if (b.interactable)
+                {
+                    b.onClick.Invoke();
+                    return;
+                }
             }
 
             if (this.m_EventSystem.currentSelectedGameObject == null && !this.m_EventSystem.alreadySelecting && (Input.GetMouseButtonDown(0) ||  Input.GetAxis("Vertical") != 0 || wheel !=0) )

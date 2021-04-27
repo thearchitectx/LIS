@@ -33,19 +33,31 @@ namespace TheArchitect.Controllers.UI.PanelPause
 
             this.TextProfile.text = $"<color=cyan>AGE</color>\n{character.Age}\n\n<color=cyan>STATUS</color>\nACQUAINTANCE";
 
-            AddStat(game, character, Character.STAT_AFFINITY, "AFFINITY", true);
-            AddStat(game, character, Character.STAT_CORRUPTION, "CORRUPTION", false);
+            AddStat(game, character, Character.STAT_AFFINITY, "AFFINITY", false, 0, 0);
+            AddStat(game, character, Character.STAT_CORRUPTION, "CORRUPTION", false, 0, 0);
+            AddStat(game, character, Character.STAT_VICTORIA_LOYALTY, "VICTORIA'S INFLUENCE", false, 3, 3);
         }
 
-        private void AddStat(Game game, Character character, string stat, string label, bool force)
+        private void AddStat(Game game, Character character, string stat, string label, bool force, byte stars, int complement)
         {
-            int s = game.GetCharacterStat(character, stat);
-            if ( s != 0 || force)
+            if ( game.HasCharacterStat(character, stat) || force)
             {
+                int s = game.GetCharacterStat(character, stat);
                 PanelStat panelStat = Instantiate(PanelStatPrefab).GetComponent<PanelStat>();
                 panelStat.transform.SetParent(PanelStats, false);
+
                 panelStat.TextLabel.text = label;
                 panelStat.TextValue.text = s.ToString("D2");
+                panelStat.TextValue.gameObject.SetActive(stars == 0);
+
+                for (var i=0; i<Mathf.Min(stars,5); i++)
+                {
+                    var star = GameObject.Instantiate(panelStat.ImageStar.gameObject);
+                    star.transform.SetParent(panelStat.ImageStar.transform.parent, false);
+                    star.SetActive(true);
+                    star.GetComponent<Image>().color = s > i ? new Color32(0xCA, 0xC4, 0x0C, 0xff) : new Color32(0x9a, 0x9a, 0x9a, 0x9a);
+                }
+                Destroy(panelStat.ImageStar.gameObject);
             }
         }
 

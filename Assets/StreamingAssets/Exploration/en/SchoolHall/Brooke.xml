@@ -26,17 +26,28 @@
                     <dlg char="CH_Brooke" style="subjective">
                         <m>Please... You don't have much time... Find my memory card!</m>
                     </dlg>
-                    <node-output node="n-hello-choice" />
+                    <node-output node="_end" />
+                </then>
+            </if>
+            
+
+            <walker target="CH_Brooke" destination="DestinationTalk" />
+            <rig-track of="CH_Brooke" eye="1" head="0.5" />
+            <if>
+                <check-flag flag="QUEST_BROOKE_RECORD_VIDEO" eq="1" />
+                <then>
+                    <dlg char="CH_Brooke" style="subjective">
+                        <m>Hey... You need to check the girls restroom so we can record the new video... Don't ask me how...</m>
+                        <m>Make sure to check all corners once you're in there... I can't take any risks...</m>
+                    </dlg>
                 </then>
                 <else>
-                    <walker target="CH_Brooke" destination="DestinationTalk" />
-                    <rig-track of="CH_Brooke" eye="1" head="0.5" />
                     <dlg char="CH_Brooke" style="subjective">
                         <m>Yeah... What's up?</m>
                     </dlg>
-                    <node-output node="n-hello-choice" />
                 </else>
             </if>
+            <node-output node="n-hello-choice" />
         </n>
 
         <!-- ############################################# -->
@@ -82,7 +93,7 @@
                     <text>I found your memory card!</text>
                 </c>
                 <c out="#c">
-                    <check-flag flag="QUEST_BROOKE_CARD" inverse="true" eq="1" />
+                    <check-flag flag="QUEST_BROOKE_CARD" lte="10" />
                     <text>I'm taking pictures for the yearbook, you know...</text>
                     <then>
                         <anim target="CH_Brooke" react="SAY01" />
@@ -93,6 +104,13 @@
                         </dlg>
                         <node-output node="n-hello-choice" />
                     </then>
+                </c>
+                <c out="have-empty-girls-restroom">
+                    <check-group op="AND">
+                        <check-flag flag="QUEST_BROOKE_RECORD_VIDEO" gte="1" />
+                        <check-flag flag="MAX_MET_RESTROOM" gte="1" />
+                    </check-group>
+                    <text>Guess what... I have access to the restroom... And there's nobody there now...</text>
                 </c>
                 <c out="#d">
                     <text>See you later...</text>
@@ -336,7 +354,7 @@
             </choice>
 
             <dlg char="CH_Brooke" style="subjective">
-                <m>As I said earlier... I read your school schedule... I know you will meet the principal in a few of minutes...</m>
+                <m>As I said earlier... I read your school schedule... I know you have meet the principal today...</m>
                 <m>All you need to do is to figure a way to distract him while you're at his office... Then find my drone...</m>
                 <m>I just need you to take the memory card and leave the drone there, or else it will be too obvious...</m>
                 <m wait="0.5">Yeah... I know my plan involves mostly your action, but... it's my best shot... Can you do that for me?</m>
@@ -404,21 +422,364 @@
         </n>
 
         <!-- ############################################# -->
-        <!-- ############################################# -->
+        <!-- ### n-found-card ############################ -->
         <!-- ############################################# -->
         <n id="n-found-card">
             <walker target="CH_Brooke" destination="DestinationTalk" />
             <rig-track of="CH_Brooke" eye="1" head="1" />
-            <anim target="CH_Brooke" react="YAY" />
+            <anim target="CH_Brooke" react="YAY" expression="HAPPY" />
             <dlg char="CH_Brooke" style="subjective">
-                <m>You did!?!?! I can't believe it!!!</m>
+                <m>You did!?!?! Oh my God!! I can't believe it!!!</m>
+            </dlg>
+            <choice>
+                <c out="#a">
+                    <text>It wasn't easy... I would be done if the principal caught me...</text>
+                    <then>
+                        <anim target="CH_Brooke" react="SAY01" expression="NEUTRAL" blink="HAPPY" />
+                        <dlg char="CH_Brooke" style="subjective">
+                            <m>Yeah... I can't thank you enough... I know you took risks...</m>
+                        </dlg>
+                    </then>
+                </c>
+                <c out="#b">
+                    <text>Piece of cake...</text>
+                    <then>
+                        <anim target="CH_Brooke" react="SAY01"  expression="NEUTRAL"  blink="HAPPY"/>
+                        <dlg char="CH_Brooke" style="subjective">
+                            <m>Yeah... I really appreciate what you did for me... Just not start getting cocky, okay...</m>
+                        </dlg>
+                    </then>
+                </c>
+            </choice>
+            <anim target="CH_Brooke" expression="HAPPY" />
+            <wait time="0.5" />
+            <dlg char="CH_Brooke" style="subjective" neutral-expression="true">
+                <m>Now, where is it? Please... Give it to me...</m>
+            </dlg>
+            <anim target="CH_Brooke" react="YAY" expression="HAPPY"  blink="HAPPY" />
+            <dlg char="CH_Brooke" style="subjective" neutral-expression="true">
+                <m>I can't wait to delete all that evidence...</m>
+            </dlg>
+            
+            <choice>
+                <c out="#a"><text>Yeah... About that... I, uuhhh...</text></c>
+                <c out="#b"><text>Sure... Let me just take it off my phone...</text></c>
+            </choice>
+            
+            <item name="ITM_BROOKE_MEMORY_CARD" dec="1">YOU GAVE THE MEMORY CARD BACK TO BROOKE</item>
+            <flag name="QUEST_BROOKE_CARD" inc="10" />
+            <objective name="OBJ_BrookeMemoryCard02" completed="true" />
+            <rig-track of="CH_Brooke" eye="0" head="0" />
+            <anim target="CH_Brooke" react="SURPRISE" expression="UNEASY" blink="NEUTRAL" />
+            <dlg char="CH_Brooke" style="subjective">
+                <m>Wait... You plugged it into your phone!?!?!</m>
+            </dlg>
+
+            <choice>
+                <c out="#a"><text>Oups...</text></c>
+                <c out="#b"><text>Yep...</text></c>
+            </choice>
+
+            <anim target="CH_Brooke" idle="EMBARRASSED01" expression="UNEASY" blink="CLOSED" />
+            <dlg char="CH_Brooke" style="subjective">
+                <m>No... no... no... I can't believe it...</m>
+                <m wait="1.5">You... You watched it... Didn't you?</m>
+                <m>This is so embarrassing... Why... Why did you do that!?!?</m>
+            </dlg>
+
+            <choice>
+                <c out="#a" icon="DICK_CHARISMA">
+                    <check-flag flag="DICK_CHARISMA" gte="1" />
+                    <lock-reason>CHARISMA 1+ REQUIRED FOR THIS ANSWER</lock-reason>
+                    <text>Well... You never said to NOT do it...</text>
+                    <then>
+                        <dlg char="CH_Brooke" style="subjective">
+                            <m>I... I never... said...</m>
+                            <m wait="0.5">It... It should be...</m>
+                        </dlg>
+                        <anim target="CH_Brooke" idle="UPSET" expression="UNEASY" blink="CLOSED" />
+                        <dlg char="CH_Brooke" style="subjective">
+                            <m>Sigh... Yeah... I should have made that clear...</m>
+                        </dlg>
+                    </then>
+                </c>
+                <c out="#b">
+                    <text>I needed a safe place to keep the card...</text>
+                    <then>
+                        <stat char="CH_Brooke" name="AFFINITY" inc="-1" />
+                        <dlg char="CH_Brooke" style="subjective">
+                            <m>Really!?! That's the best excuse you came up with!?!</m>
+                        </dlg>
+                        <anim target="CH_Brooke" idle="UPSET" expression="UNEASY" blink="CLOSED" />
+                        <dlg char="CH_Brooke" style="subjective">
+                            <m wait="0.5">Why don't you admit you were looking exactly for what you found... Like a damned pervert...</m>
+                            <m>Sigh... I should know men are all the same...</m>
+                        </dlg>
+                    </then>
+                </c>
+                <c out="#c" icon="DICK_KARMA_EVIL">
+                    <text>I can't miss the opportunity to check a girl's "digital content" when she willingly handles it to me...</text>
+                    <then>
+                        <flag name="DICK_KARMA" inc="-1">YOUR KARMA BALANCED TOWARDS THE *EVIL* SIDE</flag>
+                        <dlg char="CH_Brooke" style="subjective">
+                            <m>But... but... I didn't say you could...</m>
+                        </dlg>
+                        <anim target="CH_Brooke" idle="UPSET" expression="UNEASY" blink="CLOSED" />
+                        <dlg char="CH_Brooke" style="subjective">
+                            <m wait="0.5">Sigh... At least you're honest... It's better than coming up with some stupid excuse...</m>
+                            <m>I should have known that could happen... It was a rookie's security mistake...</m>
+                        </dlg>
+                    </then>
+                </c>
+            </choice>
+
+            <rig-track of="CH_Brooke" head="1" eye="1" />
+            <anim target="CH_Brooke" idle="UPSET" expression="NEUTRAL" blink="NEUTRAL" />
+            <dlg char="CH_Brooke" style="subjective">
+                <m>I guess it would be much worse if the principal were the one who found it...</m>
+            </dlg>
+            
+            <choice>
+                <c out="#a">
+                    <text>You're accepting the situation surprisingly well, like if you wanted me to watch your clip all along... Did you want someone's opinion on your performance?</text>
+                    <then>
+                        <rig-track of="CH_Brooke" head="0" eye="0" />
+                        <anim target="CH_Brooke" idle="UNEASY" expression="UNEASY" blink="NEUTRAL" react="SURPRISE" />
+                        <dlg char="CH_Brooke" style="subjective">
+                            <m>What!? My... performance!?!</m>
+                            <m wait="0.5">No... I... I was just trying to...</m>
+                        </dlg>
+                        <choice>
+                            <c out="#aa"><text>Whatever you were trying, you did great... Your figure is quite... photogenic...</text> </c>
+                            <c out="#ab"><text>No need to be shy... Every girl love posing to a camera, and you definitely have the talent and the assets...</text> </c>
+                        </choice>
+
+                        <anim target="Cinemachine" bool="close" boolValue="true" />
+                        <stat char="CH_Brooke" name="AFFINITY" inc="2" notify="false" />
+                        <stat char="CH_Brooke" name="CORRUPTION" inc="5" notify="true" />
+                        <dlg char="CH_Brooke" style="subjective">
+                            <m>Oh...</m>
+                            <m wait="1">Do... Do you think so...</m>
+                        </dlg>
+
+                        <anim target="Cinemachine" bool="close" boolValue="false" />
+                        <anim target="CH_Brooke" idle="UNEASY" />
+                        
+                        <dlg char="CH_Brooke" style="subjective">
+                            <m>I mean... Just... Let me explain...</m>
+                        </dlg>
+                    </then>
+                </c>
+                <c out="#b">
+                    <text>Hey... I don't judge... Women are free to do whatever they want with their bodies, right?</text>
+                    <then>
+                        <rig-track of="CH_Brooke" head="1" eye="1" />
+                        <anim target="CH_Brooke" idle="UPSET" blink="NEUTRAL" react="SAY01" />
+                        <dlg char="CH_Brooke" style="subjective">
+                            <m>Oh... Yes... Of course...</m>
+                        </dlg>
+                        <rig-track of="CH_Brooke" head="0" eye="0" />
+                        <dlg char="CH_Brooke" style="subjective">
+                            <m>I mean... What you said was really cool...</m>
+                            <m wait="0.5">And I... I never thought you'd have such mature ideas, but...</m>
+                        </dlg>
+                        
+                        <rig-track of="CH_Brooke" head="1" eye="1" />
+                        <wait time="1" />
+                        <anim target="CH_Brooke" expression="HAPPY" blink="CLOSED" react="YAY"/>
+                        <stat char="CH_Brooke" name="AFFINITY" inc="5" notify="false" />
+                        <stat char="CH_Brooke" name="CORRUPTION" inc="2" notify="true" />
+                        <flag name="DICK_CHARISMA" inc="1">
+                            YOU FEEL YOUR *CHARISMA* IMPROVE!
+                        </flag>
+
+                        <dlg char="CH_Brooke" style="subjective">
+                            <m>I guess it's good to be wrong about people, sometimes...</m>
+                        </dlg>
+                        <anim target="CH_Brooke" expression="NEUTRAL" blink="HAPPY" />
+                        <dlg char="CH_Brooke" style="subjective">
+                            <m>But... Let me explain what that stupid clip is about...</m>
+                        </dlg>
+                    </then>
+                </c>
+            </choice>
+
+            <rig-track of="CH_Brooke" head="1" eye="1" />
+            <anim target="CH_Brooke" idle="UPSET" expression="NEUTRAL" blink="NEUTRAL" />
+            <dlg char="CH_Brooke" style="subjective">
+                <m>Have you heard about deep fake videos? My plan was to create one... A deep fake video of Victoria flashing her boobs at the school restroom...</m>
+                <m>I recorded myself doing the deed in the actual restroom as the background source, and was going to blend her face and hair over mine...</m>
+            </dlg>
+            <anim target="CH_Brooke" expression="DISAPPROVE" react="SAY01" />
+            <dlg char="CH_Brooke" style="subjective">
+                <m wait="0.5">Do you get it what I want? That bitch would be in some well deserved trouble if that kind of video of her went viral and ended up in the school staff radar...</m>
+                <m>That would teach her to not mess with me...</m>
             </dlg>
             <wait time="1" />
-            <dlg char="THE_ARCHITECT" style="remote-subjective">
-                <m>This quest continues next version!</m>
+            <anim target="CH_Brooke" expression="DISAPPROVE" react="FACEPALM" />
+            <dlg char="CH_Brooke" style="subjective">
+                <m>Unfortunately... Those deep fake programs are not as straightforward as I thought...</m>
+                <m>I never managed to make them work with the video I recorded... I'm still trying to figure the problem...</m>
             </dlg>
+            <anim target="CH_Brooke" expression="NEUTRAL" />
+            
+            <choice shuffled="true">
+                <c out="#a">
+                    <text>Maybe the problem is the bad lightning setup of the restroom...</text>
+                    <then>
+                        <anim target="CH_Brooke" react="SAY01" />
+                        <dlg char="CH_Brooke" style="subjective">
+                            <m>Nah... That lightning is good enough and it's easily corrected by software...</m>
+                        </dlg>
+                    </then>
+                </c>
+                <c out="#b">
+                    <text>Maybe the problem is the poor camera lens quality of the phone...</text>
+                    <then>
+                        <anim target="CH_Brooke" react="FACEPALM" />
+                        <dlg char="CH_Brooke" style="subjective">
+                            <m>Nah... That's what a snobby "professional" photographer would think...</m>
+                        </dlg>
+                    </then>
+                </c>
+                <c out="#c">
+                    <text>Maybe the problem is the camera position and movement in the video...</text>
+                    <then>
+                        <flag name="DICK_INTELLIGENCE" inc="1">YOU FEEL MORE *INTELLIGENT*</flag>
+                        <anim target="CH_Brooke" react="SAY01" />
+                        <dlg char="CH_Brooke" style="subjective">
+                            <m>Do that creepy Mr. Jefferson also teach about digital video in his classes?</m>
+                            <m>Because... Yeah... I also think that's the problem with the clip I recorded...</m>
+                        </dlg>
+                    </then>
+                </c>
+            </choice>
+
+            <wait time="0.5" />
+            <dlg char="CH_Brooke" style="subjective">
+                <m>You see... The deep fake software works better when the image has slow movement and people's faces not very close to the lens...</m>
+                <m>But it's not easy to shot a video like that of yourself in a selfie style...</m>
+            </dlg>
+
+            <choice shuffled="true">
+                <c out="#a"><text>What if 'someone' went with you to the restroom to help record that video with the perfect deep fake conditions?</text></c>
+            </choice>
+
+            <anim target="CH_Brooke" react="SAY01" />
+            <dlg char="CH_Brooke" style="subjective">
+                <m>Yeah... It would seem like some of Victoria's stupid friends were the one recording... And the framing and movement would be perfect for the software to...</m>
+            </dlg>
+            <anim target="CH_Brooke" expression="DISAPPROVE" />
+            <dlg char="CH_Brooke" style="subjective">
+                <m>Wait a minute... 'Someone' means YOU!?!?! Recording me while I...</m>
+            </dlg>
+            <anim target="CH_Brooke" react="PISSED_OFF01" />
+            <dlg char="CH_Brooke" style="subjective">
+                <m wait="0.5">You're really pushing your luck, boy...</m>
+            </dlg>
+            
+            <choice shuffled="true">
+                <c out="#a">
+                    <text>Uuhh... My only intent is to help with your genius plan against Victoria... That bitch deserves it...</text>
+                    <then>
+                        <anim target="CH_Brooke" react="FACEPALM" />
+                        <dlg char="CH_Brooke" style="subjective">
+                            <m>Jesus Christ... I can smell the bullshit exhaling from your words...</m>
+                        </dlg>
+                    </then>
+                </c>
+                <c out="#b">
+                    <text>You need someone you can trust for that don't you... Don't I showed you can trust me by finding your memory card?</text>
+                    <then>
+                        <anim target="CH_Brooke" react="FACEPALM" />
+                        <dlg char="CH_Brooke" style="subjective">
+                            <m>You sticked my memory card in your phone and watched an intimate video of mine... Is that what you think that would inspire trust!?!?!</m>
+                        </dlg>
+                    </then>
+                </c>
+            </choice> 
+
+            <wait time="1" />
+            <anim target="CH_Brooke" react="SAY01" expression="DISAPPROVE" />
+            <dlg char="CH_Brooke" style="subjective">
+                <m>Sigh... But you know what... Actually I think you're the only person I know in this school that can help me make this plan work...</m>
+                <m>Max would never agree to help with that...</m>
+                <m>and Warren... Uurhg... not in a million years...</m>
+            </dlg>
+            
+            <wait time="1" />
+            <rig-track of="CH_Brooke" head="0" eye="0" />
+            <anim target="CH_Brooke" idle="EMBARRASSED01" expression="NEUTRAL" blink="CLOSED" />
+            <dlg char="CH_Brooke" style="subjective">
+                <m>I can't believe in what I'm about to say, but...</m>
+                <m>Would you please check if the girl's restroom is empty? I can't be seen lurking around there now...</m>
+                <m>If there's no one there, then we can come in quickly to... record a better background video...</m>
+            </dlg>
+            
+            <choice>
+                <c out="#a"><text>I'm even more happy to help this time...</text></c>
+                <c out="#b"><text>The school's top camera man is at your service, miss Brooke...</text></c>
+                <c out="have-empty-girls-restroom">
+                    <check-flag flag="MAX_MET_RESTROOM" gte="1" />
+                    <text>Guess what... I've already been at the girls restroom... And it's totally empty now...</text>
+                </c>
+            </choice>
+
+            <if>
+                <check-flag flag="QUEST_BROOKE_RECORD_VIDEO" eq="0" />
+                <then>
+                    <objective name="OBJ_BrookeDeepFakeCheckGirlsRestroom" completed="false" />
+                    <flag name="QUEST_BROOKE_RECORD_VIDEO" set="1" />
+                </then>
+            </if>
+
+            <dlg char="CH_Brooke" style="subjective">
+                <m>Yeah... Just shut up and go now before I decide to kill myself...</m>
+            </dlg>
+
             <walker target="CH_Brooke"  destination="DestinationIdle" />
+            <anim target="CH_Brooke" idle="UPSET" expression="NEUTRAL" blink="NEUTRAL" />
+        </n>
+
+        <!-- ############################################# -->
+        <!-- ## have-empty-girls-restroom ################ -->
+        <!-- ############################################# -->
+        <n id="have-empty-girls-restroom">
+            <flag name="QUEST_BROOKE_RECORD_VIDEO" set="2" />
+            <objective name="OBJ_BrookeDeepFakeBrookeWaitsInRestroom" completed="false" />
+            <objective name="OBJ_BrookeDeepFakeCheckGirlsRestroom" completed="true" />
+            <objective name="OBJ_BrookeDeepFakeReportToBrooke" completed="true" />
+
+            <rig-track of="CH_Brooke" eye="1" head="1" />
+            <anim target="CH_Brooke" idle="UPSET" expression="NEUTRAL" react="YAY" blink="NEUTRAL" />
+            <dlg char="CH_Brooke" style="subjective">
+                <m wait="0.5">Really?!? That's awesome!!!</m>
+            </dlg>
             <rig-track of="CH_Brooke" eye="0" head="0" />
+            <anim target="CH_Brooke" idle="UNEASY" expression="UNEASY" react="SAY02" />
+            <dlg char="CH_Brooke" style="subjective">
+                <m>I mean... It's not like I'm eager to get in there with you...</m>
+                <m wait="1">I just... I just need to record the video template properly...</m>
+            </dlg>
+            <rig-track of="CH_Brooke" eye="1" head="1" />
+            <anim target="CH_Brooke" idle="UPSET" expression="DISAPPROVE" />
+            <dlg char="CH_Brooke" style="subjective">
+                <m>Well... I must do what is need to be done...</m>
+                <m wait="1">I'm going to the restroom now... Please, give it a minute before coming in... I don't wanna risk people seeing us walking in there together...</m>
+            </dlg>
+
+            <fade-to-black keep="true" speed="2" />
+            <wait time="0.5" />
+            <obj name="CH_Brooke" active="false" />
+            <sfx clip="swoosh" />
+            <fade-to-black mode="from" speed="2" />
+            <wait time="0.5" />
+
+            <dlg style="whisper-subjective">
+                <m>This is going to be interesting...</m>
+            </dlg>
+
+            <load stage="school-hall-01" />
         </n>
     </nodes>
 </cutscene>

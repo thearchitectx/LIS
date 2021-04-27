@@ -8,6 +8,7 @@ public class CinemachineDollyAutoPing : MonoBehaviour
 {
     [SerializeField] private float m_MaxSpeed = 0.05f;
     [SerializeField] private float m_SmoothTime = 0.2f;
+    [SerializeField] private bool m_Ping = true;
     private float m_Speed = 0;
     private float m_Target = 1;
     private CinemachineVirtualCamera m_Cinemachine;
@@ -22,11 +23,11 @@ public class CinemachineDollyAutoPing : MonoBehaviour
     void Update()
     {
         if (CinemachineCore.Instance.IsLive(m_Cinemachine)) {
-            if (m_Dolly.m_PathPosition > 0.98f && m_Target == 1) 
+            if (m_Dolly.m_PathPosition > 0.98f && m_Target == 1 && m_Ping) 
             {
                 m_Target = 0;
             }
-            else if (m_Dolly.m_PathPosition < 0.02f && m_Target == 0)
+            else if (m_Dolly.m_PathPosition < 0.02f && m_Target == 0 && m_Ping)
             {
                 m_Target = 1;
             }

@@ -16,6 +16,8 @@ namespace TheArchitect.Cutscene.Action
         public CharacterReact React = CharacterReact.NONE;
         [XmlAttribute("expression")]
         public CharacterExpression Expression = CharacterExpression.NONE;
+        [XmlAttribute("blink")]
+        public CharacterBlink Blink = CharacterBlink.NONE;
         [XmlAttribute("float")]
         public string Float = null;
         [XmlAttribute("bool")]
@@ -35,6 +37,11 @@ namespace TheArchitect.Cutscene.Action
 
         [XmlIgnore]
         private Animator m_Animator;
+
+        public override void ResetState()
+        {
+            this.m_Animator = null;
+        }
 
         public override string Update(CutsceneInstance cutscene, CutsceneController controller)
         {
@@ -72,6 +79,9 @@ namespace TheArchitect.Cutscene.Action
 
                 if (React != CharacterReact.NONE)
                     this.m_Animator.SetTrigger($"REACT_{React.ToString()}");
+
+                if (Blink != CharacterBlink.NONE)
+                    this.m_Animator.SetInteger("blink", (int) Blink);
                     
                 if (Int != null)
                     this.m_Animator.SetInteger(Int, IntValue);
@@ -103,12 +113,20 @@ namespace TheArchitect.Cutscene.Action
 
         public enum CharacterIdle
         {
-            NONE,
-            STAND_HANDS_WAIST,
-            UNEASY,
-            POSE_PRAY,
-            POSE_CHEER,
-            UPSET,
+            NONE = 0,
+            STAND_HANDS_WAIST = 1,
+            UNEASY = 2,
+            POSE_PRAY = 3,
+            POSE_CHEER = 4,
+            UPSET = 5,
+            EMBARRASSED01 = 6,
+            COCKY01 = 7,
+            ARMS_CROSSED_F01 = 8,
+            CLEANING_MOP01 = 9,
+            HORNY01 = 10,
+            SICK01 = 11,
+            CHECK_PHONE = 12,
+            POSE_SEXY01 = 13
         }
 
         public enum CharacterReact
@@ -119,7 +137,11 @@ namespace TheArchitect.Cutscene.Action
             SURPRISE,
             LEAN_THINK,
             YAY,
-            SAY01
+            SAY01,
+            SAY02,
+            PISSED_OFF01,
+            LAUGH01,
+            GIGGLE
         }
 
         public enum CharacterExpression
@@ -129,6 +151,17 @@ namespace TheArchitect.Cutscene.Action
             DISAPPROVE,
             NEUTRAL,
             SMILE_CHEER,
+            HAPPY = 6,
+            EYE_ROLL = 7,
+            HORNY01 = 8
+        }
+
+        public enum CharacterBlink
+        {
+            NONE,
+            NEUTRAL,
+            HAPPY,
+            CLOSED
         }
     }
 

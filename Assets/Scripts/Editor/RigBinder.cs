@@ -35,6 +35,11 @@ public class RigBinder: EditorWindow
             Common(character);
             LargeLips(character);
         }
+
+        if (GUILayout.Button("MULTIPLY LIPS RIG x100"))
+        {
+            MultiplyLips(character);
+        }
     }
 
     void Common(GameObject character)
@@ -187,7 +192,7 @@ public class RigBinder: EditorWindow
         if (jb==null)
             jb = t.gameObject.AddComponent<JiggleBone>();
         jb.boneAxis = new Vector3(0, -1 ,0);
-        jb.upAxis = new Vector3(0, 0, -1);
+        jb.upAxis = new Vector3(-1, 0, 0);
         jb.targetDistance = 0.1f;
         jb.bGravity = 1f;
         jb.bStiffness = new Vector3(0.003f, 0.25f, 0.003f);
@@ -242,6 +247,50 @@ public class RigBinder: EditorWindow
         o.data.position = new Vector3(0, 0.00005f, 0.00004f);
     }
 
+    void MultiplyLips(GameObject character)
+    {
+        Transform t = character.transform.Find($"{SkeletonPaths.RIG_LIPS_TALK}/LeftUpLip");
+        OverrideTransform o = t.GetComponent<OverrideTransform>();
+        o.data.constrainedObject = character.transform.Find($"{SkeletonPaths.PATH_HEAD}/Grp_Head/LeftUpLip");
+        o.data.position *= 100;
+
+        t = character.transform.Find($"{SkeletonPaths.RIG_LIPS_TALK}/RightUpLip");
+        o = t.GetComponent<OverrideTransform>();
+        o.data.constrainedObject = character.transform.Find($"{SkeletonPaths.PATH_HEAD}/Grp_Head/RightUpLip");
+        o.data.position *= 100;
+
+        t = character.transform.Find($"{SkeletonPaths.RIG_LIPS_TALK}/UpLip");
+        o = t.GetComponent<OverrideTransform>();
+        o.data.constrainedObject = character.transform.Find($"{SkeletonPaths.PATH_HEAD}/Grp_Head/UpLip");
+        o.data.position *= 100;
+        
+        t = character.transform.Find($"{SkeletonPaths.RIG_LIPS_TALK}/DownLip");
+        if (t!=null) {
+            o = t.GetComponent<OverrideTransform>();
+            o.data.constrainedObject = character.transform.Find($"{SkeletonPaths.PATH_HEAD}/Grp_Head/UpLip");
+            o.data.position *= 100;
+        }
+
+        t = character.transform.Find($"{SkeletonPaths.RIG_LIPS_TALK}/LeftLip");
+        o = t.GetComponent<OverrideTransform>();
+        o.data.constrainedObject = character.transform.Find($"{SkeletonPaths.PATH_HEAD}/Grp_Head/LeftLip");
+        o.data.position *= 100;
+
+        t = character.transform.Find($"{SkeletonPaths.RIG_LIPS_TALK}/RightLip");
+        o = t.GetComponent<OverrideTransform>();
+        o.data.constrainedObject = character.transform.Find($"{SkeletonPaths.PATH_HEAD}/Grp_Head/RightLip");
+        o.data.position *= 100;
+
+        t = character.transform.Find($"{SkeletonPaths.RIG_LIPS_TALK}/LeftDownLip");
+        o = t.GetComponent<OverrideTransform>();
+        o.data.constrainedObject = character.transform.Find($"{SkeletonPaths.PATH_JAW}/LeftDownLip");
+        o.data.position *= 100;
+
+        t = character.transform.Find($"{SkeletonPaths.RIG_LIPS_TALK}/RightDownLip");
+        o = t.GetComponent<OverrideTransform>();
+        o.data.constrainedObject = character.transform.Find($"{SkeletonPaths.PATH_JAW}/RightDownLip");
+        o.data.position *= 100;
+    }
 
     void MediumLips(GameObject character)
     {

@@ -20,7 +20,7 @@
                     <flag name="#DISABLE_PLAYER" set="1" />
                     
                     <dlg style="subjective">
-                        <m>So... The principal declares open war...</m>
+                        <m>So... He declares open war...</m>
                         <m wait="1">Well... I have no other option than fighting with the weapons I have...</m>
                     </dlg>
 

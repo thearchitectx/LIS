@@ -120,9 +120,9 @@
                 <m>It's a professional contract thing or whatever...</m>
             </dlg>
             <choice>
-                <c out="#a" icon="DICK_CHARISMA">
+                <c out="#a" icon="DICK_CHARISMA" >
                     <check-flag flag="DICK_CHARISMA" gte="1" />
-                    <lock-reason>Come on, dude... Give a hand to a fellow bro here...\n[CHARISMA 1+ NEEDED]</lock-reason>
+                    <lock-reason>CHARISMA 1+ NEEDED FOR THIS ANSWER</lock-reason>
                     <text>Come on, dude... Give a hand to a fellow bro here...</text>
                     <then>
                         <anim target="CH_Justin" trigger="react-say" />

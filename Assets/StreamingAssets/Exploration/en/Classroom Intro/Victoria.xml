@@ -4,7 +4,6 @@
     xsi:noNamespaceSchemaLocation="../../../Cutscene.xsd">
     <nodes>
         <n id="root">
-            <stat char="CH_Victoria" name="CORRUPTION" set="5" notify="false" />
             <wait time="1" />
             <choice>
                 <c out="hello">
@@ -55,8 +54,8 @@
             <rig-track of="CH_Jefferson" head="1" eye="1"  target="CH_VictoriaHead" />
 
             <dlg char="CH_Jefferson" track="Neck">
-                <m>Please, ${Characters.CH_Victoria.DisplayName}... We already talked about this...</m>
-                <m>Don't talk like this to your colleagues... Where are your manners?</m>
+                <m>Please, ${Characters.CH_Victoria.DisplayName}... We already talked about this attitude...</m>
+                <m>Don't speak like this to your colleagues... Where are your manners?</m>
             </dlg>
 
             <rig-track of="CH_Jefferson" head="1" eye="1"  target="Cinemachine Talk" />
@@ -135,10 +134,8 @@
             
             <wait time="1" />
             
-            <rig-track of="CH_Victoria" head="1" eye="1" />
+            <rig-track of="CH_Victoria" head="1" eye="1"  target="Cinemachine Talk" />
             <rig-track of="CH_Jefferson" head="1" eye="1"  target="Cinemachine Talk" />
-            
-            <stat char="CH_Victoria" name="INTEL" inc="-1" />
             
             <dlg char="CH_Victoria" track="Neck">
                 <m>Yes... I have a sixty sense when it comes to creeps like you...</m>
@@ -155,7 +152,7 @@
 
             <dlg char="CH_Victoria" track="Neck">
                 <m>Forget about him, ${Characters.CH_Jefferson.DisplayName}...</m>
-                <m>Tell me more about your bedroom decoration... I really need to see it in person one day, you know...</m>
+                <m>Tell me more about your bedroom decoration... I'm still waiting for the day when when you'll show it to me in person one day...</m>
             </dlg>
 
             <wait time="1" />

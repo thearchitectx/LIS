@@ -1,0 +1,326 @@
+<?xml version="1.0"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../Cutscene.xsd">
+    <nodes>
+        <n id="n1">
+            <wait time="1" />
+            <prefab name="FlagGauge">
+                <message name="MessageLabel" string="BROOKE'S MOOD" />
+                <message name="MessageFlag" string="QUEST_BROOKE_RECORD_VIDEO_MOOD" />
+            </prefab>
+            
+            <anim target="CH_Brooke" idle="UNEASY" expression="UNEASY" blink="NEUTRAL" />
+            <dlg char="CH_Brooke" style="subjective">
+                <m wait="1">I'm... I'm ready...</m>
+            </dlg>
+            <dlg char="CH_Brooke" style="whisper-subjective">
+                <m>Take a deep breath, Brooke...</m>
+            </dlg>
+            
+            <prefab name="VideoRecorder">
+                <message name="MessageHelpText" string="USE &lt;color=cyan&gt;W S A D&lt;/color&gt; OR &lt;color=cyan&gt;ARROW&lt;/color&gt; KEYS TO CONTROL THE CAMERA" />
+                <message name="MessageCanvasOrder" string="-10" />
+                <message name="RebindCinemachine" />
+            </prefab>
+            
+            <anim int="step" intValue="2" />
+            <wait time="3" />
+
+            <rig-track of="CH_Brooke" head="0.5" eye="1" />
+            <dlg char="CH_Brooke" style="subjective">
+                <m>You.... You're already recording, right?</m>
+            </dlg>
+
+            <prefab name="TensionChoice">
+                <message name="MessageChoice0" string="Daaamn..."/>
+                <message name="MessageChoice1" string="Booobies..."/>
+                <message name="MessageChoice2" string="Niiice..."/>
+                <message name="MessageChoice3" string="Yep... Just recording..."/>
+                <outcome name="0" output="#0" store="TXT_TMP_0" />
+                <outcome name="1" output="#1" store="TXT_TMP_0" />
+                <outcome name="2" output="#2" store="TXT_TMP_0" />
+                <outcome name="3" output="#3" store="TXT_TMP_0" />
+            </prefab>
+
+            <wait time="1" />
+            <prefab destroy="TensionChoice" />
+
+            <if>
+                <check-text text="TXT_TMP_0" eq="3" />
+                <then>
+                    <flag name="QUEST_BROOKE_RECORD_VIDEO_MOOD" inc="30" />
+                    <anim target="CH_Brooke" react="SAY02" />
+                    <dlg char="CH_Brooke" style="subjective" neutral-expression="true">
+                        <m>Sigh... At least your reaction shows a little more maturity than I expected...</m>
+                    </dlg>
+                </then>
+                <else>
+                    <anim target="CH_Brooke" react="PISSED_OFF01" expression="DISAPPROVE" />
+                    <dlg char="CH_Brooke" style="subjective">
+                        <m wait="1">Oh my God... Will you control yourself!?!</m>
+                        <m>You boys all want one thing... And it's disgusting...</m>
+                    </dlg>
+                </else>
+            </if>
+
+            <wait time="2" />
+            <anim target="CH_Brooke" react="SAY01" expression="NEUTRAL" />
+            <dlg char="CH_Brooke" style="subjective">
+                <m>Now... We just need a few seconds of recording, right?</m>
+                <m>I don't see why push it longer...</m>
+            </dlg>
+
+            <choice>
+                <c out="#a">
+                    <text>If you want the deep fake to go viral, the video should be a little more... spirited...</text>
+                </c>
+                <c out="#b">
+                    <text>I don't think people will believe in a video where Victoria flashed her boobs while moping to her friends...</text>
+                </c>
+            </choice>
+
+            <anim  target="CH_Brooke" react="SAY02" /> 
+            <dlg char="CH_Brooke" style="subjective">
+                <m wait="0.5">Oh... You mean...</m>
+                <m wait="0.5">I see... If this is supposed to be a 'party' with Victoria and her friends... Then the video should look more upbeat...</m>
+                <m wait="1">Like... Like making faces and stupid poses, right?</m>
+            </dlg>
+            
+            <anim  target="CH_Brooke" react="SAY01" /> 
+            <dlg char="CH_Brooke" style="subjective">
+                <m>Well... It might be easy for those shallow girls, but that's not exactly my thing...</m>
+                <m>I don't have much of an idea on how to do emulate their stupid behaviour...</m>
+            </dlg>
+
+            <choice>
+                <c out="#a">
+                    <text><![CDATA[<i><color=gray>[MOOD CHECK]</color></i> It's quite easy... Just let me go there and I'll help to strike a nice pose...]]></text>
+                </c>
+                <c out="#b">
+                    <text>Then I think there's not nothing else we can to do here...</text>
+                    <then>
+                        <dlg char="CH_Brooke" style="subjective">
+                            <m>Yeah... Let's wrap this up...</m>
+                        </dlg>
+
+                        <flag name="QUEST_BROOKE_RECORD_VIDEO" set="15" />
+                        <fade-to-black keep="true" speed="0.5" />
+                        <wait time="2" />
+                        <sfx clip="swoosh" wait="true" />
+                        <load stage="toilet-women-record-brooke-video-scene-end" />
+                    </then>
+                </c>
+            </choice>
+
+            <anim target="CH_Brooke" react="SURPRISE" /> 
+            <dlg char="CH_Brooke" style="subjective">
+                <m>What!?</m>
+                <m wait="1.5">You wanna come here to... pose me... like... 'physically'!?!</m>
+            </dlg>
+
+            <!-- FAIL -->
+            <if>
+                <check-flag flag="QUEST_BROOKE_RECORD_VIDEO_MOOD" lte="49" />
+                <then>
+                    <flag name="QUEST_BROOKE_RECORD_VIDEO" set="11" />
+                    <console><![CDATA[<color=red>MOOD CHECK FAILED! [${Flags.QUEST_BROOKE_RECORD_VIDEO_MOOD}/50]</color>]]></console>
+                    <anim target="CH_Brooke" react="PISSED_OFF01" /> 
+                    <dlg char="CH_Brooke" style="subjective">
+                        <m>No way!! I can't take more of this shit... I think whatever you already recorded is enough for my plan</m>
+                    </dlg>
+                    <fade-to-black keep="true" speed="1" />
+                    <wait time="1" />
+                    <load stage="toilet-women-record-brooke-video-scene-end" />
+                </then>
+            </if>
+
+            <console><![CDATA[<color=green>MOOD CHECK PASSED! [${Flags.QUEST_BROOKE_RECORD_VIDEO_MOOD}/50]</color>]]></console>
+            <stat char="CH_Brooke" name="CORRUPTION" inc="3" />
+            <anim target="CH_Brooke" react="SAY02" />
+            <dlg char="CH_Brooke" style="subjective">
+                <m>Sigh... I'm already in this... situation... Giving up now would be stupid...</m>
+                <m wait="0.5">You can come here...</m>
+            </dlg>
+            <anim target="CH_Brooke" react="PISSED_OFF01" expression="DISAPPROVE" />
+            <dlg char="CH_Brooke" style="subjective">
+                <m wait="0.5">But you'd better behave!!!</m>
+            </dlg>
+            
+            <choice>
+                <c out="#a" icon="AXIS_INTERACTION_HEART">
+                    <text>Cool... I'll place the phone here over the sink so it we can keep recording us...</text>
+                </c>
+            </choice>
+            
+            <anim target="CH_Brooke" react="FACEPALM" expression="NEUTRAL" />
+            <dlg char="CH_Brooke" style="subjective">
+                <m wait="1">Urgh... Why didn't I think about that before??</m>
+            </dlg>
+            
+            <fade-to-black mode="to" keep="true" speed="0.5" layer="-1" />
+            <wait time="2" />
+            <anim int="step" intValue="3" />
+            
+            <rig-track of="CH_Brooke" head="0" eye="0" />
+            <anim target="CH_Brooke" idle="POSE_SEXY01" expression="UNEASY" blink="NEUTRAL" />
+            
+            <dlg char="CH_Player" style="subjective">
+                <m>First, your arms... Cool girls pose them like this in order to... show confidence...</m>
+            </dlg>
+
+            <fade-to-black mode="from" speed="1" layer="-1" />
+            <wait time="1" />
+
+            <dlg char="CH_Brooke" style="subjective">
+                <m>Are... Are you sure about this!? I... I just feel stupid but...</m>
+                <m>If... If you know to position my arms correctly... then go ahead...</m>
+            </dlg>
+
+            <wait time="2" />
+            <prefab name="SimpleMessage">
+                <outcome output="#a" />
+            </prefab>
+
+            <dlg char="CH_Brooke" style="subjective">
+                <m>So, this how I should stay, right?</m>
+                <m>Well... You can go back to the door and wrap the recording...</m>
+            </dlg>
+            
+            <choice>
+                <c out="#a"><text>Wait... We need to work on hips and waist moves... It will make you look exactly like a Vortex Club thot...</text></c>
+            </choice>
+            
+            <anim target="CH_Brooke" expression="DISAPPROVE" />
+            <dlg char="CH_Brooke" style="subjective">
+                <m wait="1">Oh my God... You're not making up this stuff to take advantage of me, are you?</m>
+                <m>Just... Just...</m>
+                <m>Just show me quickly the hips stuff, okay?</m>
+            </dlg>
+
+            <fade-to-black mode="to" keep="true" speed="2" layer="-1" />
+            <wait time="0.5" />
+            <dlg char="CH_Player" style="subjective">
+                <m>Pay attention to my hands and try to follow the movement...</m>
+            </dlg>
+            <anim int="step" intValue="4" />
+            <wait time="0.5" />
+            <fade-to-black mode="from" speed="2" layer="-1" />
+            <wait time="2" />
+            
+            <anim target="CH_Brooke" expression="HORNY01" />
+            <dlg char="CH_Brooke" style="subjective" neutral-expression="true">
+                <m>Okay... I feel your hands...</m>
+                <m wait="1">I mean... I'll follow your hands...</m>
+            </dlg>
+            
+            <wait time="2" />
+            <dlg char="CH_Brooke" style="subjective" neutral-expression="true">
+                <m wait="1">Is the ventilation system broken? It started to get quite hot in here...</m>
+            </dlg>
+            
+            <prefab name="SimpleMessage">
+                <outcome output="#a" />
+            </prefab>
+
+            <dlg char="CH_Brooke" style="subjective" neutral-expression="true">
+                <m>I think I... I got the moves...</m>
+                <m>It's... it's over now, right?</m>
+                <m wait="1">I think I can move a little more like Victoria now...</m>
+                <m>This is gonna be a success... Everybody is going to believe it's her in my fake video...</m>
+            </dlg>
+
+            <wait time="1" />
+
+            <choice>
+                <c out="#a">
+                    <text><![CDATA[<i><color=gray>[MOOD CHECK]</color></i>I have an even better idea... We could stage a fake video of "Victoria" and an undisclosed dude fooling around in the restroom... That would be a total blast!]]></text>
+                </c>
+                <c out="#b">
+                    <text>If you think so, then I think we're done here...</text>
+                    <then>
+                        <dlg char="CH_Brooke" style="subjective">
+                            <m>Yeah... Let's wrap this up...</m>
+                        </dlg>
+
+                        <flag name="QUEST_BROOKE_RECORD_VIDEO" set="15" />
+                        <fade-to-black keep="true" speed="0.5" />
+                        <wait time="2" />
+                        <sfx clip="swoosh" wait="true" />
+                        <load stage="toilet-women-record-brooke-video-scene-end" />
+                    </then>
+                </c>
+            </choice>
+            
+            <!-- FAIL -->
+            <if>
+                <check-flag flag="QUEST_BROOKE_RECORD_VIDEO_MOOD" lte="99" />
+                <then>
+                    <flag name="QUEST_BROOKE_RECORD_VIDEO" set="12" />
+                    <console><![CDATA[<color=red>MOOD CHECK FAILED! [${Flags.QUEST_BROOKE_RECORD_VIDEO_MOOD}/100]</color>]]></console>
+                    <dlg char="CH_Brooke" style="subjective">
+                        <m>I knew you'd suggest something like that...</m>
+                        <m wait="0.5">But I... I can't... I'm not ready for that... </m>
+                        <m>Let's... Let's just use the footage we already have and get out of here...</m>
+                    </dlg>
+
+                    <fade-to-black keep="true" speed="0.5" />
+                    <wait time="2" />
+                    <sfx clip="swoosh" wait="true" />
+                    <load stage="toilet-women-record-brooke-video-scene-end" />
+                </then>
+            </if>
+
+            <console><![CDATA[<color=green>MOOD CHECK PASSED! [${Flags.QUEST_BROOKE_RECORD_VIDEO_MOOD}/100]</color>]]></console>
+            <dlg char="CH_Brooke" style="subjective">
+                <m wait="1">foo...... fooling... around...</m>
+                <m wait="1">I knew a pervert like you would suggest something like that...</m>
+                <m wait="0.5">But, actually... I just want... to make the best video I can... to screw Victoria...</m>
+                <m>So... What kind of stuff are you thinking about to record?</m>
+            </dlg>
+            
+            <fade-to-black mode="to" keep="true" speed="2" layer="-1" />
+            <wait time="0.5" />
+            <dlg char="CH_Player" style="subjective">
+                <m>Just relax... This is going to be the best video ever...</m>
+            </dlg>
+
+            <anim int="step" intValue="5" />
+            <wait time="0.5" />
+            <fade-to-black mode="from" speed="2" layer="-1" />
+            <wait time="2" />
+            
+            <anim target="CH_Brooke" expression="HORNY01" />
+            <dlg char="CH_Brooke" style="subjective" neutral-expression="true">
+                <m>Oh... my...</m>
+            </dlg>
+            <wait time="4" />
+            <dlg char="CH_Brooke" style="subjective" neutral-expression="true">
+                <m>you...... you planned this... since the beginning....... didn't you?</m>
+            </dlg>
+            
+            <wait time="4" />
+            <stat char="CH_Brooke" name="CORRUPTION" inc="5" />
+            <dlg char="CH_Brooke" style="subjective" neutral-expression="true">
+                <m>this feels.......... good...</m>
+                <m>I mean... It feels good to know how perfect my deep fake will be....</m>
+                <m wait="1">Just... Just let me know when you think we have enough footage, okay?</m>
+            </dlg>
+
+            <prefab name="SimpleMessage">
+                <outcome output="#a" />
+            </prefab>
+
+            <dlg char="CH_Brooke" style="subjective" neutral-expression="true">
+                <m>Okay... I can't take this anymore...</m>
+                <m>I mean... I think we already have enough material for the video, right?</m>
+                <m>Let's give it a break...</m>
+            </dlg>
+            
+            <flag name="QUEST_BROOKE_RECORD_VIDEO" set="13" />
+
+            <fade-to-black keep="true" speed="0.5" />
+            <wait time="3" />
+            <load stage="toilet-women-record-brooke-video-scene-end" />
+        </n>
+    </nodes>
+</cutscene>

@@ -11,6 +11,7 @@ public class AnimatorInitializer : MonoBehaviour
     }
 
     public AnimatorParameterInitialization[] parameters;
+    public bool randomizeStartTime = false;
 
     void Start()
     {
@@ -40,6 +41,13 @@ public class AnimatorInitializer : MonoBehaviour
             }
         }
 
-        
+        if (randomizeStartTime)
+            for (var i = 0; i < a.layerCount; i++)
+            {
+                var si = a.GetCurrentAnimatorStateInfo(i);
+                a.Play(si.fullPathHash, i, UnityEngine.Random.value);
+            }
+
+        Destroy(this, 2);        
     }
 }

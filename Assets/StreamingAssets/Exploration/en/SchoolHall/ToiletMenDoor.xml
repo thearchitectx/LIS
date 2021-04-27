@@ -4,13 +4,27 @@
     <nodes>
         <n id="n1">
             <choice>
-                <c out="n2"><text>Enter Men's Toilet</text></c>
+                <c out="n2"><text>Enter Men's Restroom</text></c>
                 <c out="#a"><text>Leave</text></c>
             </choice>
         </n>
         <n id="n2">
-            <fade-to-black keep="true" />
-            <wait time="1" />
+            <if>
+                <check-flag flag="COURTNEY_TAYLOR_MET" eq="0" />
+                <then>
+                    <fade-to-black keep="true" speed="2" layer="-1"/>
+                    <wait time="0.25" />
+                    <sfx clip="door-transition" wait="true" />
+                    <dlg style="subjective">
+                        <m>Uh? Someone is coming out...</m>
+                    </dlg>
+                    <load stage="school-hall-meet-courtney-taylor" />
+                </then>
+            </if>
+
+            <fade-to-black keep="true" speed="2"/>
+            <wait time="0.5" />
+            <sfx clip="door-transition" wait="true" />
             <load stage="toilet-men-01" spawn="Player Spawn/Exit Door" />
         </n>
     </nodes>

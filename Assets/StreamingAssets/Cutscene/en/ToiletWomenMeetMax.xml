@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../Cutscene.xsd">
+    <nodes>
+        <n id="a">
+            <flag name="MAX_MET_RESTROOM" set="1" />
+            <prefab target="Timeline">
+                <outcome name="MAX_FALLS" output="MAX_FALLS" clear="true" />
+                <outcome name="BUTTERFLY" output="BUTTERFLY" clear="true" />
+                <outcome name="YOU_OKAY01" output="YOU_OKAY01" clear="true" />
+                <outcome name="YOU_OKAY02" output="YOU_OKAY02" clear="true" />
+                <outcome name="MAX_AWAKES" output="MAX_AWAKES" clear="true" />
+            </prefab>
+        </n>
+
+        <n id="MAX_FALLS" out="a">
+            <dlg style="subjective" timed="1.5">
+                <m>Holy shit!!</m>
+            </dlg>
+        </n>
+        <n id="BUTTERFLY" out="a">
+            <dlg style="subjective" timed="4.5">
+                <m>Jeez... I bet "pest control" is gonna be next task here...</m>
+            </dlg>
+        </n>
+        <n id="YOU_OKAY01" out="a">
+            <dlg style="subjective" timed="2.5">
+                <m>Hey! Are you okay!? Do you need help?</m>
+            </dlg>
+        </n>
+        <n id="YOU_OKAY02" out="a">
+            <dlg char="CH_Player" style="subjective" timed="2"  track="Neck">
+                <m>Can you hear me, girl?</m>
+            </dlg>
+            <dlg char="CH_Player" timed="8" track="Neck">
+                <m>You can keep resting there as long as you need, but it's going to be awkward if someone come in now...</m>
+            </dlg>
+        </n>
+        <n id="MAX_AWAKES" out="a">
+            <dlg char="CH_Max" timed="2" style="subjective">
+                <m>Ouch... What... What happened...</m>
+            </dlg>
+            <wait time="2" />
+            <rig-track of="CH_Max" eye="0" />
+            <dlg char="CH_Max" style="subjective" timed="3">
+                <m>Oh my God... It's... It's you...</m>
+            </dlg>
+            <wait time="2" />
+            <dlg char="CH_Max" style="subjective" timed="3">
+                <m>uuhh... this is embarrassing...</m>
+            </dlg>
+            <dlg char="CH_Max" style="subjective" timed="5">
+                <m>let's... let's just stand, okay ?</m>
+            </dlg>
+
+            <wait time="0.5" />
+            <fade-to-black speed="1" keep="true" />
+            <wait time="1" />
+            <load stage="toilet-women-meet-max-dialog" />
+        </n>
+    </nodes>
+</cutscene>

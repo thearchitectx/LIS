@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../Cutscene.xsd">
+    <nodes>
+        <n id="n1">
+            <if>
+                <check-flag flag="QUEST_CLEAN_GIRLS_RESTROOM" lte="2" />
+                <then>
+                    <dlg style="subjective">
+                        <m>This is the girl's restroom. Trying to get in without an 'official' excuse would only lead me to a lot of trouble...</m>
+                    </dlg>
+                    <node-output node="_end" />
+                </then>
+            </if>
+            <choice>
+                <c out="#knock">
+                    <check-flag flag="QUEST_CLEAN_GIRLS_RESTROOM" eq="3" />
+                    <text>[ Knock ]</text>
+                    <then>
+                        <flag name="QUEST_CLEAN_GIRLS_RESTROOM" set="4" />
+                        <dlg style="whisper-subjective">
+                            <m>Sigh... This is going to be awkward...</m>
+                        </dlg>
+                        <wait time="0.5" />
+                        <sfx clip="knock-door" wait="true" />
+                        <dlg style="subjective">
+                            <m>Hello? Anybody there?</m>
+                        </dlg>
+                        <sfx clip="knock-door" wait="true" />
+                        <wait time="1" />
+                        <dlg style="subjective">
+                            <m>Can't hear any answers...</m>
+                            <m wait="1">I'm coming in!! Last warning!!</m>
+                        </dlg>
+                        <fade-to-black keep="true" speed="2" />
+                        <wait time="0.5" />
+                        <sfx clip="door-transition" wait="true" />
+                        <load stage="toilet-women-01" spawn="Player Spawn/Exit Door" />
+                    </then>
+                </c>
+                <c out="#get-in">
+                    <check-flag flag="QUEST_CLEAN_GIRLS_RESTROOM" gte="4" />
+                    <text>[ Enter Restroom ]</text>
+                    <then>
+                        <fade-to-black keep="true" speed="2" />
+                        <wait time="0.5" />
+                        <sfx clip="door-transition" wait="true" />
+                        <load stage="toilet-women-01" spawn="Player Spawn/Exit Door" />
+                    </then>
+                </c>
+                <c out="#b">
+                    <text>[ Leave ]</text>
+                </c>
+            </choice>
+        </n>
+    </nodes>
+</cutscene>

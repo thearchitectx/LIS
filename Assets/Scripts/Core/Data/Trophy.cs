@@ -9,9 +9,11 @@ namespace TheArchitect.Core.Data
     public class Trophy : ScriptableObject
     {
         [SerializeField] private string m_Label;
+        [SerializeField] private int m_Order;
         [SerializeField] [TextArea] private string m_Description;
         [SerializeField] private Character m_RelatedCharacter;
 
+        public int Order { get { return m_Order; }} 
         public string Label { get { return m_Label; }} 
         public string Description { get { return m_Description; }} 
         public Character RelatedCharacter { get { return m_RelatedCharacter; }}

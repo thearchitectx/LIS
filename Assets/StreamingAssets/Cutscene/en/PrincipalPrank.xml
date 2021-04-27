@@ -7,7 +7,7 @@
             <fade-to-black mode="from" keep="false" />
             <wait time="3" />
             <dlg char="CH_Principal" track="Root" style="remote">
-                <m>Dear God... There's still so work to be done in the performance reports...</m>
+                <m>Dear God... There's still so much work to be done in the performance reports...</m>
                 <m>Why there's always so much...</m>
             </dlg>
 

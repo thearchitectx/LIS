@@ -4,7 +4,7 @@
     <nodes>
         <n id="n1">
             <choice>
-                <c out="n2"><text>Exit Men's Toilet</text></c>
+                <c out="n2"><text>Exit Men's Room</text></c>
                 <c out="#a"><text>Leave</text></c>
             </choice>
         </n>

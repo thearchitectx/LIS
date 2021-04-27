@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../../Cutscene.xsd">
+    <nodes>
+        <n id="n1">
+            <obj name="Hint" active="false" />
+            <dlg style="subjective">
+                <m>This is annoying...</m>
+            </dlg>
+
+            <choice>
+                <c out="#close">
+                    <text>[ Close Faucet ]</text>
+                    <then>
+                        <obj name="Dripping" active="false" />
+                        
+                        <wait time="1" />
+                        <flag name="QUEST_BROOKE_RECORD_VIDEO_MOOD" inc="30" />
+
+                        <dlg char="CH_Brooke" track="Spine2">
+                            <m>Oh my God... Thank you...</m>
+                            <m>That sound was driving me crazy...</m>
+                        </dlg>
+
+                        <wait time="0.5" />
+                        <cutscene-outcome value="_destroyParent" />
+                    </then>
+                </c>
+                <c out="#leave">
+                    <text>[ Leave ]</text>
+                </c>
+            </choice>
+            
+        </n>
+    </nodes>
+</cutscene>

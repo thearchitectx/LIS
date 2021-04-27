@@ -12,9 +12,9 @@
                 <m>Great... Show me what you got...</m>
             </dlg>
             
-            <trophy unlock="000-teachers-pet-01" />
+            <trophy unlock="teachers-pet-01" />
             <anim target="CH_Jefferson" trigger="see-picture" />
-            <obj name="RigTargetPhone" active="true" />
+            <obj name="Cellphone" active="true" />
 
             <wait time="1.5" />
             <rig-track of="CH_Jefferson" target="RigTargetPhone" eye="1" head="1" />
@@ -31,7 +31,7 @@
             
             <dlg char="CH_Jefferson" track="Neck">
                 <m>It's our girl Kate, huh...</m>
-                <m>Hum... These phone cameras have such poor tiny lens... The right focal distance is a fundamental element of good photography...</m>
+                <m>Hum... These phone cameras have such cheap tiny lens... The right focal distance is a fundamental element of good photography...</m>
                 <m>... and... there's clearly room for improvement here... you remember the rule of thirds, right?</m>
             </dlg>
 
@@ -84,7 +84,7 @@
             </dlg>
 
             <anim target="CH_Jefferson" trigger="hands-waist" />
-            <obj name="RigTargetPhone" active="false" />
+            <obj name="Cellphone" active="false" />
 
             <rig-track of="CH_Jefferson" eye="1" head="1" target="RigTargetPlayer" />
             <if>
@@ -99,7 +99,7 @@
                     <stat char="CH_Jefferson" name="AFFINITY" inc="1" />
                     <dlg char="CH_Jefferson" track="Neck">
                         <m>You managed to make ${Characters.CH_Kate.DisplayName} do one of those trendy poses... Impressive...</m>
-                        <m>You pushed her a tiny step closer to become one of those... how do you say... a "TikTok thots", am I right?</m>
+                        <m>You pushed her a tiny step closer to become one of those social medial models...</m>
                         <m wait="1">But what matter is... Can you see the potential you have to make these girls change their attitude?</m>
                     </dlg>
                 </else>
@@ -141,7 +141,7 @@
         </n>
         <n id="n2-yourself" out="n3">
             <anim target="CH_Jefferson" trigger="react-suspicious" />
-            <flag name="DICK_INTELLIGENCE" inc="1">
+            <flag name="DICK_CHARISMA" inc="1">
                 YOU FEEL YOUR *CHARISMA* IMPROVE!
             </flag>
             <dlg char="CH_Jefferson" track="Neck">
@@ -163,7 +163,7 @@
             
             <anim target="Cinemachine" trigger="close" />
             <dlg char="CH_Jefferson" track="Neck">
-                <m>For example... I found this note a student dropped in hallway... It might give you some insight about her...</m>
+                <m>For example... I found this note a student dropped in the hallway... It might give you some insight about her...</m>
             </dlg>
             <anim target="Cinemachine" trigger="note" />
             <dlg char="CH_Jefferson" track="Neck">

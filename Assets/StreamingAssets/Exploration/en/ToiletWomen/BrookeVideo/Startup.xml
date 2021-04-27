@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../../Cutscene.xsd">
+    <nodes>
+        <n id="n1">
+            <flag name="#ALLOW_SAVING" set="0" />
+            <flag name="#DISABLE_PLAYER" set="1" />
+            
+            <rig-track of="CH_Brooke" eye="0" head="0" />
+            <walker target="CH_Brooke" destination="Destination Turned" />
+            <anim target="CH_Brooke" idle="UNEASY" expression="UNEASY" blink="CLOSED" />
+            
+            <wait time="2" />
+
+            <flag name="QUEST_BROOKE_RECORD_VIDEO_MOOD" set="10" />
+            <prefab name="FlagGauge" parent="FlagGaugeParent" >
+                <message name="MessageFlag" string="QUEST_BROOKE_RECORD_VIDEO_MOOD" />
+                <message name="MessageLabel" string="BROOKE'S MOOD" />
+            </prefab>
+
+            <sys>
+                MOOD\n\n
+                During some special scenes you'll need to manage the girl's mood to proceed as far as possible\n\n
+                Remember the intel and dialog clues to act the way she approves\n\n
+                Don't forget to look around the environment for possible actions\n\n
+                Some items may also be used to improve her mood\n\n
+            </sys>
+            
+            <dlg char="CH_Brooke" track="Spine2">
+                <m>Jeez... What am I doing...</m>
+                <m wait="0.5">My plan is solid, but... Now that it's happening, I... I need to calm down...</m>
+                <m wait="0.5">But what if someone opens the door??</m>
+                <m>And this damned dripping faucet... It's getting into nerves...</m>
+            </dlg>
+            
+            <flag name="#DISABLE_PLAYER" set="0" />
+
+            <cutscene-outcome value="_destroyObject" />
+        </n>
+    </nodes>
+</cutscene>

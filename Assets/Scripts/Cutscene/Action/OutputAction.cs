@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Xml.Serialization;
 using TheArchitect.Cutscene.Data;
+using TheArchitect.Core;
 
 namespace TheArchitect.Cutscene.Action
 {
@@ -11,7 +12,7 @@ namespace TheArchitect.Cutscene.Action
 
         public override string Update(CutsceneInstance cutscene, CutsceneController controller)
         {
-            return Node;
+            return ResourceString.Parse(Node);
         }
 
     }

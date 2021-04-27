@@ -4,6 +4,11 @@
         <xs:restriction base="xs:string">
             <xs:enumeration value="OBJ_BrookeMemoryCard01" />
             <xs:enumeration value="OBJ_BrookeMemoryCard02" />
+            <xs:enumeration value="OBJ_BrookeDeepFakeCheckGirlsRestroom" />
+            <xs:enumeration value="OBJ_BrookeDeepFakeReportToBrooke" />
+            <xs:enumeration value="OBJ_BrookeDeepFakeBrookeWaitsInRestroom" />
+            <xs:enumeration value="OBJ_CleanGirlsRestroom" />
+            <xs:enumeration value="OBJ_CleanGirlsRestroomReport" />
             <xs:enumeration value="OBJ_IntroCollectTrash" />
             <xs:enumeration value="OBJ_IntroTalk" />
             <xs:enumeration value="OBJ_JeffersonFirstPicTake" />
@@ -13,6 +18,7 @@
             <xs:enumeration value="OBJ_PrincipalPrank" />
             <xs:enumeration value="OBJ_TalkToThePrincipal" />
             <xs:enumeration value="OBJ_TalkToSamuel" />
+            <xs:enumeration value="OBJ_TaylorOutOfGirlsRoomDoor" />
         </xs:restriction>
     </xs:simpleType>
 </xs:schema>

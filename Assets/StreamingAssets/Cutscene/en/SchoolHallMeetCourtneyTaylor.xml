@@ -1,0 +1,197 @@
+<?xml version="1.0"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../Cutscene.xsd">
+    <!-- Runs on first attempt to get into men's bathroom -->
+    <nodes>
+        <n id="a">
+            <stat char="CH_Courtney" name="INTEL" set="1">*Courtney* added to the Intel journal</stat>
+            <stat char="CH_Courtney" name="INTEL_0" set="1" notify="false" />
+            <stat char="CH_Taylor" name="INTEL" set="1">*Taylor* added to the Intel journal</stat>
+            <stat char="CH_Taylor" name="INTEL_0" set="1" notify="false" />
+            <stat char="CH_Taylor" name="VICTORIA_LOYALTY" set="3" notify="false" />
+            <stat char="CH_Courtney" name="VICTORIA_LOYALTY" set="3" notify="false" />
+            <rig-track of="CH_Courtney" eye="1" head="0.5" />
+            <rig-track of="CH_Taylor" eye="1" head="0.25" />
+
+            <dlg char="CH_Courtney" track="Neck">
+                <m>Hey, Taylor... Look who is here...</m>
+            </dlg>
+            <dlg char="CH_Taylor" track="Neck">
+                <m>Urgh... We try so hard to get this school free of creeps... But it seems their numbers just keep increasing...</m>
+            </dlg>
+            <anim target="CH_Courtney" react="SAY01" />
+            <dlg char="CH_Courtney" track="Neck">
+                <m>Victoria warned us about this one, remember?</m>
+                <m>The janitor junior weirdo who attends Mr. Jefferson classes...</m>
+            </dlg>
+            <dlg char="CH_Taylor" track="Neck">
+                <m>Yeah... She told me about him...</m>
+            </dlg>
+            <if>
+                <check-flag flag="INTRO_CHECK_VICTORIA" eq="2" />
+                <then>
+                    <dlg char="CH_Taylor" track="Neck">
+                        <m>He tried to grope her at the end of the class, can you believe that?</m>
+                    </dlg>
+                    <anim target="CH_Courtney" react="SAY01" />
+                    <dlg char="CH_Courtney" track="Neck">
+                        <m>Oh my God... This kind of pervert shouldn't be allowed this school...</m>
+                    </dlg>
+                </then>
+                <else>
+                    <if>
+                        <check-flag flag="INTRO_TALK_VICTORIA" eq="2" />
+                        <then>
+                            <dlg char="CH_Taylor" track="Neck">
+                                <m>Can you believe he said to Victoria that 'she has a nice ass'...</m>
+                            </dlg>
+                            <anim target="CH_Courtney" react="SAY01" />
+                            <dlg char="CH_Courtney" track="Neck">
+                                <m>Oh my... We have a daring one here...</m>
+                            </dlg>
+                        </then>
+                        <else>
+                            <dlg char="CH_Taylor" track="Neck">
+                                <m>Another loser who tried to talk to her like she mixes with his kind...</m>
+                            </dlg>
+                            <anim target="CH_Courtney" react="SAY01" />
+                            <dlg char="CH_Courtney" track="Neck">
+                                <m>Ha... They never learn...</m>
+                            </dlg>
+                        </else>
+                    </if>
+                </else>
+            </if>
+            <dlg char="CH_Taylor" track="Neck">
+                <m>Just leave us and Victoria alone, boy...</m>
+                <m>You don't belong to this school... Do you even know WHERE you are?</m>
+            </dlg>
+            <choice shuffled="true">
+                <c out="#a">
+                    <text>I thought this was the door to the men's room... But now I'm confused why two respectable girls came from inside it... I'll have to ask the principal what are the restroom rules around here...</text>
+                    <then>
+                        <flag name="COURTNEY_TAYLOR_MET" set="1" />
+
+                        <rig-track of="CH_Courtney" eye="0" />
+                        <anim target="CH_Courtney" react="SURPRISE" idle="UNEASY" expression="UNEASY" />
+                        <dlg char="CH_Courtney" track="Neck">
+                            <m>What!?! No... Please... Don't tell anyone... We were just trying to...</m>
+                        </dlg>
+                        <anim target="CH_Taylor" react="PISSED_OFF01" />
+                        <rig-track of="CH_Taylor" head="0.75" eye="1" target="CourtneyHead" target-transition-speed="5" />
+                        <dlg char="CH_Taylor" track="Neck">
+                            <m>Courtney... Shut up!! We owe no explanation to him...</m>
+                            <m>He won't do anything!</m>
+                        </dlg>
+                        <rig-track of="CH_Courtney" eye="0" head="0" />
+                        <anim target="CH_Courtney" idle="EMBARRASSED01" blink="CLOSED" />
+                        <dlg char="CH_Courtney" track="Neck">
+                            <m>But... I... I can't get into any trouble... My parents... they will...</m>
+                        </dlg>
+                        <rig-track of="CH_Courtney" target="TaylorHead" eye="1" head="1" />
+                        <rig-track of="CH_Taylor" target="CourtneyHead" eye="1" head="1" />
+                        <anim bool="close" boolValue="true" /> 
+                        <anim target="CH_Courtney" idle="STAND_HANDS_WAIST" blink="NEUTRAL" />
+                        
+                        <stat char="CH_Taylor" name="INTEL_1" set="1" />
+                        <dlg char="CH_Taylor" track="Neck">
+                            <m>Courtney... Listen to me... I'll always protect you... Do you hear me?</m>
+                            <m>I won't let anyone hurt this cute little face... Never...</m>
+                        </dlg>
+                        <wait time="1.5" />
+                        <dlg char="CH_Courtney" track="Neck">
+                            <m>Ta... Taylor...</m>
+                            <m wait="1">Taylor... What... What are you doing?</m>
+                        </dlg>
+
+                        <rig-track of="CH_Courtney" eye="0" head="0" />
+                        <rig-track of="CH_Taylor" eye="0" head="0" />
+                        <anim target="CH_Courtney" idle="UPSET" expression="UNEASY" />
+                        <anim target="CH_Taylor" idle="UNEASY" expression="UNEASY" />
+                        <anim bool="close" boolValue="false" /> 
+                        
+                        <dlg char="CH_Taylor" track="Neck">
+                            <m>Oh... I was... I was just...</m>
+                            <m>I mean... Let's just get away from this boy... We shouldn't be seen next to him...</m>
+                        </dlg>
+
+                        <stat char="CH_Taylor" name="INTEL_1" set="1" notify="false" />
+                        <fade-to-black keep="true" speed="2" />
+                        <wait time="1" />
+                        <sfx clip="swoosh" />
+                        <obj name="CH_Taylor" active="false" />
+                        <obj name="CH_Courtney" active="false" />
+                        <fade-to-black mode="from" />
+                        <wait time="1" />
+                        
+                        <dlg style="subjective">
+                            <m>Uhh... That was weird... and hot...</m>
+                        </dlg>
+                        
+                    </then>
+                </c>
+                <c out="#b">
+                    <text>It feels like I'm watching a session of 'Mean Girls'... But at some point it changes to 'Minions'...</text>
+                    <then>
+                        <flag name="COURTNEY_TAYLOR_MET" set="2" />
+                        <stat char="CH_Courtney" name="INTEL_1" set="1" />
+
+                        <anim target="CH_Courtney" react="YAY" />
+                        <dlg char="CH_Courtney" track="Neck">
+                            <m>Ha! I love Mean Girls! It's so inspirational...</m>
+                        </dlg>
+                        <anim target="CH_Taylor" react="PISSED_OFF01" />
+                        <rig-track of="CH_Taylor" head="0.75" eye="1" target="CourtneyHead" />
+                        <dlg char="CH_Taylor" track="Neck">
+                            <m>Courtney!! What the hell...</m>
+                            <m wait="0.5">Are you going to fall for the geek talk again!?</m>
+                        </dlg>
+                        <rig-track of="CH_Courtney" head="0" eye="0" />
+                        <anim target="CH_Courtney" idle="UNEASY" expression="NEUTRAL" blink="CLOSED" />
+                        <dlg char="CH_Courtney" track="Neck">
+                            <m wait="0.5">Oh... I... I'm sorry...</m>
+                        </dlg>
+                        <dlg char="CH_Taylor" track="Neck">
+                            <m>Didn't you noticed him calling us minions!?!</m>
+                        </dlg>
+                        <anim target="CH_Courtney" idle="COCKY01" react="YAY"  blink="HAPPY" />
+                        <dlg char="CH_Courtney" track="Neck">
+                            <m>Ha!! Minions are so cute!! BANANAS!!</m>
+                        </dlg>
+                        <anim target="CH_Taylor" idle="ARMS_CROSSED_F01" react="FACEPALM" />
+                        <stat char="CH_Taylor" name="INTEL_1" set="1" />
+                        <dlg char="CH_Taylor" track="Neck">
+                            <m>Come on, Courtney... Nothing is cuter than you...</m>
+                        </dlg>
+                        <rig-track of="CH_Taylor" head="0" eye="0" />
+                        <anim target="CH_Taylor" idle="UNEASY" expression="UNEASY" />
+                        <dlg char="CH_Taylor" track="Neck" style="whisper">
+                            <m>I... I mean...</m>
+                        </dlg>
+                        <rig-track of="CH_Courtney" head="0.5" eye="1" target="TaylorHead" />
+                        <anim target="CH_Courtney" idle="UNEASY" blink="NEUTRAL" />
+                        <dlg char="CH_Courtney" track="Neck">
+                            <m>Huh? What did you said?</m>
+                        </dlg>
+                        <dlg char="CH_Taylor" track="Neck">
+                            <m>Let's... Let's just get out of here, okay...</m>
+                        </dlg>
+                        <stat char="CH_Taylor" name="INTEL_1" set="1" notify="false" />
+                        <fade-to-black keep="true" speed="2" />
+                        <wait time="1" />
+                        <sfx clip="swoosh" />
+                        <obj name="CH_Taylor" active="false" />
+                        <obj name="CH_Courtney" active="false" />
+                        <fade-to-black mode="from" />
+                        <wait time="1" />
+                        
+                        <dlg style="subjective">
+                            <m>Uhm... Someone is saying their thoughts out loud...</m>
+                        </dlg>
+                    </then>
+                </c>
+            </choice>
+            <load stage="school-hall-01" />
+        </n>
+    </nodes>
+</cutscene>

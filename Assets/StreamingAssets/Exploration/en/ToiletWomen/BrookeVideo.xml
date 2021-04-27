@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../Cutscene.xsd">
+    <nodes>
+        <n id="n1">
+            <objective name="OBJ_BrookeDeepFakeBrookeWaitsInRestroom" completed="true" />
+            <rig-track of="CH_Brooke" head="0.75" eye="1" />
+            <walker target="CH_Brooke" destination="DestinationTalk" />
+            
+            <obj name="SK_Cellphone" active="false" />
+            <anim target="CH_Brooke" idle="ARMS_CROSSED_F01" />
+            <dlg char="CH_Brooke" style="subjective">
+                <m wait="0.5">And there you are...</m>
+                <m>You must have some nerve to enter here like if it was just another classroom...</m>
+            </dlg>
+            <anim target="CH_Brooke" react="SAY01" />
+            <dlg char="CH_Brooke" style="subjective">
+                <m>Or maybe you're just a pervert with no shame at all...</m>
+            </dlg>
+            
+            <choice shuffled="true">
+                <c out="#a"><text>You're not getting cold feet, are you?</text></c>
+                <c out="#b"><text>Are you sure wasting time with chit-chat while we're both here is a good idea?</text></c>
+            </choice>
+            
+            <anim target="CH_Brooke" idle="UPSET" react="SAY02" />
+            <dlg char="CH_Brooke" style="subjective">
+                <m wait="1">Sigh... I'm just mustering up courage, okay...</m>
+            </dlg>
+            <rig-track of="CH_Brooke" head="0" />
+            <anim target="CH_Brooke" idle="EMBARRASSED01" blink="CLOSED" />
+            <dlg char="CH_Brooke" style="subjective">
+                <m>Let's get this done...</m>
+            </dlg>
+
+            <fade-to-black keep="true" mode="to" speed="0.5"/>
+            <wait time="2" />
+            <load stage="toilet-women-record-brooke-video-1" />
+        </n>
+    </nodes>
+</cutscene>

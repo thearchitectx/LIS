@@ -1,0 +1,455 @@
+<?xml version="1.0"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../Cutscene.xsd">
+    <nodes>
+        <n id="n1">
+            <bgm loop="loop-max" volume="1" />
+            <stat char="CH_Max" name="INTEL" set="1">
+                *${Characters.CH_Max.DisplayName}* added to the Intel Journal
+            </stat>
+            <stat char="CH_Max" name="INTEL_0" set="1" notify="false" />
+
+            <anim target="CH_Max" idle="UPSET" blink="NEUTRAL" expression="NEUTRAL" />
+
+            <prefab target="Timeline Butterfly">
+                <outcome name="END" output="#continue" />
+            </prefab>
+            
+            <bgm loop="loop-max" volume="0.25" fade-speed="0.25" />
+            <dlg char="CH_Max" style="remote-subjective">
+                <m>I'm sorry... I... I heard a voice asking if there was someone here...</m>
+            </dlg>
+
+            <wait time="1" />
+            
+            <prefab destroy="Timeline Butterfly" />
+
+            <trophy unlock="polaroid-fever-01" />
+            <rig-track of="CH_Max" head="0.5" eye="1" />
+
+            <dlg char="CH_Max" style="subjective">
+                <m>But... I thought it was Warren, so I ignored it...</m>
+                <m>I don't know exactly what just happened... It seems I fainted again right when you appeared...</m>
+            </dlg>
+
+            <node-output node="dialog-root" />
+        </n>
+
+        <n id="dialog-root">
+            <anim trigger="pov" />
+            <choice>
+                <c out="#a">
+                    <check-group op="AND">
+                        <check-flag flag="MAX_RESTROOM_DIALOG" bit-unset="0" />
+                        <check-flag flag="MAX_RESTROOM_DIALOG" bit-unset="1" />
+                    </check-group>
+                    <text>Are you ghosting this Warren dude? That's not cool, you know...</text>
+                    <then>
+                        <flag name="MAX_RESTROOM_DIALOG" bit-set="0" />
+                        <anim target="CH_Max" react="SAY02" />
+                        <dlg char="CH_Max" style="subjective">
+                            <m>Oh... It's not like that...</m>
+                            <m>Warren is really nice... He just... doesn't give me much space...</m>
+                        </dlg>
+                        <anim target="CH_Max" react="SAY01" />
+                        <stat char="CH_Max" name="AFFINITY" inc="1" notify="true" />
+                        <dlg char="CH_Max" style="subjective">
+                            <m wait="0.5">And I totally agree with you... Ghosting is not cool...</m>
+                        </dlg>
+                        <node-output node="dialog-root" />
+                    </then>
+                </c>
+                <c out="#b">
+                    <check-group op="AND">
+                        <check-flag flag="MAX_RESTROOM_DIALOG" bit-unset="0" />
+                        <check-flag flag="MAX_RESTROOM_DIALOG" bit-unset="1" />
+                    </check-group>
+                    <text>Is this Warren stalking you? I could help you get rid of him...</text>
+                    <then>
+                        <flag name="MAX_RESTROOM_DIALOG" bit-set="1" />
+                        <anim target="CH_Max" react="SURPRISE" expression="DISAPPROVE" />
+                        <dlg char="CH_Max" style="subjective">
+                            <m>What? No... He's okay...</m>
+                            <m>I don't need your... 'help'... with him...</m>
+                        </dlg>
+                        <anim target="CH_Max" expression="NEUTRAL" />
+                        <node-output node="dialog-root" />
+                    </then>
+                </c>
+                <c out="#c">
+                    <check-group op="AND">
+                        <check-flag flag="MAX_RESTROOM_DIALOG" bit-unset="2" />
+                        <check-flag flag="MAX_RESTROOM_DIALOG" bit-unset="3" />
+                    </check-group>
+                    <text>You said you "fainted again"... This is not a good sign... You should see a doctor...</text>
+                    <then>
+                        <flag name="MAX_RESTROOM_DIALOG" bit-set="2" />
+                        <anim target="CH_Max" react="SAY02" />
+                        <dlg char="CH_Max" style="subjective">
+                            <m>Oh... Thanks for being worried about my health...</m>
+                            <m>But I already know what is wrong with me...</m>
+                        </dlg>
+                        <node-output node="faint-follow-up" />
+                    </then>
+                </c>
+                <c out="#d">
+                    <check-group op="AND">
+                        <check-flag flag="MAX_RESTROOM_DIALOG" bit-unset="2" />
+                        <check-flag flag="MAX_RESTROOM_DIALOG" bit-unset="3" />
+                    </check-group>
+                    <text>You said you faint when you saw me... Am I that ugly? Or... that beautiful?</text>
+                    <then>
+                        <flag name="MAX_RESTROOM_DIALOG" bit-set="3" />
+                        <anim target="CH_Max" react="GIGGLE" />
+                        <stat char="CH_Max" name="AFFINITY" inc="1" notify="true" />
+                        <stat char="CH_Max" name="INTEL_1" set="1" />
+                        <dlg char="CH_Max" style="subjective">
+                            <m>Ha, ha... I wish that was the kind of problem I have...</m>
+                            <m wait="0.5">But don't worry... I'd say we're both in the same spot right in the boring middle of the spectrum of beauty...</m>
+                        </dlg>
+                        <node-output node="faint-follow-up" />
+                    </then>
+                </c>
+            </choice>
+        </n>
+
+        <n id="faint-follow-up">
+            <wait time="0.5" />
+            <rig-track of="CH_Max" eye="0" />
+            <anim target="CH_Max" expression="UNEASY" />
+            <dlg char="CH_Max" style="subjective">
+                <m>You see... I fainted because... I was trying to... uuuhh...</m>
+            </dlg>
+            <anim target="CH_Max" react="SAY02" />
+            <dlg char="CH_Max" style="subjective">
+                <m>Sigh... It's... complicated...</m>
+            </dlg>
+            <anim trigger="outside" />
+            <dlg char="CH_Max" track="Spine2">
+                <m>You're gonna just laugh at me...</m>
+            </dlg>
+
+            <choice shuffled="true">
+                <c out="#a"><text>I'd never do that to you... Why don't you try me?</text></c>
+                <c out="#b"><text>Now you piqued my curiosity... Tell me... I promise I won't laugh...</text></c>
+            </choice>
+
+            <anim target="CH_Max" react="SAY01" expression="NEUTRAL" />
+            <rig-track of="CH_Max" eye="1" />
+            <dlg char="CH_Max"  track="Spine2">
+                <m>Okay, then... This is something you would need to know sooner or later...</m>
+                <m wait="0.5">The thing is... I have some kind of "time rewind" super power...</m>
+            </dlg>
+            <anim trigger="pov" />
+            <dlg char="CH_Max" style="subjective">
+                <m>You caught me trying to reverse today's events, but I can't do it anymore... It seems my powers stopped working at the moment you 'appeared' in Blackwell...</m>
+            </dlg>
+
+            <prefab name="TensionChoice">
+                <message name="MessageChoice0" string="BWAHAHAHAHAHAHA!!" />
+                <message name="MessageChoice1" string="LMAO!!!" />
+                <message name="MessageChoice2" string="[ LOUD SNICKER ]" />
+                <message name="MessageChoice3" string="Did I make you lost your powers?" />
+                <outcome name="0" output="#0" store="TXT_TMP_0" />
+                <outcome name="1" output="#1" store="TXT_TMP_0" />
+                <outcome name="2" output="#2" store="TXT_TMP_0" />
+                <outcome name="3" output="#3" store="TXT_TMP_0" />
+            </prefab>
+
+            <wait time="1" />
+            <prefab destroy="TensionChoice" />
+
+            <if>
+                <check-text text="TXT_TMP_0" eq="3" />
+                <then>
+                    <stat char="CH_Max" name="AFFINITY" inc="3" />
+                    <anim target="CH_Max" react="YAY" expression="HAPPY" blink="HAPPY" />
+                    <dlg char="CH_Max" style="subjective" neutral-expression="true">
+                        <m>Wait... You actually believe me!? You... You're the best!!</m>
+                        <m>If I knew you'd be so cool about it... I'd have looked for you earlier to talk about it...</m>
+                        <m>It concerns you, anyways...</m>
+                    </dlg>
+                </then>
+                <else>
+                    <flag name="MAX_RESTROOM_DIALOG" bit-set="4" />
+                    <anim target="CH_Max" react="PISSED_OFF01" expression="DISAPPROVE" />
+                    <dlg char="CH_Max" style="subjective">
+                        <m>Hey!! I knew you'd laugh...</m>
+                        <m>But I'm dead serious... And the only reason I'm talking about it is because it also concerns you...</m>
+                    </dlg>
+                </else>
+            </if>
+
+            <wait time="1" />
+            <anim target="CH_Max" react="SAY01" expression="NEUTRAL" blink="NEUTRAL" />
+            <dlg char="CH_Max" style="subjective">
+                <m>I mean... You don't have any memories from before today, do you?</m>
+                <m>Can you remember anything from before the moment you woke up at Mr. Jefferson's class?</m>
+            </dlg>
+
+            <choice>
+                <c out="#a">
+                    <text>Whoa... Now that you mentioned... My past memories are all kind of... blurred...</text>
+                </c>
+                <c out="#b">
+                    <text>Yeah... I think you're right... My life must have been really shitty until now, because I also can't care much about memories...</text>
+                </c>
+            </choice>
+
+            <anim target="CH_Max" react="SAY02" expression="NEUTRAL" />
+            <dlg char="CH_Max" style="subjective">
+                <m>Yeah... Sorry... But that's my fault...</m>
+            </dlg>
+
+            <anim trigger="outside" />
+            <dlg char="CH_Max" track="Spine2">
+                <m>It all started here at this exact place... I was chilling here after class... when Chloe came in...</m>
+            </dlg>
+            <rig-track of="CH_Max" head="0" eye="0" />
+            <anim target="CH_Max" idle="EMBARRASSED01" expression="NEUTRAL" />
+            <dlg char="CH_Max" track="Spine2">
+                <m wait="1">She argued with this person... But he had a gun and... He... He shot her...</m>
+                <m>I quickly tried to reverse time to save her...</m>
+            </dlg>
+            
+            <rig-track of="CH_Max" head="0.5" eye="1" />
+            <anim target="CH_Max" idle="UPSET" expression="NEUTRAL" />
+            <dlg char="CH_Max" track="Spine2">
+                <m>It was a bad idea... I was too scared and my power got out of control... I traveled way back to the days when Rachel Amber was still around here... you know... the missing girl...</m>
+                <m>But at the same time... I was in another place... where I saw...... you...</m>
+            </dlg>
+            <choice>
+                <c out="#a"><text>That's just my luck...</text></c>
+                <c out="#b"><text>What was I doing in your mind trip!?!</text></c>
+            </choice>
+            <anim target="CH_Max" react="SAY01" />
+            
+            <anim trigger="pov" />
+            <anim target="CH_Max" react="SAY01" />
+            <dlg char="CH_Max" style="subjective">
+                <m>I guess you and Rachel were both in a critical point of... parallel universes... or different timelines... or... something like that...</m>
+                <m>Whatever happened, it ended in a flash...  An then I woke back at Mr Jefferson's class...</m>
+                <m>And now I know what I did... I tangled those timelines together... And it seems I made you swap time and space with Rachel Amber...</m>
+                <m>Everybody knew Rachel before... But now no one remembers her anymore... It's like she never existed...</m>
+                <m>And you... It's clear you don't belong here... But people don't see anything wrong in your presence... Most people, at least...</m>
+            </dlg>
+            <anim target="CH_Max" react="FACEPALM" />
+            <dlg char="CH_Max" style="subjective">
+                <m>And now I can't fix it... Trying to use my powers just make me fell sick and tired, nothing else!! That's why I passed out when you came in...</m>
+            </dlg>
+            
+            <choice>
+                <c out="#a">
+                    <text>Thank God this power stopped working... It sounds like you could tear the space-time continuum doing shit like that...</text>
+                </c>
+                <c out="#b">
+                    <text>That was... a lot... I'm not saying you made all this up... But that sounds like some low budget hardcore sci-fi shit...</text>
+                </c>
+            </choice>
+            
+            <rig-track of="CH_Max" head="0" eye="0" />
+            <anim target="CH_Max" idle="EMBARRASSED01" blink="CLOSED" />
+            <dlg char="CH_Max" style="subjective">
+                <m>I know... I know...</m>
+                <m>I'm going crazy because no one noticed the changes... And I don't know what to do...</m>
+            </dlg>
+            <anim trigger="outside" />
+            <choice>
+                <c out="#a">
+                    <text>If nobody cares, why would you? Trying to fix it can screw up things even more...</text>
+                    <then>
+                        <anim target="CH_Max" idle="UPSET"  blink="NEUTRAL" />
+                        <dlg char="CH_Max"  track="Spine2">
+                            <m>Sigh... There's nothing more I can do anyways... Just live with it...</m>
+                        </dlg>
+                    </then>
+                </c>
+                <c out="#b" icon="DICK_INTELLIGENCE">
+                    <check-flag flag="DICK_INTELLIGENCE" gte="2" />
+                    <lock-reason>INTELLIGENCE 2+ REQUIRED FOR THIS ANSWER</lock-reason>
+                    <text>Hey... You said that Rachel chick was missing, right? So you saved your friend from being shot, and saved Rachel from being kidnapped and murdered if she stayed "here"...</text>
+                    <then>
+                        <anim target="CH_Max" idle="UPSET"  blink="NEUTRAL" />
+                        <dlg char="CH_Max"  track="Spine2">
+                            <m>Hey... You're right... I never thought about that...</m>
+                        </dlg>
+                        <stat char="CH_Max" name="AFFINITY" inc="1" notify="true" />
+                        <anim target="CH_Max" react="YAY" expression="HAPPY" blink="HAPPY" />
+                        <dlg char="CH_Max"  track="Spine2" neutral-expression="true">
+                            <m>I saved both Rachel and Chloe!!</m>
+                            <m wait="0.5">Thanks... I feel a little better about what happened now...</m>
+                        </dlg>
+                    </then>
+                </c>
+                <c out="#c">
+                    <text>What matters is that you saved that Chloe chick from getting shot, didn't you? It seems all fixed to me...</text>
+                    <then>
+                        <anim target="CH_Max" idle="UPSET"  blink="NEUTRAL" />
+                        <dlg char="CH_Max"  track="Spine2">
+                            <m>Yes... I called Chloe as soon as I woke...</m>
+                            <m>She is fine... And she even sounded a lot less bitter... Probably because she has no memory of Rachel being missing...</m>
+                            <m>So maybe keeping things the way they are now is the wisest choice...</m>
+                        </dlg>
+                    </then>
+                </c>
+            </choice>
+            
+            
+            <dlg char="CH_Max"  track="Spine2">
+                <m>I just hope Rachel is...</m>
+            </dlg>
+            <anim trigger="bloody-nose" />
+            <anim target="CH_Max" blink="CLOSED" />
+            <wait time="0.5" />
+            <anim trigger="pov" />
+            <wait time="0.5" />
+            <dlg char="CH_Max" style="subjective">
+                <m wait="0.5">.......</m>
+                <m>Damn it...</m>
+            </dlg>
+            <wait time="1" />
+            
+            <rig-track of="CH_Max" head="0" eye="0" />
+            <anim target="CH_Max" idle="SICK01" />
+            <dlg char="CH_Max" style="subjective">
+                <m>I... I'm sorry you had to see that...</m>
+                <m>It's another nasty effect of those stupid powers... As if I weren't weird enough...</m>
+            </dlg>
+            <wait time="1" />
+            <dlg char="CH_Max" style="whisper-subjective">
+                <m>Max... You're pathetic...</m>
+            </dlg>
+
+            <choice shuffled="true">
+                <c out="#a">
+                    <text>It's called the "Psychic Nosebleed"... Like in Stranger Things, The Butterfly Effect, Akira... Lazy writers have been abusing this trope for decades now...</text>
+                    <then>
+                        <stat char="CH_Max" name="AFFINITY" inc="1" />
+                        <flag name="DICK_CHARISMA" inc="1">
+                            YOU FEEL YOUR *CHARISMA* IMPROVE!
+                        </flag>
+                        <anim target="CH_Max" react="GIGGLE" idle="UPSET" blink="NEUTRAL" />
+                        <dlg char="CH_Max" style="subjective">
+                            <m>Ha... Makes me feel like a super hero... A totally weird one...</m>
+                            <m wait="1">For a moment you sounded like Warren, but improved... Like... not stuck in the 80's...</m>
+                        </dlg>
+                    </then>
+                </c>
+                <c out="#b">
+                    <text>Hey... I can see you've been under a lot of stress... You should chill until you feel better...</text>
+                    <then>
+                        <dlg char="CH_Max" style="subjective">
+                            <m>Well... It's not like I remember the last time I wasn't stressed...</m>
+                            <m wait="1">But you're probably right... My mind is so tired that it's affecting my body...</m>
+                        </dlg>
+                    </then>
+                </c>
+                <c out="#c" icon="AXIS_INTERACTION_HEART">
+                    <check-group op="OR">
+                        <check-stat char="CH_Max" stat="AFFINITY" gte="2" />
+                    </check-group>
+                    <lock-reason>AFFINITY WITH MAX IS NOT HIGH ENOUGH FOR THIS CHOICE</lock-reason>
+                    <text><![CDATA[Hey... There's no reason to hide your face...\n<i><color=grey>[Get closer and cheer her up]</color></i>]]></text>
+                    <then>
+                        <node-output node="cheer-up" />
+                    </then>
+                </c>
+            </choice>
+
+            <node-output node="end"/>
+        </n>
+
+        <n id="cheer-up">
+            <trophy unlock="polaroid-fever-02" />
+            <anim bool="closer"  boolValue="true" />
+            <anim target="CH_Max" idle="UPSET" blink="CLOSED" expression="NEUTRAL" />
+            <wait time="1" />
+            
+            <dlg char="CH_Max" style="whisper-subjective">
+                <m wait="1">my face is just stupid... and i...... i'm such a loser...</m>
+                <m>you... you seem to be a nice person, though...</m>
+            </dlg>
+            
+            <wait time="2" />
+            <sys>See that icon at the corner of the screen ? When it appears, it means you have limited control over hands (or other body parts) of your character during a scene.\n\nTry moving the mouse to check it out!</sys>
+            <wait time="2" />
+
+            <choice>
+                <c out="#a" icon="DICK_KARMA_GOOD">
+                    <text>You've been carrying a huge burden all by yourself... Most girls would have break down at this point...\nYou're brave and cool... You just need some rest...</text>
+                    <then>
+                        <flag name="DICK_KARMA" inc="1">YOUR KARMA BALANCED TOWARDS THE *GOOD* SIDE</flag>
+                        <rig-track of="CH_Max" eye="1" />
+                        <anim target="CH_Max" expression="HAPPY" blink="HAPPY" />
+                        <stat char="CH_Max" name="AFFINITY" inc="5" />
+                        <dlg char="CH_Max" style="subjective" neutral-expression="true">
+                            <m>Thank you...</m>
+                            <m>It's really good to know I can count with a new friend here in Blackwell...</m>
+                        </dlg>
+                    </then>
+                </c>
+                <c out="#b"  icon="DICK_KARMA_EVIL">
+                    <text>You are what you want be... You wanna be strong and popular? Start getting rid of the bonds you put on yourself... You clearly have the potential...</text>
+                    <then>
+                        <flag name="DICK_KARMA" inc="1">YOUR KARMA BALANCED TOWARDS THE *EVIL* SIDE</flag>
+                        <stat char="CH_Max" name="CORRUPTION" inc="5" />
+
+                        <rig-track of="CH_Max" eye="0" />
+                        <anim target="CH_Max" expression="UNEASY" blink="NEUTRAL" />
+                        <dlg char="CH_Max" style="subjective">
+                            <m>Yes... I wanna be strong...</m>
+                            <m>I... I don't like when people say I'm weird...</m>
+                        </dlg>
+                        <anim target="CH_Max" blink="CLOSED" />
+                        <dlg char="CH_Max" style="subjective">
+                            <m>It's just... changing is not easy...</m>
+                            <m>But I'll try to change... I'll be noticed...</m>
+                        </dlg>
+                    </then>
+                </c>
+            </choice>
+
+            <wait time="3" />
+            <anim bool="closer" boolValue="false" />
+
+            <node-output node="end"/>
+        </n>
+
+        <n id="end">
+            <rig-track of="CH_Max" eye="1" />
+            <anim target="CH_Max" idle="UPSET" blink="NEUTRAL" />
+            <anim trigger="outside" />
+            <dlg char="CH_Max" track="Spine2">
+                <m>I should go now... I think several hours of bed time will make me feel better... And I still have to work on Mr. Jefferson's contest picture...</m>
+                <m wait="0.5">We should talk more about this big mess later...</m>
+            </dlg>
+            <anim trigger="pov" />
+            <dlg char="CH_Max" track="Spine2">
+                <m>I'm sorry for interrupting your... work...</m>
+                <m>See you later...</m>
+            </dlg>
+
+            <wait time="1" />
+            <fade-to-black keep="true" speed="0.5" />
+            <wait time="2" />
+            <bgm />
+            <anim trigger="outside" />
+            <obj name="CH_Max" active="false" />
+            <fade-to-black mode="from" speed="1" />
+            <wait time="1" />
+            
+            <anim trigger="end" />
+            <anim target="SK_Butterfly" int="idle" intValue="1" />
+
+            <dlg style="subjective">
+                <m>Jeez... I've heard about girls doing weird stuff in their restrooms, but I didn't expect that...</m>
+                <m>I should keep my eyes on her...</m>
+            </dlg>
+
+            <fade-to-black keep="true" speed="0.5" />
+            <wait time="2" />
+
+            <load stage="toilet-women-01" />
+        </n>
+    </nodes>
+</cutscene>

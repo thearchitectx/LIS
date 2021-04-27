@@ -13,6 +13,7 @@ namespace TheArchitect.Core.Data
         public const string STAT_RELATIONSHIP = "RELATIONSHIP";
         public const string STAT_AFFINITY = "AFFINITY";
         public const string STAT_CORRUPTION = "CORRUPTION";
+        public const string STAT_VICTORIA_LOYALTY = "VICTORIA_LOYALTY";
         public const string STAT_INTEL = "INTEL";
         public const string STAT_INTEL_ = "INTEL_{0}";
 
@@ -22,7 +23,7 @@ namespace TheArchitect.Core.Data
         [SerializeField] private Color m_ColorContrast;
         [SerializeField] private DialogBlip m_DialogBlip;
         [SerializeField] private SkeletonType m_SkeletonType;
-        [SerializeField] private string[] m_Intel = new string[0];
+        [SerializeField] [TextArea] private string[] m_Intel = new string[0];
 
         public string DisplayName { get { return m_DisplayName; } }
         public int Age { get { return m_Age; } }

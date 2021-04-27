@@ -28,6 +28,7 @@ namespace TheArchitect.Cutscene
         [XmlElement("nop", typeof(CutsceneAction)),
             XmlElement("cutscene-outcome", typeof(OutcomeAction)),
             XmlElement("node-output", typeof(OutputAction)),
+            XmlElement("inject", typeof(InjectAction)),
             XmlElement("obj", typeof(ObjectAction)),
             XmlElement("prefab", typeof(PrefabAction)),
             XmlElement("wait", typeof(WaitAction)),
@@ -43,11 +44,13 @@ namespace TheArchitect.Cutscene
             XmlElement("load", typeof(StageLoadAction)),
             XmlElement("flag", typeof(SetFlagAction)),
             XmlElement("objective", typeof(ObjectiveAction)),
+            XmlElement("switch-text", typeof(SwitchTextAction)),
             XmlElement("item", typeof(ItemAction)),
             XmlElement("text", typeof(SetText)),
             XmlElement("trophy", typeof(TrophyAction)),
             XmlElement("walker", typeof(WalkerAction)),
             XmlElement("sfx", typeof(SFXAction)),
+            XmlElement("bgm", typeof(BGMAction)),
         ]
         public CutsceneAction[] Actions
         {

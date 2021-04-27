@@ -4,9 +4,10 @@
     xsi:noNamespaceSchemaLocation="../../Cutscene.xsd">
     <nodes>
         <n id="n1">
+            <bgm loop="loop-jefferson" volume="0.5" fade-speed="0.25" />
             <obj name="/Pause Controller" message="CloseObjectives" />
             <fade-to-black mode="from" speed="0.5" />
-            <anim target="CH_Kate" int="exp" intValue="1" />
+            <anim target="CH_Kate" idle="UNEASY" expression="UNEASY" blink="NEUTRAL" />
             <anim target="CH_NoNameBoy1" int="idle" intValue="1" />
             <stat char="CH_Kate" name="INTEL" set="1" notify="false" />
             <stat char="CH_Kate" name="INTEL_0" set="1" notify="false" />
@@ -25,6 +26,8 @@
             <wait time="3" />
             <sys>During some first person view shots, move the *MOUSE* to look around</sys>
             <wait time="5" />
+            
+            <bgm loop="loop-jefferson" volume="0.2" fade-speed="1" />
 
             <dlg char="CH_Kate" track="Neck">
                 <m>Sir... There he is...</m>
@@ -73,7 +76,7 @@
             <stat char="CH_Kate" name="AFFINITY" inc="2" />
             <stat char="CH_Jefferson" name="AFFINITY" inc="-1" clamp-a="0" />
 
-            <anim target="CH_Kate" trigger="react-surprise1" />
+            <anim target="CH_Kate" react="SURPRISE" />
 
             <dlg char="CH_Kate" track="Neck">
                 <m>Oh no... Did you hear that, ${Characters.CH_Jefferson.DisplayName}?</m>
@@ -89,7 +92,7 @@
 
             <wait time="1" />
             <anim target="Cinemachine/TalkGroup" trigger="Both" />
-            <anim trigger="react-facepalm1" target="CH_Jefferson" />
+            <anim react="FACEPALM" target="CH_Jefferson" />
 
             <anim target="Cinemachine/TalkGroup" trigger="CH_Jefferson" />
             <dlg char="CH_Jefferson" track="Neck">
@@ -104,7 +107,7 @@
             <stat char="CH_Kate" name="AFFINITY" inc="1" />
 
             <anim target="Cinemachine/TalkGroup" trigger="CH_Kate"/>
-            <anim target="CH_Kate" trigger="react-surprise1" />
+            <anim target="CH_Kate" react="SURPRISE" />
 
             <dlg char="CH_Kate" track="Neck">
                 <m>Oh my... He doesn't even know where he is...</m>
@@ -118,7 +121,7 @@
                 <m>Some say it's a perk of those with a clear conscience...</m>
             </dlg>
 
-            <anim trigger="react-facepalm1" target="CH_Jefferson" />
+            <anim react="FACEPALM" target="CH_Jefferson" />
 
             <dlg char="CH_Jefferson" track="Neck">
                 <m>... or those who simply does not care...</m>
@@ -131,7 +134,7 @@
         <n id="n1-dream" out="n2">
             <stat char="CH_Kate" name="AFFINITY" inc="1" />
 
-            <anim target="CH_Kate" trigger="react-surprise1" />
+            <anim target="CH_Kate" react="SURPRISE" />
             <anim target="Cinemachine/TalkGroup" trigger="CH_Kate"/>
             <dlg char="CH_Kate" track="Neck">
                 <m>What!? What!? What are you talking about!?</m>
@@ -142,12 +145,12 @@
             <dlg char="CH_Jefferson" track="Neck">
                 <m>Jesus Christ, ${Characters.CH_Kate.DisplayName}... This is one of the reasons why you get bullied by the other girls...</m>
             </dlg>
-            <anim trigger="react-facepalm1" target="CH_Jefferson" />
+            <anim react="FACEPALM" target="CH_Jefferson" />
             <dlg char="CH_Jefferson" track="Neck">
                 <m>This is senior high... Everybody is past eighteen here... You can't ask such questions in front of a teacher...</m>
             </dlg>
 
-            <anim target="CH_Kate" trigger="react-surprise1" />
+            <anim target="CH_Kate" react="SURPRISE" />
             <dlg char="CH_Kate" track="Neck">
                 <m>What!? No... I know what it is... I mean...</m>
             </dlg>
@@ -165,7 +168,7 @@
             </dlg>
             <anim trigger="talk" target="Cinemachine" />
 
-            <anim trigger="react-facepalm1" target="CH_Jefferson" />
+            <anim react="FACEPALM" target="CH_Jefferson" />
             <dlg char="CH_Jefferson" track="Neck">
                 <m>Yeah... Whatever you say, ${Characters.CH_Kate.DisplayName}...</m>
             </dlg>
@@ -177,7 +180,7 @@
             <stat char="CH_Kate" name="AFFINITY" inc="-1" clamp-a="0" />
             <rig-track of="CH_Kate" eye="1" />
             <anim target="Cinemachine/TalkGroup" trigger="CH_Kate"/>
-            <anim target="CH_Kate" int="exp" intValue="2" />
+            <anim target="CH_Kate" react="PISSED_OFF01" expression="DISAPPROVE"/>
 
             <dlg char="CH_Kate" track="Neck">
                 <m>Wait... Were you really sleeping!?!</m>
@@ -192,13 +195,12 @@
                 <m>That's why the cycle never ends...</m>
             </dlg>
 
-            <anim target="CH_Kate" int="exp" intValue="1" />
-            <anim target="CH_Kate" trigger="react-surprise1" />
+            <anim target="CH_Kate" idle="UNEASY" react="SURPRISE" />
             <dlg char="CH_Kate" track="Neck">
                 <m>But... But I'm not...</m>
             </dlg>
 
-            <anim trigger="react-facepalm1" target="CH_Jefferson" />
+            <anim react="FACEPALM" target="CH_Jefferson" />
             <dlg char="CH_Jefferson" track="Neck">
                 <m>Give me a break, will you?</m>
             </dlg>
@@ -230,14 +232,14 @@
             <stat char="CH_Kate" name="AFFINITY" inc="1" />
             <rig-track of="CH_Jefferson" eye="1" head="1" />
             <anim target="Cinemachine" trigger="talk"/>
-            <anim target="CH_Jefferson" trigger="react-facepalm1" />
+            <anim target="CH_Jefferson" react="FACEPALM" />
             <dlg char="CH_Jefferson" track="Neck">
                 <m>Sigh... Come on, boy... Are you trying to be like those stupid jocks with empty minds and simple goals?</m>
                 <m>Some girls like ${Characters.CH_Kate.DisplayName} here might fall for the act, but it won't bring you any good future in life... </m>
             </dlg>
 
             <anim target="Cinemachine/TalkGroup" trigger="Both"/>
-            <anim target="CH_Kate" trigger="react-surprise1" />
+            <anim target="CH_Kate" react="SURPRISE" />
             <dlg char="CH_Kate" track="Neck">
                 <m>${Characters.CH_Jefferson.DisplayName}!?!? What did said about...</m>
                 <m>.......</m>
@@ -260,7 +262,7 @@
             </dlg>
 
             <anim target="Cinemachine/TalkGroup" trigger="Both"/>
-            <anim target="CH_Kate" int="exp" intValue="2" />
+            <anim target="CH_Kate" idle="ARMS_CROSSED_F01" expression="DISAPPROVE" />
             <dlg char="CH_Kate" track="Neck">
                 <m>I... I just try to be a good student, ${Characters.CH_Jefferson.DisplayName}...</m>
                 <m>And I don't think a person who sleeps during classes has any chances success, sir...</m>
@@ -269,25 +271,27 @@
             <dlg char="CH_Jefferson" track="Neck">
                 <m>Yeah... Building up tension! That's the way to start a good story isn't it?</m>
             </dlg>
+
+            <anim target="CH_Kate" idle="UNEASY" expression="UNEASY" />
         </n>
 
         <!-- CHOICE n2-sedative -->
         <n id="n2-sedative" out="n3">
             <rig-track of="CH_Jefferson" eye="1" head="1" />
             <anim target="Cinemachine" trigger="talk"/>
-            <anim target="CH_Jefferson" trigger="react-suspicious1" />
+            <anim target="CH_Jefferson" react="SUSPICIOUS" />
             <dlg char="CH_Jefferson" track="Neck">
                 <m>Hum... Students... Sedative... That's an interesting choice of words... I'm planning a project using those ideas...</m>
                 <m>Maybe there's a future for you in artistic Photography after all...</m>
             </dlg>
 
             <anim target="Cinemachine/TalkGroup" trigger="Both"/>
-            <anim target="CH_Kate" trigger="react-surprise1" />
+            <anim target="CH_Kate" react="SAY02" />
             <dlg char="CH_Kate" track="Neck">
-                <m>${Characters.CH_Jefferson.DisplayName}!?! What are you talking about, sir!?!</m>
+                <m>${Characters.CH_Jefferson.DisplayName}... What are you talking about, sir?</m>
             </dlg>
 
-            <anim target="CH_Jefferson" trigger="react-facepalm1" />
+            <anim target="CH_Jefferson" react="FACEPALM" />
             <dlg char="CH_Jefferson" track="Neck">
                 <m>Urgh... Why are you still here, ${Characters.CH_Kate.DisplayName}?</m>
                 <m>Don't you have anything else to do?</m>
@@ -297,6 +301,7 @@
         <n id="n3">
             <anim target="Cinemachine/TalkGroup" trigger="Both"/>
             <rig-track of="CH_Kate" eye="1" />
+            <anim target="CH_Kate" react="SAY01" />
             <dlg char="CH_Kate" track="Neck">
                 <m>${Characters.CH_Jefferson.DisplayName}... I don't know who this boy is... I've never see his face before...</m>
                 <m>Why did he start this class so late in the year?</m>
@@ -307,8 +312,7 @@
                 <m>I remember you saying that you hate gossip...</m>
             </dlg>
 
-            <anim target="CH_Kate" trigger="react-surprise1" />
-            <anim target="CH_Kate" int="exp" intValue="1" />
+            <anim target="CH_Kate" react="SURPRISE" expression="UNEASY" />
             <dlg char="CH_Kate" track="Neck">
                 <m>What!?! But this is not... I...</m>
                 <m> I just wanted to know...</m>
@@ -336,6 +340,7 @@
             </dlg>
 
             <objective name="OBJ_IntroCollectTrash" completed="false" />
+            <bgm fade-speed="0.5" />
             <fade-to-black time="2" keep="true" />
             <wait time="2" />
             

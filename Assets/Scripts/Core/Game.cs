@@ -14,6 +14,7 @@ namespace TheArchitect.Core
     public class Game : ScriptableObject
     {
         public const string FLAG_DISABLE_PLAYER = "#DISABLE_PLAYER";
+        public const string FLAG_ALLOW_SAVING = "#ALLOW_SAVING";
         [SerializeField] public bool EditorAutoNewGame;
         [SerializeField] private string m_StartStage;
 
@@ -27,6 +28,8 @@ namespace TheArchitect.Core
         [NonSerialized] public UnityEvent<string> OnObjectivesUpdate = new UnityEvent<string>();
         
         [NonSerialized] private bool m_DisablePlayer;
+        [NonSerialized] private int m_StateChangeCount;
+
         public bool DisablePlayer {
              get { return m_DisablePlayer; }
              set {
@@ -52,6 +55,10 @@ namespace TheArchitect.Core
                 CacheData();
                 this.LoadStage(GetStage(State.Stage));
             }
+        }
+
+        public int StateChangeCount {
+            get { return m_StateChangeCount; }
         }
         
         private void CacheData()
@@ -117,6 +124,11 @@ namespace TheArchitect.Core
             SetFlagState($"STAT_{character.name}_{stat}", value);
         }
 
+        public bool HasCharacterStat(Character character, string stat)
+        {
+            return this.State.FlagIndex.ContainsKey($"STAT_{character.name}_{stat}");
+        }
+        
         public int GetCharacterStat(Character character, string stat)
         {
             return GetFlagState($"STAT_{character.name}_{stat}");
@@ -174,11 +186,15 @@ namespace TheArchitect.Core
         {
             if (name==FLAG_DISABLE_PLAYER)
                 m_DisablePlayer = state != 0;
-                
-            #if UNITY_EDITOR
-            Debug.Log($"SetFlagState {name} {state}");
-            #endif
+            if (name==FLAG_ALLOW_SAVING)
+                AllowSaving = state != 0;
+
             this.State.FlagIndex[name] = new Flag() { Name = name, State = state };
+            m_StateChangeCount++;
+
+            #if UNITY_EDITOR
+            Debug.Log($"SetFlagState {name}={state}  #{m_StateChangeCount}");
+            #endif
         }
         #endregion
 
@@ -193,10 +209,16 @@ namespace TheArchitect.Core
 
         public void SetTextState(string name, string state)
         {
+            #if UNITY_EDITOR
+            Debug.Log($"SetTextState {name} {state}");
+            #endif
+
             if (state==null)
                 this.State.TextIndex.Remove(name);
             else
                 this.State.TextIndex[name] = new TextData() {Name = name, State = state};
+
+            m_StateChangeCount++;
         }
         #endregion
 
@@ -212,6 +234,7 @@ namespace TheArchitect.Core
         public void SetFloatState(string name, float state)
         {
             this.m_State.FloatIndex[name] = new Float() {Name = name, State = state};
+            m_StateChangeCount++;
         }
         #endregion
 
@@ -224,6 +247,7 @@ namespace TheArchitect.Core
 
             this.m_State.ObjectiveIndex.Add(name);
             OnObjectivesUpdate.Invoke(name);
+            m_StateChangeCount++;
         }
 
         public void RemoveObjective(string name)
@@ -234,6 +258,12 @@ namespace TheArchitect.Core
 
             this.m_State.ObjectiveIndex.Remove(name);
             OnObjectivesUpdate.Invoke(name);
+            m_StateChangeCount++;
+        }
+
+        public bool HasObjective(string name)
+        {
+            return this.m_State.ObjectiveIndex.Contains(name);
         }
         #endregion
 

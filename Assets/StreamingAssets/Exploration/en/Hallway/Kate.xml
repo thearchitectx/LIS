@@ -14,6 +14,7 @@
 
         <n id="n1-hello" out="n1-hello-2">
             <walker target="CH_Kate" destination="DestinationTalk" />
+            <rig-track of="CH_Kate" head="0.75" eye="1" />
             <wait time="1" />
             <dlg char="CH_Kate" style="subjective">
                 <m wait="1">Oh... It's you again...</m>
@@ -136,6 +137,7 @@
                     </choice>
                 </then>
                 <else>
+                    <anim target="CH_Kate" react="SAY02" />
                     <dlg char="CH_Kate" style="subjective">
                         <m>I... I'm sorry...</m>
                         <m>I need to solve my locker 'problem' here first and get my things...</m>
@@ -183,9 +185,9 @@
             </dlg>
         </n>
         <n id="n2-upset-stand" out="n3">
-            <anim target="CH_Kate" expression="DISAPPROVE" />
+            <anim target="CH_Kate" expression="DISAPPROVE" react="PISSED_OFF01" />
             <dlg char="CH_Kate" style="subjective">
-                <m wait="1">You people keep saying that bt have no idea what is like being in my shoes...</m>
+                <m wait="1">You people keep saying that but you have no idea what is like being in my shoes...</m>
             </dlg>
         </n>
 

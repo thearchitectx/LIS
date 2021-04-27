@@ -12,7 +12,7 @@ namespace TheArchitect.Core
         {
             #if UNITY_EDITOR
             QualitySettings.vSyncCount = 0;  // VSync must be disabled
-            Application.targetFrameRate = 30;
+            Application.targetFrameRate = 60;
             #endif
             Game game = Resources.Load<Game>("ScriptableObjects/Game");
 

@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../Cutscene.xsd">
+    <nodes>
+        <n id="lib-play">
+            <flag name="DATA_SMOOTH_TALK_PLAYS" inc="1" />
+            <if>
+                <check-flag flag="DATA_SMOOTH_TALK_PLAYS" eq="1" />
+                <then>
+                    <sys>
+                        SMOOTH TALK TUTORIAL(1/2)\n\n
+                        Did you know girls also have a D.I.C.K.?\n\nIt's not a trap!\n\n
+                        It means they'll use Daring, Charisma and Intelligence moves to beat your Smooth Talk attempt!\n\n
+                        To win the turn, you must *match the D.I.C.K move* she used with your own...\n\n
+                        Deplete her stamina to have a successful Smooth Talk session!
+                    </sys>
+                    <sys>
+                        SMOOTH TALK TUTORIAL(2/2)\n\n
+                        *Karma* moves may be available sometimes during your turn!\n\n
+                        The *GOOD* Karma move allows you to recover some stamina...\n\n
+                        The *EVIL* Karma move performs a powerful blow against your opponent...\n\n
+                        Notice Karma moves will only have effect if it matches your current character Karma balance...\n\n
+                        Neutral characters suck and won't earn any effect!\n
+                    </sys>
+                </then>
+            </if>
+        </n>
+
+        <n id="lib-win">
+            <flag name="DATA_SMOOTH_TALK_WINS" inc="1" />
+            <if>
+                <check-flag flag="DATA_SMOOTH_TALK_WINS" eq="1" />
+                <then>
+                    <sys>
+                        SMOOTH TALK TUTORIAL\n\n
+                        When you win a Smooth Talk session, a choice will follow...\n\n
+                        The opponent will be stunned, but it doesn't mean anything you ask will be accepted!\n\n
+                        Choose wisely ! (or try your luck)
+                    </sys>
+                </then>
+            </if>
+        </n>
+    </nodes>
+</cutscene>

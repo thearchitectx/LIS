@@ -11,6 +11,8 @@ namespace TheArchitect.Core.Controllers
     {
         [XmlEnum(Name="default")]
         DEFAULT,
+        [XmlEnum(Name="whisper-subjective")]
+        WHISPER_SUBJECTIVE,
         [XmlEnum(Name="whisper")]
         WHISPER,
         [XmlEnum(Name="remote")]
@@ -65,6 +67,7 @@ namespace TheArchitect.Core.Controllers
             this.m_Style = style;
             switch (m_Style) {
                 case DialogStyle.WHISPER:
+                case DialogStyle.WHISPER_SUBJECTIVE:
                     m_TextMessage.fontSize = m_MessageWhisperFontSize.Value;
                     m_TextMessage.fontStyle = (FontStyle) m_MessageWhisperFontStyle.Value;
                     m_TextMessage.color = m_MessageWhisperFontColor.Value;
@@ -112,6 +115,7 @@ namespace TheArchitect.Core.Controllers
             this.m_CanvasTransform = canvas.transform.GetComponent<RectTransform>();
             this.m_ImageForward.gameObject.SetActive(false);
             this.m_ImageDialogBack.sprite = null;
+            this.m_RectTransform.anchoredPosition = new Vector2(-10000, -100000);
         }
 
         void Update()
@@ -163,7 +167,7 @@ namespace TheArchitect.Core.Controllers
             }
             else
             {
-                var spr = (this.m_Style == DialogStyle.SUBJECTIVE || this.m_Style == DialogStyle.REMOTE_SUBJECTIVE)  ? this.m_SpriteSubjective : this.m_SpriteLeft;
+                var spr = (this.m_Style == DialogStyle.SUBJECTIVE || this.m_Style == DialogStyle.REMOTE_SUBJECTIVE || this.m_Style == DialogStyle.WHISPER_SUBJECTIVE)  ? this.m_SpriteSubjective : this.m_SpriteLeft;
                 if (spr != this.m_ImageDialogBack.sprite)
                 {
                     this.m_ImageDialogBack.sprite = spr;

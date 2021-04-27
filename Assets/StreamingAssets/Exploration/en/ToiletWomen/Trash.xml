@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../Cutscene.xsd">
+    <nodes>
+        <n id="pick-up">
+            <switch-text check="${Texts.TXT_ARG_0}" text="TXT_TMP_0">
+                <case eq="PIZZA">This waste of good pepperoni is a heinous crime...</case>
+                <case eq="BANANA">Jesus Christ... And girls like to call men 'pigs'...</case>
+                <case eq="PAPER_TOWEL">Don't they know how to use a trash can?</case>
+                <case eq="CAN">Another one...</case>
+                <case eq="BOTTLE">I wonder what they used this for...</case>
+            </switch-text>
+
+            <wait time="1" />
+            <dlg style="subjective">
+                <m>${Texts.TXT_TMP_0}</m>
+            </dlg>
+
+            <choice>
+                <c out="n1-clean">
+                    <text>Clean up</text>
+                    <then>
+                        <switch-text check="${Texts.TXT_ARG_0}" text="TXT_TMP_0">
+                            <case eq="PIZZA">0</case>
+                            <case eq="BANANA">1</case>
+                            <case eq="PAPER_TOWEL">2</case>
+                            <case eq="CAN">3</case>
+                            <case eq="BOTTLE">4</case>
+                        </switch-text>
+                        <flag name="QUEST_CLEAN_GIRLS_RESTROOM_TRASH" bit-set="${Texts.TXT_TMP_0}" />
+
+                        <switch-text check="${Flags.QUEST_CLEAN_GIRLS_RESTROOM_TRASH_COUNT}" text="TXT_TMP_0">
+                            <case eq="0">Here we go again...</case>
+                            <case eq="1">The work never ends...</case>
+                            <case eq="2">More trash... </case>
+                            <case eq="3">Let's pick up more shit...</case>
+                            <case eq="4">I think this is the last one...</case>
+                        </switch-text>
+            
+                        <dlg style="subjective">
+                            <m>${Texts.TXT_TMP_0}</m>
+                        </dlg>
+                        
+                        <flag name="QUEST_CLEAN_GIRLS_RESTROOM_TRASH_COUNT" inc="1" />
+                        <item inc="1" name="ITM_TRASH">COLLECTED *${Flags.QUEST_CLEAN_GIRLS_RESTROOM_TRASH_COUNT}* of *5* PIECES OF GARBAGE</item>
+            
+                        <if>
+                            <check-flag flag="QUEST_CLEAN_GIRLS_RESTROOM_TRASH_COUNT" gte="5" />
+                            <then>
+                                <objective name="OBJ_CleanGirlsRestroom" completed="true" />
+                                <objective name="OBJ_CleanGirlsRestroomReport" completed="false" />
+                                <flag name="QUEST_CLEAN_GIRLS_RESTROOM" set="5" />
+                            </then>
+                        </if>
+
+                        <cutscene-outcome value="_destroyParent" />
+                    </then>
+                </c>
+                <c out="_end"><text>Leave</text></c>
+            </choice>
+
+            
+        </n>
+    </nodes>
+</cutscene>

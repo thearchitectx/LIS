@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.Events;
 using TheArchitect.Core;
 using TheArchitect.Cutscene.Data;
@@ -11,7 +11,7 @@ namespace TheArchitect.Cutscene
         
         [SerializeField] public Game Game;
         [SerializeField] private CutsceneContext m_Context;
-        [SerializeField] private string m_ScriptPath;
+        [SerializeField] [TextArea] private string m_ScriptPath;
         [SerializeField] private CutsceneProxy[] m_Proxies;
         [SerializeField] private CutsceneParam[] m_TextParams;
 
