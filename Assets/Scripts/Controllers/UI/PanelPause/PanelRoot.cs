@@ -9,6 +9,7 @@ namespace TheArchitect.Controllers.UI.PanelPause
         [SerializeField] public Toggle ButtonStats;
         [SerializeField] public Toggle ButtonItems;
         [SerializeField] public Toggle ButtonIntel;
+        [SerializeField] public Toggle ButtonObjectives;
         [SerializeField] public Button ButtonQuit;
         [SerializeField] public Button ButtonLoadSave;
         [SerializeField] public Button ButtonBack;
@@ -17,6 +18,7 @@ namespace TheArchitect.Controllers.UI.PanelPause
         [SerializeField] private GameObject PanelStatsPrefab;
         [SerializeField] private GameObject PanelItemsPrefab;
         [SerializeField] private GameObject PanelIntelPrefab;
+        [SerializeField] private GameObject PanelObjectivesPrefab;
 
         void Start()
         {
@@ -35,6 +37,8 @@ namespace TheArchitect.Controllers.UI.PanelPause
                 g = Instantiate(PanelIntelPrefab);
             else if (ButtonItems.isOn)
                 g = Instantiate(PanelItemsPrefab);
+            else if (ButtonObjectives.isOn)
+                g = Instantiate(PanelObjectivesPrefab);
 
             if (g!=null)
                 g.transform.SetParent(PanelContent, false);

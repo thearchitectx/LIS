@@ -12,6 +12,7 @@ public class Title : MonoBehaviour
     [SerializeField] private GameObject m_CanvasSavePrefab;
     [SerializeField] private GameObject m_CanvasTrophiesPrefab;
     [SerializeField] private Canvas m_CanvasMenu;
+    [SerializeField] private Light m_MainLight;
 
     private GameObject m_CanvasSave;
     private GameObject m_CanvasTrophies;
@@ -23,6 +24,30 @@ public class Title : MonoBehaviour
         {
             Destroy(m_TextVersionAlert.transform.parent.gameObject);
         }
+    }
+
+    public void MenuSettings()
+    {
+        var o = Resources.LoadAsync<GameObject>(ResourcePaths.PREFAB_GAME_SETTINGS);
+        o.completed += (operation) => {
+            GameObject gameSettings = GameObject.Instantiate((GameObject)o.asset);
+            gameSettings.transform.position += new Vector3(0, 10, 0);
+            gameSettings.transform.SetParent(this.transform, false);
+            RenderSettings.fog = false;
+            RenderSettings.ambientLight = new Color(1.25f, 1.25f, 1.25f);
+            RenderSettings.ambientMode = UnityEngine.Rendering.AmbientMode.Flat;
+            this.m_CanvasMenu.enabled = false;
+            this.m_MainLight.enabled = false;
+            gameSettings.GetComponent<PanelGameSettings>().OnConfirm.AddListener(
+                () => { 
+                    Destroy(gameSettings);
+                    RenderSettings.fog = true;
+                    RenderSettings.ambientMode = UnityEngine.Rendering.AmbientMode.Trilight;
+                    this.m_MainLight.enabled = true;
+                    this.m_CanvasMenu.enabled = true;
+                }
+            );
+        };
     }
 
     public void MenuQuit()
@@ -67,5 +92,17 @@ public class Title : MonoBehaviour
     {
         Game game = Resources.Load<Game>(ResourcePaths.SO_GAME);
         game.NewGame();
+    }
+
+    public void MenuStudio()
+    {
+        GameObject go = GameObject.Instantiate(Resources.Load<GameObject>(ResourcePaths.PREFAB_FADE_TO_BLACK));
+        go.transform.SetParent(this.transform);
+        Invoke("MenuStudioSync", 1);
+    }
+
+    public void MenuStudioSync()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Gallery");
     }
 }

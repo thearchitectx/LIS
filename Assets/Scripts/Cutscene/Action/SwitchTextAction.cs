@@ -27,6 +27,7 @@ namespace TheArchitect.Cutscene.Action
                 }
             }
 
+            controller.Game.SetTextState(Text, null);
             return OUTPUT_NEXT;
         }
 

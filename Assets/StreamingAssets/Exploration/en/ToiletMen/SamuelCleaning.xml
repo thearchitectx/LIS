@@ -67,6 +67,28 @@
                         <dlg char="THE_ARCHITECT" style="remote-subjective">
                             <m>THIS QUEST CONTENT ENDS HERE IN THIS VERSION !</m>
                         </dlg>
+                        <flag name="STUDIO_TOKENS_FOUND" bit-set="1" />
+                        <studio-token char="CH_Brooke" category="BASIC">YOU FOUND BROOKE'S BASIC STUDIO TOKEN</studio-token>
+                        <dlg char="THE_ARCHITECT" style="remote-subjective">
+                            <m>SAMUEL WILL GIVE YOU BROOKE'S TOKEN AS A REWARD... BUT YOU CAN HAVE IT NOW!</m>
+                        </dlg>
+
+                        <!-- <rig-track of="CH_Samuel" eye="1" head="0.75" />
+                        <anim target="CH_Samuel" idle="STAND_HANDS_WAIST" react="SAY02" blink="NEUTRAL" />
+                        <dlg char="CH_Samuel" style="subjective">
+                            <m>Oh... Nice!</m>
+                            <m wait="1">How did you feel entering that sacred place? Humble? Horny?</m>
+                        </dlg>
+                        <anim target="CH_Samuel" react="LAUGH01" />
+                        <dlg char="CH_Samuel" style="subjective">
+                            <m wait="1">Nah... Just kidding...</m>
+                            <m>But... Hey... I promised you a reward didn't I ?</m>
+                        </dlg>
+                        <anim target="CH_Samuel" react="GIVE_ITEM" />
+                        <dlg char="CH_Samuel" style="subjective">
+                            <m>Here... Take this... I don't know what the hell it is... But it seems useful somehow...</m>
+                        </dlg> -->
+
                     </then>
                 </c>
 

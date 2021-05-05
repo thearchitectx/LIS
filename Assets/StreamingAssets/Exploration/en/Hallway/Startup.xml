@@ -4,11 +4,24 @@
     <nodes>
         <n id="n1">
             <if>
+                <check-flag flag="QUEST_KATE_LOCKER_KEY_LOCATION" eq="0" />
+                <then>
+                    <flag name="QUEST_KATE_LOCKER_KEY_LOCATION" random-max="4" />
+                </then>
+            </if>
+            <if>
                 <check-flag flag="QUEST_JEFFERSON_TAKE_PIC" lte="10" />
                 <then>
                     <prefab target="CH_Kate" resource="Exploration/Hallway/Dynamic/KateOnLocker" parent="Dynamic" />
                 </then>
             </if>
+            <if>
+                <check-flag flag="LOST_MONEY_FOUND" bit-unset="0" />
+                <then>
+                    <prefab target="DollarBill" resource="Exploration/Hallway/Dynamic/DollarBill" parent="Dynamic" />
+                </then>
+            </if>
+
             <cutscene-outcome value="_destroyObject" />
         </n>
     </nodes>

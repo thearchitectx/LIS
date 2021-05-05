@@ -20,19 +20,21 @@
                     <node-output node="n-first-met" />
                 </then>
             </if>
+            
+
+            <walker target="CH_Brooke" destination="DestinationTalk" />
+            <rig-track of="CH_Brooke" eye="1" head="0.5" />
+            
             <if>
                 <check-flag flag="QUEST_BROOKE_CARD" eq="1" />
                 <then>
                     <dlg char="CH_Brooke" style="subjective">
                         <m>Please... You don't have much time... Find my memory card!</m>
                     </dlg>
-                    <node-output node="_end" />
+                    <node-output node="n-hello-choice" />
                 </then>
             </if>
-            
 
-            <walker target="CH_Brooke" destination="DestinationTalk" />
-            <rig-track of="CH_Brooke" eye="1" head="0.5" />
             <if>
                 <check-flag flag="QUEST_BROOKE_RECORD_VIDEO" eq="1" />
                 <then>
@@ -382,7 +384,7 @@
         <!-- ############################################# -->
         <!-- ############################################# -->
         <n id="n-principal-prank">
-            <walker target="CH_Brooke" destination="DestinationPlayer" />
+            <walker target="CH_Brooke" destination="DestinationTalk" />
             <rig-track of="CH_Brooke" eye="1" head="0.5" />
             <anim target="CH_Brooke" react="YAY" />
             <dlg char="CH_Brooke" style="subjective">
@@ -418,7 +420,7 @@
                 </c>
             </choice>
             <walker target="CH_Brooke" destination="DestinationIdle" />
-            <rig-track of="CH_Brooke" eye="0" root="0" head="0" />
+            <rig-track of="CH_Brooke" eye="0" head="0" />
         </n>
 
         <!-- ############################################# -->

@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../Cutscene.xsd">
+    <nodes>
+        <n id="pick-up">
+            <wait time="1" />
+            <dlg style="subjective">
+                <m>What is that?</m>
+            </dlg>
+
+            <choice>
+                <c out="n1-clean">
+                    <text>[ TAKE IT ]</text>
+                    <then>
+                        <flag name="STUDIO_TOKENS_FOUND" bit-set="2" />
+                        <studio-token char="CH_Max" category="BASIC">YOU FOUND *MAX'S BASIC STUDIO TOKEN*!</studio-token>
+                        <cutscene-outcome value="_destroyParent" />
+                    </then>
+                </c>
+                <c out="_end"><text>Leave</text></c>
+            </choice>
+
+            
+        </n>
+    </nodes>
+</cutscene>

@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../Cutscene.xsd">
+    <nodes>
+        <n id="n1">
+            <dlg style="subjective">
+                <m>Hum... I wonder what kind of stuff Mr. Jefferson keeps inside this trunk...</m>
+                <m>It's locked tight, though... I don't think I can peek inside without the key...</m>
+            </dlg>
+        </n>
+    </nodes>
+</cutscene>

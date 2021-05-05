@@ -96,6 +96,8 @@ namespace TheArchitect.Cutscene.Action
         public byte BitSet = byte.MaxValue;
         [XmlAttribute("bit-unset")]
         public byte BitUnset = byte.MaxValue;
+        [XmlAttribute("eq-str")]
+        public string EqStr = null;
 
         public override bool Resolve()
         {
@@ -113,10 +115,12 @@ namespace TheArchitect.Cutscene.Action
                 b = b || ( (flagValue & (1 << BitSet)) != 0 );
             if (BitUnset < 32)
                 b = b || ( (flagValue & (1 << BitUnset)) == 0 );
+            if (!string.IsNullOrEmpty(EqStr))
+                b = b || flagValue == ResourceString.ParseToInt(EqStr);
             
             b = Inverse ? !b : b;
             #if UNITY_EDITOR
-            Debug.Log($"CHECK-FLAG Flag='{Flag}' Eq='{Eq}' Gte='{Gte}' Lte='{Lte}' Inverse:{Inverse}: {b}");
+            // Debug.Log($"CHECK-FLAG Flag='{Flag}' Eq='{Eq}' Gte='{Gte}' Lte='{Lte}' Inverse:{Inverse}: {b}");
             #endif
             return b;
         }
@@ -150,7 +154,7 @@ namespace TheArchitect.Cutscene.Action
             }
 
             #if UNITY_EDITOR
-            Debug.Log($"CheckGroupPredicate Op='{Op}': {b}");
+            // Debug.Log($"CheckGroupPredicate Op='{Op}': {b}");
             #endif
             return b;
         }
@@ -194,6 +198,8 @@ namespace TheArchitect.Cutscene.Action
         public bool Inverse = false;
         [XmlAttribute("eq")]
         public int Eq = int.MinValue;
+        [XmlAttribute("eq-str")]
+        public string EqStr = null;
         [XmlAttribute("gte")]
         public int Gte = int.MinValue;
         [XmlAttribute("lte")]
@@ -211,6 +217,9 @@ namespace TheArchitect.Cutscene.Action
                 b = b || stat >= Gte;
             if (Lte > int.MinValue)
                 b = b || stat <= Lte;
+            if (!string.IsNullOrEmpty(EqStr))
+                b = b || stat == ResourceString.ParseToInt(EqStr);
+
             
             return Inverse ? !b : b;
         }
@@ -243,10 +252,17 @@ namespace TheArchitect.Cutscene.Action
         {
             var textValue = Resources.Load<Game>(ResourcePaths.SO_GAME).GetTextState(Text);
             bool b = false;
-            if (!string.IsNullOrEmpty(Eq))
+            
+            if (Eq == "#EMPTY")
+                b = b || string.IsNullOrEmpty(textValue);
+            else if (!string.IsNullOrEmpty(Eq))
                 b = b || textValue == Eq;
-            if (!string.IsNullOrEmpty(Neq))
+
+            if (Neq == "#EMPTY")
+                b = b || !string.IsNullOrEmpty(textValue);
+            else if (!string.IsNullOrEmpty(Neq))
                 b = b || textValue != Neq;
+
             return b;
         }
     }

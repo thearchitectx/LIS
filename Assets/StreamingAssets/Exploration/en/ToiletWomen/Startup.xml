@@ -42,6 +42,15 @@
                 </then>
             </if>
 
+            <!-- Max Studio Token -->
+            <if>
+                <check-flag flag="STUDIO_TOKENS_FOUND" bit-unset="2" />
+                <then>
+                    <prefab resource="Exploration/ToiletWomen/Dynamic/Token Max" 
+                        target="Token Max"
+                        parent="Dynamic" />
+                </then>
+            </if>
 
             <cutscene-outcome value="_destroyObject" />
         </n>

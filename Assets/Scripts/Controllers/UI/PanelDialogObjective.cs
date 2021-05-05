@@ -191,7 +191,7 @@ namespace TheArchitect.Core.Controllers
 
         IEnumerator _DisplayTextMessage(Character character, string message)
         {
-            this.m_Message = message;
+            this.m_Message = string.IsNullOrEmpty(message) ? "..." : message;
             this.m_MessagePosition = 1;
 
 

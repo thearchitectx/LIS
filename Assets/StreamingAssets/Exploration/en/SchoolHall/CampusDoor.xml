@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../Cutscene.xsd">
+    <nodes>
+        <n id="n1">
+            <choice>
+                <c out="n2"><text>Go outside</text></c>
+                <c out="#a"><text>Leave</text></c>
+            </choice>
+        </n>
+        <n id="n2">
+            <fade-to-black keep="true" />
+            <wait time="1" />
+            <load stage="campus-01" spawn="Player Spawn/Main Building Door" />
+        </n>
+    </nodes>
+</cutscene>

@@ -40,6 +40,7 @@
             <xs:enumeration value="PISSED_OFF01" />
             <xs:enumeration value="LAUGH01" />
             <xs:enumeration value="GIGGLE" />
+            <xs:enumeration value="GIVE_ITEM" />
         </xs:restriction>
     </xs:simpleType>
     <xs:simpleType name="blink">

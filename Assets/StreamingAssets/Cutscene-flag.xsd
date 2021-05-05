@@ -14,10 +14,6 @@
             <xs:enumeration value="COURTNEY_TAYLOR_MET" /> <!-- (1) CIted the principal (2) Cited 'Mean Girls'  -->
             <xs:enumeration value="BROOKE_MET" />
             <xs:enumeration value="BROOKE_ABOUT_MAX_AND WARREN" /> <!-- (1)Propose revenge (2)Tried to help -->
-            <xs:enumeration value="HALLWAY_TRASH_CAN_A_TRASH_COUNT" />
-            <xs:enumeration value="HALLWAY_TRASH_CAN_B_TRASH_COUNT" />
-            <xs:enumeration value="HALLWAY_TRASH_CAN_C_TRASH_COUNT" />
-            <xs:enumeration value="HALLWAY_TRASH_CAN_D_TRASH_COUNT" />
             <xs:enumeration value="HALLWAY_TRIED_ENTER_ROOM103" />
             <xs:enumeration value="INTRO_TRASH_SCORE" />
             <xs:enumeration value="INTRO_TALK_VICTORIA" /> <!-- (1) Hello (2) Nice ass -->
@@ -30,6 +26,10 @@
             <xs:enumeration value="JUSTIN_BIRDS" /> <!-- (1)BIRDS AREN'T REAL!!! (2) Whatever you said -->
             <xs:enumeration value="JUSTIN_MET" />
             <xs:enumeration value="JUSTIN_PRINCIPAL" />
+            <xs:enumeration value="LOST_MONEY_FOUND" />
+            <!-- BITWISE:
+                    (bit-0) Hallway
+                -->
             <xs:enumeration value="MAX_MET_RESTROOM" />
             <xs:enumeration value="MAX_RESTROOM_DIALOG" />
             <!-- BITWISE:
@@ -63,10 +63,17 @@
             <xs:enumeration value="QUEST_BROOKE_RECORD_VIDEO" /> <!-- (1) Started (2) Brooke entered the restroom (11) End fail score 1 (12) End fail score 2 (13) End score 3 (15) Ended by player -->
             <xs:enumeration value="QUEST_BROOKE_RECORD_VIDEO_MOOD" />
             <xs:enumeration value="QUEST_BROOKE_RECORD_VIDEO_PROGRESS" /> <!-- (1) Dlg1 (2) Dlg2 (3) Dlg3  -->
+            <xs:enumeration value="QUEST_KATE_LOCKER_KEY_LOCATION" /> <!-- (1) A (2) B (3) C (4) D  -->
             <xs:enumeration value="QUEST_KATE_LOCKER" /> <!-- (1)Started (2)Searching Key (3)Delivered Key</xs:documentation></xs:annotation></xs:enumeration -->
             <xs:enumeration value="QUEST_JEFFERSON_TAKE_PIC" /> <!-- (1)Took Lame Pic (2)Took cool pic (11)Delivered Lame pic (12)Delivered Cool Pic -->
             <xs:enumeration value="SAMUEL_MET" /> <!-- (1) had first dialog (2) had first dialog after meeting principal -->
             <xs:enumeration value="SAMUEL_SMOOTH_TALK" /> 
+            <xs:enumeration value="STUDIO_TOKENS_FOUND" />
+            <!-- BITWISE:
+                    (bit-0) CH_Kate
+                    (bit-1) CH_Brooke
+                    (bit-2) CH_Max
+                -->
             <xs:enumeration value="TAYLOR_GIRLS_RESTROOM" /> 
                 <!-- BITWISE:
                     (bit-0) Had first interaction

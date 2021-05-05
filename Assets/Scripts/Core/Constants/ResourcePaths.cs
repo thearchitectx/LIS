@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace TheArchitect.Core.Constants
 {
     public class ResourcePaths
@@ -9,6 +11,7 @@ namespace TheArchitect.Core.Constants
         public const string PREFAB_PANEL_SYSTEM_MESSAGE = "UI/Panel System Message";
         public const string PREFAB_PANEL_DIALOG_OBJECTIVE = "UI/Panel Dialog Objective";
         public const string PREFAB_PANEL_CHOICE = "UI/Panel Choice/Panel Choice";
+        public const string PREFAB_GAME_SETTINGS = "UI/Game Settings/Game Settings";
         
         public const string FOLDER_PREFABS = "Prefabs";
         public const string PREFAB_FADE_TO_BLACK = "Prefabs/FadeToBlack/FadeToBlack";
@@ -25,6 +28,8 @@ namespace TheArchitect.Core.Constants
         public const string SO_ITEMS = "ScriptableObjects/Items";
         public const string SO_CHARACTERS = "ScriptableObjects/Characters";
         public const string SO_TROPHIES = "ScriptableObjects/Trophies";
+
+        public const string STREAMING_XML_OBJECTIVES = "Data/Objectives.xml";
 
     }
 }

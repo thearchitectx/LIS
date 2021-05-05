@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../Cutscene.xsd">
+    <nodes>
+        <n id="a">
+            <dlg style="subjective">
+                <m>Someone dropped their lunch money here...</m>
+            </dlg>
+            <choice>
+                <c out="#a">
+                    <text>[ TAKE IT ]</text>
+                    <then>
+                        <dlg style="subjective">
+                            <m>Finders keepers... Losers weepers...</m>
+                        </dlg>
+                        <flag name="LOST_MONEY_FOUND" bit-set="${Texts.TXT_ARG_0}" />
+                        <item name="ITM_MONEY" inc="${Texts.TXT_ARG_1}">YOU FOUND ${Texts.TXT_ARG_1} IN CASH!</item>
+                        <cutscene-outcome value="_destroyParent" />
+                    </then>
+                </c>
+                <c out="#b">
+                    <text>[ LEAVE ]</text>
+                </c>
+            </choice>
+
+        </n>
+
+    </nodes>
+</cutscene>

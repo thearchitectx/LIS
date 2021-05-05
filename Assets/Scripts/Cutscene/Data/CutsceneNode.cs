@@ -51,6 +51,7 @@ namespace TheArchitect.Cutscene
             XmlElement("walker", typeof(WalkerAction)),
             XmlElement("sfx", typeof(SFXAction)),
             XmlElement("bgm", typeof(BGMAction)),
+            XmlElement("studio-token", typeof(StudioTokenAction)),
         ]
         public CutsceneAction[] Actions
         {

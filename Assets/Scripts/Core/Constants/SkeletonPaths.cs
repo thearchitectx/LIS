@@ -17,6 +17,8 @@ namespace TheArchitect.Core.Constants
     
     public struct SkeletonPaths
     {
+        public const string BLENDSHAPE_ENHANCED = "Enhanced";
+        
         public const string RIG_ROOT_TRACK = "ArmObject Track";
         public const string RIG_HEADTRACK = "Rig Head Track";
         public const string RIG_EYETRACK = "Rig Eye Track";

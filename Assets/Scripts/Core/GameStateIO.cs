@@ -8,6 +8,7 @@ namespace TheArchitect.Core
 {
     public partial class GameState
     {
+        public const string TEXT_GAME_VERSION = "TEXT_GAME_VERSION";
         public const string SAVE_SUB_DIRECTORY = "saves";
         public const string PICTURES_SUB_DIRECTORY = "saves/pictures";
         public const string STATE_FILE_NAME = "state.xml";
@@ -22,15 +23,22 @@ namespace TheArchitect.Core
             File.WriteAllText(labelFilePath, label);
         }
 
-        public void Save(string root, string slot, string label)
+        public void Save(string root, string slot, string label, string gameVersion)
         {
+            
             this.m_Flags = new Flag[this.FlagIndex.Count];
             this.FlagIndex.Values.CopyTo(this.m_Flags, 0);
 
             this.m_Floats = this.FloatIndex.Values.Where( f => !float.IsNaN(f.State) ).ToArray();
 
-            this.m_Texts = new TextData[this.TextIndex.Count];
-            this.TextIndex.Values.CopyTo(this.m_Texts, 0);
+            if (!this.TextIndex.ContainsKey(TEXT_GAME_VERSION))
+                this.TextIndex.Add(TEXT_GAME_VERSION, new TextData() {Name = TEXT_GAME_VERSION, State = gameVersion});
+
+            var textValues = this.TextIndex.Values
+                .Where( td => !td.Name.StartsWith("#") && !td.Name.StartsWith("TXT_ARG") )
+                .ToArray();
+            this.m_Texts = new TextData[textValues.Length];
+            textValues.CopyTo(this.m_Texts, 0);
 
             this.m_Objectives = new string[this.ObjectiveIndex.Count];
             this.m_ObjectiveIndex.CopyTo(this.m_Objectives, 0);

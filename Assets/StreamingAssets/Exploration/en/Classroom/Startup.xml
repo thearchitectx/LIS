@@ -8,7 +8,7 @@
                 <check-flag flag="QUEST_JEFFERSON_TAKE_PIC" gte="10" />
                 <check-flag flag="PICKED_BROOKE_NOTE" eq="0" />
                 <then>
-                    <prefab target="BrookeNote" resource="Exploration/Classroom/BrookeNote/BrookeNote" parent="Dynamic" />
+                    <prefab target="BrookeNote" resource="Exploration/Classroom/Dynamic/BrookeNote/BrookeNote" parent="Dynamic" />
                 </then>
             </if>
             <cutscene-outcome value="_destroyObject" />

@@ -75,6 +75,7 @@
             <xs:enumeration value="TXT_ARG_3" />
             <xs:enumeration value="TXT_ARG_4" />
             <xs:enumeration value="TXT_TMP_0" />
+            <xs:enumeration value="TXT_TMP_1" />
             <xs:enumeration value="KATE_HALLWAY_PICTURE" />
             <xs:enumeration value="PARAM_FILE_FOLDER" />
         </xs:restriction>
@@ -83,6 +84,11 @@
         <xs:restriction base="xs:string">
             <xs:enumeration value="PRK_SMELLY" />
             <xs:enumeration value="PRK_SMOOTH_TALKER" />
+        </xs:restriction>
+    </xs:simpleType>
+    <xs:simpleType name="studio-token-category">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="BASIC" />
         </xs:restriction>
     </xs:simpleType>
     <xs:simpleType name="choiceIcon">
@@ -146,6 +152,7 @@
     <xs:complexType name="check-flag-type">
         <xs:attribute name="flag" type="flag" use="required" />
         <xs:attribute name="eq" type="xs:integer" use="optional" />
+        <xs:attribute name="eq-str" type="xs:string" use="optional" />
         <xs:attribute name="gte" type="xs:integer" use="optional" />
         <xs:attribute name="lte" type="xs:integer" use="optional" />
         <xs:attribute name="mod" type="xs:integer" use="optional" />
@@ -235,6 +242,7 @@
                             <xs:attribute name="ref" type="text-data" use="optional" />
                             <xs:attribute name="inc" type="xs:string" use="optional" />
                             <xs:attribute name="set" type="xs:string" use="optional" />
+                            <xs:attribute name="random-max" type="xs:string" use="optional" />
                             <xs:attribute name="bit-set" type="xs:string" use="optional" />
                             <xs:attribute name="bit-unset" type="xs:string" use="optional" />
                         </xs:extension>
@@ -250,6 +258,16 @@
             <xs:element name="trophy">
                 <xs:complexType>
                     <xs:attribute name="unlock" type="trophy" use="required" />
+                </xs:complexType>
+            </xs:element>
+            <xs:element name="studio-token">
+                <xs:complexType>
+                    <xs:simpleContent>
+                        <xs:extension base="xs:string">
+                            <xs:attribute name="char" type="character" use="required" />
+                            <xs:attribute name="category" type="studio-token-category" use="required" />
+                        </xs:extension>
+                    </xs:simpleContent>
                 </xs:complexType>
             </xs:element>
             <xs:element name="walker">

@@ -12,7 +12,7 @@
                         <m>So... Do you have it?</m>
                         <m wait="1">Come on... Show me you can convince any girl to take a single innocent picture...</m>
                     </dlg>
-                    <cutscene-outcome value="_end" />
+                    <node-output node="_end" />
                 </then>
             </if>
             <if>
@@ -30,14 +30,99 @@
             </if>
             <if>
                 <check-flag flag="QUEST_JEFFERSON_TAKE_PIC" gte="10" />
+                <check-flag flag="QUEST_BROOKE_RECORD_VIDEO" lte="10" />
                 <then>
                     <dlg char="CH_Jefferson" style="subjective">
-                        <m>You should go talk to the principal now, and maybe find new 'friends' in the way there...</m>
-                        <m>I have other matters to attend to...</m>
+                        <m>You should go talk to the principal now... And don't forget to make new friends in the way there...</m>
+                        <m>As I said... If you push that smart ass girl into some lewd action, then and I'll have a reward for you...</m>
                     </dlg>
-                    <cutscene-outcome value="_end" />
+                    <node-output node="_end" />
                 </then>
             </if>
+
+            <dlg char="CH_Jefferson" style="subjective">
+                <m>I hope you're taking your work really seriously...</m>
+            </dlg>
+
+            <choice>
+                <c out="#a">
+                    <text>That "smart girl" you talked about... She just showed me her boobs in the girl's restroom...</text>
+                    <then>
+                        <node-output node="brooke-reward" />
+                    </then>
+                </c>
+                <c out="#b">
+                    <text>[ Leave ]</text>
+                </c>
+            </choice>
+        </n>
+
+        <n id="brooke-reward">
+            <anim target="CH_Jefferson" react="SUSPICIOUS" />
+            <dlg char="CH_Jefferson" style="subjective">
+                <m wait="1">Hum... That's really interesting... You're doing better than expected...</m>
+                <m>I know you're not lying to me or anything... But I just wonder...</m>
+            </dlg>
+            <anim target="CH_Jefferson" react="SAY02" />
+            <dlg char="CH_Jefferson" style="subjective">
+                <m>Did you acquired any "visual" record of her for me? You know... for "research"...</m>
+            </dlg>
+
+            <choice>
+                <c out="#a" icon="DICK_KARMA_EVIL">
+                    <text>Sure... I copied this video to my phone where you can see she flashing her tits in the restroom... I'll send you a copy so you can... "research" her...</text>
+                    <then>
+                        <flag name="DICK_KARMA" inc="-1">YOUR KARMA BALANCED TOWARDS THE *EVIL* SIDE</flag>
+                        <anim target="CH_Jefferson" react="SUSPICIOUS" />
+                        <dlg char="CH_Jefferson" style="subjective">
+                            <m>Very good... I'll be busy reviewing this tonight...</m>
+                        </dlg>
+                    </then>
+                </c>
+                <c out="#b" icon="DICK_KARMA_GOOD">
+                    <text>Nah... I was too busy at the time... Let's just keep her privacy for now, right?</text>
+                    <then>
+                        <flag name="DICK_KARMA" inc="1">YOUR KARMA BALANCED TOWARDS THE *GOOD* SIDE</flag>
+                        <anim target="CH_Jefferson" react="FACEPALM" />
+                        <dlg char="CH_Jefferson" style="subjective">
+                            <m>Sigh... A little disappointing, but that's okay...</m>
+                        </dlg>
+                    </then>
+                </c>
+            </choice>
+
+            <dlg char="CH_Jefferson" style="subjective">
+                <m>Now... About the reward I promised...</m>
+            </dlg>
+            <anim target="CH_Jefferson" react="SAY02" />
+            <dlg char="CH_Jefferson" style="subjective">
+                <m>You see... I have this uuhh.... underground... photography studio... bunker...</m>
+                <m wait="1">It's a nice place to practice your skills and review your Art production... You can go there to use it yourself...</m>
+            </dlg>
+            <anim target="CH_Jefferson" react="GIVE_ITEM" />
+            <studio-token char="CH_Kate" category="BASIC">YOU FOUND *KATE'S BASIC STUDIO TOKEN*</studio-token>
+            <dlg char="CH_Jefferson" style="subjective">
+                <m wait="1">Also... Take this...</m>
+            </dlg>
+            <dlg char="CH_Jefferson" style="subjective">
+                <m wait="0.5">I have a really interesting camera for practice there... It features a high tech augmented reality mannequin software that can perfectly mimic the appearance of a real person as long you feed it with data stored in one of these tokens...</m>
+            </dlg>
+            <anim target="CH_Jefferson" react="SAY02" />
+            <dlg char="CH_Jefferson" style="subjective">
+                <m wait="1">Yeah... Please... Don't ask...</m>
+                <m>The problem is... I had a set of tokens configured with the appearance of several Blackwell girls, but it simply vanished from my desk a couple of days ago...</m>
+            </dlg>
+            <anim target="CH_Jefferson" react="SAY01" />
+            <dlg char="CH_Jefferson" style="subjective">
+                <m>I don't know if someone stole them or if the janitor thought they're garbage and throw them away... The fact is... They are probably spread around this city...</m>
+                <m>So if you find one of them, bring to the studio and check out what it can do...</m>
+            </dlg>
+
+            <sys>STUDIO TOKENS\n\n
+                The BUNKER STUDIO can be accessed from the title menu\n\n
+                Studio tokens you find are shared among all your playthroughs. They'll unlock characters, poses and interactions.\n\n
+                You can acquire tokens by completing tasks, buying from someone or simply finding them lying around some locations
+            </sys>
         </n>
     </nodes>
 </cutscene>

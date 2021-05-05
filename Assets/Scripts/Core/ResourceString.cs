@@ -25,8 +25,8 @@ namespace TheArchitect.Core
         }
         public static string Parse(string s)
         {
-            if (s==null)
-                return null;
+            if (string.IsNullOrEmpty(s))
+                return s;
 
             string finalString = s;
 
@@ -60,7 +60,7 @@ namespace TheArchitect.Core
                     Game game = Resources.Load<Game>(ResourcePaths.SO_GAME);
                     finalString = finalString.Replace(
                         match.Value,
-                        game.GetTextState(path[1]).ToString()
+                        game.GetTextState(path[1])
                     );
                 }
                 else if (path[0]==ITEMS && path.Length == 2)

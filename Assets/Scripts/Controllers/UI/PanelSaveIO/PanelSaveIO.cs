@@ -121,7 +121,7 @@ namespace TheArchitect.Controllers.UI.PanelSaveIO
         private IEnumerator DoSave(string root, string slot, string label)
         {
             // Save state
-            m_Game.State.Save(root, slot, label != null ? label : $"SAVE SLOT {slot}");
+            m_Game.State.Save(root, slot, label != null ? label : $"SAVE SLOT {slot}", Application.version);
 
             // Prepare for screenshot
             List<Canvas> allCanvas = GameObject.FindObjectsOfType<Canvas>().Where( c => c.enabled ).ToList();

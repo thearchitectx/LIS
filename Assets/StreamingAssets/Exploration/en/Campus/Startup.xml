@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../Cutscene.xsd">
+    <nodes>
+        <n id="n1">
+            <flag name="#DISABLE_PLAYER" set="1" />
+            <dlg char="THE_ARCHITECT" style="remote-subjective">
+                <m>This area is under construction and there are no interactive elements for now. You can walk around to check the view at your own risk of being launched inside the space-time void...</m>
+            </dlg>
+            <flag name="#DISABLE_PLAYER" set="0" />
+            <cutscene-outcome value="_destroyObject" />
+        </n>
+    </nodes>
+</cutscene>

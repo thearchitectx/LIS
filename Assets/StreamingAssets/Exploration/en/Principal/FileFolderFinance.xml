@@ -62,6 +62,8 @@
                     </dlg>
                 </else>
             </if>
+
+            <prefab destroy="ModelViewer" />
             
         </n>
 

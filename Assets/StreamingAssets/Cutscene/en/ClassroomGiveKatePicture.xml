@@ -202,8 +202,8 @@
             <wait time="1" />
             <anim target="Cinemachine" trigger="close" />
             <dlg char="CH_Jefferson" track="Neck">
-                <m>Now... Beat it... And don't forget your new intel...</m>
-                <m>I'm sure it will help with some new friend you might make in the way to principal's office...</m>
+                <m>Now... Beat it... And don't forget your new intel... It's about a certain "smart girl" that likes to snob my class...</m>
+                <m>If you manage to push her into some lewd action and I'll have a reward for you...</m>
             </dlg>
 
             <fade-to-black mode="to" keep="true" />

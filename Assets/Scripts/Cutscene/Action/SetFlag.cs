@@ -23,6 +23,8 @@ namespace TheArchitect.Cutscene.Action
         public string Bit1 = null;
         [XmlAttribute("bit-unset")]
         public string Bit0 = null;
+        [XmlAttribute("random-max")]
+        public string Random = null;
         [XmlText]
         public string Message = null;
         
@@ -34,30 +36,37 @@ namespace TheArchitect.Cutscene.Action
                 resolvedName = controller.Game.GetTextState(Ref);
             }
 
-            if (Inc!=null)
+            if (!string.IsNullOrEmpty(Inc))
             {
                 int v = controller.Game.GetFlagState(resolvedName);
                 controller.Game.SetFlagState(resolvedName, v + ResourceString.ParseToInt(Inc));
             }
 
-            if (Set != null)
+            if (!string.IsNullOrEmpty(Set ))
             {
                 controller.Game.SetFlagState(resolvedName, ResourceString.ParseToInt(Set));
             }
 
-            if (Bit0 != null)
+            if (!string.IsNullOrEmpty(Bit0 ))
             {
                 int v = controller.Game.GetFlagState(resolvedName);
                 controller.Game.SetFlagState(resolvedName, v & ~(1 << ResourceString.ParseToInt(Bit0)));
             }
 
-            if (Bit1 != null)
+            if (!string.IsNullOrEmpty(Bit1 ))
             {
                 int v = controller.Game.GetFlagState(resolvedName);
                 controller.Game.SetFlagState(resolvedName, v | 1 << ResourceString.ParseToInt(Bit1));
             }
 
-            if (Message!=null && Message!="")
+            if (!string.IsNullOrEmpty(Random))
+            {
+                int max = ResourceString.ParseToInt(Random);
+                int v = UnityEngine.Random.Range(1, max+1);
+                controller.Game.SetFlagState(resolvedName, v);
+            }
+
+            if (!string.IsNullOrEmpty(Message))
             {
                 Resources.Load<Console>(ResourcePaths.SO_CONSOLE).Log(
                     ResourceString.Parse(Message)

@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../Cutscene.xsd">
+    <nodes>
+        <n id="n1">
+            <switch-text check="${Texts.TXT_ARG_0}" text="TXT_TMP_0">
+                <case eq="SCIENCE_CLASS">Locked... It seems science folk went home already...</case>
+                <case eq="NOTICE_ART_CLASS">There are a few notes here...</case>
+                <case eq="NOTICE_SCIENCE_CLASS">There are a few notes here...</case>
+                <case eq="DOOR_STAIRS">This area is not available yet...</case>
+            </switch-text>
+            <switch-text check="${Texts.TXT_ARG_0}" text="TXT_TMP_1">
+                <case eq="NOTICE_ART_CLASS">"Visual Arts Class - Professor Mark Jefferson"\n\n"Submissions to the Everyday Heroes Photo Contest  are open!"</case>
+                <case eq="NOTICE_SCIENCE_CLASS">"Natural Sciences Class - Professor Michelle Grant"\n\n"Study Group applications are open! Come have fun with your friends!"</case>
+            </switch-text>
+            
+            <dlg style="subjective">
+                <m>${Texts.TXT_TMP_0}</m>
+            </dlg>
+            <if>
+                <check-text text="TXT_TMP_1" neq="#EMPTY" />
+                <then>
+                    <dlg style="subjective">
+                        <m>${Texts.TXT_TMP_1}</m>
+                    </dlg>
+                </then>
+            </if>
+        </n>
+    </nodes>
+</cutscene>

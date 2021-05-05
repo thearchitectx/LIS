@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../Cutscene.xsd">
+    <nodes>
+        <n id="n1">
+            <switch-text check="${Texts.TXT_ARG_0}" text="TXT_TMP_0">
+                <case eq="MAX_STUFF">Some girl left all her stuff here... I wonder why she was in such hurry...</case>
+                <case eq="TV">I bet Mr. Jefferson brings some real weird movies to watch here after class...</case>
+                <case eq="CLASS_PICTURE">Nothing like a picture of your class without your presence to make you feel at home...</case>
+                <case eq="PHOTO_STUFF1">A bunch of expensive photography stuff here...</case>
+                <case eq="POSTER_COLORS">I can't say why... But that poster give me the creeps...</case>
+                <case eq="COMPUTER">Typical...</case>
+            </switch-text>
+            <switch-text check="${Texts.TXT_ARG_0}" text="TXT_TMP_1">
+                <case eq="TV">And I'm not talking about your every day vanilla porn flick...</case>
+                <case eq="COMPUTER">I don't think this will serve for anything useful...</case>
+                <case eq="PHOTO_STUFF1">So this is how a properly funded school looks like?</case>
+            </switch-text>
+            
+            <dlg style="subjective">
+                <m>${Texts.TXT_TMP_0}</m>
+            </dlg>
+            <if>
+                <check-text text="TXT_TMP_1" neq="#EMPTY" />
+                <then>
+                    <dlg style="subjective">
+                        <m>${Texts.TXT_TMP_1}</m>
+                    </dlg>
+                </then>
+            </if>
+        </n>
+    </nodes>
+</cutscene>

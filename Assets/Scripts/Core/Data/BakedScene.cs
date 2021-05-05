@@ -9,6 +9,7 @@ namespace TheArchitect.Core.Data
         ToiletMen = 4,
         ToiletWomen = 7,
         PrincipalOffice = 5,
-        Principal = 6
+        Principal = 6,
+        Campus = 8
     }
 }

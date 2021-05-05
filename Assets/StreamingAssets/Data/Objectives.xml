@@ -1,0 +1,77 @@
+<objectives>
+    <objective name="OBJ_IntroTalk">
+        <title>Report to Mr. Jefferson</title>
+        <description>Tell Mr. Jefferson you finished your cleaning duty</description>
+    </objective>
+    <objective name="OBJ_IntroCollectTrash">
+        <title><![CDATA[<color=cyan>Task:</color> Collect all the garbage left in the classroom]]></title>
+        <description></description>
+    </objective>
+    <objective name="OBJ_JeffersonFirstPicBring">
+        <title><![CDATA[<color=cyan>Task:</color> Bring the picture to Mr. Jefferson]]></title>
+        <description></description>
+    </objective>
+    <objective name="OBJ_JeffersonFirstPicTake">
+        <title><![CDATA[<color=cyan>Task:</color> Take a picture of a girl for Mr. Jefferson]]></title>
+        <description></description>
+    </objective>
+
+    <objective name="OBJ_KateHelpLockerFindKey">
+        <title><![CDATA[<color=cyan>Help Kate:</color> Find a locker master key somewhere in the hallway]]></title>
+        <description></description>
+    </objective>
+    <objective name="OBJ_KateHelpLockerOpenLocker">
+        <title><![CDATA[<color=cyan>Help Kate:</color> Giver her the key you found]]></title>
+        <description></description>
+    </objective>
+
+    <objective name="OBJ_BrookeMemoryCard01">
+        <title><![CDATA[<color=cyan>The Memory Card:</color> Find a way to lead the principal out of his office]]></title>
+        <description></description>
+    </objective>
+    <objective name="OBJ_BrookeMemoryCard02">
+        <title><![CDATA[<color=cyan>The Memory Card:</color> Give the memory card back to Brooke]]></title>
+        <description></description>
+    </objective>
+    <objective name="OBJ_PrincipalPrank">
+        <title><![CDATA[<color=cyan>Principal Prank</color> Go to the Principal's office door to start a diversion procedure or ask someone smart to help you with it]]></title>
+        <description></description>
+    </objective>
+    <objective name="OBJ_BrookeDeepFakeBrookeWaitsInRestroom">
+        <title><![CDATA[<color=cyan>Deep Fake:</color> Brooke is waiting at the girls restroom to record the video]]></title>
+        <description></description>
+    </objective>
+    <objective name="OBJ_BrookeDeepFakeCheckGirlsRestroom">
+        <title><![CDATA[<color=cyan>Deep Fake:</color> Check if the girls restroom is available for a private recording session]]></title>
+        <description></description>
+    </objective>
+    <objective name="OBJ_BrookeDeepFakeReportToBrooke">
+        <title><![CDATA[<color=cyan>Deep Fake:</color> Tell Brooke the girl's restroom is empty]]></title>
+        <description></description>
+    </objective>
+
+    <objective name="OBJ_CleanGirlsRestroom">
+        <title><![CDATA[<color=cyan>Task:</color> Clean the girl's room]]></title>
+        <description></description>
+    </objective>
+    <objective name="OBJ_CleanGirlsRestroomReport">
+        <title><![CDATA[<color=cyan>Task:</color> Report to Samuel]]></title>
+        <description></description>
+    </objective>
+
+    <objective name="OBJ_TalkToSamuel">
+        <title><![CDATA[<color=cyan>Task:</color> Find Samuel and ask him about your new 'job']]></title>
+        <description></description>
+    </objective>
+
+    <objective name="OBJ_TalkToThePrincipal">
+        <title><![CDATA[<color=cyan>Task:</color> Find the principal and have a chat with him]]></title>
+        <description></description>
+    </objective>
+
+    <objective name="OBJ_TaylorOutOfGirlsRoomDoor">
+        <title><![CDATA[<color=cyan>Task:</color> Find a way to make Taylor leave the door]]></title>
+        <description>Try Smooth Talking her, of find and give her Courtney's bracelet lost somewhere in the main hall</description>
+    </objective>
+
+</objectives>

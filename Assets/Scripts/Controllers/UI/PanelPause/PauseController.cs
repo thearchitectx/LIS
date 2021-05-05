@@ -18,7 +18,6 @@ namespace TheArchitect.Controllers.UI.PanelPause
         [SerializeField] public GameObject CanvasSavePrefab;
         [SerializeField] public GameObject CanvasHelpPrefab;
         [SerializeField] public GameObject CanvasExceptionPrefab;
-        [SerializeField] public GameObject CanvasObjectivePrefab;
         [SerializeField] public GameObject CanvasTrophiesPrefab;
         [SerializeField] public GameObject CanvasFPSPrefab;
         [SerializeField] private PostProcessVolume PostProcessPause;
@@ -36,8 +35,6 @@ namespace TheArchitect.Controllers.UI.PanelPause
 
         void Start()
         {
-            if (PlayerPrefs.GetInt(PLAYER_PREF_HIDE_OBJECTIVES, 0) == 0)
-                OpenObjectives();
             if (PlayerPrefs.GetInt(PLAYER_PREF_SHOW_FPS, 0) == 1)
                 ShowFPS();
             this.m_IgnoreException = PlayerPrefs.GetInt(PLAYER_PREF_IGNORE_EXCEPTION, 0) == 1;
@@ -81,14 +78,6 @@ namespace TheArchitect.Controllers.UI.PanelPause
             if (m_CanvasPause == null && Input.GetKeyDown(KeyCode.F11))
             {
                 ToggleFPS();
-            }
-
-            if (m_CanvasPause == null && Input.GetKeyDown(KeyCode.Tab))
-            {
-                if (this.m_CanvasObjective == null)
-                    OpenObjectives();
-                else
-                    CloseObjectives();
             }
 
             PostProcessPause.weight = Mathf.Clamp01(PostProcessPause.weight + Time.unscaledDeltaTime * 2 * (this.m_CanvasPause == null ? -1 : 1));
@@ -163,26 +152,6 @@ namespace TheArchitect.Controllers.UI.PanelPause
         {
             if (this.m_CanvasHelp!=null)
                 Destroy(this.m_CanvasHelp.gameObject);
-        }
-
-        public void OpenObjectives()
-        {
-            PlayerPrefs.SetInt(PLAYER_PREF_HIDE_OBJECTIVES, 0);
-            PlayerPrefs.Save();
-            if (this.m_CanvasObjective == null)
-            {
-                this.m_CanvasObjective = Instantiate(CanvasObjectivePrefab).GetComponent<Transform>();
-                this.m_CanvasObjective.SetParent(this.transform, false);
-
-            }
-        }
-
-        public void CloseObjectives()
-        {
-            PlayerPrefs.SetInt(PLAYER_PREF_HIDE_OBJECTIVES, 1);
-            PlayerPrefs.Save();
-            if (this.m_CanvasObjective!=null)
-                Destroy(this.m_CanvasObjective.gameObject);
         }
 
 

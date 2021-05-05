@@ -301,7 +301,7 @@
                         <rig-track of="CH_Taylor" eye="0.5" head="0.5" />
                         <anim target="CH_Taylor" idle="HORNY01" expression="UNEASY"  />
                         <dlg char="CH_Taylor" style="subjective" neutral-expression="true">
-                            <m>Yeah... To think that I can feel that pale smooth skin... and...</m>
+                            <m>Yeah... To think that I can feel that pale skin... so smooth and...</m>
                             <m>and...</m>
                         </dlg>
                         <wait time="1" />

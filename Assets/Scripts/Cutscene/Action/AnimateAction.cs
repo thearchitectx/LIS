@@ -141,7 +141,8 @@ namespace TheArchitect.Cutscene.Action
             SAY02,
             PISSED_OFF01,
             LAUGH01,
-            GIGGLE
+            GIGGLE,
+            GIVE_ITEM,
         }
 
         public enum CharacterExpression

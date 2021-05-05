@@ -11,8 +11,11 @@ namespace TheArchitect.Controllers.FirstPerson
         public const float MIN_MOUSE_SENSITIVITY = 0.05f;
         public const float MAX_MOUSE_SENSITIVITY = 10;
         public const float DEFAULT_MOUSE_SENSITIVITY = 2;
-        private const string PREF_FOV = "FirstPerson.FOV";
-        private const string PREF_MOUSE_SENSITIVITY = "FirstPerson.MOUSE_SENSITIVITY";
+        public const float MIN_FOV = 30;
+        public const float MAX_FOV = 90;
+        public const float DEFAULT_FOV = 55;
+        public const string PREF_FOV = "FirstPerson.FOV";
+        public const string PREF_MOUSE_SENSITIVITY = "FirstPerson.MOUSE_SENSITIVITY";
 
         private float m_PrefSaveCounter = 0;
         private CinemachineVirtualCamera m_VirtualCam;
@@ -23,7 +26,7 @@ namespace TheArchitect.Controllers.FirstPerson
             this.m_MouseLook = GetComponentInChildren<FirstPersonMouseLook>();
             this.m_MouseLook.m_MouseSensitivity = PlayerPrefs.GetFloat(PREF_MOUSE_SENSITIVITY, DEFAULT_MOUSE_SENSITIVITY);
             this.m_VirtualCam = GetComponentInChildren<CinemachineVirtualCamera>();
-            this.m_VirtualCam.m_Lens.FieldOfView = PlayerPrefs.GetFloat(PREF_FOV, 55);
+            this.m_VirtualCam.m_Lens.FieldOfView = PlayerPrefs.GetFloat(PREF_FOV, DEFAULT_FOV);
 
             if (this.m_MouseLook.m_MouseSensitivity >= MAX_MOUSE_SENSITIVITY || this.m_MouseLook.m_MouseSensitivity <= MIN_MOUSE_SENSITIVITY)
                 this.m_MouseLook.m_MouseSensitivity = DEFAULT_MOUSE_SENSITIVITY;
@@ -35,10 +38,10 @@ namespace TheArchitect.Controllers.FirstPerson
                 return;
 
             if (Input.GetKey(KeyCode.F3)) {
-                this.m_VirtualCam.m_Lens.FieldOfView = Mathf.Clamp(this.m_VirtualCam.m_Lens.FieldOfView - Time.deltaTime * 10, 30, 90);
+                this.m_VirtualCam.m_Lens.FieldOfView = Mathf.Clamp(this.m_VirtualCam.m_Lens.FieldOfView - Time.deltaTime * 10, MIN_FOV, MAX_FOV);
                 this.m_PrefSaveCounter = 0.5f;
             } else if (Input.GetKey(KeyCode.F4)) {
-                this.m_VirtualCam.m_Lens.FieldOfView = Mathf.Clamp(this.m_VirtualCam.m_Lens.FieldOfView + Time.deltaTime * 10, 30, 90);
+                this.m_VirtualCam.m_Lens.FieldOfView = Mathf.Clamp(this.m_VirtualCam.m_Lens.FieldOfView + Time.deltaTime * 10, MIN_FOV, MAX_FOV);
                 this.m_PrefSaveCounter = 0.5f;
             } else if (Input.GetKey(KeyCode.F5)) {
                 this.m_MouseLook.m_MouseSensitivity = Mathf.Clamp(this.m_MouseLook.m_MouseSensitivity - Time.deltaTime * 2, MIN_MOUSE_SENSITIVITY, MAX_MOUSE_SENSITIVITY);

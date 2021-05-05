@@ -2,53 +2,38 @@
 <cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="../../../Cutscene.xsd">
     <nodes>
-        <n id="n1">
+        <n id="root">
             <dlg style="subjective">
-                <m>A trashcan... Apparently an invisible object for most students in this school...</m>
+                <m>Yet another trashcan...</m>
             </dlg>
             
             <choice>
-                <c out="n2-rummage">
-                    <check-flag flag="QUEST_KATE_LOCKER" eq="1" />
-                    <text>Rummage</text>
-                </c>
                 <c out="trash-dump">
                     <check-item item="ITM_TRASH" gte="1" />
                     <text>Discard Trash</text>
                 </c>
                 <c out="trash-get">
-                    <check-flag flag="HALLWAY_TRASH_CAN_A_TRASH_COUNT" gte="1" />
+                    <check-item item="ITM_TRASH" lte="3" />
                     <text>Collect Trash</text>
                 </c>
                 <c out="#a"><text>Leave</text></c>
             </choice>
         </n>
 
-        <n id="n2-rummage">
-            <fade-to-black mode="to-from" keep="false" />
-            <wait time="2" />
-            <dlg style="subjective">
-                <m>Nothing much useful here...</m>
-            </dlg>
-        </n>
-
         <n id="trash-dump">
             <fade-to-black keep="false" />
             <wait time="1" />
-
-            <flag name="HALLWAY_TRASH_CAN_A_TRASH_COUNT" inc="${Items.ITM_TRASH}" />
             <item name="ITM_TRASH" set="0">DISCARDED ALL TRASH</item>
-
             <dlg style="subjective">
                 <m>Trash is now in the place it belongs...</m>
             </dlg>
         </n>
+
         <n id="trash-get">
             <fade-to-black keep="false" />
             <wait time="1" />
 
-            <item name="ITM_TRASH" set="${Flags.HALLWAY_TRASH_CAN_A_TRASH_COUNT}">Collected ${Flags.HALLWAY_TRASH_CAN_A_TRASH_COUNT} pieces of trash</item>
-            <flag name="HALLWAY_TRASH_CAN_A_TRASH_COUNT" set="0" />
+            <item name="ITM_TRASH" inc="1">COLLECTED TRASH! YAY!</item>
 
             <dlg style="subjective">
                 <m>Just honing my homeless skills, I guess...</m>

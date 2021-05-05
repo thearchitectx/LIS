@@ -5,6 +5,7 @@ using TheArchitect.Core.Data;
 using TheArchitect.Core.Constants;
 using System.Xml.Serialization;
 using System;
+using System.IO;
 using System.Linq;
 using System.Collections.Generic;
 
@@ -21,14 +22,24 @@ namespace TheArchitect.Core
         [NonSerialized] private Stage[] m_Stages;
         [NonSerialized] private Item[] m_Items;
         [NonSerialized] private Perk[] m_Perks;
+        [NonSerialized] private ObjectiveList m_Objectives;
         [NonSerialized] private GameState m_State;
         [NonSerialized] public Stage LoadingStage;
         [NonSerialized] public bool AllowSaving;
 
-        [NonSerialized] public UnityEvent<string> OnObjectivesUpdate = new UnityEvent<string>();
-        
         [NonSerialized] private bool m_DisablePlayer;
         [NonSerialized] private int m_StateChangeCount;
+
+        public void OnEnable()
+        {
+            #if UNITY_STANDALONE
+            Debug.Log("GAME OBJECT LOADED");
+            this.m_Items = Resources.LoadAll<Item>(ResourcePaths.SO_ITEMS);
+            this.m_Stages = Resources.LoadAll<Stage>(ResourcePaths.SO_STAGES);
+            this.m_Perks = Resources.LoadAll<Perk>(ResourcePaths.SO_PERKS);
+            this.m_Objectives = DataUtils.LoadXmlObject<ObjectiveList>($"{Application.streamingAssetsPath}/{ResourcePaths.STREAMING_XML_OBJECTIVES}");
+            #endif
+        }
 
         public bool DisablePlayer {
              get { return m_DisablePlayer; }
@@ -41,10 +52,7 @@ namespace TheArchitect.Core
         public GameState State {
             get { 
                 if (m_State==null) 
-                {
                     this.m_State = new GameState();
-                    CacheData();
-                }
                 
                 return m_State; 
             }
@@ -52,7 +60,6 @@ namespace TheArchitect.Core
             set {
                 this.m_State = value;
                 this.AllowSaving = true;
-                CacheData();
                 this.LoadStage(GetStage(State.Stage));
             }
         }
@@ -61,16 +68,6 @@ namespace TheArchitect.Core
             get { return m_StateChangeCount; }
         }
         
-        private void CacheData()
-        {
-            if (this.m_Items==null)
-            {
-                this.m_Items = Resources.LoadAll<Item>(ResourcePaths.SO_ITEMS);
-                this.m_Stages = Resources.LoadAll<Stage>(ResourcePaths.SO_STAGES);
-                this.m_Perks = Resources.LoadAll<Perk>(ResourcePaths.SO_PERKS);
-            }
-        }
-
         public void NewGame()
         {
             Debug.Log($"Starting new game");
@@ -78,8 +75,6 @@ namespace TheArchitect.Core
 
             if (this.m_StartStage == null || this.m_StartStage == "")
                 this.m_StartStage = "classroom-intro";
-
-            CacheData();
 
             this.AllowSaving = true;
 
@@ -246,7 +241,6 @@ namespace TheArchitect.Core
             #endif
 
             this.m_State.ObjectiveIndex.Add(name);
-            OnObjectivesUpdate.Invoke(name);
             m_StateChangeCount++;
         }
 
@@ -257,8 +251,12 @@ namespace TheArchitect.Core
             #endif
 
             this.m_State.ObjectiveIndex.Remove(name);
-            OnObjectivesUpdate.Invoke(name);
             m_StateChangeCount++;
+        }
+
+        public Objective[] GetObjectives()
+        {
+            return this.m_State.ObjectiveIndex.Select( name => m_Objectives.Get(name) ).ToArray();
         }
 
         public bool HasObjective(string name)
