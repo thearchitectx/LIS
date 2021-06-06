@@ -1,0 +1,275 @@
+<?xml version="1.0"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../Cutscene.xsd">
+
+    <nodes>
+        <n id="n1">
+            <flag name="WARREN_MEET_BOYS_DORM" bit-set="0" />
+            <prefab target="Timeline">
+                <outcome name="BUMP" output="BUMP" clear="true" />
+                <outcome name="END" output="#END" clear="true" />
+            </prefab>
+
+            <prefab name="TensionChoice">
+                <message name="MessageChoice0" string="[PUNCH HIM]" />
+                <message name="MessageChoice1" string="Excuse me!?!?" />
+                <message name="MessageChoice2" string="Dude... What the fuck!?!" />
+                <message name="MessageChoice3" string="Is that how you welcome people!?" />
+                <outcome name="0" output="#a" store="TXT_TMP_0" />
+                <outcome name="1" output="#b" store="TXT_TMP_0" />
+                <outcome name="2" output="#c" store="TXT_TMP_0" />
+                <outcome name="3" output="#d" store="TXT_TMP_0" />
+            </prefab>
+            <wait time="1" />
+            <prefab destroy="TensionChoice" />
+
+            <if>
+                <check-text text="TXT_TMP_0" eq="0" />
+                <then>
+                    <fade-to-black mode="to" time="1"  />
+                    <wait time="0.5" />
+                    <fade-to-black mode="none"  />
+                    <rig-track of="CH_Warren" head="0" eye="0" />
+                    <sfx clip="impact" />
+                    <prefab name="CinemachineImpulseGenerator">
+                        <message name="GenerateImpulseEffect" />
+                    </prefab>
+                    <anim target="CH_Warren" idle="SICK01" />
+                    
+                    <flag name="DICK_DARING" inc="1">YOU FEEL MORE *DARING*!</flag>
+                    <dlg char="CH_Warren" style="subjective">
+                        <m wait="1">OUCH!!!</m>
+                        <m>Why... Why did you do that!?!? That hurt!!</m>
+                    </dlg>
+        
+                    <choice>
+                        <c out="#a"><text>Maybe because you just jumped out of nowhere and pushed me like a psycho?</text></c>
+                        <c out="#b"><text>It's a thing called "self-defense"...</text></c>
+                    </choice>
+        
+                    <dlg char="CH_Warren" style="subjective">
+                        <m>Uuuhh... Yeah... I think I deserved that for getting physical...</m>
+                        <m wait="1">I... I usually prefer a rational argument...</m>
+                        <m>But... I am unusually angry now...</m>
+                    </dlg>
+                </then>
+                <else>
+                    <dlg char="CH_Warren" style="subjective">
+                        <m>Oh... Are you really going to play dumb with me!?!</m>
+                    </dlg>
+                    <anim target="CH_Warren" react="PISSED_OFF01" />
+                    <dlg char="CH_Warren" style="subjective">
+                        <m>I know what you did!!!</m>
+                    </dlg>
+                </else>
+            </if>
+            <rig-track of="CH_Warren" head="1" eye="1" />
+            <anim target="CH_Warren" bool="male" boolValue="true" idle="ARMS_CROSSED_F01" expression="DISAPPROVE" />
+            <dlg char="CH_Warren" style="subjective">
+                <m>You freaking perv... I saw you getting into the girls room while Max was there by herself!!</m>
+                <m>I was going to kick the door and save her, but the principal appeared when I was about to do it...</m>
+                <m>He shoved me out of the building saying I was "disturbing the school routine"...</m>
+            </dlg>
+            <anim target="CH_Warren" react="PISSED_OFF01" />
+            <dlg char="CH_Warren" style="subjective">
+                <m wait="0.5">I still can't believe that bastard didn't believe me!!</m>
+            </dlg>
+            
+            <choice>
+                <c out="#a">
+                    <text>It's interesting how you're so sure Max was there by herself... Only a stalker could have such precise information...</text>
+                    <then>
+                        <rig-track of="CH_Warren" head="0" eye="0" />
+                        <anim target="CH_Warren" react="SURPRISE" idle="UNEASY" expression="UNEASY" />
+                        <dlg char="CH_Warren" style="subjective">
+                            <m>What!?!? No... I... I'd never do that her... I...</m>
+                            <m wait="1">I just... I just worry about her safety and... uuhhh...</m>
+                        </dlg>
+                    </then>
+                </c>
+                <c out="#b">
+                    <text>'Save her'? If it's a white knight thing, then you should git gud... Because you were just beaten by a fat ugly level 1 orc before even getting into the dungeon...</text>
+                    <then>
+                        <anim target="CH_Warren" idle="UNEASY" />
+                        <dlg char="CH_Warren" style="subjective">
+                            <m>Hey... Where did your heard about the white knight nickname?</m>
+                            <m>I've been trying to make she call me that and join my WoW party...</m>
+                        </dlg>
+                        <rig-track of="CH_Warren" head="0" eye="0" />
+                        <anim target="CH_Warren" react="SAY02" expression="UNEASY" />
+                        <dlg char="CH_Warren" style="subjective">
+                            <m wait="0.5">But... You're right...</m>
+                            <m wait="1">If I couldn't even save her today... How would I ever...</m>
+                        </dlg>
+                    </then>
+                </c>
+            </choice>
+            <rig-track of="CH_Warren" head="1" eye="1" />
+            <anim target="CH_Warren" idle="ARMS_CROSSED_F01" expression="DISAPPROVE" />
+            <dlg char="CH_Warren" style="subjective">
+                <m>Wait...</m>
+                <m wait="1">You... Stop trying to change the subject here... It's about you we were talking about...</m>
+            </dlg>
+            
+            <anim target="CH_Warren" react="SAY02" expression="NEUTRAL" />
+            <dlg char="CH_Warren" style="subjective">
+                <m>Sigh... Actually... I shouldn't be so pissed off...</m>
+                <m>Brooke just told me about school records mentioning you enrolled as Samuel helper... I realize now you were probably just going to work there...</m>
+            </dlg>
+            <if>
+                <check-group op="OR">
+                    <check-flag flag="QUEST_BROOKE_RECORD_VIDEO" eq="11" />
+                    <check-flag flag="QUEST_BROOKE_RECORD_VIDEO" eq="12" />
+                    <check-flag flag="QUEST_BROOKE_RECORD_VIDEO" eq="13" />
+                </check-group>
+                <then>
+                    <anim target="CH_Warren" react="SAY01" />
+                    <dlg char="CH_Warren" style="subjective" >
+                        <m>Brooke sounded a little weird while talking about you, though... Never heard she stuttering like that...</m>
+                    </dlg>
+                </then>
+            </if>
+
+            <wait time="1" />
+            <anim target="CH_Warren" idle="ARMS_CROSSED_F01" expression="DISAPPROVE" />
+            <dlg char="CH_Warren" style="subjective">
+                <m wait="0.5">I... I don't get what your deal is...</m>
+                <m>The generic face... the blank expression... the unnatural self awareness... the absence of a name...</m>
+            </dlg>
+            <anim target="CH_Warren" idle="ARMS_CROSSED_F01" react="SAY02" expression="NEUTRAL" />
+            <dlg char="CH_Warren" style="subjective">
+                <m>You look like... a goddamned isekay protagonist...</m>
+            </dlg>
+            
+            <choice>
+                <c out="#a">
+                    <text>Sorry... I don't speak "weeb"... And you should also avoid it if you don't wanna die a virgin...</text>
+                </c>
+                <c out="#b">
+                    <text>Uuuhh... I'm not sure if that was an insult or a compliment...</text>
+                </c>
+            </choice>
+            
+            <anim target="CH_Warren" idle="STAND_HANDS_WAIST" expression="NEUTRAL" react="SAY01" />
+            <dlg char="CH_Warren" style="subjective">
+                <m wait="0.5">What I mean is...</m>
+                <m wait="1">You seem to have a "people talent"... Maybe we should be allies instead of enemies...</m>
+            </dlg>
+
+            <anim target="CH_Warren" react="SAY02" />
+            <dlg char="CH_Warren" style="subjective">
+                <m>It's easy to notice that I have... "feelings" for Max, right?</m>
+                <m>We've been meeting everyday since we arrived at Blackwell... We are always exchanging messages and I love spending time with her...</m>
+                <m>But she...</m>
+            </dlg>
+            <anim target="CH_Warren" react="SAY02" />
+            <dlg char="CH_Warren" style="subjective">
+                <m>She doesn't seem to take my hints...</m>
+            </dlg>
+            
+            <choice>
+                <c out="#a">
+                    <text>Maybe you are the one not taking the hints... The friendzone is a place almost impossible to escape, you know...</text>
+                    <then>
+                        <anim target="CH_Warren" idle="ARMS_CROSSED_F01" expression="DISAPPROVE" />
+                        <dlg char="CH_Warren" style="subjective">
+                            <m>No... I refuse to admit defeat... You said 'almost' impossible... It means I have a chance...</m>
+                        </dlg>
+                    </then>
+                </c>
+                <c out="#b">
+                    <text>Then stop giving hints and start talking straight about your intentions...</text>
+                    <then>
+                        <anim target="CH_Warren" idle="ARMS_CROSSED_F01" expression="DISAPPROVE" />
+                        <dlg char="CH_Warren" style="subjective">
+                            <m>Well... That's easier said than done...</m>
+                            <m>But I'm afraid that will scare her away... She is not used to that kind of approach...</m>
+                        </dlg>
+                    </then>
+                </c>
+                <c out="#c">
+                    <text>Just forget about her... There are so many hot girls around here...</text>
+                    <then>
+                        <anim target="CH_Warren" idle="ARMS_CROSSED_F01" expression="NEUTRAL" />
+                        <dlg char="CH_Warren" style="subjective">
+                            <m>Yeah... But this is about my heart... You can't just choose which girl you fall for...</m>
+                        </dlg>
+                        <anim target="CH_Warren" react="SAY02" />
+                        <dlg char="CH_Warren" style="subjective">
+                            <m>Besides, most of the other girls are not interested in my geek nice guy archetype...</m>
+                        </dlg>
+                    </then>
+                </c>
+            </choice>
+
+            <anim target="CH_Warren" idle="STAND_HANDS_WAIST" expression="NEUTRAL" />
+            <dlg char="CH_Warren" style="subjective">
+                <m>You see... I believe you could use your unique "talent" to help me...</m>
+            </dlg>
+            <anim target="CH_Warren" react="SAY02" />
+            <dlg char="CH_Warren" style="subjective">
+                <m>You know... To make Max understand how she could be happy with me...</m>
+            </dlg>
+
+            <choice>
+                <c out="#a">
+                    <text>What if I am also interested in her?</text>
+                    <then>
+                        <anim target="CH_Warren" idle="ARMS_CROSSED_F01" react="SURPRISE" expression="DISAPPROVE" />
+                        <dlg char="CH_Warren" style="subjective">
+                            <m>What!?! You...</m>
+                            <m>You're not serious, right?</m>
+                            <m wait="1">Come on... Let's not get into some wasteful competition... You can have all the other girls here for you... Just leave Max for me...</m>
+                        </dlg>
+                    </then>
+                </c>
+                <c out="#b">
+                    <text>I believe I'll receive some benefit from this "alliance", right?</text>
+                    <then>
+                        <anim target="CH_Warren" idle="ARMS_CROSSED_F01" react="SAY02" expression="DISAPPROVE" />
+                        <dlg char="CH_Warren" style="subjective">
+                            <m wait="0.5">Sure... Sure... I was expecting having to compensate you for the help...</m>
+                        </dlg>
+                    </then>
+                </c>
+                <c out="#c">
+                    <text>Sure... Helping true love to happen seems a nice task...</text>
+                    <then>
+                        <anim target="CH_Warren" idle="STAND_HANDS_WAIST" react="YAY" expression="NEUTRAL" />
+                        <dlg char="CH_Warren" style="subjective">
+                            <m wait="1">Nice! You're the best!</m>
+                        </dlg>
+                    </then>
+                </c>
+            </choice>
+
+            <anim target="CH_Warren" idle="ARMS_CROSSED_F01" react="SAY01" expression="NEUTRAL" />
+            <dlg char="CH_Warren" style="subjective">
+                <m>Look... I spend a lot of time at the Science room... and I have access to several interesting chemical supplies...</m>
+                <m>If you help me, I can provide some really interesting stuff for you...</m>
+                <m wait="1">So... Please... Help me winning Max's heart, and you'll be very well compensated...</m>
+            </dlg>
+
+            <choice>
+                <c out="#a"><text>Yeah... Why not...</text></c>
+                <c out="#b"><text>Whatever...</text></c>
+            </choice>
+
+            <dlg char="CH_Warren" style="subjective">
+                <m>Don't forget... Do the right thing, man...</m>
+                <m>We talk later...</m>
+            </dlg>
+
+            <load stage="dorm-boys-01" />
+        </n>
+
+        
+        <n id="BUMP" out="n1">
+            <dlg char="CH_Warren" track="Neck" timed="2">
+                <m>YOU!!</m>
+            </dlg>
+        </n>
+
+    </nodes>
+
+</cutscene>

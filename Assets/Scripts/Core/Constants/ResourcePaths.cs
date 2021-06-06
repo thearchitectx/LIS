@@ -29,6 +29,9 @@ namespace TheArchitect.Core.Constants
         public const string SO_CHARACTERS = "ScriptableObjects/Characters";
         public const string SO_TROPHIES = "ScriptableObjects/Trophies";
 
+        public const string ICON_AFFINITY = "UI/Sprites/stat-affinity";
+        public const string ICON_CORRUPTION = "UI/Sprites/stat-corruption";
+
         public const string STREAMING_XML_OBJECTIVES = "Data/Objectives.xml";
 
     }

@@ -300,37 +300,37 @@ public class RigBinder: EditorWindow
         Transform t = character.transform.Find($"{SkeletonPaths.RIG_LIPS_TALK}/LeftUpLip");
         OverrideTransform o = t.GetComponent<OverrideTransform>();
         o.data.constrainedObject = character.transform.Find($"{SkeletonPaths.PATH_HEAD}/Grp_Head/LeftUpLip");
-        o.data.position = new Vector3(-0.00002f, -0.00005f, -0.00006f);
+        o.data.position = new Vector3(-0.002f, -0.005f, -0.006f);
 
         t = character.transform.Find($"{SkeletonPaths.RIG_LIPS_TALK}/RightUpLip");
         o = t.GetComponent<OverrideTransform>();
         o.data.constrainedObject = character.transform.Find($"{SkeletonPaths.PATH_HEAD}/Grp_Head/RightUpLip");
-        o.data.position = new Vector3(-0.00002f, -0.00005f, 0.00006f);
+        o.data.position = new Vector3(-0.002f, -0.005f, 0.006f);
 
         t = character.transform.Find($"{SkeletonPaths.RIG_LIPS_TALK}/UpLip");
         o = t.GetComponent<OverrideTransform>();
         o.data.constrainedObject = character.transform.Find($"{SkeletonPaths.PATH_HEAD}/Grp_Head/UpLip");
-        o.data.position = new Vector3(0, -0.00002f, 0);
+        o.data.position = new Vector3(0, -0.002f, 0);
 
         t = character.transform.Find($"{SkeletonPaths.RIG_LIPS_TALK}/LeftLip");
         o = t.GetComponent<OverrideTransform>();
         o.data.constrainedObject = character.transform.Find($"{SkeletonPaths.PATH_HEAD}/Grp_Head/LeftLip");
-        o.data.position = new Vector3(0, -0.00008f, -0.00008f);
+        o.data.position = new Vector3(0, -0.008f, -0.008f);
 
         t = character.transform.Find($"{SkeletonPaths.RIG_LIPS_TALK}/RightLip");
         o = t.GetComponent<OverrideTransform>();
         o.data.constrainedObject = character.transform.Find($"{SkeletonPaths.PATH_HEAD}/Grp_Head/RightLip");
-        o.data.position = new Vector3(0, -0.00008f, 0.00008f);
+        o.data.position = new Vector3(0, -0.008f, 0.008f);
 
         t = character.transform.Find($"{SkeletonPaths.RIG_LIPS_TALK}/LeftDownLip");
         o = t.GetComponent<OverrideTransform>();
         o.data.constrainedObject = character.transform.Find($"{SkeletonPaths.PATH_JAW}/LeftDownLip");
-        o.data.position = new Vector3(0, -0.00004f, -0.00005f);
+        o.data.position = new Vector3(0, -0.004f, -0.005f);
 
         t = character.transform.Find($"{SkeletonPaths.RIG_LIPS_TALK}/RightDownLip");
         o = t.GetComponent<OverrideTransform>();
         o.data.constrainedObject = character.transform.Find($"{SkeletonPaths.PATH_JAW}/RightDownLip");
-        o.data.position = new Vector3(0, -0.00004f, 0.00005f);
+        o.data.position = new Vector3(0, -0.004f, 0.005f);
     }
 
     void SmallLips(GameObject character)
@@ -341,31 +341,31 @@ public class RigBinder: EditorWindow
         Transform t = character.transform.Find($"{SkeletonPaths.RIG_LIPS_TALK}/LeftUpLip");
         OverrideTransform o = t.GetComponent<OverrideTransform>();
         o.data.constrainedObject = character.transform.Find($"{SkeletonPaths.PATH_HEAD}/Grp_Head/LeftUpLip");
-        o.data.position = new Vector3(-0.00001f, 0.00005f, -0.00005f);
+        o.data.position = new Vector3(-0.001f, 0.005f, -0.005f);
 
         t = character.transform.Find($"{SkeletonPaths.RIG_LIPS_TALK}/RightUpLip");
         o = t.GetComponent<OverrideTransform>();
         o.data.constrainedObject = character.transform.Find($"{SkeletonPaths.PATH_HEAD}/Grp_Head/RightUpLip");
-        o.data.position = new Vector3(-0.00001f, 0.00005f, 0.00005f);
+        o.data.position = new Vector3(-0.001f, 0.005f, 0.005f);
 
         t = character.transform.Find($"{SkeletonPaths.RIG_LIPS_TALK}/UpLip");
         o = t.GetComponent<OverrideTransform>();
         o.data.constrainedObject = character.transform.Find($"{SkeletonPaths.PATH_HEAD}/Grp_Head/UpLip");
-        o.data.position = new Vector3(-0.00001f, 0.00005f, 0);
+        o.data.position = new Vector3(-0.001f, 0.005f, 0);
 
         t = character.transform.Find($"{SkeletonPaths.RIG_LIPS_TALK}/LeftLip");
         o = t.GetComponent<OverrideTransform>();
         o.data.constrainedObject = character.transform.Find($"{SkeletonPaths.PATH_HEAD}/Grp_Head/LeftLip");
-        o.data.position = new Vector3(0, 0.00005f, -0.00007f);
+        o.data.position = new Vector3(0, 0.005f, -0.007f);
 
         t = character.transform.Find($"{SkeletonPaths.RIG_LIPS_TALK}/LeftDownLip");
         o = t.GetComponent<OverrideTransform>();
         o.data.constrainedObject = character.transform.Find($"{SkeletonPaths.PATH_JAW}/LeftDownLip");
-        o.data.position = new Vector3(0, 0.0001f, -0.00004f);
+        o.data.position = new Vector3(0, 0.01f, -0.004f);
 
         t = character.transform.Find($"{SkeletonPaths.RIG_LIPS_TALK}/RightDownLip");
         o = t.GetComponent<OverrideTransform>();
         o.data.constrainedObject = character.transform.Find($"{SkeletonPaths.PATH_JAW}/RightDownLip");
-        o.data.position = new Vector3(0, 0.0001f, 0.00004f);
+        o.data.position = new Vector3(0, 0.01f, 0.004f);
     }
 }

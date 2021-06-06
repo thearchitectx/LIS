@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<cutscene
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../Cutscene.xsd">
+    <nodes>
+        <n id="n1">
+            <flag name="CHLOE_ON_CAMPUS" bit-set="0" />
+            <bgm loop="loop-urban" name="loop-urban" volume="0.25" fade-speed="0.1" />
+            <wait time="6" />
+            <bgm loop="loop-max" name="loop-max" volume="0.25" fade-speed="0.1" />
+            <dlg char="CH_Max" track="Neck">
+                <m>Chloe...</m>
+                <m>Are you sure you're okay? Don't you feel strange or anything?</m>
+            </dlg>
+            <wait time="0.5" />
+            <dlg char="CH_Chloe" track="Neck">
+                <m>I already told you, Max... I'm cool...  Don't worry about me...</m>
+                <m>I should be the one asking if you're feeling okay...</m>
+                <m>You're pale like a ghost and have a bleeding nose...</m>
+            </dlg>
+            <wait time="0.5" />
+            <anim target="CH_Max" react="SAY02" />
+            <dlg char="CH_Max" track="Neck">
+                <m>Oh... I'm fine... Just tired... We can talk about that later...</m>
+                <m>I need some rest... I'm on my way to the dorm...</m>
+            </dlg>
+            <wait time="0.5" />
+            <dlg char="CH_Chloe" track="Neck">
+                <m>I hope that annoying boyfriend of yours won't stop you in the way...</m>
+            </dlg>
+            <wait time="0.5" />
+            <anim target="CH_Max" react="SAY01" />
+            <dlg char="CH_Max" track="Neck">
+                <m wait="0.5">Oh please, Chloe... I can't handle your teasing right now...</m>
+                <m>I'm too tired... We talk later...</m>
+                <m>Take care of yourself...</m>
+            </dlg>
+
+            <walker target="CH_Max" destination="Destination Max Leave" />
+            <wait time="1" />
+            <dlg char="CH_Chloe" track="Neck">
+                <m>Always do, Maxine... Always do...</m>
+            </dlg>
+            <bgm name="loop-urban" volume="0"  />
+            <bgm name="loop-max" volume="0"  />
+            <fade-to-black mode="to" keep="true" />
+            <wait time="1" />
+            <load stage="campus-01" />
+        </n>
+    </nodes>
+</cutscene>

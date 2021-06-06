@@ -1,0 +1,390 @@
+<?xml version="1.0"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../Cutscene.xsd">
+    <include node-prefix="smooth-talk-">../../Exploration/en/_Lib/SmoothTalkTutorial.xml</include>
+    <nodes>
+        <n id="n1">
+            <bgm loop="loop-urban" volume="0.25" />
+            <wait time="1" />
+
+            <autosave label="TWO WHALES DINER" />
+
+            <flag name="KATE_DATE_CURRENT" set="0" />
+            <dlg style="subjective" timed="3">
+                <m>I think this is the place...</m>
+            </dlg>
+            <prefab target=".">
+                <outcome name="STEP" output="#continue" clear="true" />
+            </prefab>
+
+            <rig-track of="CH_Kate" target="camera" eye="1" head="1" />
+            <dlg char="CH_Kate" track="Neck">
+                <m wait="1">There you are...</m>
+                <m>Thank you for coming...</m>
+            </dlg>
+
+            <choice>
+                <c out="#a">
+                    <text>You know... When an eatery is empty like this, it usually means the food is shitty...</text>
+                </c>
+                <c out="#b">
+                    <text>This is an... interesting place... I guess...</text>
+                </c>
+            </choice>
+
+            <dlg char="CH_Kate" track="Neck">
+                <m wait="1">Oh... A lot of town workers come here for breakfast and lunch...</m>
+                <m wait="1">But it's usually empty at this hour... It's great when you need a quiet place away from Blackwell...</m>
+                <m>Please... Have a sit...</m>
+            </dlg>
+
+            <anim int="step" intValue="1" />
+            <wait time="1" />
+
+            <sys>
+                Some special events at the of the day can be repeated to give you a chance to improve stats of a specific girl using conversation topics, smooth talk sessions, or giving her some gifts...\n\n
+                When a specific stat is high enough, the event can be escalated to special actions...
+            </sys>
+
+            <node-output node="root-choices" />
+        </n>
+
+        <n id="root-choices">
+            <choice>
+                <c out="#a" icon="SMOOTH_TALK">
+                    <check-group op="AND">
+                        <check-perk perk="PRK_SMOOTH_TALKER" />
+                        <check-flag flag="KATE_DATE_CURRENT" bit-unset="0" />
+                    </check-group>
+                    <text>[ Convince her you're trustworthy ]</text>
+                    <then>
+                        <flag name="KATE_DATE_CURRENT" bit-set="0" />
+                        <inject node="smooth-talk-lib-play" />
+                        <flag name="TMP_1" set="0" />
+                        <node-output node="smooth-talk" />
+                    </then>
+                </c>
+                <c out="#b">
+                    <check-flag flag="TMP_1" eq="999999" />
+                    <text>[ Giver her a gift ]</text>
+                    <lock-reason>Giver her a gift [NOT AVAILABLE YET]</lock-reason>
+                </c>
+                <c out="let-her-talk">
+                    <text>[ Let her talk ]</text>
+                </c>
+            </choice>
+        </n>
+
+
+        <!-- 
+        ############################################################ 
+        ## smooth-talk ##########################################
+        ############################################################ -->
+        <n id="smooth-talk">
+            <bgm loop="loop-smooth-talk-01" name="loop-smooth-talk-01" />
+            <prefab name="SmoothTalk">
+                <message name="SetEnemyName" string="KATE" />
+                <message name="Move" />
+                <outcome name="GIRL_MOVE" output="smooth-talk-girl-move" clear="true" />
+            </prefab>
+        </n>
+        <n id="smooth-talk-girl-move">
+            <pick-text text="TXT_TMP_0">
+                <flag name="TMP_1" />
+                <t>Are you really trying to help me?</t>
+                <t>How would I know if you aren't just another bully?</t>
+                <t>I don't know if I should trust you...</t>
+            </pick-text>
+            <dlg char="CH_Kate" style="subjective">
+                <m>${Texts.TXT_TMP_0}</m>
+            </dlg>
+            <flag name="TMP_1" inc="1"></flag>
+
+            <prefab name="SmoothTalk">
+                <message name="MoveOnInput" />
+                <outcome name="WIN" output="smooth-talk-win" />
+                <outcome name="LOST" output="smooth-talk-lost" />
+                <outcome name="MOVE_SUCCESS" output="smooth-talk-move-success" clear="true"  />
+                <outcome name="MOVE_FAIL" output="smooth-talk-move-fail" clear="true"  />
+            </prefab>
+        </n>
+        <n id="smooth-talk-move-success">
+            <anim target="CH_Kate" react="SIT02_SAY" expression="NEUTRAL" />
+            
+            <wait time="1" />
+            <prefab name="SmoothTalk">
+                <message name="Move" />
+            </prefab>
+
+            <wait time="2.5" rnd="2" />
+            <node-output node="smooth-talk" />
+        </n>
+        <n id="smooth-talk-move-fail">
+            <anim target="CH_Kate" react="SIT02_FACEPALM" expression="DISAPPROVE" />
+            <pick-text text="TXT_TMP_0">
+                <flag name="TMP_1" />
+                <t>That doesn't sound right...</t>
+                <t>I... I don't think so...</t>
+                <t>I'm not so naive, you know...</t>
+            </pick-text>
+            <dlg char="CH_Kate" style="subjective">
+                <m>${Texts.TXT_TMP_0}</m>
+            </dlg>
+            <prefab name="SmoothTalk">
+                <message name="Move" />
+            </prefab>
+
+            <wait time="2.5" rnd="2" />
+            <node-output node="smooth-talk" />
+        </n>
+            <!-- 
+        ############################################################ 
+        ## smooth-talk-win #########################################
+        ############################################################ -->
+        <n id="smooth-talk-win">
+            <wait time="2" />
+            <prefab destroy="SmoothTalk"></prefab>
+            <bgm name="loop-smooth-talk-01" />
+            <rig-track of="CH_Kate" head="0" eye="0" />
+            <anim target="CH_Kate" expression="UNEASY" />
+            <dlg char="CH_Kate" style="subjective">
+                <m>Well... You... You sound very convincing...</m>
+                <m>I... I don't think I should doubt whatever you say to me...</m>
+            </dlg>
+            <inject node="smooth-talk-lib-win" />
+
+            <choice>
+                <c out="#a">
+                    <text>Believe me... I care about you...</text>
+                    <then>
+                        <stat char="CH_Kate" name="AFFINITY" inc="3" />
+                        <rig-track of="CH_Kate" head="1" eye="1" />
+                        <anim target="CH_Kate" react="SIT02_SAY" expression="NEUTRAL" />
+                        <dlg char="CH_Kate" style="subjective">
+                            <m>Oh... Thank you... I... I know you do...</m>
+                        </dlg>
+                    </then>
+                </c>
+                <c out="#b">
+                    <text>Look... You know what you want... to be free from this shyness and introversion... And I'm here to help with that...</text>
+                    <then>
+                        <stat char="CH_Kate" name="CORRUPTION" inc="3" />
+                        <rig-track of="CH_Kate" head="1" eye="1" />
+                        <anim target="CH_Kate" react="SIT02_SAY" expression="NEUTRAL" />
+                        <dlg char="CH_Kate" style="subjective">
+                            <m wait="1">Oh... I... I...</m>
+                        </dlg>
+                        <anim target="CH_Kate" expression="DISAPPROVE" />
+                        <dlg char="CH_Kate" style="subjective">
+                            <m>Yes... That's... That's what I want...</m>
+                        </dlg>
+                        <anim target="CH_Kate" expression="NEUTRAL" />
+                    </then>
+                </c>
+            </choice>
+            <node-output node="root-choices" />
+        </n>
+         <!-- 
+        ############################################################ 
+        ## smooth-talk-lost ##########################################
+        ############################################################ -->
+        <n id="smooth-talk-lost">
+            <bgm name="loop-smooth-talk-01" />
+            <wait time="2" />
+            <prefab destroy="SmoothTalk"></prefab>
+            <anim target="CH_Kate" react="SIT02_FACEPALM" expression="DISAPPROVE"/>
+            <dlg char="CH_Taylor" style="subjective">
+                <m>Sigh... I don't know why... But sometimes I fell you don't have the best intentions to help me...</m>
+            </dlg>
+            <node-output node="root-choices" />
+        </n>
+
+        <!-- 
+        ############################################################ 
+        ## let-her-talk   ##########################################
+        ############################################################ -->
+        <n id="let-her-talk">
+            <rig-track of="CH_Kate" head="0" eye="0" />
+            <dlg char="CH_Kate" style="subjective">
+                <m>So... Uuuhh...</m>
+                <m>I know for sure that trying to blend in the Vortex Club girls club is the best option I have to make them stop harassing me...</m>
+            </dlg>
+            <rig-track of="CH_Kate" head="1" eye="1" />
+            <dlg char="CH_Kate" style="subjective">
+                <m>But... When I think about it... I realize it's a very scary move to do...</m>
+                <m>I've never been like... them... I... I'm afraid I'll be just making a fool of myself...</m>
+            </dlg>
+            <rig-track of="CH_Kate" head="0" eye="0" />
+            <choice>
+                <c out="#a" icon="DICK_KARMA_GOOD">
+                    <text>Look... I trying to be someone you are not only brings trouble...</text>
+                    <then>
+                        <flag name="DICK_KARMA" inc="1">YOUR KARMA BALANCED TOWARDS THE *GOOD* SIDE</flag>
+                        <rig-track of="CH_Kate" head="1" eye="1" />
+                        <anim target="CH_Kate" expression="DISAPPROVE" />
+                        <dlg char="CH_Kate" style="subjective">
+                            <m>Can't you see that's exactly what I've been doing the whole year?</m>
+                            <m>And it's not going so well... What I need is a new... me...</m>
+                        </dlg>
+                        <anim target="CH_Kate" react="SIT02_SAY" expression="NEUTRAL" />
+                        <dlg char="CH_Kate" style="subjective">
+                            <m>It might be scary... But I'm resolved to change that... Nothing will make me give up of that idea...</m>
+                        </dlg>
+                    </then>
+                </c>
+                <c out="#b">
+                    <text>Don't worry... I won't let anyone in that school make fun of whatever you try to do...</text>
+                    <then>
+                        <stat char="CH_Kate" name="AFFINITY" inc="3" />
+                        <rig-track of="CH_Kate" head="1" eye="1" />
+                        <dlg char="CH_Kate" style="subjective">
+                            <m>Thank you... This kind of support is exactly what I need...</m>
+                        </dlg>
+                        <anim target="CH_Kate" react="SIT02_SAY" />
+                        <dlg char="CH_Kate" style="subjective">
+                            <m>I knew I could count on you...</m>
+                        </dlg>
+                    </then>
+                </c>
+                <c out="#c">
+                    <text>Nah... The better you look and act like those cool girls the more they will love you...</text>
+                    <then>
+                        <stat char="CH_Kate" name="CORRUPTION" inc="3" />
+                        <rig-track of="CH_Kate" head="1" eye="1" />
+                        <dlg char="CH_Kate" style="subjective">
+                            <m>I... I really hope so...</m>
+                        </dlg>
+                        <anim target="CH_Kate" react="SIT02_SAY" />
+                        <dlg char="CH_Kate" style="subjective">
+                            <m>If you are so sure then I'll make my best be like them...</m>
+                        </dlg>
+                    </then>
+                </c>
+            </choice>
+
+            <wait time="1" />
+            <rig-track of="CH_Kate" head="0" eye="0" />
+            <dlg char="CH_Kate" style="subjective">
+                <m>And... uuuhh... I think I know where I should start... I need to change my looks just a little bit...</m>
+                <m>It's a good idea, isn't it?</m>
+            </dlg>
+            <rig-track of="CH_Kate" head="1" eye="1" />
+            <dlg char="CH_Kate" style="subjective">
+                <m>Mother always made me dress like if I were going to the Sunday mass every day...</m>
+                <m wait="0.5">I'm so used to wear this, that I don't even have an idea of what other kind of looks would be cool for me...</m>
+            </dlg>
+            <anim target="CH_Kate" react="SIT02_SAY" />
+            <dlg char="CH_Kate" style="subjective">
+                <m>But you know how a popular girl look like, right?</m>
+                <m>Would you please try to choose something? Something you think would be appropriate for me to start changing...</m>
+            </dlg>
+            <rig-track of="CH_Kate" head="0" eye="0" />
+            <dlg char="CH_Kate" style="subjective">
+                <m>Nothing much exaggerated, please...</m>
+            </dlg>
+            
+            <choice>
+                <c out="#a">
+                    <text>Sure... I've been working on so many weird stuff... Why not a personal stylist now...</text>
+                </c>
+                <c out="#b">
+                    <text>If this is what you really want...</text>
+                </c>
+            </choice>
+
+            <rig-track of="CH_Kate" head="1" eye="1" />
+            <dlg char="CH_Kate" style="subjective">
+                <m>Thank you... Thank you so much... I... I...</m>
+            </dlg>
+            <rig-track of="CH_Kate" head="0" eye="0" />
+            <anim target="CH_Kate" idle="SIT02_CRY" blink="CLOSED" />
+            <dlg char="CH_Kate" style="subjective">
+                <m wait="1">I... still can't believe there's someone actually trying to help me turn the tables...</m>
+            </dlg>
+            <anim target="CH_Kate" idle="SIT02"  />
+            <wait time="1" />
+            <dlg char="CH_Kate" style="subjective">
+                <m>..........</m>
+            </dlg>
+            <node-output node="escalate" />
+        </n>
+
+        <n id="escalate">
+            <choice>
+                <c out="#a" icon="AXIS_INTERACTION">
+                    <check-group op="OR">
+                        <check-stat char="CH_Kate" stat="CORRUPTION" gte="7" />
+                        <check-stat char="CH_Kate" stat="AFFINITY" gte="6" />
+                    </check-group>
+                    <text><![CDATA[<b>[ SIT NEXT TO HER ]</b>]]></text>
+                    <lock-reason><![CDATA[<b>[ SIT NEXT TO HER ]</b>\n[KATE CORRUPTION 7+ OR AFFINITY 6+ REQUIRED]]]></lock-reason>
+                    <then>
+                        <anim int="step" intValue="2" />
+                        <wait time="3.5" />
+                        <anim target="CH_Kate" idle="SIT02" blink="NEUTRAL"  />
+                        
+                        <if>
+                            <check-stat char="CH_Kate" stat="AFFINITY" gte="6" />
+                            <then>
+                                <dlg char="CH_Kate" style="subjective">
+                                    <m>Wait... I like you... but...</m>
+                                    <m>I don't know if... if I should...</m>
+                                </dlg>
+                            </then>
+                            <else>
+                                <dlg char="CH_Kate" style="subjective">
+                                    <m>You... You have been saying some things to me that I... I never thought one day I would agree...</m>
+                                    <m>but... still...</m>
+                                </dlg>
+                            </else>
+                        </if>
+
+                        <choice>
+                            <c out="#a" icon="STAT_AFFINITY">
+                                <check-stat char="CH_Kate" stat="AFFINITY" gte="6" />
+                                <text>Hey... You have the will and the power to do whatever you want...</text>
+                                <lock-reason><![CDATA[Hey... You have the will and the power to do whatever you want... <i>[KATE AFFINITY 6+ REQUIRED]</i>]]></lock-reason>
+                                <then>
+                                    <fade-to-black keep="true" />
+                                    <wait time="1" />
+                                    <load stage="dinner-kate-date-affinity" />
+                                </then>
+                            </c>
+                            <c out="#b" icon="STAT_CORRUPTION">
+                                <check-stat char="CH_Kate"  stat="CORRUPTION" gte="7" />
+                                <text>Come on... Let yourself go... Just bring put your hand here and I'll show you how girls start to become really popular...</text>
+                                <lock-reason><![CDATA[Come on... Let yourself go... Just bring put your hand here and I'll show you how girls start to become really popular... <i>[KATE CORRUPTION 7+ REQUIRED]</i>]]></lock-reason>
+                                <then>
+                                    <fade-to-black keep="true" />
+                                    <wait time="1" />
+                                    <load stage="dinner-kate-date-corruption" />
+                                </then>
+                            </c>
+                        </choice>
+                    </then>
+                </c>
+                <c out="#b">
+                    <text>Yeah... I think you need some space now... See you later...</text>
+                    <then>
+                        <anim target="CH_Kate" idle="SIT02" react="SIT02_SAY" />
+                        <dlg char="CH_Kate" style="subjective">
+                            <m>Oh... Okay...</m>
+                            <m>I guess we can talk later, right?</m>
+                            <m>See you at school...</m>
+                        </dlg>
+
+                        <fade-to-black speed="0.5"  keep="true" layer="-1" />
+                        <wait time="2" />
+
+                        <dlg char="THE_ARCHITECT" style="remote-subjective">
+                            <m>THE FOLLOW-UP TO THIS POINT WILL BE ADDED NEXT VERSION... YOU SHOULD TRY GET SOME ACTION WITH KATE NEXT TIME!</m>
+                        </dlg>
+                        <wait time="1" />
+                        <load stage="title" />
+                    </then>
+                </c>
+            </choice>
+        </n>
+
+    </nodes>
+</cutscene>

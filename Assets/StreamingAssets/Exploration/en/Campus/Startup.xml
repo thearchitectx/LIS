@@ -1,13 +1,41 @@
 <?xml version="1.0"?>
 <cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="../../../Cutscene.xsd">
+    <include node-prefix="exploration-">../_Lib/Exploration.xml</include>
     <nodes>
         <n id="n1">
-            <flag name="#DISABLE_PLAYER" set="1" />
-            <dlg char="THE_ARCHITECT" style="remote-subjective">
-                <m>This area is under construction and there are no interactive elements for now. You can walk around to check the view at your own risk of being launched inside the space-time void...</m>
-            </dlg>
-            <flag name="#DISABLE_PLAYER" set="0" />
+            <inject node="exploration-root" />
+            
+            <bgm loop="loop-urban" volume="0.5" fade-speed="0.1" on-root="true" />
+            <if>
+                <check-flag flag="CHLOE_ON_CAMPUS" bit-unset="0" />
+                <then>
+                    <prefab target="MaxChloe Scene Trigger" resource="Exploration/Campus/Dynamic/MaxChloe Scene Trigger" parent="Dynamic" />
+                </then>
+            </if>
+            <if>
+                <check-flag flag="CHLOE_ON_CAMPUS" bit-unset="10" />
+                <then>
+                    <prefab target="ChloeOnSign" resource="Exploration/Campus/Dynamic/ChloeOnSign" parent="Dynamic" />
+                </then>
+            </if>
+
+            <if>
+                <check-flag flag="LOST_MONEY_FOUND" bit-unset="1" />
+                <then>
+                    <prefab target="DollarBill" resource="Exploration/Campus/Dynamic/DollarBill" parent="Dynamic" />
+                </then>
+            </if>
+
+            <if>
+                <check-flag flag="KATE_CAMPUS_BENCH" bit-unset="0" />
+                <then>
+                    <prefab target="KateOnBench" resource="Exploration/Campus/Dynamic/KateOnBench" parent="Dynamic" />
+                </then>
+            </if>
+            
+            <prefab target="DanielNextToTree" resource="Exploration/Campus/Dynamic/DanielNextToTree" parent="Dynamic" />
+
             <cutscene-outcome value="_destroyObject" />
         </n>
     </nodes>

@@ -13,12 +13,15 @@ namespace TheArchitect.Cutscene.Action
     {
         [XmlAttribute("name")]
         public string Name;
+        [XmlAttribute("ref")]
+        public bool IsNameRef = false;
         [XmlAttribute("set")]
         public string Set = null;
         
         public override string Update(CutsceneInstance cutscene, CutsceneController controller)
         {
-            controller.Game.SetTextState(Name, ResourceString.Parse(Set) );
+            string n = IsNameRef ? controller.Game.GetTextState(Name) : Name;
+            controller.Game.SetTextState(n, ResourceString.Parse(Set) );
             return OUTPUT_NEXT;
         }
 

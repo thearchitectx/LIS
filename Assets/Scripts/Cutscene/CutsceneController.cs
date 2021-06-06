@@ -71,6 +71,9 @@ namespace TheArchitect.Cutscene
             if (name == null)
                 return null;
 
+            if (name==".")
+                return this.transform;
+
             foreach (var p in this.m_Proxies)
             {
                 if (p.Name == name)
@@ -85,7 +88,15 @@ namespace TheArchitect.Cutscene
             if (name.StartsWith("../"))
                 return transform.parent.Find(name.Substring(3))?.transform;
 
-            return this.transform.Find(name);
+            try
+            {
+                return GameObject.FindWithTag(name).transform;
+            } 
+            catch (System.Exception) 
+            {
+                return this.transform.Find(name);
+            }
+
         }
 
     }

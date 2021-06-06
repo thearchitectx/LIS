@@ -4,8 +4,26 @@
         <xs:restriction base="xs:string">
             <xs:enumeration value="#DISABLE_PLAYER" />
             <xs:enumeration value="#ALLOW_SAVING" />
+            <xs:enumeration value="CAMPUS_COMMENTED_PANELS" />
+            <xs:enumeration value="CHLOE_ON_CAMPUS" />
+            <!--  BITWISE:
+                    (bit-0) Played CampusMaxMeetChloe scene
+                    (bit-1) Had first interaction
+                    (bit-2) Talked about Max
+                    (bit-3) Talked security topic
+                    (bit-4) Talked competition topic
+                    (bit-5) Offered help competition
+                    (bit-6) Asked(1)/Didn't asked(0) reward for competition quest
+                    (bit-20) Talked student topic
+            -->
+            <xs:enumeration value="DANIEL_INTERACTIONS" /> 
+            <!--  BITWISE:
+                    (bit-0) Met on campus next to tree
+                    (bit-1) Bullied on campus next to tree
+            -->
             <xs:enumeration value="DATA_SMOOTH_TALK_PLAYS" /> 
             <xs:enumeration value="DATA_SMOOTH_TALK_WINS" /> 
+            <xs:enumeration value="DATA_JOINTS_BOUGHT" /> 
             <xs:enumeration value="DICK_DARING" />
             <xs:enumeration value="DICK_INTELLIGENCE" />
             <xs:enumeration value="DICK_CHARISMA" />
@@ -29,6 +47,8 @@
             <xs:enumeration value="LOST_MONEY_FOUND" />
             <!-- BITWISE:
                     (bit-0) Hallway
+                    (bit-1) Campus
+                    (bit-2) Principal (Administration)
                 -->
             <xs:enumeration value="MAX_MET_RESTROOM" />
             <xs:enumeration value="MAX_RESTROOM_DIALOG" />
@@ -40,6 +60,19 @@
                     (bit-4) Laughed at powers
                 -->
             <xs:enumeration value="KATE_FIRST_MET" />
+            <xs:enumeration value="KATE_DATE_CURRENT" />
+            <!-- BITWISE:
+                    (bit-0) Used SMOOTH TALK
+                -->
+            <xs:enumeration value="KATE_CAMPUS_BENCH" />
+            <!-- BITWISE:
+                (bit-0) Played dialog
+                (bit-1) Sat by her side
+                (bit-2) Sat by her side (asked)
+                (bit-3) Didn't sit by her side
+                (bit-4) Put hand on her leg
+                (bit-5) Held her hand
+            -->
             <xs:enumeration value="PICKED_BROOKE_NOTE" />
             <xs:enumeration value="PICKED_BRACELET" />
             <xs:enumeration value="PRINCIPAL_CH_MET" /> <!-- (1) In the first meeting (2) Finished first meeting -->
@@ -47,7 +80,8 @@
             <xs:enumeration value="PRINCIPAL_TRASH_CAN_TRASH_COUNT" />
             <xs:enumeration value="PRINCIPAL_DRAWER1_UNLOCKED" />
             <xs:enumeration value="PRINCIPAL_DRAWER2_UNLOCKED" />
-            <xs:enumeration value="QUEST_CLEAN_GIRLS_RESTROOM" /> <!-- (1) Started / (2) Find how remove Taylor / (3) Removed Taylor / (4) Accessed Restroom / (5) Cleaned-->
+            <xs:enumeration value="QUEST_CHLOE_SEARCH_NATHAN" /> <!-- (1) Started (2) Entered dormitory after quest started -->
+            <xs:enumeration value="QUEST_CLEAN_GIRLS_RESTROOM" /> <!-- (1) Started / (2) Find how remove Taylor / (3) Removed Taylor / (4) Accessed Restroom / (5) Cleaned / (6) reported to samuel -->
             <xs:enumeration value="QUEST_CLEAN_GIRLS_RESTROOM_TRASH_COUNT" /> 
             <xs:enumeration value="QUEST_CLEAN_GIRLS_RESTROOM_TRASH" /> 
             <!-- BITWISE:
@@ -85,6 +119,10 @@
                     (bit-6) Tried smooth talk
                     (bit-7) Gave bracelet
                 -->
+            <xs:enumeration value="WARREN_MEET_BOYS_DORM" />
+            <!-- BITWISE:
+                (bit-0) Played scene
+            -->
             <xs:enumeration value="TMP_1" />
             <xs:enumeration value="TUTORIAL_MODEL_VIEWER" />
             <xs:enumeration value="TUTORIAL_LOCKPICK" />

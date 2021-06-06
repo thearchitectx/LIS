@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../Cutscene.xsd">
+    <nodes>
+        <n id="n1">
+            <switch-text check="${Texts.TXT_ARG_0}" text="TXT_TMP_0">
+                <case eq="BELLE_POSTER">There she is... The top genius entrepreneur of our generation...</case>
+                <case eq="BLACKWELL_MAP">Another useless vandalized map...</case>
+            </switch-text>
+            <switch-text check="${Texts.TXT_ARG_0}" text="TXT_TMP_1">
+                <case eq="BELLE_POSTER">I'm starting to enjoy the decoration here...</case>
+                <case eq="BLACKWELL_MAP">At least it's clear that school rules aren't usually enforced here...</case>
+            </switch-text>
+            
+            <if>
+                <check-text text="TXT_ARG_0" match="ROOM_.+" />
+                <then>
+                    <text name="TXT_TMP_0" set="This isn't my room... and the door is well locked..." />
+                </then>
+            </if>
+
+            <dlg style="subjective">
+                <m>${Texts.TXT_TMP_0}</m>
+            </dlg>
+            <if>
+                <check-text text="TXT_TMP_1" neq="#EMPTY" />
+                <then>
+                    <dlg style="subjective">
+                        <m>${Texts.TXT_TMP_1}</m>
+                    </dlg>
+                </then>
+            </if>
+        </n>
+    </nodes>
+</cutscene>

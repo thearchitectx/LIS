@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../Cutscene.xsd">
+    <nodes>
+        <n id="n1">
+            <wait time="1" />
+            <dlg style="subjective">
+                <m>Dudes vandalized this map beyond recognition... Typical...</m>
+            </dlg>
+            <if>
+                <check-flag flag="QUEST_CHLOE_SEARCH_NATHAN" eq="1" />
+                <then>
+                    <dlg style="subjective">
+                        <m>Unfortunately I won't be able to find Nathan's room using this...</m>
+                    </dlg>
+                </then>
+            </if>
+        </n>
+    </nodes>
+</cutscene>

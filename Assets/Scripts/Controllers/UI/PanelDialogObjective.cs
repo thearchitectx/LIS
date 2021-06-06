@@ -61,6 +61,7 @@ namespace TheArchitect.Core.Controllers
         private DialogStyle m_Style;
 
         public bool IsRollingText { get { return m_IsRollingText; } }
+        public bool HasPendingText { get { return this.m_MessagePosition < this.m_Message.Length; } }
 
         public void Display(Character character, string message, DialogStyle style = DialogStyle.DEFAULT)
         {

@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../Cutscene.xsd">
+    <nodes>
+        <n id="n1">
+            <flag name="#DISABLE_PLAYER" set="1" />
+            <fade-to-black keep="true" speed="2" />
+            <wait time="0.5" />
+            <flag name="#DISABLE_PLAYER" set="0" />
+            <load stage="campus-max-meet-chloe" />
+        </n>
+    </nodes>
+</cutscene>

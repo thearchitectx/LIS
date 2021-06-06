@@ -243,16 +243,21 @@ namespace TheArchitect.Cutscene.Action
     {
         [XmlAttribute("text")]
         public string Text;
+        [XmlAttribute("ref")]
+        public bool IsRef;
         [XmlAttribute("eq")]
         public string Eq = null;
         [XmlAttribute("neq")]
         public string Neq = null;
+        [XmlAttribute("match")]
+        public string Matches = null;
 
         public override bool Resolve()
         {
-            var textValue = Resources.Load<Game>(ResourcePaths.SO_GAME).GetTextState(Text);
+            Game game = Resources.Load<Game>(ResourcePaths.SO_GAME);
+            var textValue = game.GetTextState( IsRef ? game.GetTextState(Text) : Text );
             bool b = false;
-            
+            // Debug.Log($"{(IsRef ? game.GetTextState(Text) : Text)}='{textValue}'");
             if (Eq == "#EMPTY")
                 b = b || string.IsNullOrEmpty(textValue);
             else if (!string.IsNullOrEmpty(Eq))
@@ -262,6 +267,12 @@ namespace TheArchitect.Cutscene.Action
                 b = b || !string.IsNullOrEmpty(textValue);
             else if (!string.IsNullOrEmpty(Neq))
                 b = b || textValue != Neq;
+
+            if (!string.IsNullOrEmpty(Matches))
+            {
+                System.Text.RegularExpressions.Regex r = new System.Text.RegularExpressions.Regex(Matches);
+                b = b || r.IsMatch(textValue);
+            }
 
             return b;
         }

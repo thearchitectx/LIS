@@ -26,6 +26,7 @@ namespace TheArchitect.Cutscene
         }
 
         [XmlElement("nop", typeof(CutsceneAction)),
+            XmlElement("autosave", typeof(AutosaveAction)),
             XmlElement("cutscene-outcome", typeof(OutcomeAction)),
             XmlElement("node-output", typeof(OutputAction)),
             XmlElement("inject", typeof(InjectAction)),
@@ -44,6 +45,7 @@ namespace TheArchitect.Cutscene
             XmlElement("load", typeof(StageLoadAction)),
             XmlElement("flag", typeof(SetFlagAction)),
             XmlElement("objective", typeof(ObjectiveAction)),
+            XmlElement("pick-text", typeof(PickTextAction)),
             XmlElement("switch-text", typeof(SwitchTextAction)),
             XmlElement("item", typeof(ItemAction)),
             XmlElement("text", typeof(SetText)),

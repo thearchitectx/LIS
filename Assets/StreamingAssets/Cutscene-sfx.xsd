@@ -4,8 +4,12 @@
         <xs:restriction base="xs:string">
             <xs:enumeration value="beep" />
             <xs:enumeration value="door-transition" />
+            <xs:enumeration value="impact" />
             <xs:enumeration value="knock-door" />
+            <xs:enumeration value="light-joint" />
             <xs:enumeration value="lock" />
+            <xs:enumeration value="phone-pickup" />
+            <xs:enumeration value="phone-call-tone" />
             <xs:enumeration value="swoosh" />
         </xs:restriction>
     </xs:simpleType>

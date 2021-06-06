@@ -1,0 +1,180 @@
+<?xml version="1.0"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../Cutscene.xsd">
+    <include node-prefix="smooth-talk-">../../Exploration/en/_Lib/SmoothTalkTutorial.xml</include>
+    <nodes>
+        <n id="n1">
+            <bgm loop="loop-urban" volume="0.25"  />
+            <wait time="2" />
+
+            <autosave label="TWO WHALES DINER" />
+
+            <obj name="RigInputGrope" active="false" />
+
+            <dlg char="CH_Kate" style="whisper-subjective">
+                <m>My... hand...</m>
+            </dlg>
+            <rig-track of="CH_Kate" head="0.5" eye="0.5" />
+            <dlg char="CH_Kate" style="whisper-subjective">
+                <m>what... you... mean...</m>
+                <m>where... where should I...</m>
+            </dlg>
+
+            <anim int="step" intValue="1" />
+            <anim target="CH_Kate" int="step" intValue="1" />
+            <anim target="CH_Player" intValue="1" />
+
+            <wait time="5" />
+
+            <anim bool="look-face" boolValue="true" />
+            <wait time="1" />
+            <dlg char="CH_Kate" style="whisper-subjective" >
+                <m wait="1">oh my God... what... what are you doing...</m>
+            </dlg>
+
+            <choice>
+                <c out="#a">
+                    <text>You are the one doing it... You can stop this whenever you want... But I think you wanna keep learning...</text>
+                    <then>
+                        <stat char="CH_Kate" name="CORRUPTION" inc="3" />
+                        <dlg char="CH_Kate" style="whisper-subjective" >
+                            <m>no... i mean... i... want...</m>
+                            <m>but... but...</m>
+                        </dlg>
+                    </then>
+                </c>
+                <c out="#b">
+                    <text>Starting with the lessons you asked for... See how you're blushing? It's cute, but the girls will laugh at you if you don't get used to this kind of interaction...</text>
+                    <then>
+                        <stat char="CH_Kate" name="CORRUPTION" inc="2" />
+                        <dlg char="CH_Kate" style="whisper-subjective" >
+                            <m>lessons... i asked?</m>
+                            <m>but... this isn't...</m>
+                        </dlg>
+                    </then>
+                </c>
+            </choice>
+
+            <dlg char="CH_Kate" style="whisper-subjective" >
+                <m>what... what can I possibly learn from this...</m>
+            </dlg>
+
+            <choice>
+                <c out="#a">
+                    <text>For example... The first stage is about warming up the subject with some careful massage... Like this...</text>
+                </c>
+            </choice>
+            <dlg char="CH_Kate" style="whisper-subjective" track="DownLip" >
+                <m>first stage!?!?</m>
+            </dlg>
+
+            <anim bool="look-face" boolValue="false" />
+
+            <obj name="RigInputGrope" active="true" /> 
+            
+            <wait time="3" />
+            
+            <dlg char="CH_Kate" style="whisper-subjective" track="DownLip" >
+                <m>oh my god...</m>
+            </dlg>
+            
+            <wait time="5" />
+            
+            <anim  bool="side-camera" boolValue="true" />
+            <dlg char="CH_Kate" style="whisper-subjective" track="DownLip" >
+                <m>what if someone is watching us...</m>
+                <m>i... i would die of embarrassment...</m>
+            </dlg>
+
+            <wait time="2" />
+
+            <prefab name="SimpleMessage">
+                <message name="MessageText" string="&lt;color=cyan&gt;LEFT CLICK&lt;/color&gt; TO CONTINUE" />
+                <message name="MessageButton" string="Fire1" />
+                <outcome output="#continue" />
+            </prefab>
+            <prefab destroy="SimpleMessage" />
+
+            <dlg char="CH_Kate" style="whisper-subjective"  track="DownLip" >
+                <m>oh jesus... i... I can... fell... it...</m>
+            </dlg>
+
+            <obj name="RigInputGrope" active="false" /> 
+            <anim int="step" intValue="2" />
+            <wait time="1" />
+            
+            <choice>
+                <c out="#a"><text>Oh... Do wanna to feel it? Of course... Here it is...</text></c>
+            </choice>
+            <dlg char="CH_Kate" style="whisper-subjective"  track="DownLip" >
+                <m>uuh!?! this is not what i...</m>
+            </dlg>
+            
+            <anim target="CH_Kate" int="step" intValue="2" />
+            <anim target="CH_Player" int="step" intValue="2" />
+            <rig-track of="CH_Kate" head="0.2" eye="0.2" target="TrackPenis" /> 
+            <dlg char="CH_Kate" style="whisper-subjective"  track="DownLip" >
+                <m>oh lord jesus christ...</m>
+            </dlg>
+            
+            <choice>
+                <c out="#a"><text>Come on... This part is easy... I show you...</text></c>
+            </choice>
+            
+            <obj name="RigInputCommand" active="true" />
+
+            <anim bool="side-camera" boolValue="false" />
+            <anim int="step" intValue="3" />
+
+            <wait time="5" />
+
+            <dlg char="CH_Kate" style="whisper-subjective" track="DownLip" >
+                <m>i... i can't believe this is happening...</m>
+            </dlg>
+            
+            <wait time="2" />
+
+            <prefab name="SimpleMessage">
+                <message name="MessageText" string="&lt;color=cyan&gt;LEFT CLICK&lt;/color&gt; TO CONTINUE" />
+                <message name="MessageButton" string="Fire1" />
+                <outcome output="#continue" />
+            </prefab>
+            <prefab destroy="SimpleMessage" />
+            
+            <choice>
+                <c out="#a"><text>I think you got it... Now it's up to you...</text></c>
+            </choice>
+            
+            <anim bool="side-camera" boolValue="false" />
+            <rig-track of="CH_Kate" head="0.5" eye="0.5" target="camera" />
+            <anim int="step" intValue="4" />
+            <obj name="RigInputCommand" active="false" />
+            <obj name="RigInputNoCommand" active="true" />
+
+            <wait time="3" />
+            <trophy unlock="jimmy-hopkins-02" />
+            <stat char="CH_Kate" name="CORRUPTION" inc="3" />
+            <wait time="3" />
+
+            <prefab name="SimpleMessage">
+                <message name="MessageText" string="&lt;color=cyan&gt;LEFT CLICK&lt;/color&gt; TO CONTINUE" />
+                <message name="MessageButton" string="Fire1" />
+                <outcome output="#continue" />
+            </prefab>
+            <prefab destroy="SimpleMessage" />
+            
+            <dlg char="CH_Kate" track="DownLip" >
+                <m wait="2">my parents... they... they would disown me if they could see me now...</m>
+                <m>But... This... This what I must do to be accepted by the other girls, right?</m>
+            </dlg>
+
+            <choice>
+                <c out="#a"><text>Whatever helps you sleep at night... What you need now is to fasten up the pace...</text></c>
+                <c out="#b"><text>Yep... They won't believe how much you 'improved'...</text></c>
+            </choice>
+
+            <load stage="dinner-kate-date-end" />
+        </n>
+        
+    </nodes>
+</cutscene>

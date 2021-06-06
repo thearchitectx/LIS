@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../Cutscene.xsd">
+    <nodes>
+        <n id="n1">
+            <!-- Comment on first panel activated -->
+            <if>
+                <check-group op="AND">
+                    <check-text text="TXT_ARG_0" match="PANEL_.+" />
+                    <check-flag flag="CAMPUS_COMMENTED_PANELS" eq="0" />
+                </check-group>
+                <then>
+                    <flag name="CAMPUS_COMMENTED_PANELS" set="1" />
+                    <dlg style="subjective">
+                        <m wait="1">It seems there's exposition an of Mr. Jefferson's photography around the campus... All black and white hipster artsy stuff for sure...</m>
+                    </dlg>
+                </then>
+            </if>
+
+            <switch-text check="${Texts.TXT_ARG_0}" text="TXT_TMP_0">
+                <case eq="PANEL_GIRL">We have a winner here...</case>
+                <case eq="PANEL_CREEP">This should be titled "Portrait of a creep"...</case>
+                <case eq="PANEL_AUTHORITY">The figure of authority makes this one plain bad taste...</case>
+                <case eq="PANEL_GUITAR">Meh... Plain boring...</case>
+                <case eq="PANEL_GIRL_SIT">I can see aesthetic appeal on this one...</case>
+                <case eq="PANEL_GIRAFFE">Is that a giraffe behind the lady?</case>
+                <case eq="PANEL_STALK">Girls looks pissed... I wonder if she caught Mr Jefferson stalking her for this photo?</case>
+                <case eq="MAIN_GATE">Jeez... It feels like I'm locked in here...</case>
+                <case eq="SWIMMING_POOL">There's a notice here...</case>
+                <case eq="SWIMMING_POSTER">School swimming competitions are always the best...</case>
+            </switch-text>
+            <switch-text check="${Texts.TXT_ARG_0}" text="TXT_TMP_1">
+                <case eq="PANEL_GIRL">This is definitely my style of photography...</case>
+                <case eq="PANEL_GIRL_SIT">I mean... Nice legs...</case>
+                <case eq="PANEL_GIRAFFE">You tried too hard in this one, Mr. Jefferson...</case>
+                <case eq="MAIN_GATE">LET ME OUT!!!</case>
+                <case eq="SWIMMING_POOL">"UNDER MAINTENANCE UNTIL A FUTURE VERSION"</case>
+                <case eq="SWIMMING_POSTER">There's always several of those fit girls walking around in swim suits...</case>
+            </switch-text>
+            
+            <dlg style="subjective">
+                <m>${Texts.TXT_TMP_0}</m>
+            </dlg>
+            <if>
+                <check-text text="TXT_TMP_1" neq="#EMPTY" />
+                <then>
+                    <dlg style="subjective">
+                        <m>${Texts.TXT_TMP_1}</m>
+                    </dlg>
+                </then>
+            </if>
+        </n>
+    </nodes>
+</cutscene>

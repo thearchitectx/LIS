@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../Cutscene.xsd">
+    <nodes>
+        <n id="root">
+            <if>
+                <check-item item="ITM_TREASURE_DETECTOR" gte="1" />
+                <then>
+                    <prefab name="ItemDetector" parent="Player" world-position-stays="false">
+                        <message name="SetItemTag" string="Treasure" />
+                    </prefab>
+                </then>
+            </if>
+        </n>
+    </nodes>
+</cutscene>

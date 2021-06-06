@@ -19,6 +19,10 @@
             <xs:enumeration value="OBJ_TalkToThePrincipal" />
             <xs:enumeration value="OBJ_TalkToSamuel" />
             <xs:enumeration value="OBJ_TaylorOutOfGirlsRoomDoor" />
+            <xs:enumeration value="OBJ_GoToDorm" />
+            <xs:enumeration value="OBJ_ChloeSearchNathanRoom01" />
+            <xs:enumeration value="OBJ_KateMainObjective" />
+            <xs:enumeration value="OBJ_WarrenMainObjective" />
         </xs:restriction>
     </xs:simpleType>
 </xs:schema>

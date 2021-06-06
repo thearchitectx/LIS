@@ -10,10 +10,16 @@ namespace TheArchitect.SceneObjects
     {
         public const string OUTCOME_CONTINUE = "CONTINUE";
         [SerializeField] private Text m_Text;
+        [SerializeField] private string m_DismissButton = "Jump";
 
         public void MessageText(string text)
         {
             this.m_Text.text = text;
+        }
+
+        public void MessageButton(string button)
+        {
+            this.m_DismissButton = button;
         }
 
 
@@ -22,7 +28,7 @@ namespace TheArchitect.SceneObjects
             if (Time.deltaTime==0)
                 return;
 
-            if (Input.GetMouseButtonDown(0) || Input.GetButton("Jump"))
+            if (Input.GetMouseButtonDown(0) || Input.GetButton(m_DismissButton))
             {
                 Outcome = OUTCOME_CONTINUE;
                 Destroy(this.gameObject, 0.25f);

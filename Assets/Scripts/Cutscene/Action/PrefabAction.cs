@@ -39,6 +39,8 @@ namespace TheArchitect.Cutscene.Action
         public string Resource = null;
         [XmlAttribute("parent")]
         public string Parent = null;
+        [XmlAttribute("world-position-stays")]
+        public bool WorldPositionStays = true;
         [XmlAttribute("target")]
         public string Target = null;
         [XmlElement("outcome", typeof(PrefabOutcome))]
@@ -61,6 +63,9 @@ namespace TheArchitect.Cutscene.Action
 
         public override string Update(CutsceneInstance cutscene, CutsceneController controller)
         {
+            if (this.Resource!=null)
+                this.Resource = ResourceString.Parse(this.Resource);
+                
             if (Destroy!=null) {
                 Transform d = controller.FindProxy(Destroy);
                 if (d!=null)
@@ -69,7 +74,7 @@ namespace TheArchitect.Cutscene.Action
                     Debug.LogWarning($"Can't find target to destroy: {Destroy}");
             }
 
-            Target = Target == null ? Name : Target;
+            Target = string.IsNullOrEmpty(Target) ? Name : Target;
             if (Target == null && Resource!=null)
             {
                 Target = Resource.Contains("/") ? Resource.Substring(Resource.LastIndexOf("/") + 1) : Resource;
@@ -101,10 +106,13 @@ namespace TheArchitect.Cutscene.Action
                     var obj = GameObject.Instantiate(prefab);
                     this.m_Instance = obj.transform;
                     this.m_Instance.name = Target;
+
                     if (Parent == null)
-                        this.m_Instance.transform.SetParent(controller.transform);
+                        this.m_Instance.transform.SetParent(controller.transform, WorldPositionStays);
                     else
-                        this.m_Instance.transform.SetParent(controller.FindProxy(Parent));
+                        this.m_Instance.transform.SetParent(
+                            controller.FindProxy(ResourceString.Parse(Parent)),
+                            WorldPositionStays);
                 }
                 this.m_SceneObject = this.m_Instance.GetComponent<SceneObject>();
 

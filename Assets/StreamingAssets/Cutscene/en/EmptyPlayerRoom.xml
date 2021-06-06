@@ -1,0 +1,161 @@
+<?xml version="1.0"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../Cutscene.xsd">
+    <nodes>
+        <n id="n1">
+            <sys>
+                This is your room (the scenery is not built yet, enjoy the nostalgic static pictures meanwhile)\n\n
+                You can come here to use some consumable items and perform an after class activity like studying, work on side jobs and go on special events available after some interactions with people around the school...\n\n
+                The day will end when the after class activity is complete
+            </sys>
+            
+            <node-output node="root-choices" />
+        </n>
+
+        <n id="root-choices">
+            <choice>
+                <c out="#consumable">
+                    <text><![CDATA[CONSUMABLES\n<i><color=grey>Take substances useful for improving your stats and screwing your health</color></i>]]></text>
+                    <then>
+                        <dlg style="subjective">
+                            <m>Let's see what we have here...</m>
+                        </dlg>
+                        <node-output node="consumables" />
+                    </then>
+                </c>
+                <c out="niy" icon="ITM_MONEY">
+                    <text><![CDATA[PART-TIME JOB\n<i><color=grey>Work sets you free... Right?</color></i>]]></text>
+                </c>
+                <c out="niy" icon="DICK_INTELLIGENCE">
+                    <text><![CDATA[STUDY\n<i><color=grey>[INCREASES INTELLIGENCE] [ENDS DAY]</color></i>]]></text>
+                </c>
+                <c out="niy" icon="DICK_DARING">
+                    <text><![CDATA[WORK OUT\n<i><color=grey>[INCREASES DARING] [ENDS DAY]</color></i>]]></text>
+                </c>
+                <c out="events">
+                    <text>SPECIAL EVENTS</text>
+                </c>
+                <c out="#leave">
+                    <text>LEAVE ROOM</text>
+                    <then>
+                        <fade-to-black keep="true" />
+                        <wait time="0.5" />
+                        <sfx clip="door-transition" wait="true" />
+                        <load stage="dorm-boys-01" spawn="Player Spawn/Room 108" />
+                    </then>
+                </c>
+            </choice>
+        </n>
+
+        <n id="consumables">
+            <choice>
+                <c out="#a" icon="ITM_JOINT">
+                    <text><![CDATA[SMOKE JOINT\n<i><color=grey>[CHARISMA +3 INCREASE] [REPEATED USE MAY DECREASE INTELLIGENCE]</color></i>]]></text>
+                    <then>
+                        <if>
+                            <check-item item="ITM_JOINT" gte="1" />
+                            <then>
+                                <item name="ITM_JOINT" dec="1">YOU LIGHTED A *JOINT*</item>
+                                <flag name="DICK_CHARISMA" inc="3">YOUR *CHARISMA* IMPROVED!</flag>
+                                <sfx clip="light-joint" />
+                                <fade-to-black keep="true" />
+                                <wait time="2" />
+                                <fade-to-black mode="from" />
+                                <dlg style="subjective">
+                                    <m>Can't think anything cool to say... I just feel great...</m>
+                                </dlg>
+                                <wait time="0.5" />
+                                <node-output node="root-choices" />
+                            </then>
+                            <else>
+                                <dlg style="subjective">
+                                    <m>Unfortunately, I don't have one with me... But, this is a school... Certainly there's someone selling around here...</m>
+                                </dlg>
+                                <wait time="0.5" />
+                                <node-output node="consumables" />
+                            </else>
+                        </if>
+                    </then>
+                </c>
+                <!-- <c out="#b">
+                    <text><![CDATA[TAKE MENTATS\n<i><color=grey>[INTELLIGENCE +2 INCREASE] [BOOTS STUDYING EFFECTS FOR THE DAY]</color></i>]]></text>
+                    <then>
+                        <dlg style="subjective">
+                            <m>I don't have one with me... It's pretty rare stuff, but someone might provide some around here...</m>
+                        </dlg>
+                        <wait time="0.5" />
+                        <node-output node="consumables" />
+                    </then>
+                </c> -->
+                <c out="#c">
+                    <text><![CDATA[TAKE PHEROMONE PILL\n<i><color=grey>GIVES "PHEROMONE EMITTER" PERK UNTIL THE END OF NEXT DAY</color></i>]]></text>
+                    <then>
+                        <dlg style="subjective">
+                            <m>I don't have one with me... But that stuff is like Phoenix Down, it can be found in every corner of the multiverse... I just need to search more...</m>
+                        </dlg>
+                        <wait time="0.5" />
+                        <node-output node="consumables" />
+                    </then>
+                </c>
+                <c out="root-choices">
+                    <text>[ BACK ]</text>
+                </c>
+            </choice>
+        </n>
+
+        <n id="events">
+            <choice>
+                <c out="#a">
+                    <check-flag flag="KATE_CAMPUS_BENCH" bit-set="0" />
+                    <text>Kate "Cool" Lessons</text>
+                    <lock-reason>[ NOT FOUND YET ]</lock-reason>
+                    <then>
+                        <dlg style="subjective">
+                            <m>Kate told me to call her... She probably wants to meet somewhere outside the school...</m>
+                            <m>Should I do it now?</m>
+                        </dlg>
+                        <choice>
+                            <c out="#a"><text>[ Call Kate ]</text></c>
+                            <c out="root-choices"><text>[ Not now ]</text></c>
+                        </choice>
+                        <dlg style="subjective">
+                            <m>Let's do this...</m>
+                        </dlg>
+                        <wait time="1" />
+                        <anim bool="phone" boolValue="true"/>
+                        <sfx clip="phone-call-tone" wait="true" />
+                        <wait time="0.5" />
+                        <sfx clip="phone-call-tone" wait="true" />
+                        <sfx clip="phone-pickup" wait="true" />
+                        <dlg char="CH_Kate" track="Root" style="remote-subjective">
+                            <m>Oh... Hi...</m>
+                            <m wait="1">Thanks for calling me...</m>
+                            <m>You have time now, right?</m>
+                            <m>I'm going to the Two Wales Diner... Please meet me there so we can talk far away from any Blackwell folk...</m>
+                            <m>See you there...</m>
+                        </dlg>
+                        <anim bool="phone" boolValue="false"/>
+                        <wait time="1" />
+                        <dlg style="subjective">
+                            <m>Looks like it's time to hit the town...</m>
+                        </dlg>
+                        <fade-to-black keep="true" />
+                        <wait time="2" />
+                        <load stage="dinner-kate-date" />
+                    </then>
+                </c>
+                <c out="root-choices">
+                    <text>[ Back ]</text>
+                </c>
+            </choice>
+        </n>
+
+        <n id="niy">
+            <dlg char="THE_ARCHITECT" style="remote-subjective">
+                <m>Sorry... This is not implemented yet...</m>
+            </dlg>
+
+            <node-output node="root-choices" />
+        </n>
+    </nodes>
+</cutscene>

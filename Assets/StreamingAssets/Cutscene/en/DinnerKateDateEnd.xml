@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../Cutscene.xsd">
+    <include node-prefix="smooth-talk-">../../Exploration/en/_Lib/SmoothTalkTutorial.xml</include>
+    <nodes>
+        <n id="n1">
+            <bgm loop="loop-urban" volume="0.25" />
+            <wait time="1" />
+            
+            <dlg char="CH_Joyce" track="Neck" timed="2">
+                <m>Hey... You two !!</m>
+            </dlg>
+
+            <wait time="1" />
+            <anim target="CH_Kate" idle="SIT02_CRY" />
+            <dlg char="CH_Kate" style="whisper" track="DownLip">
+                <m wait="0.5">Oh no... no... no...</m>
+            </dlg>
+            
+            <dlg char="CH_Joyce" track="Neck">
+                <m>The diner being empty doesn't give you the right to use it as an hotel room...</m>
+                <m>God's sake... I can't leave the place for a couple of minutes...</m>
+            </dlg>
+            
+            <dlg char="CH_Kate" style="whisper" track="DownLip">
+                <m>i'm sorry... i'm so sorry...</m>
+            </dlg>
+            
+            <dlg char="CH_Joyce" track="Neck">
+                <m>Miss Marsh... Of all the girls... You are the last one I would expect to see involved int this kind of... mischief...</m>
+            </dlg>
+
+            <dlg char="CH_Kate" style="whisper" track="DownLip">
+                <m>i'm sorry... i... i will go away now...</m>
+            </dlg>
+
+            <dlg char="CH_Joyce" track="Neck">
+                <m>Yeah... And you too, weird boy... Beat it...</m>
+            </dlg>
+            
+            <fade-to-black speed="0.5" keep="true" layer="-1"/>
+            <wait time="3" />
+
+            <dlg char="THE_ARCHITECT" style="remote-subjective">
+                <m>THE FOLLOW-UP OF THIS SCENE WILL BE AVAILABLE NEXT VERSION !</m>
+            </dlg>
+
+            <load stage="title" />
+        </n>
+        
+    </nodes>
+</cutscene>

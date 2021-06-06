@@ -20,9 +20,12 @@ namespace TheArchitect.Cutscene.Action
             var value = ResourceString.Parse(Check);
             foreach (var c in Cases)
             {
+                #if UNITY_EDITOR
+                Debug.Log($"== '{c.Eq}' '{value}'");
+                #endif
                 if (c.Eq == value || c.Eq.StartsWith("#"))
                 {
-                    controller.Game.SetTextState(Text, c.Then);
+                    controller.Game.SetTextState(Text, ResourceString.Parse(c.Then));
                     return OUTPUT_NEXT;
                 }
             }

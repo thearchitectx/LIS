@@ -123,7 +123,7 @@ namespace TheArchitect.SceneObjects
                     {
                         this.m_Animator.SetTrigger("hit");
                         OneTimeAudioPlayer.Play("hit-strong");
-                        this.m_LifeEnemy -= 0.4f;
+                        this.m_LifeEnemy -= 0.5f;
                         Outcome = this.m_LifeEnemy > 0 ? OUTCOME_MOVE_SUCCESS : OUTCOME_WIN;
                     } else { 
                         OneTimeAudioPlayer.Play("hit-miss");

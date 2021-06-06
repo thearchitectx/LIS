@@ -126,7 +126,11 @@ namespace TheArchitect.Cutscene.Action
             HORNY01 = 10,
             SICK01 = 11,
             CHECK_PHONE = 12,
-            POSE_SEXY01 = 13
+            POSE_SEXY01 = 13,
+            LEAN_WALL = 14,
+            SIT02 = 15,
+            SIT02_CRY = 16,
+            SCARED01 = 17,
         }
 
         public enum CharacterReact
@@ -143,6 +147,9 @@ namespace TheArchitect.Cutscene.Action
             LAUGH01,
             GIGGLE,
             GIVE_ITEM,
+            LEAN_WALL01_SAY,
+            SIT02_SAY,
+            SIT02_FACEPALM
         }
 
         public enum CharacterExpression
@@ -154,7 +161,8 @@ namespace TheArchitect.Cutscene.Action
             SMILE_CHEER,
             HAPPY = 6,
             EYE_ROLL = 7,
-            HORNY01 = 8
+            HORNY01 = 8,
+            COOL = 9,
         }
 
         public enum CharacterBlink

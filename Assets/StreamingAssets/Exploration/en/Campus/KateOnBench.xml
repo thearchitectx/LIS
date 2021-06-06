@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../Cutscene.xsd">
+    <nodes>
+        <n id="n1">
+            <choice>
+                <c out="#a">
+                    <text>Hey there...</text>
+                    <then>
+                        <fade-to-black keep="true" />
+                        <wait time="1" />
+                        <load stage="campus-kate-on-bench-dialog01" />
+                    </then>
+                </c>
+                <c out="#b">
+                    <text>[ Leave ]</text>
+                </c>
+            </choice>
+        </n>
+    </nodes>
+</cutscene>

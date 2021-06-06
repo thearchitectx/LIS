@@ -63,7 +63,7 @@ namespace TheArchitect.Cutscene.Action
                     ? controller.FindProxy(CharacterId)
                     : controller.FindProxy(CharacterTransformPath);
 
-                if (characterTransform!=null)
+                if (characterTransform!=null && this.NeutralExpressionWhileSaying)
                 {
                     this.m_Animator = characterTransform.GetComponent<Animator>();
                     this.m_OriginalExpression = this.m_Animator != null ? this.m_Animator.GetInteger("exp") : -1;
@@ -144,11 +144,14 @@ namespace TheArchitect.Cutscene.Action
             // Randomize Jaw Rig to simulate speech
             if (this.m_Panel!=null)
             {
+                if (this.m_Animator!=null && this.NeutralExpressionWhileSaying)
+                        this.m_Animator.SetInteger("exp", this.m_Panel.HasPendingText
+                            ? (int) AnimateAction.CharacterExpression.NEUTRAL
+                            : this.m_OriginalExpression
+                        );
+
                 if (this.m_Panel.IsRollingText)
                 {
-                    if (this.m_Animator!=null && this.NeutralExpressionWhileSaying)
-                        this.m_Animator.SetInteger("exp", (int) AnimateAction.CharacterExpression.NEUTRAL);
-
                     // Randomize Jaw Rig to simulate speech
                     if (this.m_JawRig != null && !this.m_JawRig.IsMoving())
                         this.m_JawRig.SetWeightKeepRestore(
@@ -165,8 +168,8 @@ namespace TheArchitect.Cutscene.Action
                 }
                 else
                 {
-                    if (this.m_Animator!=null && this.m_OriginalExpression > -1 && this.NeutralExpressionWhileSaying)
-                        this.m_Animator.SetInteger("exp", this.m_OriginalExpression);
+                    // if (this.m_Animator!=null && this.m_OriginalExpression > -1 && this.NeutralExpressionWhileSaying)
+                    //     this.m_Animator.SetInteger("exp", this.m_OriginalExpression);
                     if (this.m_JawRig != null)
                         this.m_JawRig.SetWeight(0);
                     if (this.m_LipsRig != null)

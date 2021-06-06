@@ -1,0 +1,174 @@
+<?xml version="1.0"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../Cutscene.xsd">
+    <include node-prefix="smooth-talk-">../../Exploration/en/_Lib/SmoothTalkTutorial.xml</include>
+    <nodes>
+        <n id="n1">
+            <bgm loop="loop-urban" volume="0.25"  />
+            <wait time="3" />
+
+            <autosave label="TWO WHALES DINER" />
+
+            <dlg char="CH_Kate" style="subjective">
+                <m wait="1">I can...</m>
+                <m wait="1">I can do whatever I want?</m>
+            </dlg>
+            <rig-track of="CH_Kate" head="0.5" eye="0.5" />
+            <dlg char="CH_Kate" style="subjective">
+                <m wait="1">Well... There's something... I'm not sure if I should do... But I definitely want to... </m>
+            </dlg>
+            <rig-track of="CH_Kate" head="0" eye="0" />
+            
+            <anim int="step" intValue="1" />
+            <anim target="CH_Kate" int="step" intValue="1" />
+            
+            <wait time="6" />
+            <anim trigger="toggle-camera" />
+            <wait time="2" />
+
+            <obj name="RigInputIdle" active="true" />
+
+            <dlg char="CH_Kate" track="Neck" style="whisper" timed="3"  jawAnim="false">
+                <m>i... i... i'm sorry... i'm sorry...</m>
+            </dlg>
+
+            <wait time="1" />
+            <dlg char="CH_Kate" track="Neck" style="whisper" timed="3"  jawAnim="false">
+                <m>i never take the initiative like this...</m>
+            </dlg>
+            <wait time="1.5" />
+            <dlg char="CH_Kate" track="Neck" style="whisper" timed="3.5" jawAnim="false">
+                <m>but... i've been feeling different since i met you...</m>
+            </dlg>
+            <dlg char="CH_Kate" track="Neck" style="whisper" timed="3.5" jawAnim="false">
+                <m>and this feels... feels so right...</m>
+            </dlg>
+
+            <choice>
+                <c out="#a"><text>That was a good surprise... And it shows how well you're improving your self-confidence...</text></c>
+                <c out="#b"><text>Well... I'm definitely not sorry... And you also shouldn't be...</text></c>
+            </choice>
+            
+            <wait time="2" />
+            <dlg char="CH_Kate" track="Neck" style="whisper"  jawAnim="false">
+                <m>it's... it's all thanks to your advice...</m>
+                <m>please... just... just don't tell... anyone...</m>
+            </dlg>
+
+            <wait time="5" />
+
+            <choice>
+                <c out="#a" icon="AXIS_INTERACTION_HEART">
+                    <text><![CDATA[[ Work with your hands ]]]></text>
+                </c>
+                <c out="#b">
+                    <text><![CDATA[[ Just keep it like this ]]]></text>
+                    <then>
+                        <stat char="CH_Kate" name="AFFINITY" inc="2" />
+                        <dlg char="CH_Kate" track="Neck" style="whisper" jawAnim="false" timed="3">
+                            <m wait="2">i... i wish i could keep doing this... the whole... day...</m>
+                        </dlg>
+                        <wait time="3" />
+                        <fade-to-black speed="0.5" keep="true" />
+                        <wait time="2" />
+                        <load stage="dinner-kate-date-end" />
+                    </then>
+                </c>
+            </choice>
+
+            <obj name="RigInputIdle" active="false" />
+            <obj name="RigInputSkirtUp" active="true" />
+
+            <anim int="step" intValue="2" />
+
+            <wait time="3" />
+            
+            <dlg char="CH_Kate" track="Neck" style="whisper" jawAnim="false" timed="3">
+                <m>mmm.... wait...</m>
+            </dlg>
+
+            <wait time="2" />
+            
+            <dlg char="CH_Kate" track="Neck" style="whisper" jawAnim="false" timed="3">
+                <m>someone... someone... might be seeing us....</m>
+            </dlg>
+            
+            <wait time="1" />
+
+            <prefab name="SimpleMessage">
+                <outcome output="#continue" />
+            </prefab>
+            <prefab destroy="SimpleMessage" />
+
+            <dlg char="CH_Kate" track="Neck" style="whisper" jawAnim="false" timed="3">
+                <m>what... what will people say... if they see me doing this...</m>
+            </dlg>
+
+            <choice>
+                <c out="#a" icon="AXIS_INTERACTION_HEART">
+                    <text><![CDATA[Don't worry... There's no one around... Let me show you a good time... You deserve it...]]></text>
+                </c>
+                <c out="#b">
+                    <text><![CDATA[Okay... We don't need to go further if you're uncomfortable...]]></text>
+                    <then>
+                        <stat char="CH_Kate" name="AFFINITY" inc="5" />
+                        <dlg char="CH_Kate" track="Neck" style="whisper" jawAnim="false" timed="3">
+                            <m wait="1">oh... i didn't expect you to be so understanding...</m>
+                            <m wait="2">I'm already enjoying this moment so much...</m>
+                        </dlg>
+                        <fade-to-black keep="true" />
+                        <wait time="1" />
+                        <load stage="dinner-kate-date-end" />
+                    </then>
+                </c>
+            </choice>
+
+            <trophy unlock="jimmy-hopkins-01" />
+            <stat char="CH_Kate" name="CORRUPTION" inc="3" />
+            <stat char="CH_Kate" name="AFFINITY" inc="3" />
+            
+            <anim int="step" intValue="3" />
+            <anim target="CH_Kate" int="step" intValue="3" />
+            
+            <obj name="RigInputSkirtUp" active="false" />
+            <obj name="RigInputSkirtUpDeeper" active="true" />
+            
+            <prefab target="RigInputSkirtUpDeeper">
+                <!-- RigWeightDeltaListener -->
+                <outcome output="#continue" />
+            </prefab>
+
+            <wait time="3" />
+
+            <anim trigger="toggle-camera" />
+            
+            <dlg char="CH_Kate" track="Neck" style="whisper" jawAnim="false" timed="3">
+                <m>oh.... jesus....</m>
+            </dlg>
+
+            <wait time="4" />
+            
+            <dlg char="CH_Kate" track="Neck" style="whisper" jawAnim="false" timed="3">
+                <m>i.... feel..... funny.....</m>
+            </dlg>
+            
+            <wait time="4" />
+
+            <prefab name="SimpleMessage">
+                <message name="MessageText" string="&lt;color=cyan&gt;LEFT CLICK&lt;/color&gt; TO CONTINUE" />
+                <message name="MessageButton" string="Fire1" />
+                <outcome output="#continue" />
+            </prefab>
+            <prefab destroy="SimpleMessage" />
+
+            <dlg char="CH_Kate" track="Neck" style="whisper" jawAnim="false">
+                <m wait="1">please..... if you.... keep doing.... this.... I.... will....</m>
+                <m>.... i will....</m>
+            </dlg>
+            <fade-to-black speed="0.5" keep="true" />
+            <wait time="2" />
+            <load stage="dinner-kate-date-end" />
+        </n>
+        
+    </nodes>
+</cutscene>

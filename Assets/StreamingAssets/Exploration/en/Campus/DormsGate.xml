@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../Cutscene.xsd">
+    <nodes>
+        <n id="n1">
+            <dlg style="remote-subjective">
+                <m>Dorms external area is under maintenance... But I can go in straight to the building...</m>
+            </dlg>
+            <choice>
+                <c out="#a">
+                    <text>[ Enter dormitories - Boys section ]</text>
+                    <then>
+                        <fade-to-black keep="true" />
+                        <wait time="1" />
+                        <load stage="dorm-boys-01" spawn="Player Spawn/Entrance" />
+                    </then>
+                </c>
+                <c out="#b">
+                    <check-flag flag="TMP_1" eq="99999" />
+                    <text>[ Enter dormitories - Girls section ]</text>
+                    <lock-reason>[ Enter dormitories - Girls section ] [NOT AVAILABLE YET]</lock-reason>
+
+                </c>
+                <c out="#a">
+                    <text>Leave</text>
+                </c>
+            </choice>
+        </n>
+        <n id="n2">
+            <fade-to-black keep="true" />
+            <wait time="1" />
+            <load stage="school-hall-01" spawn="Player Spawn/Campus Door" />
+        </n>
+    </nodes>
+</cutscene>

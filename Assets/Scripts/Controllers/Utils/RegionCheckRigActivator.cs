@@ -29,4 +29,11 @@ public class RegionCheckRigActivator : MonoBehaviour
         foreach (var r in Rigs)
             r.SetWeight(targetInRegion? 1 : 0);
     }
+
+    void OnDrawGizmosSelected()
+    {
+        // Display the explosion radius when selected
+        Gizmos.color = new Color(1, 1, 0, 0.75F);
+        Gizmos.DrawWireSphere(transform.position, CapsuleRadius);
+    }
 }

@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../Cutscene.xsd">
+    <nodes>
+        <n id="n1">
+            <choice>
+                <c out="#a">
+                    <text>[ Enter Room ]</text>
+                    <then>
+                        <fade-to-black keep="true" />
+                        <wait time="0.5" />
+                        <sfx clip="door-transition" wait="true" />
+                        <load stage="player-room" />
+                    </then>
+                </c>
+                <c out="#b">
+                    <text>[ Leave ]</text>
+                </c>
+            </choice>
+        </n>
+    </nodes>
+</cutscene>

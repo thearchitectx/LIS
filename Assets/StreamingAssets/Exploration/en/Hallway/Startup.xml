@@ -1,8 +1,11 @@
 <?xml version="1.0"?>
 <cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="../../../Cutscene.xsd">
+    <include node-prefix="exploration-">../_Lib/Exploration.xml</include>
     <nodes>
         <n id="n1">
+            <inject node="exploration-root" />
+
             <if>
                 <check-flag flag="QUEST_KATE_LOCKER_KEY_LOCATION" eq="0" />
                 <then>

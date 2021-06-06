@@ -1,0 +1,92 @@
+<?xml version="1.0"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../Cutscene.xsd">
+    <nodes>
+        <n id="n1">
+            <if>
+                <check-text text="TXT_ARG_0" neq="#EMPTY" ref="true" />
+                <then>
+                    <choice>
+                        <c out="#a">
+                            <text>Clear board</text>
+                            <then>
+                                <prefab destroy="../Draw" />
+                                <sfx clip="swoosh" />
+                                <text name="TXT_ARG_0" set="" ref="true"/>
+                                <wait time="0.5" />
+                            </then>
+                        </c>
+                        <c out="#b">
+                            <text>Leave</text>
+                        </c>
+                    </choice>
+                </then>
+                <else>
+                    <dlg style="subjective">
+                        <m>A white canvas calls for Art...</m>
+                        <m>What style should I use here?</m>
+                    </dlg>
+                    <choice>
+                        <c out="#d">
+                            <text>Write conformist poetry...</text>
+                            <then>
+                                <text name="TXT_ARG_0" set="DrawMomParty" ref="true"/>
+                                <text name="TXT_ARG_0" set="DrawMomParty" />
+                                <text name="TXT_ARG_1" set="This is the way we know it..." />
+                                <node-output node="draw" />
+                            </then>
+                        </c>
+                        <c out="#c">
+                            <text>Write subversive poetry...</text>
+                            <then>
+                                <text name="TXT_ARG_0" set="DrawMomNice" ref="true"/>
+                                <text name="TXT_ARG_0" set="DrawMomNice" />
+                                <text name="TXT_ARG_1" set="Subverting expectations... How do you retort that, huh?" />
+                                <node-output node="draw" />
+                            </then>
+                        </c>
+                        <c out="#a">
+                            <text>Draw a classic...</text>
+                            <then>
+                                <text name="TXT_ARG_0" set="DrawPenis"  ref="true"/>
+                                <text name="TXT_ARG_0" set="DrawPenis" />
+                                <text name="TXT_ARG_1" set="The classics shall never be forgotten..." />
+                                <node-output node="draw" />
+                            </then>
+                        </c>
+                        <c out="#b">
+                            <text>Draw a natural source of inspiration...</text>
+                            <then>
+                                <text name="TXT_ARG_0" set="DrawWeed"  ref="true"/>
+                                <text name="TXT_ARG_0" set="DrawWeed" />
+                                <text name="TXT_ARG_1" set="Nature is always the best muse..." />
+                                <node-output node="draw" />
+                            </then>
+                        </c>
+                        <c out="#e">
+                            <text>Draw eastern expressionism...</text>
+                            <then>
+                                <text name="TXT_ARG_0" set="DrawAhegao"  ref="true"/>
+                                <text name="TXT_ARG_0" set="DrawAhegao" />
+                                <text name="TXT_ARG_1" set="Contemporary art from a millenary culture... I'm get really good at this..." />
+                                <node-output node="draw" />
+                            </then>
+                        </c>
+                    </choice>
+                </else>
+            </if>
+            
+        </n>
+
+        <n id="draw">
+            <fade-to-black mode="to" speed="2" keep="true" />
+            <wait time="0.65" />
+            <sfx clip="swoosh" />
+            <prefab resource="Exploration/DormBoys/Draws/${Texts.TXT_ARG_0}" target="Draw" parent="DrawParent" world-position-stays="false" />
+            <fade-to-black mode="from" speed="2" />
+            <dlg style="subjective">
+                <m>${Texts.TXT_ARG_1}</m>
+            </dlg>
+        </n>
+    </nodes>
+</cutscene>

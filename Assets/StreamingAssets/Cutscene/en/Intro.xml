@@ -132,7 +132,7 @@
 
         <!--  CHOICE n1-dream -->
         <n id="n1-dream" out="n2">
-            <stat char="CH_Kate" name="AFFINITY" inc="1" />
+            <stat char="CH_Kate" name="CORRUPTION" inc="1" />
 
             <anim target="CH_Kate" react="SURPRISE" />
             <anim target="Cinemachine/TalkGroup" trigger="CH_Kate"/>
@@ -177,7 +177,6 @@
         <!--  CHOICE n1-sorry -->
         <n id="n1-sorry" out="n2">
             <stat char="CH_Jefferson" name="AFFINITY" inc="1" />
-            <stat char="CH_Kate" name="AFFINITY" inc="-1" clamp-a="0" />
             <rig-track of="CH_Kate" eye="1" />
             <anim target="Cinemachine/TalkGroup" trigger="CH_Kate"/>
             <anim target="CH_Kate" react="PISSED_OFF01" expression="DISAPPROVE"/>

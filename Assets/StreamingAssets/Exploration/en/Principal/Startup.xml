@@ -1,18 +1,29 @@
 <?xml version="1.0"?>
 <cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="../../../Cutscene.xsd">
+    <include node-prefix="exploration-">../_Lib/Exploration.xml</include>
     <nodes>
         <n id="n1">
+            <inject node="exploration-root" />
+            <!-- JUSTIN -->
             <prefab resource="Exploration/Principal/JustinWall/CH_Justin" target="CH_Justin" parent="Dynamic" />
+            <!-- JUSTIN FIRST MET -->
             <if>
                 <check-flag flag="JUSTIN_MET" eq="0" />
                 <then>
                     <dlg char="CH_Justin" char-transform="../Dynamic/CH_Justin" track="Neck" timed="5">
                         <m>Psst! Hey... Over here...</m>
                     </dlg>
-                    <cutscene-outcome value="_destroyObject" />
                 </then>
             </if>
+            <!-- SPAWN LOST MONEY #2 -->
+            <if>
+                <check-flag flag="LOST_MONEY_FOUND" bit-unset="2" />
+                <then>
+                    <prefab resource="Exploration/Principal/Dynamic/DollarBill" target="DollarBill" parent="Dynamic" />
+                </then>
+            </if>
+            <!-- COMMENT PRINCIPAL WAR -->
             <if>
                 <check-flag flag="PRINCIPAL_CH_MET" eq="1" />
                 <then>
@@ -25,9 +36,10 @@
                     </dlg>
 
                     <flag name="#DISABLE_PLAYER" set="0" />
-                    <cutscene-outcome value="_destroyObject" />
                 </then>
             </if>
+
+            <cutscene-outcome value="_destroyObject" />
         </n>
     </nodes>
 </cutscene>

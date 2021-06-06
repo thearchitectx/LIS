@@ -15,6 +15,10 @@
             <xs:enumeration value="SICK01" />
             <xs:enumeration value="CHECK_PHONE" />
             <xs:enumeration value="POSE_SEXY01" />
+            <xs:enumeration value="LEAN_WALL" />
+            <xs:enumeration value="SIT02" />
+            <xs:enumeration value="SIT02_CRY" />
+            <xs:enumeration value="SCARED01" />
         </xs:restriction>
     </xs:simpleType>
     <xs:simpleType name="expression">
@@ -26,6 +30,7 @@
             <xs:enumeration value="HAPPY" />
             <xs:enumeration value="EYE_ROLL" />
             <xs:enumeration value="HORNY01" />
+            <xs:enumeration value="COOL" />
         </xs:restriction>
     </xs:simpleType>
     <xs:simpleType name="react">
@@ -41,6 +46,9 @@
             <xs:enumeration value="LAUGH01" />
             <xs:enumeration value="GIGGLE" />
             <xs:enumeration value="GIVE_ITEM" />
+            <xs:enumeration value="LEAN_WALL01_SAY" />
+            <xs:enumeration value="SIT02_SAY" />
+            <xs:enumeration value="SIT02_FACEPALM" />
         </xs:restriction>
     </xs:simpleType>
     <xs:simpleType name="blink">

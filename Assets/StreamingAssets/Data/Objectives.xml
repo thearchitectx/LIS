@@ -74,4 +74,19 @@
         <description>Try Smooth Talking her, of find and give her Courtney's bracelet lost somewhere in the main hall</description>
     </objective>
 
+    <objective name="OBJ_GoToDorm">
+        <title><![CDATA[<color=cyan>Task:</color> Rest at your room in the boys dorm]]></title>
+        <description></description>
+    </objective>
+
+    <objective name="OBJ_ChloeSearchNathanRoom01">
+        <title><![CDATA[<color=cyan>Turf War:</color> Search Nathan's room]]></title>
+        <description>Find a way into Nathan Prescott's room in the boys dorm and search for any compromising evidence against him</description>
+    </objective>
+
+    <objective name="OBJ_WarrenMainObjective">
+        <title><![CDATA[<color=cyan>The White Knight Quest</color>]]></title>
+        <description>Warren asked your help to win Max's heart... You can do it for a reward, or sabotage him... Maybe both?</description>
+    </objective>
+
 </objectives>

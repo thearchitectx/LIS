@@ -61,34 +61,46 @@
                 </c>
 
                 <c out="#cleaned-girls-restroom">
-                    <check-flag flag="QUEST_CLEAN_GIRLS_RESTROOM" gte="5" />
+                    <check-flag flag="QUEST_CLEAN_GIRLS_RESTROOM" eq="5" />
                     <text>Hey... I finished the job at the girl's room...</text>
                     <then>
-                        <dlg char="THE_ARCHITECT" style="remote-subjective">
-                            <m>THIS QUEST CONTENT ENDS HERE IN THIS VERSION !</m>
-                        </dlg>
-                        <flag name="STUDIO_TOKENS_FOUND" bit-set="1" />
-                        <studio-token char="CH_Brooke" category="BASIC">YOU FOUND BROOKE'S BASIC STUDIO TOKEN</studio-token>
-                        <dlg char="THE_ARCHITECT" style="remote-subjective">
-                            <m>SAMUEL WILL GIVE YOU BROOKE'S TOKEN AS A REWARD... BUT YOU CAN HAVE IT NOW!</m>
-                        </dlg>
-
-                        <!-- <rig-track of="CH_Samuel" eye="1" head="0.75" />
-                        <anim target="CH_Samuel" idle="STAND_HANDS_WAIST" react="SAY02" blink="NEUTRAL" />
+                        <obj name="mop" active="false" />
+                        <flag name="QUEST_CLEAN_GIRLS_RESTROOM" set="6" />
+                        <rig-track of="CH_Samuel" eye="1" head="0.75" />
                         <dlg char="CH_Samuel" style="subjective">
                             <m>Oh... Nice!</m>
-                            <m wait="1">How did you feel entering that sacred place? Humble? Horny?</m>
+                        </dlg>
+                        <anim target="CH_Samuel" idle="STAND_HANDS_WAIST" react="SAY02" blink="NEUTRAL" />
+                        <dlg char="CH_Samuel" style="subjective">
+                            <m wait="1">How did you feel getting into that sacred place? Humble? Horny?</m>
                         </dlg>
                         <anim target="CH_Samuel" react="LAUGH01" />
                         <dlg char="CH_Samuel" style="subjective">
-                            <m wait="1">Nah... Just kidding...</m>
+                            <m wait="1">Ha... I'm just fucking with you... You did a good job...</m>
+                        </dlg>
+                        
+                        <choice>
+                            <c out="#a"><text>Yeah... This internship is teaching me so much...</text></c>
+                            <c out="#b"><text>Whatever you say...</text></c>
+                        </choice>
+
+                        <anim target="CH_Samuel" react="SAY01" />
+                        <dlg char="CH_Samuel" style="subjective">
                             <m>But... Hey... I promised you a reward didn't I ?</m>
                         </dlg>
-                        <anim target="CH_Samuel" react="GIVE_ITEM" />
-                        <dlg char="CH_Samuel" style="subjective">
-                            <m>Here... Take this... I don't know what the hell it is... But it seems useful somehow...</m>
-                        </dlg> -->
 
+                        <anim target="CH_Samuel" react="GIVE_ITEM" />
+                        <flag name="STUDIO_TOKENS_FOUND" bit-set="1" />
+                        <studio-token char="CH_Brooke" category="BASIC">YOU FOUND BROOKE'S BASIC STUDIO TOKEN</studio-token>
+                        <dlg char="CH_Samuel" style="subjective">
+                            <m wait="0.5">Here... Take this... I don't know what the hell it is... But it seems useful somehow...</m>
+                            <m>Well... Your tasks are done... You can go chill at the dorm nows...</m>
+                            <m>I'll send you a message with your next 'assignment' later...</m>
+                        </dlg>
+
+                        <objective name="OBJ_CleanGirlsRestroomReport" completed="true" />
+                        <objective name="OBJ_GoToDorm" completed="false" />
+                        <node-output node="mop-end" />
                     </then>
                 </c>
 

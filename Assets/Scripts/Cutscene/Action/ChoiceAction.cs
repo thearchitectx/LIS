@@ -13,11 +13,16 @@ namespace TheArchitect.Cutscene.Action
         NONE,
         DICK_INTELLIGENCE,
         DICK_CHARISMA,
+        DICK_DARING,
         DICK_KARMA_GOOD,
         DICK_KARMA_EVIL,
         SMOOTH_TALK,
+        STAT_AFFINITY,
+        STAT_CORRUPTION,
         AXIS_INTERACTION,
         AXIS_INTERACTION_HEART,
+        ITM_JOINT,
+        ITM_MONEY
     }
 
     public class Choice
@@ -45,15 +50,21 @@ namespace TheArchitect.Cutscene.Action
         public string IconPath
         {
             get {
+                if (Icon.ToString("g").StartsWith("ITM_"))
+                    return $"ScriptableObjects/Items/{Icon.ToString("g")}";
+
                 switch (Icon)
                 {
                     case ChoiceIcon.DICK_INTELLIGENCE: return "UI/Sprites/dick-intelligence";
                     case ChoiceIcon.DICK_CHARISMA: return "UI/Sprites/dick-charisma";
+                    case ChoiceIcon.DICK_DARING: return "UI/Sprites/dick-daring";
                     case ChoiceIcon.DICK_KARMA_GOOD: return "UI/Sprites/dick-karma-g";
                     case ChoiceIcon.DICK_KARMA_EVIL: return "UI/Sprites/dick-karma-e";
                     case ChoiceIcon.SMOOTH_TALK: return "ScriptableObjects/Perks/PRK_SMOOTH_TALKER";
                     case ChoiceIcon.AXIS_INTERACTION: return "UI/Sprites/mouse-control";
                     case ChoiceIcon.AXIS_INTERACTION_HEART: return "UI/Sprites/mouse-control-heart";
+                    case ChoiceIcon.STAT_AFFINITY: return ResourcePaths.ICON_AFFINITY;
+                    case ChoiceIcon.STAT_CORRUPTION: return ResourcePaths.ICON_CORRUPTION;
                     default: return null;
                 }
             }

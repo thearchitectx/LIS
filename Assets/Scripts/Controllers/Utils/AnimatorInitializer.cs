@@ -40,14 +40,19 @@ public class AnimatorInitializer : MonoBehaviour
                 a.SetTrigger(p.value);
             }
         }
+                
+    }
 
+    void LateUpdate()
+    {
+        Animator a = GetComponent<Animator>();
         if (randomizeStartTime)
             for (var i = 0; i < a.layerCount; i++)
             {
                 var si = a.GetCurrentAnimatorStateInfo(i);
-                a.Play(si.fullPathHash, i, UnityEngine.Random.value);
+                a.Play(0, i, UnityEngine.Random.value);
             }
 
-        Destroy(this, 2);        
+        Destroy(this);
     }
 }

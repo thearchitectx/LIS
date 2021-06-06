@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../Cutscene.xsd">
+    <nodes>
+        <n id="n1">
+            <!-- Warren Scene Trigger 01 -->
+            <if>
+                <check-flag flag="WARREN_MEET_BOYS_DORM" bit-unset="0" />
+                <then>
+                    <prefab resource="Exploration/DormBoys/Dynamic/MeetWarren Scene Trigger" 
+                        target="MeetWarren Scene Trigger"
+                        parent="Dynamic" />
+                </then>
+            </if>
+            <text name="TXT_ARG_0" set="DORM_BOYS_DRAW_104" />
+            <inject node="draw" />
+            <text name="TXT_ARG_0" set="DORM_BOYS_DRAW_105" />
+            <inject node="draw" />
+            <text name="TXT_ARG_0" set="DORM_BOYS_DRAW_106" />
+            <inject node="draw" />
+            <text name="TXT_ARG_0" set="DORM_BOYS_DRAW_107" />
+            <inject node="draw" />
+            <text name="TXT_ARG_0" set="DORM_BOYS_DRAW_108" />
+            <inject node="draw" />
+            <text name="TXT_ARG_0" set="DORM_BOYS_DRAW_109" />
+            <inject node="draw" />
+            <text name="TXT_ARG_0" set="DORM_BOYS_DRAW_110" />
+            <inject node="draw" />
+            <text name="TXT_ARG_0" set="DORM_BOYS_DRAW_111" />
+            <inject node="draw" />
+
+            <if>
+                <check-flag flag="QUEST_CHLOE_SEARCH_NATHAN" eq="1" />
+                <then>
+                    <flag name="#DISABLE_PLAYER" set="1" />
+                    <flag name="QUEST_CHLOE_SEARCH_NATHAN" set="2" />
+                    <dlg style="subjective">
+                        <m>Before attempting to break into that Prescott room, I'd need to find which one is his...</m>
+                        <m>Somehow I have the memory of my room being number 108... I think I should start there...</m>
+                    </dlg>
+                    <flag name="#DISABLE_PLAYER" set="0" />
+                </then>
+            </if>
+        </n>
+
+        <n id="draw">
+            <if>
+                <check-text text="TXT_ARG_0" neq="#EMPTY" ref="true"/>
+                <then>
+                    <prefab resource="Exploration/DormBoys/Draws/${Texts.@TXT_ARG_0}" target="Draw" parent="${Texts.TXT_ARG_0}" world-position-stays="false" />
+                </then>
+            </if>
+        </n>
+    </nodes>
+</cutscene>

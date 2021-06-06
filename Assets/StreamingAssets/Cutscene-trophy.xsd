@@ -8,6 +8,8 @@
             <xs:enumeration value="enemy-mine-01" />
             <xs:enumeration value="polaroid-fever-01" />
             <xs:enumeration value="polaroid-fever-02" />
+            <xs:enumeration value="jimmy-hopkins-01" />
+            <xs:enumeration value="jimmy-hopkins-02" />
         </xs:restriction>
     </xs:simpleType>
 </xs:schema>

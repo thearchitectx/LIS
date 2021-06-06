@@ -1,0 +1,117 @@
+<?xml version="1.0"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../Cutscene.xsd">
+    <nodes>
+        <n id="n1">
+            <choice>
+                <c out="dialog-root">
+                    <text>Hey you...</text>
+                </c>
+                <c out="#b">
+                    <text>[ Leave ]</text>
+                </c>
+            </choice>
+        </n>
+
+        <n id="dialog-root">
+            <if>
+                <check-group op="AND">
+                    <check-flag flag="DANIEL_INTERACTIONS" bit-set="0" />
+                    <check-flag flag="DANIEL_INTERACTIONS" bit-unset="1" />
+                </check-group>
+                <then>
+                    <rig-track of="CH_Daniel" head="1" eye="1" />
+                    <anim target="CH_Daniel" idle="STAND_HANDS_WAIST" blink="NEUTRAL"  />
+                    <dlg char="CH_Daniel" style="subjective">
+                        <m>Look... I don't have time for chatting... I have stuff to do... Just leave me alone...</m>
+                    </dlg>
+                </then>
+            </if>
+            
+            <if>
+                <check-group op="AND">
+                    <check-flag flag="DANIEL_INTERACTIONS" bit-set="0" />
+                    <check-flag flag="DANIEL_INTERACTIONS" bit-set="1" />
+                </check-group>
+                <then>
+                    <rig-track of="CH_Daniel" head="0" eye="0.5" />
+                    <anim target="CH_Daniel" idle="STAND_HANDS_WAIST" blink="NEUTRAL"  />
+                    <dlg char="CH_Daniel" style="subjective">
+                        <m>I... I'm free for today, right...</m>
+                        <m>I don't have any more money... Please, just leave me alone...</m>
+                    </dlg>
+                </then>
+            </if>
+
+            <if>
+                <check-flag flag="DANIEL_INTERACTIONS" bit-unset="0" />
+                <then>
+                    <flag name="DANIEL_INTERACTIONS" bit-set="0" />
+                    <obj name="SK_Cellphone" active="false" />
+                    <anim target="CH_Daniel" idle="SCARED01" blink="CLOSED" />
+                    <dlg char="CH_Daniel" style="subjective">
+                        <m>Oh no... no no no... please...</m>
+                        <m wait="0.5">I wasn't trying to hide from you guys today... I swear!!!</m>
+                        <m>You... You're in Logan's gang, aren't you!?!</m>
+                        <m>I'm sorry... I'm so sorry...  I have my lunch money here... You can keep it...</m>
+                        <m>Just don't hurt me... Please...</m>
+                    </dlg>
+        
+                    <choice>
+                        <c out="#a" icon="DICK_KARMA_EVIL">
+                            <check-flag flag="DICK_KARMA" lte="-1" />
+                            <text>Yep... I'm totally in Logan's gang... He asked me to come here to collect from you so he can leave you alone for today...</text>
+                            <lock-reason><![CDATA[Yep... I'm totally in Logan's gang... He asked me to come here to collect from you so he can be merciful again today...<i>[EVIL KARMA REQUIRED]</i>]]></lock-reason>
+                            <then>
+                                <flag name="DANIEL_INTERACTIONS" bit-set="1" />
+                                <dlg char="CH_Daniel" style="subjective">
+                                    <m wait="0.5">He won't be mad with me today!? Really!? Oh, thank God...</m>
+                                </dlg>
+                                <rig-track of="CH_Daniel" head="1" eye="1" />
+                                <anim target="CH_Daniel" idle="STAND_HANDS_WAIST" expression="UNEASY" blink="NEUTRAL" react="GIVE_ITEM" />
+                                <item name="ITM_MONEY" inc="5">You received *$5* bucks!</item>
+                                <dlg char="CH_Daniel" style="subjective">
+                                    <m>Here... Take it...</m>
+                                    <m>I'm free for today, right?</m>
+                                    <m>Please... Just let me continue my research, okay?</m>
+                                </dlg>
+                            </then>
+                        </c>
+                        <c out="#b">
+                            <text>Jeez... Chill out, dude... Can't you even tell who bully you and who doesn't around here?</text>
+                            <then>
+                                <rig-track of="CH_Daniel" head="1" eye="1" />
+                                <anim target="CH_Daniel" idle="STAND_HANDS_WAIST" blink="NEUTRAL"  />
+                                <dlg char="CH_Daniel" style="subjective">
+                                    <m wait="0.5">Oh... I... I'm sorry...</m>
+                                </dlg>
+                                <anim target="CH_Daniel" react="SAY02" />
+                                <dlg char="CH_Daniel" style="subjective">
+                                    <m wait="0.5">It's not that I can't tell the difference... It's just...</m>
+                                    <m wait="0.5">I don't think there are many people who doesn't harass me here... So it's a mechanic reaction...</m>
+                                </dlg>
+                                <anim target="CH_Daniel" react="SAY01" />
+                                <dlg char="CH_Daniel" style="subjective">
+                                    <m wait="0.5">But if you're not one of them, then just leave alone...</m>
+                                </dlg>
+        
+                                <rig-track of="CH_Daniel" head="0" eye="0" />
+                                <obj name="SK_Cellphone" active="true" />
+                                <anim target="CH_Daniel" idle="CHECK_PHONE" />
+                                <dlg char="CH_Daniel" style="subjective">
+                                    <m>I have important research to do... Shoo...</m>
+                                </dlg>
+                            </then>
+                        </c>
+        
+                    </choice>
+                </then>
+            </if>
+
+            <rig-track of="CH_Daniel" head="0" eye="0" />
+            <obj name="SK_Cellphone" active="true" />
+            <anim target="CH_Daniel" idle="CHECK_PHONE" />
+        </n>
+
+    </nodes>
+</cutscene>

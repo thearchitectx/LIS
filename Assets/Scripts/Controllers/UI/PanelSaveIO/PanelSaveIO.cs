@@ -124,6 +124,13 @@ namespace TheArchitect.Controllers.UI.PanelSaveIO
             m_Game.State.Save(root, slot, label != null ? label : $"SAVE SLOT {slot}", Application.version);
 
             // Prepare for screenshot
+            yield return TakeSaveScreenshot(root, slot);
+
+            ReadData();
+        }
+
+        public static IEnumerator TakeSaveScreenshot(string root, string slot)
+        {
             List<Canvas> allCanvas = GameObject.FindObjectsOfType<Canvas>().Where( c => c.enabled ).ToList();
             allCanvas.ForEach( c => c.enabled = false );
             PostProcessLayer ppl = GameObject.FindObjectOfType<PostProcessLayer>();
@@ -145,8 +152,6 @@ namespace TheArchitect.Controllers.UI.PanelSaveIO
 
             // Write screenshot
             File.WriteAllBytes( $"{GameState.GetSlotPath(root, slot)}/{GameState.SCREEN_FILE_NAME}" , texScreen.EncodeToJPG(80));
-
-            ReadData();
         }
 
     }

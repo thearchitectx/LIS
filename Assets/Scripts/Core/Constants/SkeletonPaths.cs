@@ -35,6 +35,8 @@ namespace TheArchitect.Core.Constants
         public const string BONE_SPINE2 = "Spine2";
         public const string BONE_NECK = "Neck";
         public const string BONE_HEAD = "Head";
+        public const string BONE_JAW = "Jaw";
+        public const string BONE_DOWN_LIP = "DownLip";
         public const string BONE_LEFT_EYE = "LeftEye";
         public const string BONE_RIGHT_EYE = "RightEye";
 
@@ -49,6 +51,7 @@ namespace TheArchitect.Core.Constants
         public static readonly string PATH_HEAD = $"{PATH_NECK}/Head";
         public static readonly string PATH_HAIR = $"{PATH_HEAD}/Hair";
         public static readonly string PATH_JAW = $"{PATH_HEAD}/Grp_Head/Jaw";
+        public static readonly string PATH_DOWN_LIP = $"{PATH_JAW}/DownLip";
         public static readonly string PATH_LEFT_EYE = $"{PATH_HEAD}/Grp_Head/LeftEye";
         public static readonly string PATH_RIGHT_EYE = $"{PATH_HEAD}/Grp_Head/RightEye";
         public static readonly string PATH_LEFT_SHOULDER = $"{PATH_SPINE2}/LeftShoulder";
@@ -86,6 +89,7 @@ namespace TheArchitect.Core.Constants
                 case BONE_HEAD: return PATH_HEAD;
                 case BONE_LEFT_EYE: return PATH_LEFT_EYE;
                 case BONE_RIGHT_EYE: return PATH_RIGHT_EYE;
+                case BONE_DOWN_LIP: return PATH_DOWN_LIP;
             }
 
             return null;

@@ -37,10 +37,12 @@
         <xs:restriction base="xs:string">
             <xs:enumeration value="FlagGauge" />
             <xs:enumeration value="LockPick" />
+            <xs:enumeration value="ItemDetector" />
             <xs:enumeration value="SmoothTalk" />
             <xs:enumeration value="ModelViewer" />
             <xs:enumeration value="PictureTaker" />
             <xs:enumeration value="PictureViewer"/>
+            <xs:enumeration value="CinemachineImpulseGenerator"/>
             <xs:enumeration value="TensionChoice"/>
             <xs:enumeration value="TimelineUI"/>
             <xs:enumeration value="VideoRecorder"/>
@@ -63,6 +65,7 @@
             <xs:enumeration value="Spine2" />
             <xs:enumeration value="Neck" />
             <xs:enumeration value="Head" />
+            <xs:enumeration value="DownLip" />
             <xs:enumeration value="LeftEye" />
             <xs:enumeration value="RightEye" />
         </xs:restriction>
@@ -95,11 +98,16 @@
         <xs:restriction base="xs:string">
             <xs:enumeration value="DICK_INTELLIGENCE" />
             <xs:enumeration value="DICK_CHARISMA" />
+            <xs:enumeration value="DICK_DARING" />
             <xs:enumeration value="DICK_KARMA_GOOD" />
             <xs:enumeration value="DICK_KARMA_EVIL" />
             <xs:enumeration value="SMOOTH_TALK" />
             <xs:enumeration value="AXIS_INTERACTION" />
             <xs:enumeration value="AXIS_INTERACTION_HEART" />
+            <xs:enumeration value="ITM_JOINT" />
+            <xs:enumeration value="ITM_MONEY" />
+            <xs:enumeration value="STAT_AFFINITY" />
+            <xs:enumeration value="STAT_CORRUPTION" />
         </xs:restriction>
     </xs:simpleType>
     <xs:simpleType name="character-stat">
@@ -124,9 +132,11 @@
         <xs:restriction base="xs:string">
             <xs:enumeration value="ITM_BRACELET" />
             <xs:enumeration value="ITM_BROOKE_MEMORY_CARD" />
+            <xs:enumeration value="ITM_JOINT" />
             <xs:enumeration value="ITM_LOCKER_KEY" />
             <xs:enumeration value="ITM_LOCKPICK" />
             <xs:enumeration value="ITM_MONEY" />
+            <xs:enumeration value="ITM_TREASURE_DETECTOR" />
             <xs:enumeration value="ITM_TRASH" />
             <xs:enumeration value="ITM_VIP_LIST" />
         </xs:restriction>
@@ -134,7 +144,10 @@
     <xs:simpleType name="character">
         <xs:restriction base="xs:string">
             <xs:enumeration value="CH_Brooke" />
+            <xs:enumeration value="CH_Chloe" />
             <xs:enumeration value="CH_Courtney" />
+            <xs:enumeration value="CH_Daniel" />
+            <xs:enumeration value="CH_Joyce" />
             <xs:enumeration value="CH_Kate" />
             <xs:enumeration value="CH_Jefferson" />
             <xs:enumeration value="CH_Juliet" />
@@ -145,6 +158,7 @@
             <xs:enumeration value="CH_Victoria" />
             <xs:enumeration value="CH_Samuel" />
             <xs:enumeration value="CH_Taylor" />
+            <xs:enumeration value="CH_Warren" />
             <xs:enumeration value="CH_Zachary" />
             <xs:enumeration value="THE_ARCHITECT" />
         </xs:restriction>
@@ -162,8 +176,10 @@
     </xs:complexType>
     <xs:complexType name="check-text-type">
         <xs:attribute name="text" type="text-data" use="required" />
+        <xs:attribute name="ref" type="xs:boolean" use="optional" />
         <xs:attribute name="eq" type="xs:string" use="optional" />
         <xs:attribute name="neq" type="xs:string" use="optional" />
+        <xs:attribute name="match" type="xs:string" use="optional" />
         <xs:attribute name="inverse" type="xs:boolean" use="optional" />
     </xs:complexType>
     <xs:complexType name="check-item-type">
@@ -230,6 +246,7 @@
                     <xs:attribute name="name" type="prefab" use="optional" />
                     <xs:attribute name="resource" type="xs:string" use="optional" />
                     <xs:attribute name="parent" type="xs:string" use="optional" />
+                    <xs:attribute name="world-position-stays" type="xs:boolean" use="optional" />
                     <xs:attribute name="target" type="xs:string" use="optional" />
                     <xs:attribute name="destroy" type="xs:string" use="optional" />
                 </xs:complexType>
@@ -252,6 +269,7 @@
             <xs:element name="text">
                 <xs:complexType>
                     <xs:attribute name="name" type="text-data" use="required" />
+                    <xs:attribute name="ref" type="xs:boolean" use="optional" />
                     <xs:attribute name="set" type="xs:string" />
                 </xs:complexType>
             </xs:element>
@@ -383,6 +401,25 @@
                     <xs:attribute name="shuffled" type="xs:boolean" />
                 </xs:complexType>
             </xs:element>
+            <xs:element name="pick-text">
+                <xs:complexType>
+                    <xs:choice maxOccurs="unbounded" >
+                        <xs:element name="flag" maxOccurs="1">
+                            <xs:complexType>
+                                <xs:attribute name="name" type="flag" use="required" />
+                            </xs:complexType>
+                        </xs:element>
+                        <xs:element name="t" minOccurs="0">
+                            <xs:complexType>
+                                <xs:simpleContent>
+                                    <xs:extension base="xs:string" />
+                                </xs:simpleContent>
+                            </xs:complexType>
+                        </xs:element>
+                    </xs:choice>
+                    <xs:attribute name="text" type="text-data" use="required" />
+                </xs:complexType>
+            </xs:element>
             <xs:element name="switch-text">
                 <xs:complexType>
                     <xs:sequence maxOccurs="unbounded">
@@ -443,6 +480,11 @@
                     <xs:attribute name="layer" type="xs:integer" use="optional" />
                 </xs:complexType>
             </xs:element>
+            <xs:element name="autosave">
+                <xs:complexType>
+                    <xs:attribute name="label" type="xs:string" use="optional" />
+                </xs:complexType>
+            </xs:element>
             <xs:element name="load">
                 <xs:complexType>
                     <xs:attribute name="stage" type="xs:string" use="required" />
@@ -472,7 +514,9 @@
             </xs:element>
             <xs:element name="bgm">
                 <xs:complexType>
+                    <xs:attribute name="on-root" type="xs:boolean" use="optional"  />
                     <xs:attribute name="loop" use="optional"  />
+                    <xs:attribute name="name" use="optional"  />
                     <xs:attribute name="volume" type="xs:decimal" use="optional"  />
                     <xs:attribute name="fade-speed" type="xs:decimal" use="optional"  />
                 </xs:complexType>

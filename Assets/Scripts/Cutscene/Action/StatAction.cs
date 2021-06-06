@@ -48,15 +48,26 @@ namespace TheArchitect.Cutscene.Action
                 Message = Message != null ? Message : $"That action affected <color=cyan>{character.DisplayName}</color>";
                 var consoleMessages = Resources.Load<Console>(ResourcePaths.SO_CONSOLE);
                 consoleMessages.Log(ResourceString.Parse(Message).ToUpper());
+
+                string icon = null;
+                if (character.DialogBlip == DialogBlip.Female)
+                {
+                    switch (Name) {
+                        case "AFFINITY": icon = ResourcePaths.ICON_AFFINITY; break;
+                        case "CORRUPTION": icon = ResourcePaths.ICON_CORRUPTION; break;
+                    }
+                }
+                
+                if (icon != null)
+                {
+                    var op = Resources.LoadAsync<Sprite>(icon);
+                    op.completed += (a) => consoleMessages.ImagePopup = op.asset as Sprite;
+                }
             }
 
             return OUTPUT_NEXT;
         }
 
-        public override object Valid(CutsceneInstance cutscene)
-        {
-            Character character = Resources.Load<Character>($"{ResourcePaths.SO_CHARACTERS}/{this.Character}");
-            return character != null && this.Name != null && this.Set != 0;
-        }
+
     }
 }

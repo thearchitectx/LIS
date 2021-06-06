@@ -3,6 +3,16 @@
     xsi:noNamespaceSchemaLocation="../../../Cutscene.xsd">
     <nodes>
         <n id="n1">
+            <if>
+                <check-flag flag="QUEST_CLEAN_GIRLS_RESTROOM" lte="5" />
+                <then>
+                    <dlg style="subjective">
+                        <m>I'd love to get out of this building now... But there's still stuff to be done before I can leave...</m>
+                    </dlg>
+                    <node-output node="_end" />
+                </then>
+            </if>
+
             <choice>
                 <c out="n2"><text>Go outside</text></c>
                 <c out="#a"><text>Leave</text></c>

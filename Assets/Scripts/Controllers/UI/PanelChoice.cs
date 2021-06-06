@@ -29,10 +29,31 @@ namespace TheArchitect.Core.Controllers
         public bool ShowHelpText = false;
         public float m_WheelTimer;
         public float m_ClickTimer = 1f;
+        public FloatVariable m_CharacterTimeInterval;
 
         public void AddChoice(string id, string text, string icon, string iconText, bool interactable)
         {
             this.m_Choices.Add(new Choice() { Id = id, Text = text, Icon = icon, IconText = iconText, Interactable = interactable });
+        }
+
+        private System.Collections.IEnumerator CoroutineDisplayText(Text text, string message)
+        {
+            string s = "";
+            for (int i=0; i<message.Length; i++)
+            {
+                if (message[i] == '<')
+                {
+                    text.text = message;
+                    break;
+                }
+                else
+                {
+                    s += message[i];
+                    text.text = s;
+                    yield return new WaitForSeconds(m_CharacterTimeInterval.Value);
+                }
+            }
+
         }
 
         void Start()
@@ -50,7 +71,7 @@ namespace TheArchitect.Core.Controllers
             {
                 GameObject buttonObject = GameObject.Instantiate(this.m_ButtonTemplate);
                 buttonObject.transform.SetParent(this.transform, false);
-                buttonObject.GetComponentInChildren<Text>().text = c.Text;
+                StartCoroutine(CoroutineDisplayText(buttonObject.GetComponentInChildren<Text>(), c.Text));
 
                 Button b = buttonObject.GetComponentInChildren<Button>();
                 b.interactable = c.Interactable;

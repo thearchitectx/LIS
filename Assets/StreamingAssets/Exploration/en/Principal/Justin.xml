@@ -166,9 +166,18 @@
                     </then>
                 </c>
                 <c out="#b">
-                    <check-item item="ITM_MONEY" gte="9999999" />
-                    <lock-reason>NOT AVAILABLE YET</lock-reason>
-                    <text>NOT AVAILABLE YET</text>
+                    <check-item item="ITM_TREASURE_DETECTOR" eq="0" />
+                    <text>${Items.ITM_TREASURE_DETECTOR.LabelUpper} [$${Items.ITM_TREASURE_DETECTOR.Price}]</text>
+                    <lock-reason>${Items.ITM_TREASURE_DETECTOR.LabelUpper} [SOLD OUT]</lock-reason>
+                    <then>
+                        <text name="TXT_ARG_0" set="ITM_TREASURE_DETECTOR" />
+                        <text name="TXT_ARG_1" set="${Items.ITM_TREASURE_DETECTOR.LabelUpper}" />
+                        <text name="TXT_ARG_2" set="${Items.ITM_TREASURE_DETECTOR.Description}" />
+                        <text name="TXT_ARG_3" set="${Items.ITM_TREASURE_DETECTOR.Description}" />
+                        <text name="TXT_ARG_4" set="${Items.ITM_TREASURE_DETECTOR.IconPath}" />
+                        <flag name="FLG_ARG_0" set="${Items.ITM_TREASURE_DETECTOR.Price}" />
+                        <node-output node="n-choice-shop-buy" />
+                    </then>
                 </c>
                 <c out="#c">
                     <check-item item="ITM_MONEY" gte="9999999" />
@@ -197,11 +206,17 @@
                     <text>[ BUY ${Texts.TXT_ARG_1}]</text>
                     <then>
                         <item name="ITM_MONEY" dec="${Flags.FLG_ARG_0}" />
-                        <item var="${Texts.TXT_ARG_0}" inc="1">You bought ${Texts.TXT_ARG_1} for $${Flags.FLG_ARG_0}</item>
+                        <item var="${Texts.TXT_ARG_0}" inc="1">You bought ${Texts.TXT_ARG_1} for $${Flags.FLG_ARG_0} bucks</item>
                         <anim target="CH_Justin" trigger="react-say" />
                         <dlg char="CH_Justin" track="Neck">
                             <m>Another satisfied customer...</m>
                         </dlg>
+                        <if>
+                            <check-text text="TXT_ARG_0" eq="ITM_TREASURE_DETECTOR" />
+                            <then>
+                                <load stage="principal-01" />
+                            </then>
+                        </if>
                     </then>
                 </c>
                 <c out="#b">

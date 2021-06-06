@@ -58,9 +58,13 @@ namespace TheArchitect.Core
                 else if (path[0]==TEXTS)
                 {
                     Game game = Resources.Load<Game>(ResourcePaths.SO_GAME);
+                    string text = path[1].StartsWith("@")
+                        ? game.GetTextState(path[1].Substring(1))
+                        : path[1];
+
                     finalString = finalString.Replace(
                         match.Value,
-                        game.GetTextState(path[1])
+                        game.GetTextState(text)
                     );
                 }
                 else if (path[0]==ITEMS && path.Length == 2)

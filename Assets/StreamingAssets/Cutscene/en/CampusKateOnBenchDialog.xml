@@ -1,0 +1,268 @@
+<?xml version="1.0"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../Cutscene.xsd">
+    <nodes>
+        <n id="n1">
+            <bgm loop="loop-urban" volume="0.25" fade-speed="0.15" />
+            <flag name="KATE_CAMPUS_BENCH" bit-set="0" />
+            <wait time="1" />
+            <rig-track of="CH_Kate" head="0.9" eye="1" target="RigTrackTargetStand" />
+            <dlg char="CH_Kate" style="subjective">
+                <m>Oh... It's you... Thanks again for the help with my locker...</m>
+            </dlg>
+            
+            <choice shuffled="true">
+                <c out="#a" icon="DICK_KARMA_GOOD">
+                    <text>It's good to meet you again, but... You still look upset... It's sad you see you like that...</text>
+                    <then>
+                        <flag name="DICK_KARMA" inc="1">YOUR KARMA BALANCED TOWARDS THE *GOOD* SIDE</flag>
+                        <anim target="CH_Kate" react="SIT02_SAY" expression="DISAPPROVE" />
+                        <dlg char="CH_Kate" style="subjective">
+                            <m wait="0.5">Sigh... That's all I have...  It's either people making my life miserable, or virtue signaling their pity of me... Can't say what is worse...</m>
+                        </dlg>
+                        <anim target="CH_Kate"  expression="NEUTRAL" />
+                    </then>
+                </c>
+                <c out="#b" icon="DICK_KARMA_EVIL">
+                    <text>So... Are you always moping around like this? Feeling sorry for yourself? Do you know it looks?</text>
+                    <then>
+                        <flag name="DICK_KARMA" inc="-1">YOUR KARMA BALANCED TOWARDS THE *EVIL* SIDE</flag>
+                        <rig-track of="CH_Kate" eye="0" />
+                        <anim target="CH_Kate" expression="UNEASY" />
+                        <dlg char="CH_Kate" style="subjective">
+                            <m wait="1">Oh... I... I...</m>
+                        </dlg>
+                        
+                        <anim target="CH_Kate" react="SIT02_SAY" expression="NEUTRAL" />
+                        <rig-track of="CH_Kate" eye="1" />
+                        <stat char="CH_Kate" name="AFFINITY" inc="2" />
+                        <dlg char="CH_Kate" style="subjective">
+                            <m wait="0.5">Yeah... I know what it looks like...</m>
+                            <m wait="1">Thanks for being honest... It's much better than dealing with people trying to cheer me up so they can feel better themselves...</m>
+                        </dlg>
+                    </then>
+                </c>
+            </choice>
+
+            <dlg char="CH_Kate" style="subjective">
+                <m>I heard you're working with Samuel, right? That must be a tough job...</m>
+                <m>I... I'm here waiting just a little more to go to the dorms... I don't wanna risk bumping into Victoria's gang again...</m>
+            </dlg>
+            <rig-track of="CH_Kate" eye="0" head="0" />
+
+            <choice shuffled="true">
+                <c out="#a">
+                    <text>There are still some brats bothering you? You know you can count on me to make them pay for their crimes, right?</text>
+                    <then>
+                        <anim target="CH_Kate" react="SIT02_SAY" expression="NEUTRAL" />
+                        <dlg char="CH_Kate" style="subjective">
+                            <m>Oh... I... I know...</m>
+                        </dlg>
+                        <rig-track of="CH_Kate" eye="0" head="0" />
+                        <stat char="CH_Kate" name="AFFINITY" inc="2" />
+                        <anim target="CH_Kate" idle="SIT02_CRY" blink="CLOSED" />
+                        <dlg char="CH_Kate" style="subjective">
+                            <m>I... I wish there were always someone willing to really act in my defense when those idiots mess with me instead of people lecturing bullshit about bullying and society...</m>
+                        </dlg>
+                        <text name="TXT_TMP_0" set="Thank for offering your help to fight the bullies... But I don't think an aggressive response is the long term solution in my case..." />
+                    </then>
+                </c>
+                <c out="#b">
+                    <text>Damn... Don't they ever give you a break?</text>
+                    <then>
+                        <dlg char="CH_Kate" style="subjective">
+                            <m>Why would they? They have all their fun at my expense...</m>
+                        </dlg>
+                        <rig-track of="CH_Kate" eye="0" head="0" />
+                        <anim target="CH_Kate" idle="SIT02_CRY" blink="CLOSED" />
+                        <dlg char="CH_Kate" style="subjective">
+                            <m>And sometimes I think I deserve it... I just can't react in any away against them...</m>
+                        </dlg>
+                        <text name="TXT_TMP_0" set="If I can't beat them in this game... Maybe I should try another solution..." />
+                    </then>
+                </c>
+            </choice>
+
+            <wait time="2" />
+
+            <choice>
+                <c out="#a">
+                    <text>[ Sit by her side ]</text>
+                    <then>
+                        <rig-track of="CH_Kate" head="0" eye="0" target="RigTrackTargetSit" />
+                        <flag name="KATE_CAMPUS_BENCH" bit-set="1" />
+                        <anim trigger="bench" />
+                        <wait time="2.5" />
+                        <stat char="CH_Kate" name="AFFINITY" inc="2" />
+                    </then>
+                </c>
+                <c out="#b">
+                    <text>Can I sit with you?</text>
+                    <then>
+                        <rig-track of="CH_Kate" head="0" eye="0" target="RigTrackTargetSit" />
+                        <flag name="KATE_CAMPUS_BENCH" bit-set="2" />
+                        <dlg char="CH_Kate" style="subjective">
+                            <m>Huh...</m>
+                            <m wait="1">It's... It's public space... You... You can sit wherever you want...</m>
+                        </dlg>
+                        <anim trigger="bench" />
+                    </then>
+                </c>
+                <c out="#c">
+                    <text>[ Keep silent ]</text>
+                    <then>
+                        <flag name="KATE_CAMPUS_BENCH" bit-set="3" />
+                    </then>
+                </c>
+            </choice>
+
+            <dlg char="CH_Kate" style="subjective">
+                <m>But I... I won't just stay whining here... I need to do something...</m>
+            </dlg>
+            
+            <anim target="CH_Kate" idle="SIT02" blink="NEUTRAL" />
+            <rig-track of="CH_Kate" head="0.9" eye="1" />
+            <dlg char="CH_Kate" style="subjective">
+                <m>${Texts.TXT_TMP_0}</m>
+                <m wait="0.5">I'll change... I'll be as cool as any other hip girl in this school...</m>
+            </dlg>
+            <if>
+                <check-flag flag="QUEST_JEFFERSON_TAKE_PIC" eq="11" />
+                <then>
+                    <dlg char="CH_Kate" style="subjective">
+                        <m>The way I posed for your picture... That was so lame... It was the kind of attitude they them make fun of me...</m>
+                        <m>But I can do better than that... Be less worried and more self confident...</m>
+                    </dlg>
+                </then>
+                <else>
+                    <dlg char="CH_Kate" style="subjective">
+                        <m>When you convinced me to make that pose for your picture, I... I felt something...</m>
+                        <m>I felt... confident... I guess...</m>
+                    </dlg>
+                </else>
+            </if>
+
+            <dlg char="CH_Kate" style="subjective">
+                <m>And that's the way I will make these people respect me... Being like one of them...</m>
+            </dlg>
+            <rig-track of="CH_Kate" head="0" eye="0" />
+            <dlg char="CH_Kate" style="subjective">
+                <m wait="1">That's the best plan I have, at least...</m>
+            </dlg>
+            
+            <rig-track of="CH_Kate" head="0.9" eye="1" />
+            <dlg char="CH_Kate" style="subjective">
+                <m>Am I... Am I right? Can you help me on that?</m>
+            </dlg>
+            
+            <choice>
+                <c out="hand-on-leg" icon="AXIS_INTERACTION">
+                    <check-group op="AND">
+                        <check-flag flag="KATE_CAMPUS_BENCH" bit-unset="3" />
+                        <check-group op="OR">
+                            <check-stat char="CH_Kate" stat="CORRUPTION" gte="2" />
+                            <check-flag flag="DICK_DARING" gte="2" />
+                        </check-group>
+                    </check-group>
+                    <text><![CDATA[<b>[PUT YOUR HAND ON HER LEG]</b> I'll show everything you need to know...\n<i>[KATE CORRUPTION 2+ OR DARING 2+]</i>]]></text>
+                    <lock-reason><![CDATA[<b>[PUT YOUR HAND ON HER LEG]</b> I'll show everything you need to know...\n<i>[SITTING BY HER SIDE REQUIRED] [KATE CORRUPTION 2+ OR DARING 2+ REQUIRED]</i>]]></lock-reason>
+                </c>
+                <c out="hand-on-hand" icon="DICK_DARING">
+                    <check-group op="AND">
+                        <check-flag flag="KATE_CAMPUS_BENCH" bit-unset="3" />
+                        <check-flag flag="DICK_DARING" gte="1" />
+                    </check-group>
+                    <text><![CDATA[<b>[HOLD HER HANDS]</b> Hey... Don't worry, okay? I'll help you in any way I can...\n<i>[DARING 1+]</i>]]></text>
+                    <lock-reason><![CDATA[<b>[HOLD HER HANDS]</b> Hey... Don't worry, okay? I'll help you in any way I can...\n<i>[SITTING BY HER SIDE REQUIRED] [DARING 1+]</i>]]></lock-reason>
+                </c>
+                <c out="#z">
+                    <text><![CDATA[Uuuhh... I'm not very sure about this... But I can help you if you really need...]]></text>
+                    <then>
+                        <anim target="CH_Kate" react="SIT02_SAY" />
+                        <dlg char="CH_Kate" style="subjective">
+                            <m wait="0.5">Thank you... I have a little more hope now...</m>
+                        </dlg>
+                        <node-output node="end" />
+                    </then>
+                </c>
+            </choice>
+
+        </n>
+
+        <n id="hand-on-hand">
+            <flag name="KATE_CAMPUS_BENCH" bit-set="5" />
+            <anim trigger="hand-on-hand" />
+            <anim target="CH_Kate" />
+            <rig-track of="CH_Kate" head="0" eye="0" />
+            <wait time="1" />
+            <dlg char="CH_Kate" style="whisper-subjective">
+                <m wait="1">.........</m>
+            </dlg>
+
+            <anim trigger="hand-on-hand" />
+            <stat char="CH_Kate" name="AFFINITY" inc="5" />
+            <dlg char="CH_Kate" style="whisper-subjective">
+                <m wait="2">it's... it's feels good to find a new... friend...</m>
+            </dlg>
+            
+            <anim trigger="hand-on-hand" />
+            <dlg char="CH_Kate" style="whisper-subjective">
+                <m>thank you... you gave me hope today...</m>
+                <m>but I... I should go now...</m>
+            </dlg>
+            <node-output node="end" />
+        </n>
+
+        <n id="hand-on-leg">
+            <flag name="KATE_CAMPUS_BENCH" bit-set="4" />
+            <anim trigger="hand-on-leg" />
+            <anim target="CH_Kate" expression="UNEASY" />
+            <rig-track of="CH_Kate" head="0" eye="0" />
+            <dlg char="CH_Kate" style="whisper-subjective">
+                <m wait="0.5">Wait... wait...</m>
+                <m>what... what are you doing...</m>
+            </dlg>
+            <choice>
+                <c out="#b">
+                    <text>Don't you want to be like the cool kids? They are all extroverts and don't show inhibitions while chatting with each other... Just like this...</text>
+                </c>
+            </choice>
+            <anim trigger="hand-on-leg" />
+            <dlg char="CH_Kate" style="whisper-subjective">
+                <m wait="2">But... but I...</m>
+            </dlg>
+            <stat char="CH_Kate" name="CORRUPTION" inc="5" />
+            <dlg char="CH_Kate" style="whisper-subjective">
+                <m wait="2">Well... If this is the way they interact... then... it shouldn't be a big deal for me too... right?</m>
+            </dlg>
+
+            <prefab name="SimpleMessage">
+                <outcome output="#a" />
+            </prefab>
+
+            <dlg char="CH_Kate" style="whisper-subjective">
+                <m>Please... let's... let's continue this... conversation... later...</m>
+                <m>People might start noticing...</m>
+            </dlg>
+
+            <anim trigger="bench" />
+            <rig-track of="CH_Kate" head="0.25" eye="0" />
+            <anim target="CH_Kate" expression="UNEASY" idle="SIT02" />
+            <dlg char="CH_Kate" style="subjective">
+                <m>Thank you... I guess... for... helping me...</m>
+            </dlg>
+            <node-output node="end" />
+        </n>
+
+        <n id="end">
+            <dlg char="CH_Kate" style="subjective">
+                <m>Here... Take my number... Call me when you have some time...</m>
+                <m>I need to go now... See you later...</m>
+            </dlg>
+            <fade-to-black keep="true" speed="0.5" />
+            <wait time="2" />
+            <load stage="campus-01" />
+        </n>
+        
+    </nodes>
+</cutscene>

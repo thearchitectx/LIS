@@ -21,27 +21,44 @@ namespace TheArchitect.Cutscene.Action
         public float Volume = 1;
         [XmlAttribute("fade-speed")]
         public float FadeSpeed = 1;
+        [XmlAttribute("on-root")]
+        public bool OnRoot = false;
         
         public override void ResetState()
         {
         }
 
+        private Transform FindClipObject(CutsceneController controller)
+        {
+            if (OnRoot)
+            {
+                var g = GameObject.Find((string.IsNullOrEmpty(Name) ? OBJ_NAME : Name));
+                return  g != null ? g.transform : null;
+            }
+            else
+            {
+                return controller.FindProxy((string.IsNullOrEmpty(Name) ? OBJ_NAME : Name));
+            }
+        }
+
         public override string Update(CutsceneInstance cutscene, CutsceneController controller)
         {
-            if (Loop==null)
+            if (string.IsNullOrEmpty(Loop))
             {
-                var t = controller.FindProxy(string.IsNullOrEmpty(Name) ? OBJ_NAME : Name);
+                var t = FindClipObject(controller);
+                Debug.Log($"{t} {t.GetComponent<AudioSource>()}");
                 AudioSource source;
                 if (t!=null && (source = t.GetComponent<AudioSource>() ) !=null)
                     controller.StartCoroutine(FadeVolume(source, 0, true));
             }
             else
             {
-                var t = controller.FindProxy(string.IsNullOrEmpty(Name) ? OBJ_NAME : Name);
+                var t = FindClipObject(controller);
                 if (t == null)
                 {
                     GameObject tempAudioSource = new GameObject(string.IsNullOrEmpty(Name) ? OBJ_NAME : Name);
-                    tempAudioSource.transform.SetParent(controller.transform);
+                    if (!OnRoot)
+                        tempAudioSource.transform.SetParent(controller.transform);
 
                     AudioClip audioClip = Resources.Load<AudioClip>(string.Format("SFX/{0}", this.Loop));
                     AudioSource audioSource = tempAudioSource.AddComponent<AudioSource>();

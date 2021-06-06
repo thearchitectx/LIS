@@ -4,6 +4,8 @@ namespace TheArchitect.Core.Data
     {
         Classroom = 0,
         Hallway = 1,
+        Dinner = 10,
+        DormBoys = 9,
         Empty = 2,
         SchoolHall= 3,
         ToiletMen = 4,

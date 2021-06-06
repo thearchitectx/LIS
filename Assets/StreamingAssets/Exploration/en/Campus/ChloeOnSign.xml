@@ -1,0 +1,434 @@
+<?xml version="1.0"?>
+<cutscene xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="../../../Cutscene.xsd">
+    <nodes>
+        <n id="n1">
+            <wait time="0.5" />
+            <bgm loop="loop-chloe" volume="0.2" fade-speed="0.1" />
+            <rig-track of="CH_Chloe" eye="1" head="0.5" />
+            <anim target="CH_Chloe" idle="STAND_HANDS_WAIST" blink="NEUTRAL" expression="COOL" />
+            <if>
+                <check-flag flag="CHLOE_ON_CAMPUS" bit-unset="1" />
+                <then>
+                    <flag name="CHLOE_ON_CAMPUS" bit-set="1" />
+                    <stat char="CH_Chloe" name="INTEL" set="0">*${Characters.CH_Chloe.DisplayName}* added to the Intel Journal</stat>
+                    <stat char="CH_Chloe" name="INTEL" set="1" notify="false" />
+                    <dlg char="CH_Chloe" style="subjective" neutral-expression="true">
+                        <m>Hey! Mysterious new guy... What's up?</m>
+                        <m>You seem like a cool dude... Wanna buy some weed? I have the best in town...</m>
+                    </dlg>
+                    
+                    <choice>
+                        <c out="#a">
+                            <text>Do you think it's a good idea to sell dope at the door of the school building?</text>
+                            <then>
+                                <anim target="CH_Chloe" react="SAY01" expression="NEUTRAL" blink="NEUTRAL" />
+                                <dlg char="CH_Chloe" style="subjective" neutral-expression="true">
+                                    <m>Huh!? Why wouldn't be?</m>
+                                    <m>I mean... A place where dozens of wealthy gullible potential customers pass by the whole day...</m>
+                                </dlg>
+                                <anim target="CH_Chloe" expression="NEUTRAL" blink="NEUTRAL" />
+                                <dlg char="CH_Chloe" style="subjective" neutral-expression="true">
+                                    <m>It would be stupid to not sell here...</m>
+                                </dlg>
+                            </then>
+                        </c>
+                        <c out="#b">
+                            <text>Which strains do you have? Any particular recommendations?</text>
+                            <then>
+                                <rig-track of="CH_Chloe" eye="0" head="0" />
+                                <anim target="CH_Chloe" idle="UPSET"  expression="UNEASY" />
+                                <dlg char="CH_Chloe" style="subjective">
+                                    <m wait="0.5">Uuhh... You sound like... a weed sommelier or... an undercover cop that sucks in his job...</m>
+                                    <m>Can't say which one is scarier...</m>
+                                </dlg>
+                                <rig-track of="CH_Chloe" eye="1" head="0.5" />
+                                <anim target="CH_Chloe" idle="STAND_HANDS_WAIST" react="SAY02" expression="NEUTRAL" />
+                                <dlg char="CH_Chloe" style="subjective">
+                                    <m>I mean... I don't know, man... I'm new in this business... I have the regular shit, you know... The kind you roll in a joint, light and get high...</m>
+                                </dlg>
+                            </then>
+                        </c>
+                    </choice>
+                    <node-output node="root-choices" />
+                </then>
+                <else>
+                    <node-output node="root-choices" />
+                </else>
+            </if>
+        </n>
+        
+        <!---#################################################-->
+        <!---## root-choices #################################-->
+        <!---#################################################-->
+        <n id="root-choices">
+            <choice>
+                <c out="security">
+                    <check-flag flag="CHLOE_ON_CAMPUS" bit-unset="3" />
+                    <text>Aren't you worried about the school's security staff? Those are usually more dangerous than cops...</text>
+                </c>
+                <c out="competition">
+                    <check-group op="AND">
+                        <check-flag flag="CHLOE_ON_CAMPUS" bit-set="3" />
+                        <check-flag flag="CHLOE_ON_CAMPUS" bit-unset="4" />
+                    </check-group>
+                    <text>No security... No cops... Guess running your business here is quite chill isn't?</text>
+                </c>
+                <c out="offer-help">
+                    <check-group op="AND">
+                        <check-flag flag="CHLOE_ON_CAMPUS" bit-set="4" />
+                        <check-flag flag="CHLOE_ON_CAMPUS" bit-unset="5" />
+                    </check-group>
+                    <text>Is there something I can do to help with your "competitor" problem?</text>
+                </c>
+                <c out="max">
+                    <check-flag flag="CHLOE_ON_CAMPUS" bit-unset="2" />
+                    <text>Max seems to care a lot about you...</text>
+                </c>
+                <c out="student">
+                    <check-flag flag="CHLOE_ON_CAMPUS" bit-unset="20" />
+                    <text>You're not a student here, are you?</text>
+                </c>
+                <c out="buy-joint" icon="ITM_JOINT">
+                    <check-item item="ITM_MONEY" gte="${Items.ITM_JOINT.Price}" />
+                    <text><![CDATA[I wanna buy a joint \n<i>[$${Items.ITM_JOINT.Price}]</i> ]]></text>
+                    <lock-reason><![CDATA[I wanna buy a joint...\n<i>[$${Items.ITM_JOINT.Price} REQUIRED]</i>]]></lock-reason>
+                </c>
+                <c out="end-dialog">
+                    <text>See you later...</text>
+                </c>
+            </choice>
+        </n>
+
+        <n id="buy-joint">
+            <anim target="CH_Chloe" react="LEAN_WALL01_SAY" />
+            <dlg char="CH_Chloe" style="subjective">
+                <m wait="0.5">Oh... Sure... This is why I'm here for...</m>
+            </dlg>
+
+            <flag name="DATA_JOINTS_BOUGHT" inc="1" />
+            <item name="ITM_MONEY" dec="${Items.ITM_JOINT.Price}" icon="false" />
+            <item name="ITM_JOINT" inc="1" icon="true">You bought a *JOINT* for $*${Items.ITM_JOINT.Price}*</item>
+            <anim target="CH_Chloe" react="GIVE_ITEM" />
+            <dlg char="CH_Chloe" style="subjective">
+                <m>Here... Wait until you're in a safe place to light it, okay?</m>
+                <m>And remember... If someone catch you with it, you don't know me...</m>
+            </dlg>
+            <node-output node="end-dialog" />
+        </n>
+
+        <!---#################################################-->
+        <!---## max ##########################################-->
+        <!---#################################################-->
+        <n id="max">
+            <flag name="CHLOE_ON_CAMPUS" bit-set="2" />
+            <anim target="CH_Chloe" idle="ARMS_CROSSED_F01" />
+            <dlg char="CH_Chloe" style="subjective" neutral-expression="true" >
+                <m wait="0.5">Well... It seems she's also making new friends here...</m>
+            </dlg>
+            <anim target="CH_Chloe" react="SAY01" />
+            <dlg char="CH_Chloe" style="subjective" neutral-expression="true" >
+                <m>But... Yeah... We might look a lot different, but we've been besties since ancient times... She cares a lot about me...</m>
+            </dlg>
+            
+            <anim target="CH_Chloe" react="PISSED_OFF01" />
+            <dlg char="CH_Chloe" style="subjective" neutral-expression="true" >
+                <m>Except when she decided to leave the town and forget about me some years ago... I'm still pissed about the way she... she...</m>
+            </dlg>
+            <rig-track of="CH_Chloe" eye="0" head="0" />
+            <anim target="CH_Chloe" idle="UPSET" expression="UNEASY" />
+            <dlg char="CH_Chloe" style="subjective" neutral-expression="true" >
+                <m wait="1">She abandoned me... like... everyone always does...</m>
+            </dlg>
+            <stat char="CH_Chloe" name="INTEL_1">Information added to the Intel Journal</stat>
+            <rig-track of="CH_Chloe" eye="1" head="0.5" />
+            <anim target="CH_Chloe" idle="LEAN_WALL" expression="NEUTRAL" />
+            <dlg char="CH_Chloe" style="subjective" neutral-expression="true" >
+                <m>Huh... Yeah... But I shouldn't be talking about this with you...</m>
+            </dlg>
+            <node-output node="root-choices" />
+        </n>
+
+        <!---#################################################-->
+        <!---## student #####################################-->
+        <!---#################################################-->
+        <n id="student">
+            <flag name="CHLOE_ON_CAMPUS" bit-set="20" />
+            <anim target="CH_Chloe" react="LEAN_WALL01_SAY" />
+            <dlg char="CH_Chloe" style="subjective" neutral-expression="true" >
+                <m wait="0.5">Captain Obvious for the rescue!</m>
+                <m>Yeah... I know most people here... But I'm not a student...</m>
+            </dlg>
+            <choice>
+                <c out="#a" icon="DICK_CHARISMA">
+                    <check-flag flag="DICK_CHARISMA" gte="2" />
+                    <text>Why isn't somebody as cool as you not going to Blackwell?</text>
+                    <lock-reason>Why isn't somebody as cool as you not going to Blackwell?\n[CHARISMA +2 REQUIRED]</lock-reason>
+                    <then>
+                        <stat char="CH_Chloe" name="AFFINITY" inc="2" />
+                        <anim target="CH_Chloe" idle="ARMS_CROSSED_F01" expression="COOL" />
+                        <dlg char="CH_Chloe" style="subjective" neutral-expression="true" >
+                            <m wait="1">I was way too cool for this school... It's a long story... In actual files here...</m>
+                        </dlg>
+                        <rig-track of="CH_Chloe" head="0" eye="0" />
+                        <anim target="CH_Chloe" idle="UPSET" expression="NEUTRAL" />
+                        <dlg char="CH_Chloe" style="subjective" neutral-expression="true" >
+                            <m wait="1">Wait... That was a weird déjà vu... It's like I had this exact conversation in another life...</m>
+                        </dlg>
+                        <rig-track of="CH_Chloe" head="0.5" eye="1" />
+                        <anim target="CH_Chloe" idle="LEAN_WALL" expression="NEUTRAL" />
+                        <dlg char="CH_Chloe" style="subjective" neutral-expression="true" >
+                            <m>Creepy, but... Whatever...</m>
+                        </dlg>
+                    </then>
+                </c>
+                <c out="#b">
+                    <text>Guess you can't be in the yearbook I'm making... Maybe in some practice modeling pictures?</text>
+                    <then>
+                        <anim target="CH_Chloe" react="LEAN_WALL01_SAY" />
+                        <dlg char="CH_Chloe" style="subjective" neutral-expression="true" >
+                            <m>Hum... I see you're in Max's photography class, right?</m>
+                            <m>Sorry, dude... But for now I have exclusivity modeling contract with her...</m>
+                        </dlg>
+                    </then>
+                </c>
+            </choice>
+            <node-output node="root-choices" />
+        </n>
+
+        <!---#################################################-->
+        <!---## security #####################################-->
+        <!---#################################################-->
+        <n id="security">
+            <flag name="CHLOE_ON_CAMPUS" bit-set="3"></flag>
+            <anim target="CH_Chloe" react="LAUGH01" expression="HAPPY" blink="HAPPY" />
+            <dlg char="CH_Chloe" style="subjective" neutral-expression="true" >
+                <m>Ha ha... Worried about David? The one-man Blackwell Security Army?</m>
+            </dlg>
+            <anim target="CH_Chloe" expression="COOL" blink="NEUTRAL" />
+            <dlg char="CH_Chloe" style="subjective" neutral-expression="true" >
+                <m wait="0.5">He's too busy annoying kids with military discipline lessons, worrying about terrorist attacks and having like... 'Nam flashbacks...</m>
+            </dlg>
+            <choice>
+                <c out="#a"><text>These types are actually quite dangerous, you know... Even more in a school setting...</text></c>
+                <c out="#b"><text>Former military man with PTSD working in small security services... Yet another classic!</text></c>
+            </choice>
+            <anim target="CH_Chloe" react="SAY01" expression="NEUTRAL" blink="NEUTRAL" />
+            <dlg char="CH_Chloe" style="subjective" >
+                <m>Yeah... He's still a major asshole... And I'm very aware about how dangerous he is...</m>
+                <m>But I know that at this moment he's fully focused on his Big Brother surveillance project in the dorms area... Probably trying to install cameras to spy on the girls showers...</m>
+                <m wait="0.5">You see... I'm unfortunate enough to have him living in my house, making my life a living hell... Which also means I hear about his plans every day in the morning...</m>
+            </dlg>
+
+            <choice>
+                <c out="#a">
+                    <text>He 'lives' with you? What a creep... He should look for women of his age...</text>
+                    <then>
+                        <anim target="CH_Chloe" react="PISSED_OFF01" expression="DISAPPROVE" />
+                        <dlg char="CH_Chloe" style="subjective" >
+                            <m>What the... No... How can you be so clueless!?!</m>
+                            <m wait="0.5">He's my step-führer, man... You can blame my mom for the bad taste...</m>
+                        </dlg>
+                        <stat char="CH_Chloe" name="CORRUPTION" inc="1" />
+                        <anim target="CH_Chloe" react="FACEPALM"  />
+                        <dlg char="CH_Chloe" style="subjective" >
+                            <m>Eeeww... Dude... The images you just put my head...</m>
+                        </dlg>
+                    </then>
+                </c>
+                <c out="#b">
+                    <text>I can only imagine how much that sucks... I don't think he's a big supporter of your... life style...</text>
+                    <then>
+                        <anim target="CH_Chloe" react="SAY02"  />
+                        <dlg char="CH_Chloe" style="subjective" >
+                            <m>Sigh... Yeah... I know...</m>
+                        </dlg>
+                        <stat char="CH_Chloe" name="AFFINITY" inc="1" />
+                        <dlg char="CH_Chloe" style="subjective" >
+                            <m>But having a friend to trash talk about him helps like we're doing helps a lot...</m>
+                            <m>Thank God Max is back here...</m>
+                        </dlg>
+                    </then>
+                </c>
+            </choice>
+            <node-output node="root-choices" />
+        </n>
+
+        <!---#################################################-->
+        <!---## competition ##################################-->
+        <!---#################################################-->
+        <n id="competition">
+            <flag name="CHLOE_ON_CAMPUS" bit-set="4" />
+            <rig-track of="CH_Chloe" eye="0" />
+            <anim target="CH_Chloe" idle="UPSET" expression="UNEASY" />
+            <dlg char="CH_Chloe" style="subjective">
+                <m>Yeah... I wish it was that easy...</m>
+            </dlg>
+            <anim target="CH_Chloe" idle="UPSET" expression="NEUTRAL" />
+            <rig-track of="CH_Chloe" eye="1" />
+            <dlg char="CH_Chloe" style="subjective">
+                <m>But there's a security threat much more dangerous than David...</m>
+            </dlg>
+            <choice shuffled="true">
+                <c out="#a">
+                    <text>Like... The competition?</text>
+                    <then>
+                        <flag name="DICK_INTELLIGENCE" inc="1">YOU FEEL MORE *INTELLIGENT*</flag>
+                        <anim target="CH_Chloe" react="SAY02" />
+                        <dlg char="CH_Chloe" style="subjective">
+                            <m>Exactly... Unfortunately, competition in this business is not about lower prices and better products...</m>
+                        </dlg>
+                    </then>
+                </c>
+                <c out="#b">
+                    <text>Like... The DEA?</text>
+                    <then>
+                        <anim target="CH_Chloe" react="FACEPALM" />
+                        <dlg char="CH_Chloe" style="subjective">
+                            <m>Of course not, man... I'm small fish... Can't you see?</m>
+                        </dlg>
+                    </then>
+                </c>
+                <c out="#c">
+                    <text>Like... The Blackwell Parents Group?</text>
+                    <then>
+                        <anim target="CH_Chloe" react="FACEPALM" />
+                        <dlg char="CH_Chloe" style="subjective">
+                            <m>Huh!? Does that even exist? Most Blackwell parents don't give a shit about their kids...</m>
+                        </dlg>
+                    </then>
+                </c>
+            </choice>
+            <anim target="CH_Chloe" idle="LEAN_WALL" expression="NEUTRAL" />
+            <dlg char="CH_Chloe" style="subjective">
+                <m>It's that fucking mobster Nathan Prescott...</m>
+                <m>He's already filthy rich... But he likes the status of being the sole dope provider for the high society of this neighborhood...</m>
+                <m>Have you heard about the famous Vortex Club parties? They are all fueled by the heavy shit he gives to the rich kids... Like pills... powder... and worse...</m>
+            </dlg>
+            <anim target="CH_Chloe" idle="STAND_HANDS_WAIST" expression="NEUTRAL" />
+            <dlg char="CH_Chloe" style="subjective">
+                <m>Last week he caught me here selling my humble weed...</m>
+                <m wait="0.5">He said if I wanna keep my business, then I should work for him... or else...</m>
+            </dlg>
+            <anim target="CH_Chloe" react="SAY02" />
+            <dlg char="CH_Chloe" style="subjective">
+                <m>He sounded very serious... and by the bulge I noticed on his pants, I know he's not just bark...</m>
+            </dlg>
+            <choice shuffled="true">
+                <c out="#a"><text>Whoa... I knew girls always check guy's junk like that...</text></c>
+                <c out="#b"><text>You mean... Was he "happy to see you"?</text></c>
+            </choice>
+            <anim target="CH_Chloe" idle="ARMS_CROSSED_F01" expression="DISAPPROVE" />
+            <dlg char="CH_Chloe" style="subjective">
+                <m>Yeah... Yeah... Very funny...</m>
+                <m>I guess I deserved that for the poor choice of words...</m>
+            </dlg>
+            
+            <rig-track of="CH_Chloe" eye="0" />
+            <anim target="CH_Chloe" expression="UNEASY" />
+            <dlg char="CH_Chloe" style="subjective" neutral-expression="true">
+                <m>I'm talking about the gun he was carrying and didn't bother much to properly conceal...</m>
+                <m>I think he's disturbed enough to use it if I piss him off...</m>
+            </dlg>
+            <anim target="CH_Chloe" expression="NEUTRAL" />
+            <rig-track of="CH_Chloe" eye="1" />
+            <node-output node="root-choices" />
+        </n>
+        
+        <!---#################################################-->
+        <!---## offer-help ##################################-->
+        <!---#################################################-->
+        <n id="offer-help">
+            <flag name="CHLOE_ON_CAMPUS" bit-set="5" />
+            <anim target="CH_Chloe" idle="LEAN_WALL" expression="NEUTRAL" />
+            <dlg char="CH_Chloe" style="subjective">
+                <m wait="0.5">Oh... Now that you mentioned it... I think there's something you could do that would help me a lot...</m>
+            </dlg>
+            <anim target="CH_Chloe" react="LEAN_WALL01_SAY" />
+            <dlg char="CH_Chloe" style="subjective">
+                <m>You see... If I had some kind of evidence of Nathan's criminal schemes... then I could make that idiot think twice before messing with me...</m>
+                <m>Maybe even ask for some money for my "silence"...</m>
+            </dlg>
+
+            <choice shuffled="true">
+                <c out="#a">
+                    <text>Sure... Blackmail the powerful rich psycho kid that walks around the "gun-free zone" school carrying a piece... What could go wrong?</text>
+                    <then>
+                        <anim target="CH_Chloe" react="LEAN_WALL01_SAY" expression="DISAPPROVE"/>
+                        <dlg char="CH_Chloe" style="subjective">
+                            <m>Well... I'm not stupid... I know the risks... But I'm also no chicken...</m>
+                        </dlg>
+                    </then>
+                </c>
+                <c out="#b">
+                    <text>Can't you just find another kind of business to operate?</text>
+                    <then>
+                        <anim target="CH_Chloe" react="LEAN_WALL01_SAY" />
+                        <dlg char="CH_Chloe" style="subjective">
+                            <m>Dude... I don't have neither the capital nor a degree...</m>
+                        </dlg>
+                    </then>
+                </c>
+            </choice>
+            <anim target="CH_Chloe" expression="NEUTRAL" />
+            <dlg char="CH_Chloe" style="subjective">
+                <m wait="1">All I need is to make a quick buck so I can leave this damned town forever.... Nathan will never see me again...</m>
+            </dlg>
+            <rig-track of="CH_Chloe" eye="1" />
+            <anim target="CH_Chloe" idle="STAND_HANDS_WAIST" />
+            <dlg char="CH_Chloe" style="subjective">
+                <m>Now... I'm sure we could find some compromising evidence against Nathan in his bedroom...</m>
+                <m>I tried getting there before, but David is always watching the area... He would never let me into the boys dorm...</m>
+                <m>But you... You have a room in the boys dorm, right? Next to the Lion's den...</m>
+                <m>I just need you to break into his room and find what I need!</m>
+            </dlg>
+            <anim target="CH_Chloe" react="YAY" />
+            <dlg char="CH_Chloe" style="subjective">
+                <m>It's a perfect plan isn't it... Using wits instead of violence to win a turf war... I'm a fucking criminal mastermind...</m>
+                <m>Well... as long as you're really into it...</m>
+            </dlg>
+            <choice>
+                <c out="#a">
+                    <text>I hope there's a reward in this for me... Like a free sample of you... I mean... of your product...</text>
+                    <then>
+                        <flag name="CHLOE_ON_CAMPUS" bit-set="6"></flag>
+                        <anim target="CH_Chloe" react="SAY02"/>
+                        <dlg char="CH_Chloe" style="subjective">
+                            <m>A free sample, huh...</m>
+                            <m>Sure... I have to keep my gang members happy, right?</m>
+                        </dlg>
+                    </then>
+                </c>
+                <c out="#b">
+                    <text>Don't worry... I won't abandon you on that...</text>
+                    <then>
+                        <rig-track of="CH_Chloe" head="0" eye="0" />
+                        <anim target="CH_Chloe" idle="UNEASY" expression="UNEASY" />
+                        <dlg char="CH_Chloe" style="subjective" neutral-expression="true">
+                            <m>Oh... That...</m>
+                            <m>That would be a first...</m>
+                        </dlg>
+                        <anim target="CH_Chloe" react="SAY02" idle="STAND_HANDS_WAIST" />
+                        <rig-track of="CH_Chloe" head="0.5" eye="1" />
+                        <stat char="CH_Chloe" name="AFFINITY" inc="5" />
+                        <dlg char="CH_Chloe" style="subjective" neutral-expression="true">
+                            <m>I mean... Yeah... I can't thank you enough if you do this for me...</m>
+                        </dlg>
+                    </then>
+                </c>
+            </choice>
+            <dlg char="CH_Chloe" style="subjective">
+                <m>Well... I'll be around here... Tell me if you find something for that would help me!</m>
+            </dlg>
+            <flag name="QUEST_CHLOE_SEARCH_NATHAN" set="1" />
+            <objective name="OBJ_ChloeSearchNathanRoom01" completed="false" />
+            <node-output node="end-dialog" />
+        </n>
+
+        <n id="end-dialog">
+            <bgm volume="0" fade-speed="1" />
+            <wait time="1" />
+            <anim target="CH_Chloe" idle="LEAN_WALL" expression="NEUTRAL" blink="NEUTRAL"  />
+        </n>
+    </nodes>
+</cutscene>
